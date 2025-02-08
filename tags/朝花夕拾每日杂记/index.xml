@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>“朝花夕拾”每日杂记 on CXBlog</title>
-    <link>https://qjwh.github.io/tags/%E6%9C%9D%E8%8A%B1%E5%A4%95%E6%8B%BE%E6%AF%8F%E6%97%A5%E6%9D%82%E8%AE%B0/</link>
+    <link>http://localhost:1313/tags/%E6%9C%9D%E8%8A%B1%E5%A4%95%E6%8B%BE%E6%AF%8F%E6%97%A5%E6%9D%82%E8%AE%B0/</link>
     <description>Recent content in “朝花夕拾”每日杂记 on CXBlog</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 08 Feb 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://qjwh.github.io/tags/%E6%9C%9D%E8%8A%B1%E5%A4%95%E6%8B%BE%E6%AF%8F%E6%97%A5%E6%9D%82%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 08 Feb 2025 22:00:00 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/%E6%9C%9D%E8%8A%B1%E5%A4%95%E6%8B%BE%E6%AF%8F%E6%97%A5%E6%9D%82%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>【“朝花夕拾”每日杂记】2025W01</title>
-      <link>https://qjwh.github.io/posts/2025w01/</link>
-      <pubDate>Sat, 08 Feb 2025 00:00:00 +0000</pubDate>
-      <guid>https://qjwh.github.io/posts/2025w01/</guid>
-      <description>&lt;p&gt;test&lt;/p&gt;</description>
+      <link>http://localhost:1313/posts/2025w01/</link>
+      <pubDate>Sat, 08 Feb 2025 22:00:00 +0800</pubDate>
+      <guid>http://localhost:1313/posts/2025w01/</guid>
+      <description>&lt;h2 id=&#34;关于此工程&#34;&gt;关于此工程&lt;/h2&gt;&#xA;&lt;p&gt;此工程立项与2025年2月7日，用于发布这一天内发生的重要事情或者一些杂记。&lt;/p&gt;&#xA;&lt;p&gt;目前定于每晚22:30进行发布，标签为“漂流本电子稿”，进入本站即可查看。&lt;/p&gt;&#xA;&lt;h2 id=&#34;关于漂流本同步&#34;&gt;关于漂流本同步&lt;/h2&gt;&#xA;&lt;p&gt;在之后我会逐渐把之前漂流本的电子稿尽量恢复并递交到这里，标签为“漂流本电子稿”。&lt;/p&gt;&#xA;&lt;h2 id=&#34;文章编号命名&#34;&gt;文章编号命名&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;寒假：[当前年份]+W+[两位数]，如2024W15&lt;/li&gt;&#xA;&lt;li&gt;暑假：[当前年份]+S+[两位数]，如2023S63&lt;/li&gt;&#xA;&lt;li&gt;上半学期：[当前年份]+G+[当前年级]+A+[三位数]，如2024G8A009&lt;/li&gt;&#xA;&lt;li&gt;下半学期：[当前年份]+G+[当前年级]+B+[三位数]，如2025G8B018&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;农历新年目标公示&#34;&gt;农历新年目标公示&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;生理：身高175cm+，体重50kg+，调节作息&lt;/li&gt;&#xA;&lt;li&gt;florr：获得更多的U，达到Lv90+&lt;/li&gt;&#xA;&lt;li&gt;信竞：进E队，突破当前阶段进入省选，CF状态恢复&lt;/li&gt;&#xA;&lt;li&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
     </item>
   </channel>
 </rss>
