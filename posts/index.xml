@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on CXBlog</title>
-    <link>https://qjwh.github.io/posts/</link>
+    <link>//qjwh.github.io/posts.html</link>
     <description>Recent content in Posts on CXBlog</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
     <lastBuildDate>Sat, 08 Feb 2025 14:41:00 +0800</lastBuildDate>
-    <atom:link href="https://qjwh.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="//qjwh.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Test</title>
-      <link>https://qjwh.github.io/posts/test/</link>
+      <link>//qjwh.github.io/posts/test.html</link>
       <pubDate>Sat, 08 Feb 2025 14:41:00 +0800</pubDate>
-      <guid>https://qjwh.github.io/posts/test/</guid>
+      <guid>//qjwh.github.io/posts/test.html</guid>
       <description>&lt;p&gt;123&lt;/p&gt;&#xA;&lt;p&gt;$123$&lt;/p&gt;</description>
     </item>
     <item>
       <title>My First Post</title>
-      <link>https://qjwh.github.io/posts/my-first-post/</link>
+      <link>//qjwh.github.io/posts/my-first-post.html</link>
       <pubDate>Sat, 08 Feb 2025 09:25:44 +0800</pubDate>
-      <guid>https://qjwh.github.io/posts/my-first-post/</guid>
+      <guid>//qjwh.github.io/posts/my-first-post.html</guid>
       <description>&lt;p&gt;123&lt;/p&gt;</description>
     </item>
   </channel>
