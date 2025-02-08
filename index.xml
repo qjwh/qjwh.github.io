@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>My First Post on CXBlog</title>
-    <link>/</link>
+    <link>https://qjwh.github.io/</link>
     <description>Recent content in My First Post on CXBlog</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
     <lastBuildDate>Sat, 08 Feb 2025 09:25:44 +0800</lastBuildDate>
-    <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://qjwh.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>My First Post</title>
-      <link>/posts/my-first-post/</link>
+      <link>https://qjwh.github.io/posts/my-first-post/</link>
       <pubDate>Sat, 08 Feb 2025 09:25:44 +0800</pubDate>
-      <guid>/posts/my-first-post/</guid>
+      <guid>https://qjwh.github.io/posts/my-first-post/</guid>
       <description></description>
     </item>
   </channel>
