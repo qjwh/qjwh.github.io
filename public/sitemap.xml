@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://qjwh.github.io/about/</loc>
+    <lastmod>2025-02-08T10:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://qjwh.github.io/</loc>
+    <lastmod>2025-02-08T10:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://qjwh.github.io/posts/my-first-post/</loc>
+    <lastmod>2025-02-08T09:25:44+08:00</lastmod>
+  </url><url>
+    <loc>https://qjwh.github.io/posts/</loc>
+    <lastmod>2025-02-08T09:25:44+08:00</lastmod>
+  </url><url>
+    <loc>https://qjwh.github.io/authors/</loc>
+  </url><url>
+    <loc>https://qjwh.github.io/categories/</loc>
+  </url><url>
+    <loc>https://qjwh.github.io/series/</loc>
+  </url><url>
+    <loc>https://qjwh.github.io/tags/</loc>
+  </url>
+</urlset>
