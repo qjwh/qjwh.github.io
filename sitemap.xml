@@ -2,24 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://qjwh.github.io/about/</loc>
+    <loc>//localhost:1313/about/</loc>
     <lastmod>2025-02-08T10:00:00+08:00</lastmod>
   </url><url>
-    <loc>https://qjwh.github.io/</loc>
+    <loc>//localhost:1313/</loc>
     <lastmod>2025-02-08T10:00:00+08:00</lastmod>
   </url><url>
-    <loc>https://qjwh.github.io/posts/my-first-post/</loc>
+    <loc>//localhost:1313/posts/my-first-post/</loc>
     <lastmod>2025-02-08T09:25:44+08:00</lastmod>
   </url><url>
-    <loc>https://qjwh.github.io/posts/</loc>
+    <loc>//localhost:1313/posts/</loc>
     <lastmod>2025-02-08T09:25:44+08:00</lastmod>
   </url><url>
-    <loc>https://qjwh.github.io/authors/</loc>
+    <loc>//localhost:1313/authors/</loc>
   </url><url>
-    <loc>https://qjwh.github.io/categories/</loc>
+    <loc>//localhost:1313/categories/</loc>
   </url><url>
-    <loc>https://qjwh.github.io/series/</loc>
+    <loc>//localhost:1313/series/</loc>
   </url><url>
-    <loc>https://qjwh.github.io/tags/</loc>
+    <loc>//localhost:1313/tags/</loc>
   </url>
 </urlset>
