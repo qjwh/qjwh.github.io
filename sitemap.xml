@@ -2,27 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/posts.html</loc>
+    <loc>https://qjwh.github.io/posts.html</loc>
     <lastmod>2025-02-08T14:41:00+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/test.html</loc>
+    <loc>https://qjwh.github.io/posts/test.html</loc>
     <lastmod>2025-02-08T14:41:00+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/about.html</loc>
+    <loc>https://qjwh.github.io/about.html</loc>
     <lastmod>2025-02-08T10:00:00+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/</loc>
+    <loc>https://qjwh.github.io/</loc>
     <lastmod>2025-02-08T10:00:00+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/my-first-post.html</loc>
+    <loc>https://qjwh.github.io/posts/my-first-post.html</loc>
     <lastmod>2025-02-08T09:25:44+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/authors.html</loc>
+    <loc>https://qjwh.github.io/authors.html</loc>
   </url><url>
-    <loc>http://localhost:1313/categories.html</loc>
+    <loc>https://qjwh.github.io/categories.html</loc>
   </url><url>
-    <loc>http://localhost:1313/series.html</loc>
+    <loc>https://qjwh.github.io/series.html</loc>
   </url><url>
-    <loc>http://localhost:1313/tags.html</loc>
+    <loc>https://qjwh.github.io/tags.html</loc>
   </url>
 </urlset>
