@@ -6,8 +6,15 @@
     <description>Recent content in Tags on CXBlog</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 09 Feb 2025 19:38:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 09 Feb 2025 22:30:00 +0800</lastBuildDate>
     <atom:link href="https://qjwh.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>村新晚报</title>
+      <link>https://qjwh.github.io/tags/%E6%9D%91%E6%96%B0%E6%99%9A%E6%8A%A5/</link>
+      <pubDate>Sun, 09 Feb 2025 22:30:00 +0800</pubDate>
+      <guid>https://qjwh.github.io/tags/%E6%9D%91%E6%96%B0%E6%99%9A%E6%8A%A5/</guid>
+      <description></description>
+    </item>
     <item>
       <title>娱乐</title>
       <link>https://qjwh.github.io/tags/%E5%A8%B1%E4%B9%90/</link>
@@ -48,13 +55,6 @@
       <link>https://qjwh.github.io/tags/%E6%BC%82%E6%B5%81%E6%9C%AC%E7%94%B5%E5%AD%90%E7%A8%BF/</link>
       <pubDate>Sun, 09 Feb 2025 09:30:00 +0800</pubDate>
       <guid>https://qjwh.github.io/tags/%E6%BC%82%E6%B5%81%E6%9C%AC%E7%94%B5%E5%AD%90%E7%A8%BF/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>村新晚报</title>
-      <link>https://qjwh.github.io/tags/%E6%9D%91%E6%96%B0%E6%99%9A%E6%8A%A5/</link>
-      <pubDate>Sat, 08 Feb 2025 22:30:00 +0800</pubDate>
-      <guid>https://qjwh.github.io/tags/%E6%9D%91%E6%96%B0%E6%99%9A%E6%8A%A5/</guid>
       <description></description>
     </item>
   </channel>
