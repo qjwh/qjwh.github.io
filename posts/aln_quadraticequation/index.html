@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        :root {
+            --accent-color: #FF4D4D;
+            --font-size: 17.5px;
+        }
+    </style>
+
+    
+    
+    
+    
+    
+    
+
+    
+    <title>一元二次方程解法（未完工）</title>
+    <meta name="description" content="在数学、编程界里，可能会经常遇到方程，而且有时候还会遇到一种特殊方程——一元二次方程。
+除此之外，还有含参一元二次方程，这里也会一起讲。（待补充）
+其实还有如二元一次方程、一元三次方程等的特殊方程，但在这里不讲。
+一元二次方程 有人看到“一元二次方程”就不知道是啥意思，这里先说一下定义
+定义 首先，方程相信大家都见 …">
+    <meta name="keywords" content='信息学竞赛, 算法学习笔记'>
+
+    <meta property="og:url" content="https://qjwh.github.io/posts/aln_quadraticequation/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="一元二次方程解法（未完工）">
+    <meta property="og:description" content="在数学、编程界里，可能会经常遇到方程，而且有时候还会遇到一种特殊方程——一元二次方程。
+除此之外，还有含参一元二次方程，这里也会一起讲。（待补充）
+其实还有如二元一次方程、一元三次方程等的特殊方程，但在这里不讲。
+一元二次方程 有人看到“一元二次方程”就不知道是啥意思，这里先说一下定义
+定义 首先，方程相信大家都见 …">
+    <meta property="og:image" content="https://qjwh.github.io/">
+    <meta property="og:image:secure_url" content="https://qjwh.github.io/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="一元二次方程解法（未完工）">
+    <meta name="twitter:description" content="在数学、编程界里，可能会经常遇到方程，而且有时候还会遇到一种特殊方程——一元二次方程。
+除此之外，还有含参一元二次方程，这里也会一起讲。（待补充）
+其实还有如二元一次方程、一元三次方程等的特殊方程，但在这里不讲。
+一元二次方程 有人看到“一元二次方程”就不知道是啥意思，这里先说一下定义
+定义 首先，方程相信大家都见 …">
+    <meta property="twitter:domain" content="https://qjwh.github.io/posts/aln_quadraticequation/">
+    <meta property="twitter:url" content="https://qjwh.github.io/posts/aln_quadraticequation/">
+    <meta name="twitter:image" content="https://qjwh.github.io/">
+
+    
+    <link rel="canonical" href="https://qjwh.github.io/posts/aln_quadraticequation/">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/normalize.min.css" media="print">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/main.min.css">
+
+    
+    <link id="dark-theme" rel="stylesheet" href="/css/dark.min.css">
+
+    
+    <script src="/js/bundle.min.ad84dd09e60165f836ea08a26f86608c070e127d21ac6ab168c87da076554d87.js" integrity="sha256-rYTdCeYBZfg26giib4ZgjAcOEn0hrGqxaMh9oHZVTYc="></script>
+
+    
+    
+        <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          // customised options
+          // ? auto-render specific keys, e.g.:
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false},
+          ],
+          // ? rendering keys, e.g.:
+          throwOnError : false
+        });
+      });
+    </script>
+  
+    
+</head>
+<body>
+        <script>
+            
+            setThemeByUserPref();
+        </script><header class="header">
+    <nav class="header-nav">
+
+        
+
+        <div class="nav-title">
+            <a class="nav-brand" href="https://qjwh.github.io/">CXBlog</a>
+        </div>
+
+        <div class="nav-links">
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/" aria-label="home" >      <i data-feather="home"></i>
+      <script>
+        feather.replace();
+      </script>
+       首页
+      </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/posts" aria-label="posts" >      <i data-feather="book"></i>
+      <script>
+        feather.replace();
+      </script>
+       文章
+      </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/tags" aria-label="tags" >      <i data-feather="tag"></i>
+      <script>
+        feather.replace();
+      </script>
+       标签
+      </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/about" aria-label="about" >      <i data-feather="info"></i>
+      <script>
+        feather.replace();
+      </script>
+       关于
+      </a>
+            </div>
+            
+
+            <span class="nav-icons-divider"></span>
+            <div class="nav-link dark-theme-toggle">
+                <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                <a aria-hidden="true" role="switch">
+                    <span class="theme-toggle-icon" data-feather="moon"></span>
+                </a>
+            </div>
+
+            <div class="nav-link" id="hamburger-menu-toggle">
+                <span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
+                <a aria-checked="false" aria-labelledby="hamburger-menu-toggle" id="hamburger-menu-toggle-target" role="switch">
+                    <span data-feather="menu"></span>
+                </a>
+            </div>
+
+            
+            <ul class="nav-hamburger-list visibility-hidden">
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/" >      <i data-feather="home"></i>
+      <script>
+        feather.replace();
+      </script>
+       首页
+      </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/posts" >      <i data-feather="book"></i>
+      <script>
+        feather.replace();
+      </script>
+       文章
+      </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/tags" >      <i data-feather="tag"></i>
+      <script>
+        feather.replace();
+      </script>
+       标签
+      </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/about" >      <i data-feather="info"></i>
+      <script>
+        feather.replace();
+      </script>
+       关于
+      </a>
+                </li>
+                
+                <li class="nav-item dark-theme-toggle">
+                    <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                    <a role="switch">
+                        <span class="theme-toggle-icon" data-feather="moon"></span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</header>
+<main id="content">
+    <div class="post container">
+    <div class="post-header-section">
+        <h1>一元二次方程解法（未完工）</h1>
+
+        
+
+        
+	
+	
+	
+	
+        
+
+	
+
+	
+
+	
+          <small role="doc-subtitle"></small>
+	
+
+	
+          <p class="post-date">
+              
+
+              February 9, 2025
+
+              
+          </p>
+	
+
+        <ul class="post-tags">
+          
+           
+             <li class="post-tag"><a href="https://qjwh.github.io/tags/%E4%BF%A1%E6%81%AF%E5%AD%A6%E7%AB%9E%E8%B5%9B">信息学竞赛</a></li>
+           
+         
+           
+             <li class="post-tag"><a href="https://qjwh.github.io/tags/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0">算法学习笔记</a></li>
+           
+         
+        </ul>
+    </div>
+
+    <div class="post-content">
+        <text style="font-family:Noto Sans SC">
+<p>在数学、编程界里，可能会经常遇到方程，而且有时候还会遇到一种特殊方程——一元二次方程。</p>
+<p>除此之外，还有含参一元二次方程，这里也会一起讲。<em>（待补充）</em></p>
+<p>其实还有如二元一次方程、一元三次方程等的特殊方程，但在这里不讲。</p>
+<h1 id="text-stylecolorrgb0150136-一元二次方程"><text style="color:rgb(0,150,136)"> 一元二次方程</h1>
+<p>有人看到“一元二次方程”就不知道是啥意思，这里先说一下定义</p>
+<h2 id="text-stylecolorrgb0150136-定义"><text style="color:rgb(0,150,136)"> 定义</h2>
+<p>首先，方程相信大家都见过，所以这里不写对方程的定义解释。（废话</p>
+<p>而 $x$ 元 $y$ 次方程就是这么定义的：</p>
+<ul>
+<li>这个方程<strong>经过化简</strong>后，共有 $x$ 个未知数，且<strong>未知数上</strong>的最大指数为 $y$ 的方程。</li>
+</ul>
+<p>如：</p>
+<ul>
+<li>$3(x+1)=6x$：一元一次方程，也是最常见的方程。</li>
+<li>$3(x+1)^2=2(x+1)$：一元一次方程，因为两边可以同时除以 $x+1$ 以让指数减少 $1$。</li>
+<li>$x^2-4x+1=0$：一元二次方程，也是下面要讲的方程类型。</li>
+<li>$x^3+2x^2-1=16x$：一元三次方程，也是一种不常见的方程类型。</li>
+</ul>
+<p>讲完定义，接下来说怎么解</p>
+<h2 id="text-stylecolorrgb0150136-解法"><text style="color:rgb(0,150,136)"> 解法</h2>
+<h3 id="text-stylecolorrgb0150136-推导"><text style="color:rgb(0,150,136)"> 推导</h3>
+<p>我们<strong>把方程一般化</strong>，变成：</p>
+<p>$ax^2+bx+c=0$</p>
+<p>其中 $a$、$b$、$c$ 均为常量。</p>
+<p>然后，我们不断对方程做一些推导。</p>
+<p><strong>移项</strong></p>
+<p>$ax^2+bx=-c$</p>
+<p><strong>同时除以 $a$ 常量</strong></p>
+<p>$x^2+\dfrac{b}{a}x=-\dfrac{c}{a}$</p>
+<p>这个式子很多人看了就不知道怎么继续推导了。</p>
+<p>但还是可以继续转化的。</p>
+<p>我们考虑<strong>配方</strong>，即把式子的左/右项同时加/减/乘/除一个相同的数，然后让这个等式的左/右项变成一个数的平方的形式。</p>
+<p>这一步比较考验数感，一个结论就是，我们<strong>同时加上 $\left( \dfrac{b}{2a} \right)^2$ 常量</strong> 即可。</p>
+<p>$x^2+\dfrac{b}{a}x+\left( \dfrac{b}{2a} \right)^2=-\dfrac{c}{a}+\left( \dfrac{b}{2a} \right)^2$</p>
+<p><strong>化简</strong></p>
+<p>$\left( x+\dfrac{b}{2a} \right)^2=\dfrac{-c}{a}+\dfrac{b^2}{4a^2}$</p>
+<p><strong>二次化简</strong></p>
+<p>$\left( x+\dfrac{b}{2a} \right)^2=\dfrac{b^2-4ac}{4a^2}$</p>
+<p><strong>同时开根号</strong></p>
+<p>$x+\dfrac{b}{2a}=\sqrt{\dfrac{b^2-4ac}{4a^2}}$</p>
+<p><strong>移项</strong></p>
+<p>$x=\sqrt{\dfrac{b^2-4ac}{4a^2}}-\dfrac{b}{2a}$</p>
+<p><strong>提出分母</strong></p>
+<p>$x=\dfrac{\sqrt{b^2-4ac}}{2a}-\dfrac{b}{2a}$</p>
+<p><strong>化简</strong></p>
+<p>$x=\dfrac{-b+\sqrt{b^2-4ac}}{2a}$</p>
+<p>但 $\sqrt{b^2-4ac}$ 是可以正也可以负的，所以<strong>变化符号</strong>一下。</p>
+<p>$x=\dfrac{-b \pm \sqrt{b^2-4ac}}{2a}$</p>
+<p>于是一元二次方程得解。</p>
+<h3 id="text-stylecolorrgb0150136-定义与总结"><text style="color:rgb(0,150,136)"> 定义与总结</h3>
+<p>在一元二次方程里，还有一个名词——根，你可以当“方程的解”理解。</p>
+<p>而且，一元二次方程里，最多只有两个根。</p>
+<p>我们把两个根分别表示为 $x_1$ 和 $x_2$，那么：</p>
+<ul>
+<li>
+<p>$x_1=\dfrac{-b+\sqrt{b^2-4ac}}{2a}$</p>
+</li>
+<li>
+<p>$x_2=\dfrac{-b-\sqrt{b^2-4ac}}{2a}$</p>
+</li>
+</ul>
+<p>同时，我们定义 $\Delta$（读作 $\text{delta}$，音标<code>/'deltə/</code>），即“根的判别式”，为 $b^2-4ac$，就是这个地方的式子：</p>
+<ul>
+<li>$x_{1,2}=\dfrac{-b \pm \sqrt{\color{red} b^2-4ac}}{2a}$</li>
+</ul>
+<p>而根据 $\sqrt{~~}$ 内不能为负数的限制，如果 $\Delta&lt;0$，则<strong>无实根</strong>（注意，<strong>不是无解</strong>）。</p>
+<p>关于为啥不是无解，这里解释一下，因为有一种数叫<strong>虚数</strong>，可以被表示为 $ai+b$（$a \not= 0$），其中 $i=\sqrt{-1}$ 的数都被称作虚数。</p>
+<p>而 $\Delta&lt;0$ 时根就是虚数。</p>
+<p>而如果 $\Delta=0$，则两个根相同，均为 $\dfrac{-b}{2a}$。</p>
+<p>否则，$\Delta&gt;0$，两个根分别为 $\dfrac{-b+\sqrt{\Delta}}{2a}$ 和 $\dfrac{-b-\sqrt{\Delta}}{2a}$。</p>
+<h1 id="text-stylecolorrgb0150136-含参一元二次方程"><text style="color:rgb(0,150,136)"> 含参一元二次方程</h1>
+<p><em>（待补充）</em></p>
+
+        
+    </div>
+
+    <div class="prev-next">
+        
+    </div>
+
+    
+    
+    
+</div>
+
+<aside class="post-toc">
+    <nav id="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#text-stylecolorrgb0150136-一元二次方程"><text style="color:rgb(0,150,136)"> 一元二次方程</a>
+      <ul>
+        <li><a href="#text-stylecolorrgb0150136-定义"><text style="color:rgb(0,150,136)"> 定义</a></li>
+        <li><a href="#text-stylecolorrgb0150136-解法"><text style="color:rgb(0,150,136)"> 解法</a>
+          <ul>
+            <li><a href="#text-stylecolorrgb0150136-推导"><text style="color:rgb(0,150,136)"> 推导</a></li>
+            <li><a href="#text-stylecolorrgb0150136-定义与总结"><text style="color:rgb(0,150,136)"> 定义与总结</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#text-stylecolorrgb0150136-含参一元二次方程"><text style="color:rgb(0,150,136)"> 含参一元二次方程</a></li>
+  </ul>
+</nav>
+    </nav>
+</aside>
+
+
+
+    
+
+        </main><footer class="footer">
+    
+    
+
+    
+
+    
+
+    
+
+    <span>
+        Made with &#10084;&#65039; using <a target="_blank" href="https://github.com/gokarna-theme/gokarna-hugo">Gokarna</a>
+    </span>
+</footer>
+</body>
+</html>

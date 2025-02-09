@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        :root {
+            --accent-color: #FF4D4D;
+            --font-size: 17.5px;
+        }
+    </style>
+
+    
+    
+    
+    
+    
+    
+
+    
+    <title>组合数学（待补充）</title>
+    <meta name="description" content="有人问，组合数学不是就一些简单的公式吗？不是的，其实组合数学是数学中的一个非常庞大的分支，接下来就举一些例子。（更新中）
+本文主要讲各种数据范围下，求组合数的方式；以及球盒模型各种情况下的公式；最后是一些球盒模型的扩展情况。
+转到：球盒模型公式
+转到：球盒模型扩展公式
+（下面部分标题里的LaTeX公式更新后炸了，就凑 …">
+    <meta name="keywords" content='信息学竞赛, 算法学习笔记'>
+
+    <meta property="og:url" content="https://qjwh.github.io/posts/aln_c/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="组合数学（待补充）">
+    <meta property="og:description" content="有人问，组合数学不是就一些简单的公式吗？不是的，其实组合数学是数学中的一个非常庞大的分支，接下来就举一些例子。（更新中）
+本文主要讲各种数据范围下，求组合数的方式；以及球盒模型各种情况下的公式；最后是一些球盒模型的扩展情况。
+转到：球盒模型公式
+转到：球盒模型扩展公式
+（下面部分标题里的LaTeX公式更新后炸了，就凑 …">
+    <meta property="og:image" content="https://qjwh.github.io/">
+    <meta property="og:image:secure_url" content="https://qjwh.github.io/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="组合数学（待补充）">
+    <meta name="twitter:description" content="有人问，组合数学不是就一些简单的公式吗？不是的，其实组合数学是数学中的一个非常庞大的分支，接下来就举一些例子。（更新中）
+本文主要讲各种数据范围下，求组合数的方式；以及球盒模型各种情况下的公式；最后是一些球盒模型的扩展情况。
+转到：球盒模型公式
+转到：球盒模型扩展公式
+（下面部分标题里的LaTeX公式更新后炸了，就凑 …">
+    <meta property="twitter:domain" content="https://qjwh.github.io/posts/aln_c/">
+    <meta property="twitter:url" content="https://qjwh.github.io/posts/aln_c/">
+    <meta name="twitter:image" content="https://qjwh.github.io/">
+
+    
+    <link rel="canonical" href="https://qjwh.github.io/posts/aln_c/">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/normalize.min.css" media="print">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/main.min.css">
+
+    
+    <link id="dark-theme" rel="stylesheet" href="/css/dark.min.css">
+
+    
+    <script src="/js/bundle.min.ad84dd09e60165f836ea08a26f86608c070e127d21ac6ab168c87da076554d87.js" integrity="sha256-rYTdCeYBZfg26giib4ZgjAcOEn0hrGqxaMh9oHZVTYc="></script>
+
+    
+    
+        <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          // customised options
+          // ? auto-render specific keys, e.g.:
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false},
+          ],
+          // ? rendering keys, e.g.:
+          throwOnError : false
+        });
+      });
+    </script>
+  
+    
+</head>
+<body>
+        <script>
+            
+            setThemeByUserPref();
+        </script><header class="header">
+    <nav class="header-nav">
+
+        
+
+        <div class="nav-title">
+            <a class="nav-brand" href="https://qjwh.github.io/">CXBlog</a>
+        </div>
+
+        <div class="nav-links">
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/" aria-label="home" >      <i data-feather="home"></i>
+      <script>
+        feather.replace();
+      </script>
+       首页
+      </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/posts" aria-label="posts" >      <i data-feather="book"></i>
+      <script>
+        feather.replace();
+      </script>
+       文章
+      </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/tags" aria-label="tags" >      <i data-feather="tag"></i>
+      <script>
+        feather.replace();
+      </script>
+       标签
+      </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/about" aria-label="about" >      <i data-feather="info"></i>
+      <script>
+        feather.replace();
+      </script>
+       关于
+      </a>
+            </div>
+            
+
+            <span class="nav-icons-divider"></span>
+            <div class="nav-link dark-theme-toggle">
+                <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                <a aria-hidden="true" role="switch">
+                    <span class="theme-toggle-icon" data-feather="moon"></span>
+                </a>
+            </div>
+
+            <div class="nav-link" id="hamburger-menu-toggle">
+                <span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
+                <a aria-checked="false" aria-labelledby="hamburger-menu-toggle" id="hamburger-menu-toggle-target" role="switch">
+                    <span data-feather="menu"></span>
+                </a>
+            </div>
+
+            
+            <ul class="nav-hamburger-list visibility-hidden">
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/" >      <i data-feather="home"></i>
+      <script>
+        feather.replace();
+      </script>
+       首页
+      </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/posts" >      <i data-feather="book"></i>
+      <script>
+        feather.replace();
+      </script>
+       文章
+      </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/tags" >      <i data-feather="tag"></i>
+      <script>
+        feather.replace();
+      </script>
+       标签
+      </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/about" >      <i data-feather="info"></i>
+      <script>
+        feather.replace();
+      </script>
+       关于
+      </a>
+                </li>
+                
+                <li class="nav-item dark-theme-toggle">
+                    <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                    <a role="switch">
+                        <span class="theme-toggle-icon" data-feather="moon"></span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</header>
+<main id="content">
+    <div class="post container">
+    <div class="post-header-section">
+        <h1>组合数学（待补充）</h1>
+
+        
+
+        
+	
+	
+	
+	
+        
+
+	
+
+	
+
+	
+          <small role="doc-subtitle"></small>
+	
+
+	
+          <p class="post-date">
+              
+
+              February 9, 2025
+
+              
+          </p>
+	
+
+        <ul class="post-tags">
+          
+           
+             <li class="post-tag"><a href="https://qjwh.github.io/tags/%E4%BF%A1%E6%81%AF%E5%AD%A6%E7%AB%9E%E8%B5%9B">信息学竞赛</a></li>
+           
+         
+           
+             <li class="post-tag"><a href="https://qjwh.github.io/tags/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0">算法学习笔记</a></li>
+           
+         
+        </ul>
+    </div>
+
+    <div class="post-content">
+        <text style="font-family:Lato,楷体">
+<p>有人问，组合数学不是就一些简单的公式吗？不是的，其实组合数学是数学中的一个非常庞大的分支，接下来就举<strong>一些</strong>例子。<em>（更新中）</em></p>
+<p>本文主要讲各种数据范围下，求组合数的方式；以及球盒模型各种情况下的公式；最后是一些球盒模型的扩展情况。</p>
+<p><a href="#%E7%90%83%E7%9B%92%E6%A8%A1%E5%9E%8B%E4%B8%BB%E8%A6%81%E6%83%85%E5%86%B5%E6%80%BB%E7%BB%93">转到：球盒模型公式</a></p>
+<p><a href="#%E7%90%83%E7%9B%92%E6%A8%A1%E5%9E%8B%E6%89%A9%E5%B1%95%E4%B8%BB%E8%A6%81%E6%83%85%E5%86%B5%E6%80%BB%E7%BB%93">转到：球盒模型扩展公式</a></p>
+<p>（下面部分标题里的LaTeX公式更新后炸了，就凑合着看吧）</p>
+<hr>
+<h2 id="text-stylecolorrgb0150136-求组合数"><text style="color:rgb(0,150,136)"> 求组合数</h2>
+<p>以下所有范围都可以当成是以下题目的某个Subtask：</p>
+<blockquote>
+<p>给你 $p$，代表模数。</p>
+<p>之后会给你一个 $q$，代表询问次数。</p>
+<p>每次询问给定 $n$ 和 $m$，问 $C_n^m \bmod p$ 的值。</p></blockquote>
+<p>下面不给定 $q$ 的范围，因为不重要。</p>
+<p>以下全部默认 $n \geq m$。</p>
+<h3 id="text-stylecolorrgb0150136-范围1nm-leq-2000p-leq-1097"><text style="color:rgb(0,150,136)"> 范围1：$n,m \leq 2000,p \leq 10^9+7$</h3>
+<p>先递推预处理，然后直接回答询问即可。</p>
+<p>递推式：$C_n^m=C_{n-1}^m+C_{n-1}^{m-1}$。</p>
+<ul>
+<li>预处理复杂度：$O(n^2)$</li>
+<li>查询复杂度：$O(1)$</li>
+</ul>
+<h3 id="text-stylecolorrgb0150136-范围2nm-leq-106p-leq-1097ptext-is-prime"><text style="color:rgb(0,150,136)"> 范围2：$n,m \leq 10^6,p \leq 10^9+7,p\text{ is prime}$</h3>
+<h4 id="text-stylecolorrgb0150136-1"><text style="color:rgb(0,150,136)"> 1</h4>
+<p>先预处理阶乘，然后直接回答询问即可。</p>
+<p>回答询问式：$C_n^m=\dfrac{n!}{m!(n-m)!}$。</p>
+<p>为了节省时间复杂度，此处还可以预处理一下阶乘的逆元。</p>
+<h4 id="text-stylecolorrgb0150136-2"><text style="color:rgb(0,150,136)"> 2</h4>
+<ul>
+<li>预处理复杂度：$O(n)$</li>
+<li>查询复杂度：$O(1)$</li>
+</ul>
+<h3 id="text-stylecolorrgb0150136-范围3nm-leq-106p-leq-1097"><text style="color:rgb(0,150,136)"> 范围3：$n,m \leq 10^6,p \leq 10^9+7$</h3>
+<h4 id="text-stylecolorrgb0150136-1-1"><text style="color:rgb(0,150,136)"> 1</h4>
+<p>可以发现，范围2与范围3唯一的不同就是，范围3把质数的条件去掉了。</p>
+<p>而把质数的条件后，就没法求逆元了，因为逆元可能不存在。</p>
+<p>所以我们考虑换做法。</p>
+<h4 id="text-stylecolorrgb0150136-2-1"><text style="color:rgb(0,150,136)"> 2</h4>
+<p>我们考虑把模数做个质因数分解，变成 ${p_1}^{a_1} \times {p_2}^{a_2} \times {p_3}^{a_3} \times \dots \times {p_k}^{a_k}$。</p>
+<p>然后，我们求出 $c$ 数组，$c_i=C_n^m \bmod {p_i}^{a_i}$，然后就可以列出以下方程：</p>
+<p>$
+\begin{cases}
+x \equiv c_1 \pmod{{p_1}^{a_1}} \
+x \equiv c_2 \pmod{{p_2}^{a_2}} \
+x \equiv c_3 \pmod{{p_3}^{a_3}} \
+\dots \
+x \equiv c_k \pmod{{p_k}^{a_k}}
+\end{cases}
+$</p>
+<p>用中国剩余定理即可求出上述方程的最小正整数解 $x$，输出这个 $x$ 即可。</p>
+<h4 id="text-stylecolorrgb0150136-3"><text style="color:rgb(0,150,136)"> 3</h4>
+<p>接下来考虑一下如何求 $c$ 数组。</p>
+<p>我们设当前要求 $C_n^m \bmod q^a$。</p>
+<p>那么，我们把 $C_n^m$ 展开为阶乘形式，变成 $\dfrac{n!}{m!(n-m)!}$。</p>
+<p>然后，我们想，$C_n^m \bmod p$ 不能直接求的原因其实就是因为上述式子可能不会与 $p$ 互质。</p>
+<p>进而，$C_n^m \bmod q^a$ 不能直接求的原因也是因为上述式子可能不会与 $q^a$（其实也是 $q$）互质。</p>
+<p>所以，我们就把上述式子里（那个分数的分子和分母内）所有的 $q$ 都去掉，变成 $\Large \dfrac{\frac{n!}{q^x}}{\frac{m!}{q^y}\frac{(n-m)!}{q^z}} \times q^{x-y-z}$，其中 $x$、$y$、$z$ 就是 $n!$、$m!$、$(n-m)!$ 中含有的 $q$ 质因子数量。</p>
+<p>这个式子中的 $\dfrac{n!}{q^x}$ 是可以直接预处理的，此处略。</p>
+<p>由于分母中的两项都没有 $q$ 质因子，所以就有在模 $q^a$ 意义下的逆元，前项的分数可求；后项就是一个快速幂，可求。</p>
+<h4 id="text-stylecolorrgb0150136-4"><text style="color:rgb(0,150,136)"> 4</h4>
+<p>这里再说最后一点细节，就是我们设 $f_n=\dfrac{n!}{q^x}$，那么 $f_i=f_{i-1} \times i \div q^c$（虽说这个式子中有除号，但显然不需要逆元），其中 $c$ 是 $i$ 含有的 $q$ 质因子个数。</p>
+<p>这个公式中存在一个 $i \div q^c$，这可以暴力计算，但需要多带一个 $\log$。</p>
+<p>但这其实不用带这个 $\log$，我们可以先处理出来一个 $g$ 数组，$g_i=i \div q^c$，这个 $g$ 数组很好递推：</p>
+<ul>
+<li>$i \bmod q=0$：$g_i=g_{i \div q}$</li>
+<li>$i \bmod q \not= 0$：$g_i=i$</li>
+</ul>
+<p>有了这个 $g$ 数组，$f$ 数组的递推方程就变成了 $f_i=f_{i-1} \times g_i$，递推复杂度也变成了 $O(n)$。</p>
+<h4 id="text-stylecolorrgb0150136-5"><text style="color:rgb(0,150,136)"> 5</h4>
+<ul>
+<li>预处理复杂度：$O(\sqrt{n}+n \log p)$，其中，$\sqrt{p}$ 为求出 $p$ 的唯一分解复杂度，$\log p$ 为枚举 $p$ 的所有唯一分解项复杂度，以下所有复杂度内的 $\sqrt{p}$、$\log p$ 都默认是这个意思。</li>
+<li>查询复杂度：$O(\log^2 p)$，其中一个 $\log p$ 是枚举 $p$ 的所有唯一分解项复杂度，另外一个则是求逆元的复杂度。</li>
+</ul>
+<h3 id="text-stylecolorrgb0150136-范围4nm-leq-106p-leq-1097"><text style="color:rgb(0,150,136)"> 范围4：$n,m \leq 10^6,p \leq 10^9+7$</h3>
+<h4 id="text-stylecolorrgb0150136-1-2"><text style="color:rgb(0,150,136)"> 1</h4>
+<p>这里提供范围3的另外一种做法。</p>
+<p>其实很简单，我们只用把 $C_n^m$ 表示为 $2^? \times 3^? \times 5^? \times \dots$ 的形式即可。</p>
+<p>有人问，这个质数要枚举到多少呢？其实显然最多只用枚举到 $n$。</p>
+<p>实现这个做法可以借助一个函数<code>ci(n,p)</code>代表 $n!$ 的唯一分解中，$p$ 的指数是多少，这个函数可以用奥数知识，在 $\log_p n$ 的复杂度内求出。</p>
+<p>细节不用多说。</p>
+<h4 id="text-stylecolorrgb0150136-2-2"><text style="color:rgb(0,150,136)"> 2</h4>
+<ul>
+<li>预处理复杂度：$O(n)$</li>
+<li>查询复杂度：$O(\text{prime}(n) \times \log n)$，其中 $\text{prime}(n)$ 代表 $n$ 及以内的质数个数，约为 $n \div \ln(n)$，以下所有 $\text{prime}$ 函数都是这个意思；$\log n$ 为<code>ci</code>函数的上界复杂度。</li>
+</ul>
+<h3 id="text-stylecolorrgb0150136-范围5n-leq-1018m-leq-106p-leq-1097ptext-is-prime"><text style="color:rgb(0,150,136)"> 范围5：$n \leq 10^{18},m \leq 10^6,p \leq 10^9+7,p\text{ is prime}$</h3>
+<h4 id="text-stylecolorrgb0150136-1-3"><text style="color:rgb(0,150,136)"> 1</h4>
+<p>注意到 $m \leq 10^6$，所以我们就直接用公式 $C_n^m=\dfrac{n \times (n-1) \times (n-2) \times \dots \times (n-m+1)}{1 \times 2 \times 3 \times \dots \times m}$，配合逆元求解即可。</p>
+<h4 id="text-stylecolorrgb0150136-2-3"><text style="color:rgb(0,150,136)"> 2</h4>
+<ul>
+<li>预处理复杂度：无</li>
+<li>查询复杂度：$O(m \log p)$，其中 $\log p$ 为算逆元的时间复杂度。</li>
+</ul>
+<h3 id="text-stylecolorrgb0150136-范围6n-leq-1018m-leq-106p-leq-1097"><text style="color:rgb(0,150,136)"> 范围6：$n \leq 10^{18},m \leq 10^6,p \leq 10^9+7$</h3>
+<h4 id="text-stylecolorrgb0150136-1-4"><text style="color:rgb(0,150,136)"> 1</h4>
+<p>注意到 $p$ 没有保证是质数，所以分母内的那些项没有逆元。</p>
+<p>但我们还可以用与范围3的做法1相似的做法去做。</p>
+<p>具体地，我们先分解 $p$，然后对于唯一分解内的每一项 $q^a$，先求出 $n \times (n-1) \times (n-2) \times \dots \times (n-m+1) \bmod q^a$。</p>
+<p>然后循环每个 $i \in [1,m]$，把 $i$ 中的 $q$ 都除尽，此时就可以求 $i$ 在模 $q^a$ 意义下的逆元了，直接更新答案即可。</p>
+<h4 id="text-stylecolorrgb0150136-2-4"><text style="color:rgb(0,150,136)"> 2</h4>
+<ul>
+<li>预处理复杂度：$O(m \log p)$</li>
+<li>查询复杂度：$O(\log^2 p)$，该复杂度解释见范围3的做法1的同地（同一个地方）。</li>
+</ul>
+<h3 id="text-stylecolorrgb0150136-范围7nm-leq-1018p-leq-1063ptext-is-prime"><text style="color:rgb(0,150,136)"> 范围7：$n,m \leq 10^{18},p \leq 10^6+3,p\text{ is prime}$</h3>
+<h4 id="text-stylecolorrgb0150136-1-5"><text style="color:rgb(0,150,136)"> 1</h4>
+<p>直接Lucas定理即可。</p>
+<h4 id="text-stylecolorrgb0150136-2-5"><text style="color:rgb(0,150,136)"> 2</h4>
+<ul>
+<li>预处理复杂度：$O(p)$</li>
+<li>查询复杂度：$O(\log m)$</li>
+</ul>
+<h3 id="text-stylecolorrgb0150136-范围8nm-leq-1018p-leq-1063"><text style="color:rgb(0,150,136)"> 范围8：$n,m \leq 10^{18},p \leq 10^6+3$</h3>
+<h4 id="text-stylecolorrgb0150136-1-6"><text style="color:rgb(0,150,136)"> 1</h4>
+<p>直接exLucas定理即可。</p>
+<h4 id="text-stylecolorrgb0150136-2-6"><text style="color:rgb(0,150,136)"> 2</h4>
+<ul>
+<li>预处理复杂度：$O(\sqrt{p})$</li>
+<li>查询复杂度：$O(\log p \log n+\log^2 p)$，其中第一个 $\log p$ 为枚举 $p$ 的所有唯一分解项复杂度，$\log n$ 为<code>ci</code>函数/<code>f</code>函数复杂度，第二个 $\log p$ 为CRT内枚举方程复杂度，第三个 $\log p$ 为CRT内求逆元的复杂度。</li>
+</ul>
+<h3 id="text-stylecolorrgb0150136-范围9nm-leq-1018p-leq-1097"><text style="color:rgb(0,150,136)"> 范围9：$n,m \leq 10^{18},p \leq 10^9+7$</h3>
+<h4 id="text-stylecolorrgb0150136-1-7"><text style="color:rgb(0,150,136)"> 1</h4>
+<p>这个数据范围需要利用高阶多项式的知识，参考<a href="https://blog.csdn.net/skywalkert/article/details/52553048">这里</a></p>
+<h4 id="text-stylecolorrgb0150136-2-7"><text style="color:rgb(0,150,136)"> 2</h4>
+<ul>
+<li>预处理复杂度：未知</li>
+<li>查询复杂度：未知</li>
+</ul>
+<hr>
+<h2 id="text-stylecolorrgb0150136-组合数模型球盒模型"><text style="color:rgb(0,150,136)"> 组合数模型：球盒模型</h2>
+<p>参考：</p>
+<ul>
+<li><a href="https://zhuanlan.zhihu.com/p/602410836">https://zhuanlan.zhihu.com/p/602410836</a></li>
+</ul>
+<p>统一设 $n$ 为球的个数，$m$ 为盒子的个数。</p>
+<p>在情况 $i$ 内，$f_i(n,m)$ 为这种情况下，如果球数为 $n$、盒子数为 $m$，方案数是多少。</p>
+<p><a href="#%E7%90%83%E7%9B%92%E6%A8%A1%E5%9E%8B%E4%B8%BB%E8%A6%81%E6%83%85%E5%86%B5%E6%80%BB%E7%BB%93">转到：球盒模型公式</a></p>
+<h3 id="text-stylecolorrgb0150136-情况1球相同盒相同允许为空"><text style="color:rgb(0,150,136)"> 情况1：球相同，盒相同，允许为空</h3>
+<p>这种情况下无法直接求，需要递推。</p>
+<p>接下来考虑转移 $f_1(n,m)$：</p>
+<ul>
+<li>$n=0$：$f_1(n,m)=1$</li>
+<li>$m=0$：$f_1(n,m)=0$</li>
+<li>$n&lt;m$：首先必然会有 $m-n$ 个盒子是空的，其次由于盒子两两相同，所以可以任意指定哪些格子为空，即 $f_1(n,m)=f_1(n,n)$</li>
+<li>$n \geq m$：
+<ul>
+<li>如果所有盒子都不为空：我们可以先在每个格子里拿出一个球，即 $f_1(n,m) <del>\text{+=}</del> f_1(n-m,m)$</li>
+<li>否则：我们就随便指定一个格子，设这个格子为空，即 $f_1(n,m) <del>\text{+=}</del> f_1(n,m-1)$</li>
+</ul>
+</li>
+</ul>
+<h3 id="text-stylecolorrgb0150136-情况2球相同盒相同不允许为空"><text style="color:rgb(0,150,136)"> 情况2：球相同，盒相同，不允许为空</h3>
+<p>这种情况下可以直接求。</p>
+<p>具体地，设要求 $f_2(n,m)$。</p>
+<p>那么我们考虑，其实情况1和情况2就一个区别，情况1允许为空，情况2不允许。</p>
+<p>所以我们就可以先在所有盒子内都拿出一个球，保证都非空后，就转化为了情况1，即 $f_2(n,m)=f_1(n-m,m)$。</p>
+<p>但注意，当 $n&lt;m$ 时，方案数为 $0$。</p>
+<h3 id="text-stylecolorrgb0150136-情况3球相同盒不同允许为空"><text style="color:rgb(0,150,136)"> 情况3：球相同，盒不同，允许为空</h3>
+<p>其实就是在问 $x_1+x_2+x_3+\dots+x_m=n$ 的<strong>非负整数</strong>解的个数。</p>
+<p>由于是非负整数，所以我们要先把所有的 $x_i$ 加 $1$，就变成了问 $x_1+x_2+x_3+\dots+x_m=n+m$ 的<strong>正整数</strong>解的个数。</p>
+<p>上述问题可以用插板法解决，答案为 $f_3(n,m)=C_{n+m-1}^{m-1}$。</p>
+<h3 id="text-stylecolorrgb0150136-情况4球相同盒不同不允许为空"><text style="color:rgb(0,150,136)"> 情况4：球相同，盒不同，不允许为空</h3>
+<p>其实就是在问 $x_1+x_2+x_3+\dots+x_m=n$ 的<strong>正整数</strong>解的个数。</p>
+<p>上述问题可以用插板法解决，答案为 $f_4(n,m)=C_{n-1}^{m-1}$。</p>
+<h3 id="text-stylecolorrgb0150136-情况5球不同盒相同允许为空"><text style="color:rgb(0,150,136)"> 情况5：球不同，盒相同，允许为空</h3>
+<p>（请先阅读情况6）</p>
+<h4 id="text-stylecolorrgb0150136-1-8"><text style="color:rgb(0,150,136)"> 1</h4>
+<p>有了情况6的铺垫，这里就变得简单了。</p>
+<p>我们可以考虑枚举空出来的盒子数 $i$（$0 \leq i \leq m$），然后 $f_5(n,m) <del>\text{+=}</del> f_6(n,m-i)$。</p>
+<p>即，$f_5(n,m)=\sum\limits_{i=0}^m f_6(n,m-i)$。</p>
+<p>很好懂。</p>
+<h4 id="text-stylecolorrgb0150136-2-8"><text style="color:rgb(0,150,136)"> 2</h4>
+<p>但这里也顺便说一下 $n \leq m$ 时的另一种做法——求贝尔数。</p>
+<p>首先，由于盒子都相同，所以其实答案与 $m$ 无关。</p>
+<p>所以，如论是什么 $n$、$m$，只要 $n \leq m$，那么就转化为了，有 $n$ 个不同的球，放入 $n$ 个相同的盒子，每个盒子都允许为空，问方案数。</p>
+<p>一个结论就是，若设 $b_i$ 为 $n=i,m \geq n$ 时的答案，即 $b_n=f_5(n,n)$。</p>
+<p>那么，$b_n=\sum\limits_{i=0}^{n-1} C_{n-1}^i b_i$。</p>
+<p>（$n=0$ 的情况直接特判，$b_0=1$）</p>
+<p>接下来解释一下这个公式。</p>
+<p>我们枚举的这个 $i$ 其实就是代表着，我们假设球 $n$ 所在盒子里有放了 $n-i$ 个球（包括球 $n$）。</p>
+<p>注意到，在这个公式内，$n-i$ 的范围是 $[1,n]$，而不是 $[0,n]$，因为 $n$ 所在盒子显然要至少包含一个球。<del>（废话）</del></p>
+<p>有人问，为啥要枚举球 $n$ 所在盒子里的球数，而不是任意盒子里的球数？因为后者很容易计重，而前者肯定不会计重，也不会计漏，显然。</p>
+<p>然后，我们就忽略那个有球 $n$ 的、放了 $n-i$ 个球的盒子，剩下的盒子里的球的总数就是 $i$ 了。</p>
+<p>显然，$i$ 个球最多涉及 $i$ 个盒子，所以那 $i$ 个球的放置方案数就是 $b_i$。</p>
+<p>但注意到，球是不同的，所以我们还要额外加一个选择（那 $i$ 个球）的方案数作为系数。</p>
+<p>由于 $n$ 号球已经被确定不会被放在那 $i$ 个盒子里了，所以其实只有 $n-1$ 个球可以被选择并放入那 $i$ 个盒子中。</p>
+<p>于是就得到了上述公式。</p>
+<h3 id="text-stylecolorrgb0150136-情况6球不同盒相同不允许为空"><text style="color:rgb(0,150,136)"> 情况6：球不同，盒相同，不允许为空</h3>
+<p>其实就是第二类斯特林数，又写作 $n \brace m$。</p>
+<p>其实转移很好想，一种就是当前元素单立一个集合，另一种就是加入到以前的某个集合。</p>
+<p>即 $f_6(n,m)=f_6(n-1,m-1)+f_6(n-1,m) \times m$。</p>
+<p>还是，如果 $n&lt;m$，方案数为 $0$。</p>
+<h3 id="text-stylecolorrgb0150136-情况7球不同盒不同允许为空"><text style="color:rgb(0,150,136)"> 情况7：球不同，盒不同，允许为空</h3>
+<p>由于球、盒都不同，所以我们就可以分别去考虑每个球去哪个盒里了。</p>
+<p>由于球的选择互相独立，所以可以直接用乘法原理乘起来。</p>
+<p>由于允许为空，所以没有其他限制。</p>
+<p>综上所述，$f_7(n,m)=m^n$。</p>
+<h3 id="text-stylecolorrgb0150136-情况8球不同盒不同不允许为空"><text style="color:rgb(0,150,136)"> 情况8：球不同，盒不同，不允许为空</h3>
+<p>该情况与情况6的唯一区别就在于，盒子是两两不同的。</p>
+<p>所以，我们可以直接拿情况6里的答案，乘上 $m!$ 返回即可。</p>
+<p>综上所述，$f_8(n,m)=f_6(n,m) \times m!$。</p>
+<h3 id="text-stylecolorrgb0150136-球盒模型主要情况总结"><text style="color:rgb(0,150,136)"> 球盒模型主要情况总结</h3>
+<ul>
+<li><text style="color:rgb(0,150,136)"> 情况1：球相同，盒相同，允许为空 </text> ：
+<ul>
+<li>$n=0$：$f_1(n,m)=1$</li>
+<li>$m=0$：$f_1(n,m)=0$</li>
+<li>$n&lt;m$：$f_1(n,m)=f_1(n,n)$</li>
+<li>$n \geq m$：$f_1(n,m)=f_1(n-m,m)+f_1(n,m-1)$</li>
+</ul>
+</li>
+<li><text style="color:rgb(0,150,136)"> 情况2：球相同，盒相同，不允许为空 </text> ：
+<ul>
+<li>$n&lt;m$：$f_2(n,m)=0$</li>
+<li>$n \geq m$：$f_2(n,m)=f_1(n-m,m)$</li>
+</ul>
+</li>
+<li><text style="color:rgb(0,150,136)"> 情况3：球相同，盒不同，允许为空 </text> ：
+<ul>
+<li>任何情况：$f_3(n,m)=C_{n+m-1}^{m-1}$</li>
+</ul>
+</li>
+<li><text style="color:rgb(0,150,136)"> 情况4：球相同，盒不同，不允许为空 </text> ：
+<ul>
+<li>$n&lt;m$：$f_4(n,m)=0$</li>
+<li>$n \geq m$：$f_4(n,m)=C_{n-1}^{m-1}$</li>
+</ul>
+</li>
+<li><text style="color:rgb(0,150,136)"> 情况5：球不同，盒相同，允许为空 </text> ：
+<ul>
+<li>任何情况：$f_5(n,m)=\sum\limits_{i=0}^m f_6(n,m-i)$</li>
+</ul>
+</li>
+<li><text style="color:rgb(0,150,136)"> 情况6：球不同，盒相同，不允许为空 </text> ：
+<ul>
+<li>$n&lt;m$：$f_6(n,m)=0$</li>
+<li>$n \geq m$：$f_6(n,m)=f_6(n-1,m-1)+f_6(n-1,m) \times m$</li>
+</ul>
+</li>
+<li><text style="color:rgb(0,150,136)"> 情况7：球不同，盒不同，允许为空 </text> ：
+<ul>
+<li>任何情况：$f_7(n,m)=m^n$。</li>
+</ul>
+</li>
+<li><text style="color:rgb(0,150,136)"> 情况8：球不同，盒不同，不允许为空 </text> ：
+<ul>
+<li>$n&lt;m$：$f_8(n,m)=0$</li>
+<li>$n \geq m$：$f_8(n,m)=f_6(n,m) \times m!$</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="text-stylecolorrgb0150136-组合数模型球盒模型拓展"><text style="color:rgb(0,150,136)"> 组合数模型：球盒模型拓展</h2>
+<p>参考：</p>
+<ul>
+<li><a href="https://zhuanlan.zhihu.com/p/602410836">https://zhuanlan.zhihu.com/p/602410836</a></li>
+</ul>
+<p>统一设 $n$ 为球的个数，$m$ 为盒子的个数。</p>
+<p>在情况 $i$ 内，$g_i(n,m)$ 为这种情况下，如果球数为 $n$、盒子数为 $m$，方案数是多少。</p>
+<p>（若有更多限制，可以在最后加另外参数）</p>
+<p><a href="#%E7%90%83%E7%9B%92%E6%A8%A1%E5%9E%8B%E6%89%A9%E5%B1%95%E4%B8%BB%E8%A6%81%E6%83%85%E5%86%B5%E6%80%BB%E7%BB%93">转到：球盒模型扩展公式</a></p>
+<h3 id="text-stylecolorrgb0150136-拓展情况1球相同盒相同不允许为空至少-t-个球"><text style="color:rgb(0,150,136)"> 拓展情况1：球相同，盒相同，不允许为空，至少 $t$ 个球</h3>
+<h4 id="text-stylecolorrgb0150136-1-9"><text style="color:rgb(0,150,136)"> 1</h4>
+<p>考虑DP。</p>
+<p>由于球、盒都相同，所以可以将问题转化成数划分问题。</p>
+<p>具体地，这个问题可以被转化成，数 $n$ 拆成刚好 $m$ 个数相加，且每个数至少为 $t$ 的方案数</p>
+<p>定义状态 $d_{i,j,k}$ 代表数 $i$ 拆成刚好 $j$ 个数相加，且每个数至少为 $k$ 的方案数。</p>
+<p>转移就枚举拆分里的某一项的值 $x$，从 $k$ 到 $n$，然后就转移到了状态 $d_{i-x,j-1,x}$。</p>
+<p>其中，为了防止计重，最后一维要是 $x$ 而不是 $k$。</p>
+<p>综上所述，$d_{i,j,k}=\sum\limits_{x=k}^n d_{i-x,j-1,x}$，$g_1(n,m,t)=d_{n,m,t}$。</p>
+<p>最后，说一些边界：</p>
+<ul>
+<li>$n=0,m=0$：$g_1(n,m,t)=1$</li>
+<li>$n=0$：$g_1(n,m,t)=1$</li>
+<li>$m=0$：$g_1(n,m,t)=0$</li>
+<li>$n&lt;m \times t$：$g_1(n,m,t)=0$</li>
+</ul>
+<h4 id="text-stylecolorrgb0150136-2-9"><text style="color:rgb(0,150,136)"> 2</h4>
+<p>（下述做法还不能被证明完全正确，仅为参考）</p>
+<p>首先，还是判断上面那些边界。</p>
+<p>判断完边界后，就可以完全忽略“不允许为空”的限制了。</p>
+<p>我们考虑事先在每个盒子里都拿走 $t$ 个球，然后就转化为了 $n-m \times t$ 个球，$m$ 个盒，球、盒都相同，盒允许为空，问方案数。</p>
+<p>就是情况1的问题，直接调用即可。</p>
+<p>综上所述，$g_1(n,m,t)=f_1(n-m \times t,m)$。</p>
+<h3 id="text-stylecolorrgb0150136-拓展情况2球相同盒不同不允许为空盒-i-至少-a_i-个球"><text style="color:rgb(0,150,136)"> 拓展情况2：球相同，盒不同，不允许为空，盒 $i$ 至少 $a_i$ 个球</h3>
+<p>（如果说存在某个 $a_i$ 是小于 $1$ 的，直接将其设为 $1$）</p>
+<p>与模型3的唯一差别就在于这里有每个盒子内球个数的下界限制。</p>
+<p>但球还是两两相同的，所以我们考虑事先在第 $i$ 个格子里放 $a_i$ 个球。</p>
+<p>剩下的工作就交给模型3了。</p>
+<p>注意，在初始放完之后，某个格子可能会出现说不再放任何球的情况，所以应该转化成模型3而不是模型4。</p>
+<p>综上所述，$g_2(n,m,a)=f_3(n-\sum a_i,m)$。</p>
+<p>但如果 $n&lt;\sum a_i$，是无解的，显然。</p>
+<h3 id="text-stylecolorrgb0150136-拓展情况3球相同盒不同允许为空至多-t-个球"><text style="color:rgb(0,150,136)"> 拓展情况3：球相同，盒不同，允许为空，至多 $t$ 个球</h3>
+<p>该情况需要用到生成函数，生成函数学习笔记网页及本模型做法见<a href="https://zhuanlan.zhihu.com/p/602410836">这里</a>的模型2B。</p>
+<h3 id="text-stylecolorrgb0150136-拓展情况4球相同盒不同允许为空至多-1-个球非空盒不可相邻"><text style="color:rgb(0,150,136)"> 拓展情况4：球相同，盒不同，允许为空，至多 $1$ 个球，非空盒不可相邻</h3>
+<p>（说一个细节，题目中说的“非空盒不可相邻”指的是如果给所有盒子依次赋予 $1 \sim m$ 内的编号，那么按编号顺序排成一列后，非空盒不可相邻）</p>
+<p>易得只有在 $2n-1 \leq m$ 的时候才有解，其中 $2n-1$ 代表 $n$ 个球如果一隔一（第一个格子里放一个球，第二个格子不放，第三个放，第四个不放，以此类推）地放，需要用多少个盒子才能满足条件；同时 $2n-1$ 也是这个 $n$ 对应的 $m$ 的下限。</p>
+<p>接下来考虑有解情况。</p>
+<p>（以下暂时忽略编号，在构造完一个方案后按排列顺序依次编号）</p>
+<p>首先，我们在 $m$ 个盒子里选 $n$ 个盒子，并从盒子的集合中删去这 $n$ 个盒子（下称“第一步”），每个被选的盒子里都恰好放置 $1$ 个球，所有球都放完了。（注意，此处的选择方案不能被计算到答案中）</p>
+<p>但这里不能直接考虑剩下 $m-n$ 个盒子要放到什么位置，因为不好处理。</p>
+<p>具体地，我们遇到这种情况都是把最初两两盒子内的间隙（包括两旁）看成盒子，把盒子看成球。</p>
+<p>但你会发现，这 $n+1$ 个盒子中有 $n-1$ 个盒子要求不为空，另外两个盒子不要求，所以不好求。</p>
+<p>那咋解决呢？很简单，我们只用在那 $n-1$ 个盒子内全部事先拿一个球出来即可，即再选 $n-1$ 个盒子插入原本的 $n$ 个盒子的间隙中，并将这 $n-1$ 个格子从盒子集合中移除（下称“第二步”）。</p>
+<p>所以，最后一共就有 $m-n-(n-1)=m-2n+1$（前项 $m-n-(n-1)$ 中，第一个 $-n$ 是第一步的影响；第二个 $-(n-1)$ 则是第二步的影响）个球，$n+1$ 个盒子，所以最终答案就是 $f_4(m-2n+1,n+1)$。</p>
+<h3 id="text-stylecolorrgb0150136-球盒模型扩展主要情况总结"><text style="color:rgb(0,150,136)"> 球盒模型扩展主要情况总结</h3>
+<p><a href="#%E7%90%83%E7%9B%92%E6%A8%A1%E5%9E%8B%E4%B8%BB%E8%A6%81%E6%83%85%E5%86%B5%E6%80%BB%E7%BB%93">转到：球盒模型公式</a></p>
+<ul>
+<li><text style="color:rgb(0,150,136)"> 拓展情况1：球相同，盒相同，不允许为空，至少 $t$ 个球 </text> ：
+<ul>
+<li>$n=0,m=0$：$g_1(n,m,t)=1$</li>
+<li>$n=0$：$g_1(n,m,t)=1$</li>
+<li>$m=0$：$g_1(n,m,t)=0$</li>
+<li>$n&lt;m \times t$：$g_1(n,m,t)=0$</li>
+<li>其他情况：$g_1(i,j,k)=\sum\limits_{x=k}^n g_1(i-x,j-1,x)$</li>
+</ul>
+</li>
+<li><text style="color:rgb(0,150,136)"> 拓展情况2：球相同，盒不同，不允许为空，盒 $i$ 至少 $a_i$ 个球 </text> ：
+<ul>
+<li>如果说存在某个 $a_i$ 是小于 $1$ 的，直接将其设为 $1$。</li>
+<li>$n&lt;\sum a_i$：$g_2(n,m,a)=0$</li>
+<li>其他情况：$g_2(n,m,a)=f_3(n-\sum a_i,m)$</li>
+</ul>
+</li>
+<li><text style="color:rgb(0,150,136)"> 拓展情况3：球相同，盒不同，允许为空，至多 $t$ 个球 </text> ：
+<ul>
+<li>该情况需要用到生成函数，生成函数学习笔记网页及本模型做法见<a href="https://zhuanlan.zhihu.com/p/602410836">这里</a>的模型2B。</li>
+</ul>
+</li>
+<li><text style="color:rgb(0,150,136)"> 拓展情况4：球相同，盒不同，允许为空，至多 $1$ 个球，非空盒不可相邻 </text> ：
+<ul>
+<li>*注：题目中说的“非空盒不可相邻”指的是如果给所有盒子依次赋予 $1 \sim m$ 内的编号，那么按编号顺序排成一列后，非空盒不可相邻。</li>
+<li>$2n-1&gt;m$：$g_4(n,m)=0$</li>
+<li>其他情况：$g_4(n,m)=f_4(m-2n+1,n+1)$</li>
+</ul>
+</li>
+</ul>
+
+        
+    </div>
+
+    <div class="prev-next">
+        
+    </div>
+
+    
+    
+    
+</div>
+
+<aside class="post-toc">
+    <nav id="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#text-stylecolorrgb0150136-求组合数"><text style="color:rgb(0,150,136)"> 求组合数</a>
+          <ul>
+            <li><a href="#text-stylecolorrgb0150136-范围1nm-leq-2000p-leq-1097"><text style="color:rgb(0,150,136)"> 范围1：$n,m \leq 2000,p \leq 10^9+7$</a></li>
+            <li><a href="#text-stylecolorrgb0150136-范围2nm-leq-106p-leq-1097ptext-is-prime"><text style="color:rgb(0,150,136)"> 范围2：$n,m \leq 10^6,p \leq 10^9+7,p\text{ is prime}$</a>
+              <ul>
+                <li><a href="#text-stylecolorrgb0150136-1"><text style="color:rgb(0,150,136)"> 1</a></li>
+                <li><a href="#text-stylecolorrgb0150136-2"><text style="color:rgb(0,150,136)"> 2</a></li>
+              </ul>
+            </li>
+            <li><a href="#text-stylecolorrgb0150136-范围3nm-leq-106p-leq-1097"><text style="color:rgb(0,150,136)"> 范围3：$n,m \leq 10^6,p \leq 10^9+7$</a>
+              <ul>
+                <li><a href="#text-stylecolorrgb0150136-1-1"><text style="color:rgb(0,150,136)"> 1</a></li>
+                <li><a href="#text-stylecolorrgb0150136-2-1"><text style="color:rgb(0,150,136)"> 2</a></li>
+                <li><a href="#text-stylecolorrgb0150136-3"><text style="color:rgb(0,150,136)"> 3</a></li>
+                <li><a href="#text-stylecolorrgb0150136-4"><text style="color:rgb(0,150,136)"> 4</a></li>
+                <li><a href="#text-stylecolorrgb0150136-5"><text style="color:rgb(0,150,136)"> 5</a></li>
+              </ul>
+            </li>
+            <li><a href="#text-stylecolorrgb0150136-范围4nm-leq-106p-leq-1097"><text style="color:rgb(0,150,136)"> 范围4：$n,m \leq 10^6,p \leq 10^9+7$</a>
+              <ul>
+                <li><a href="#text-stylecolorrgb0150136-1-2"><text style="color:rgb(0,150,136)"> 1</a></li>
+                <li><a href="#text-stylecolorrgb0150136-2-2"><text style="color:rgb(0,150,136)"> 2</a></li>
+              </ul>
+            </li>
+            <li><a href="#text-stylecolorrgb0150136-范围5n-leq-1018m-leq-106p-leq-1097ptext-is-prime"><text style="color:rgb(0,150,136)"> 范围5：$n \leq 10^{18},m \leq 10^6,p \leq 10^9+7,p\text{ is prime}$</a>
+              <ul>
+                <li><a href="#text-stylecolorrgb0150136-1-3"><text style="color:rgb(0,150,136)"> 1</a></li>
+                <li><a href="#text-stylecolorrgb0150136-2-3"><text style="color:rgb(0,150,136)"> 2</a></li>
+              </ul>
+            </li>
+            <li><a href="#text-stylecolorrgb0150136-范围6n-leq-1018m-leq-106p-leq-1097"><text style="color:rgb(0,150,136)"> 范围6：$n \leq 10^{18},m \leq 10^6,p \leq 10^9+7$</a>
+              <ul>
+                <li><a href="#text-stylecolorrgb0150136-1-4"><text style="color:rgb(0,150,136)"> 1</a></li>
+                <li><a href="#text-stylecolorrgb0150136-2-4"><text style="color:rgb(0,150,136)"> 2</a></li>
+              </ul>
+            </li>
+            <li><a href="#text-stylecolorrgb0150136-范围7nm-leq-1018p-leq-1063ptext-is-prime"><text style="color:rgb(0,150,136)"> 范围7：$n,m \leq 10^{18},p \leq 10^6+3,p\text{ is prime}$</a>
+              <ul>
+                <li><a href="#text-stylecolorrgb0150136-1-5"><text style="color:rgb(0,150,136)"> 1</a></li>
+                <li><a href="#text-stylecolorrgb0150136-2-5"><text style="color:rgb(0,150,136)"> 2</a></li>
+              </ul>
+            </li>
+            <li><a href="#text-stylecolorrgb0150136-范围8nm-leq-1018p-leq-1063"><text style="color:rgb(0,150,136)"> 范围8：$n,m \leq 10^{18},p \leq 10^6+3$</a>
+              <ul>
+                <li><a href="#text-stylecolorrgb0150136-1-6"><text style="color:rgb(0,150,136)"> 1</a></li>
+                <li><a href="#text-stylecolorrgb0150136-2-6"><text style="color:rgb(0,150,136)"> 2</a></li>
+              </ul>
+            </li>
+            <li><a href="#text-stylecolorrgb0150136-范围9nm-leq-1018p-leq-1097"><text style="color:rgb(0,150,136)"> 范围9：$n,m \leq 10^{18},p \leq 10^9+7$</a>
+              <ul>
+                <li><a href="#text-stylecolorrgb0150136-1-7"><text style="color:rgb(0,150,136)"> 1</a></li>
+                <li><a href="#text-stylecolorrgb0150136-2-7"><text style="color:rgb(0,150,136)"> 2</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#text-stylecolorrgb0150136-组合数模型球盒模型"><text style="color:rgb(0,150,136)"> 组合数模型：球盒模型</a>
+          <ul>
+            <li><a href="#text-stylecolorrgb0150136-情况1球相同盒相同允许为空"><text style="color:rgb(0,150,136)"> 情况1：球相同，盒相同，允许为空</a></li>
+            <li><a href="#text-stylecolorrgb0150136-情况2球相同盒相同不允许为空"><text style="color:rgb(0,150,136)"> 情况2：球相同，盒相同，不允许为空</a></li>
+            <li><a href="#text-stylecolorrgb0150136-情况3球相同盒不同允许为空"><text style="color:rgb(0,150,136)"> 情况3：球相同，盒不同，允许为空</a></li>
+            <li><a href="#text-stylecolorrgb0150136-情况4球相同盒不同不允许为空"><text style="color:rgb(0,150,136)"> 情况4：球相同，盒不同，不允许为空</a></li>
+            <li><a href="#text-stylecolorrgb0150136-情况5球不同盒相同允许为空"><text style="color:rgb(0,150,136)"> 情况5：球不同，盒相同，允许为空</a>
+              <ul>
+                <li><a href="#text-stylecolorrgb0150136-1-8"><text style="color:rgb(0,150,136)"> 1</a></li>
+                <li><a href="#text-stylecolorrgb0150136-2-8"><text style="color:rgb(0,150,136)"> 2</a></li>
+              </ul>
+            </li>
+            <li><a href="#text-stylecolorrgb0150136-情况6球不同盒相同不允许为空"><text style="color:rgb(0,150,136)"> 情况6：球不同，盒相同，不允许为空</a></li>
+            <li><a href="#text-stylecolorrgb0150136-情况7球不同盒不同允许为空"><text style="color:rgb(0,150,136)"> 情况7：球不同，盒不同，允许为空</a></li>
+            <li><a href="#text-stylecolorrgb0150136-情况8球不同盒不同不允许为空"><text style="color:rgb(0,150,136)"> 情况8：球不同，盒不同，不允许为空</a></li>
+            <li><a href="#text-stylecolorrgb0150136-球盒模型主要情况总结"><text style="color:rgb(0,150,136)"> 球盒模型主要情况总结</a></li>
+          </ul>
+        </li>
+        <li><a href="#text-stylecolorrgb0150136-组合数模型球盒模型拓展"><text style="color:rgb(0,150,136)"> 组合数模型：球盒模型拓展</a>
+          <ul>
+            <li><a href="#text-stylecolorrgb0150136-拓展情况1球相同盒相同不允许为空至少-t-个球"><text style="color:rgb(0,150,136)"> 拓展情况1：球相同，盒相同，不允许为空，至少 $t$ 个球</a>
+              <ul>
+                <li><a href="#text-stylecolorrgb0150136-1-9"><text style="color:rgb(0,150,136)"> 1</a></li>
+                <li><a href="#text-stylecolorrgb0150136-2-9"><text style="color:rgb(0,150,136)"> 2</a></li>
+              </ul>
+            </li>
+            <li><a href="#text-stylecolorrgb0150136-拓展情况2球相同盒不同不允许为空盒-i-至少-a_i-个球"><text style="color:rgb(0,150,136)"> 拓展情况2：球相同，盒不同，不允许为空，盒 $i$ 至少 $a_i$ 个球</a></li>
+            <li><a href="#text-stylecolorrgb0150136-拓展情况3球相同盒不同允许为空至多-t-个球"><text style="color:rgb(0,150,136)"> 拓展情况3：球相同，盒不同，允许为空，至多 $t$ 个球</a></li>
+            <li><a href="#text-stylecolorrgb0150136-拓展情况4球相同盒不同允许为空至多-1-个球非空盒不可相邻"><text style="color:rgb(0,150,136)"> 拓展情况4：球相同，盒不同，允许为空，至多 $1$ 个球，非空盒不可相邻</a></li>
+            <li><a href="#text-stylecolorrgb0150136-球盒模型扩展主要情况总结"><text style="color:rgb(0,150,136)"> 球盒模型扩展主要情况总结</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </nav>
+</aside>
+
+
+
+    
+
+        </main><footer class="footer">
+    
+    
+
+    
+
+    
+
+    
+
+    <span>
+        Made with &#10084;&#65039; using <a target="_blank" href="https://github.com/gokarna-theme/gokarna-hugo">Gokarna</a>
+    </span>
+</footer>
+</body>
+</html>

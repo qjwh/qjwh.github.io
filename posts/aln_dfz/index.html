@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        :root {
+            --accent-color: #FF4D4D;
+            --font-size: 17.5px;
+        }
+    </style>
+
+    
+    
+    
+    
+    
+    
+
+    
+    <title>点分治</title>
+    <meta name="description" content="点分治和树剖有一个相同点，就是算法都是从暴力经过一小步优化而来，但就是这一小步，让算法复杂度有了质的飞跃。
+下面来讲一下这个算法的原理。
+概览 其实“点分治”也是一个名不副实的算法，看完下面的讲述你就会发现这个算法根“分治”几乎无关。
+点分治是专门解决树上路径统计的一种算法（树剖则是解决对树上路径的判断的算法）。
+点 …">
+    <meta name="keywords" content='信息学竞赛, 算法学习笔记'>
+
+    <meta property="og:url" content="https://qjwh.github.io/posts/aln_dfz/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="点分治">
+    <meta property="og:description" content="点分治和树剖有一个相同点，就是算法都是从暴力经过一小步优化而来，但就是这一小步，让算法复杂度有了质的飞跃。
+下面来讲一下这个算法的原理。
+概览 其实“点分治”也是一个名不副实的算法，看完下面的讲述你就会发现这个算法根“分治”几乎无关。
+点分治是专门解决树上路径统计的一种算法（树剖则是解决对树上路径的判断的算法）。
+点 …">
+    <meta property="og:image" content="https://qjwh.github.io/">
+    <meta property="og:image:secure_url" content="https://qjwh.github.io/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="点分治">
+    <meta name="twitter:description" content="点分治和树剖有一个相同点，就是算法都是从暴力经过一小步优化而来，但就是这一小步，让算法复杂度有了质的飞跃。
+下面来讲一下这个算法的原理。
+概览 其实“点分治”也是一个名不副实的算法，看完下面的讲述你就会发现这个算法根“分治”几乎无关。
+点分治是专门解决树上路径统计的一种算法（树剖则是解决对树上路径的判断的算法）。
+点 …">
+    <meta property="twitter:domain" content="https://qjwh.github.io/posts/aln_dfz/">
+    <meta property="twitter:url" content="https://qjwh.github.io/posts/aln_dfz/">
+    <meta name="twitter:image" content="https://qjwh.github.io/">
+
+    
+    <link rel="canonical" href="https://qjwh.github.io/posts/aln_dfz/">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/normalize.min.css" media="print">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/main.min.css">
+
+    
+    <link id="dark-theme" rel="stylesheet" href="/css/dark.min.css">
+
+    
+    <script src="/js/bundle.min.ad84dd09e60165f836ea08a26f86608c070e127d21ac6ab168c87da076554d87.js" integrity="sha256-rYTdCeYBZfg26giib4ZgjAcOEn0hrGqxaMh9oHZVTYc="></script>
+
+    
+    
+        <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          // customised options
+          // ? auto-render specific keys, e.g.:
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false},
+          ],
+          // ? rendering keys, e.g.:
+          throwOnError : false
+        });
+      });
+    </script>
+  
+    
+</head>
+<body>
+        <script>
+            
+            setThemeByUserPref();
+        </script><header class="header">
+    <nav class="header-nav">
+
+        
+
+        <div class="nav-title">
+            <a class="nav-brand" href="https://qjwh.github.io/">CXBlog</a>
+        </div>
+
+        <div class="nav-links">
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/" aria-label="home" >      <i data-feather="home"></i>
+      <script>
+        feather.replace();
+      </script>
+       首页
+      </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/posts" aria-label="posts" >      <i data-feather="book"></i>
+      <script>
+        feather.replace();
+      </script>
+       文章
+      </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/tags" aria-label="tags" >      <i data-feather="tag"></i>
+      <script>
+        feather.replace();
+      </script>
+       标签
+      </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/about" aria-label="about" >      <i data-feather="info"></i>
+      <script>
+        feather.replace();
+      </script>
+       关于
+      </a>
+            </div>
+            
+
+            <span class="nav-icons-divider"></span>
+            <div class="nav-link dark-theme-toggle">
+                <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                <a aria-hidden="true" role="switch">
+                    <span class="theme-toggle-icon" data-feather="moon"></span>
+                </a>
+            </div>
+
+            <div class="nav-link" id="hamburger-menu-toggle">
+                <span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
+                <a aria-checked="false" aria-labelledby="hamburger-menu-toggle" id="hamburger-menu-toggle-target" role="switch">
+                    <span data-feather="menu"></span>
+                </a>
+            </div>
+
+            
+            <ul class="nav-hamburger-list visibility-hidden">
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/" >      <i data-feather="home"></i>
+      <script>
+        feather.replace();
+      </script>
+       首页
+      </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/posts" >      <i data-feather="book"></i>
+      <script>
+        feather.replace();
+      </script>
+       文章
+      </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/tags" >      <i data-feather="tag"></i>
+      <script>
+        feather.replace();
+      </script>
+       标签
+      </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/about" >      <i data-feather="info"></i>
+      <script>
+        feather.replace();
+      </script>
+       关于
+      </a>
+                </li>
+                
+                <li class="nav-item dark-theme-toggle">
+                    <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                    <a role="switch">
+                        <span class="theme-toggle-icon" data-feather="moon"></span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</header>
+<main id="content">
+    <div class="post container">
+    <div class="post-header-section">
+        <h1>点分治</h1>
+
+        
+
+        
+	
+	
+	
+	
+        
+
+	
+
+	
+
+	
+          <small role="doc-subtitle"></small>
+	
+
+	
+          <p class="post-date">
+              
+
+              February 9, 2025
+
+              
+          </p>
+	
+
+        <ul class="post-tags">
+          
+           
+             <li class="post-tag"><a href="https://qjwh.github.io/tags/%E4%BF%A1%E6%81%AF%E5%AD%A6%E7%AB%9E%E8%B5%9B">信息学竞赛</a></li>
+           
+         
+           
+             <li class="post-tag"><a href="https://qjwh.github.io/tags/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0">算法学习笔记</a></li>
+           
+         
+        </ul>
+    </div>
+
+    <div class="post-content">
+        <text style="font-family:Noto Sans SC">
+<p>点分治和树剖有一个相同点，就是算法都是从暴力经过一小步优化而来，但就是这一小步，让算法复杂度有了质的飞跃。</p>
+<p>下面来讲一下这个算法的原理。</p>
+<h2 id="text-stylecolorrgb0150136-概览"><text style="color:rgb(0,150,136)"> 概览</h2>
+<p>其实“点分治”也是一个名不副实的算法，看完下面的讲述你就会发现这个算法根“分治”几乎无关。</p>
+<p>点分治是专门解决树上路径统计的一种算法（树剖则是解决对树上路径的判断的算法）。</p>
+<p>点分治的思想很朴素，就是DFS一下 $\text{lca}$ 的节点编号 $x$，然后统计 $\text{lca}$ 值刚好为 $x$ 的、满足题目条件的路径的数量，并累加到答案。</p>
+<p>但直接进行统计还是炸裂的，点分治则是对这种统计方式做了一步优化</p>
+<h2 id="text-stylecolorrgb0150136-解决题型"><text style="color:rgb(0,150,136)"> 解决题型</h2>
+<p>上面说了，「点分治是专门解决树上路径统计的一种算法」，但并不是所有的树上路径统计都可以用点分治解决。</p>
+<p>其实看完下面的实现，你就能知道它解决什么类问题，不过这里还是说一下。</p>
+<p>就是首先，这个条件是形如“总和比某个值低”、“总和是某个值的倍数”等“可累加”的条件。</p>
+<p>其中“可累加”指的是，如果知道了 $A$ 部分的某个值，和 $B$ 部分的某个值，那么 $A$ 和 $B$ 部分合并后的部分是否合法也一定知道。</p>
+<p>但其他的条件目前还没有太明确，得自己去总结。</p>
+<h2 id="text-stylecolorrgb0150136-算法实现"><text style="color:rgb(0,150,136)"> 算法实现</h2>
+<p>下面说一下点分治的实现。</p>
+<h3 id="text-stylecolorrgb0150136-大体思路"><text style="color:rgb(0,150,136)"> 大体思路</h3>
+<p>我们拿“路径长度（路径上的边的边权之和）刚好为 $k$”问题举例。</p>
+<p>注：原题链接<a href="https://www.luogu.com.cn/problem/P3806">P3806</a></p>
+<p>就是我们考虑，当DFS到某个点 $x$ 的时候，就如上所说，设 $x$ 为 $\text{lca}$ 值。</p>
+<p>然后，我们按顺序遍历所有子节点 $to$。</p>
+<p>由于只要两个点 $y$、$z$ 满足 $y$ 和 $z$ 分别在 $x$ 的两个不同儿子及其子树内，那么 $\text{lca}(y,z)=x$。</p>
+<p>并且所有满足条件 $\text{lca}(y,z)=x$ 的对 $(y,z)$ 只有满足上述条件的对。</p>
+<p>所以，我们可以通过（另一种）DFS（方式）求出 $to$ 到 ( 所有 $to$ 及其子树内的点 ) 之间的距离（加上 $x \to to$ 的边权）的集合 $T$。</p>
+<p>并维护当前所有遍历过的儿子（不包含当前遍历的儿子）的 $T$ 集合的并集 $S$。</p>
+<p>接下来，只用看是否存在：</p>
+<ul>
+<li>一个在 $S$ 中出现过的元素 $x$。</li>
+<li>一个在 $T$ 中出现过的元素 $y$。</li>
+</ul>
+<p>满足 $x+y=k$（其中 $k$ 为询问的值）即可。</p>
+<p>这一点可以用标记数组解决。</p>
+<p>具体而言，我们维护一个标记数组，表示每个元素是否出现于 $S$ 内。</p>
+<p>但现在唯一的问题就在于，$T$ 集合只能暴力求出，但如果真的暴力，复杂度是炸裂的（可以被一条链的数据卡掉）。</p>
+<h3 id="text-stylecolorrgb0150136-优化算法"><text style="color:rgb(0,150,136)"> 优化算法</h3>
+<p>我们考虑，不优化求出 $T$ 集合的暴力DFS算法，转而优化外层DFS（枚举 $\text{lca}$ 值用的）。</p>
+<p>我们先对于每个 $to$，暴力做DFS，并更新答案。</p>
+<p>然后再枚举每个 $to$，此时 $to$ 及其子树无论以谁为根，都不会影响答案，显然。</p>
+<p>而由于我们对于每个点，都要遍历两遍子树，所以复杂度是和深度有关的，是一个 $O(2^\text{dep})$ 的复杂度。</p>
+<p>所以，我们就尝试把深度降到 $\log n$ 级别即可。</p>
+<p>一种思路就是每次只选择 $to$ 及其子树的重心作为根，因为重心有一个特点：</p>
+<ul>
+<li>如果以重心为根去重构整棵树，那么根节点（重心）的每个儿子及其子树的大小，都不会超过整棵树的大小的一半。</li>
+</ul>
+<p>所以深度一定不超过 $\log n$。</p>
+<h3 id="text-stylecolorrgb0150136-扩展算法"><text style="color:rgb(0,150,136)"> 扩展算法</h3>
+<p>不过无论如何，点分治只是一个工具类算法，得配合其他算法出现。</p>
+<p>比如，另外一道题<a href="https://www.luogu.com.cn/problem/P4178">P4178</a>，就得把标记数组换成树状数组。</p>
+<p>还比如一些题，得在更新答案的时候用双指针，甚至还要配合优先队列等STL。</p>
+<h2 id="text-stylecolorrgb0150136-复杂度证明"><text style="color:rgb(0,150,136)"> 复杂度证明</h2>
+<p>其实这个证明非常好想。</p>
+<p>上面其实已经说了一点了，就是复杂度是 $O(2^\text{dep})$ 的，而每次选择重心就可以让这个复杂度达到 $O(n)$。</p>
+<p>对于其他的用点分治的题目的复杂度证明，可以采用以下思路：</p>
+<ul>
+<li>看每个点对复杂度有多少贡献。</li>
+</ul>
+<p>那个复杂度 $O(2^\text{dep})$ 就是这样求出的。</p>
+
+        
+    </div>
+
+    <div class="prev-next">
+        
+    </div>
+
+    
+    
+    
+</div>
+
+<aside class="post-toc">
+    <nav id="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#text-stylecolorrgb0150136-概览"><text style="color:rgb(0,150,136)"> 概览</a></li>
+        <li><a href="#text-stylecolorrgb0150136-解决题型"><text style="color:rgb(0,150,136)"> 解决题型</a></li>
+        <li><a href="#text-stylecolorrgb0150136-算法实现"><text style="color:rgb(0,150,136)"> 算法实现</a>
+          <ul>
+            <li><a href="#text-stylecolorrgb0150136-大体思路"><text style="color:rgb(0,150,136)"> 大体思路</a></li>
+            <li><a href="#text-stylecolorrgb0150136-优化算法"><text style="color:rgb(0,150,136)"> 优化算法</a></li>
+            <li><a href="#text-stylecolorrgb0150136-扩展算法"><text style="color:rgb(0,150,136)"> 扩展算法</a></li>
+          </ul>
+        </li>
+        <li><a href="#text-stylecolorrgb0150136-复杂度证明"><text style="color:rgb(0,150,136)"> 复杂度证明</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </nav>
+</aside>
+
+
+
+    
+
+        </main><footer class="footer">
+    
+    
+
+    
+
+    
+
+    
+
+    <span>
+        Made with &#10084;&#65039; using <a target="_blank" href="https://github.com/gokarna-theme/gokarna-hugo">Gokarna</a>
+    </span>
+</footer>
+</body>
+</html>

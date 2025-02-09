@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        :root {
+            --accent-color: #FF4D4D;
+            --font-size: 17.5px;
+        }
+    </style>
+
+    
+    
+    
+    
+    
+    
+
+    
+    <title>莫队算法</title>
+    <meta name="description" content="普通莫队算法 概览 莫队其实是分块的变化版，没有完全分块。
+但莫队的题目一般比分块的题目比较好看一些，其中的“好看”指的是很好看出这是个莫队/分块的题。
+接下来说一下莫队能解决的题型。
+解决题型 莫队一般解决以下问题：
+给你一些信息，和 $q$ 次询问，每次询问可以抽象为一个区间。
+而且这个问题还要满足一些条件：
+可 …">
+    <meta name="keywords" content='信息学竞赛, 算法学习笔记'>
+
+    <meta property="og:url" content="https://qjwh.github.io/posts/aln_modui/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="莫队算法">
+    <meta property="og:description" content="普通莫队算法 概览 莫队其实是分块的变化版，没有完全分块。
+但莫队的题目一般比分块的题目比较好看一些，其中的“好看”指的是很好看出这是个莫队/分块的题。
+接下来说一下莫队能解决的题型。
+解决题型 莫队一般解决以下问题：
+给你一些信息，和 $q$ 次询问，每次询问可以抽象为一个区间。
+而且这个问题还要满足一些条件：
+可 …">
+    <meta property="og:image" content="https://qjwh.github.io/">
+    <meta property="og:image:secure_url" content="https://qjwh.github.io/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="莫队算法">
+    <meta name="twitter:description" content="普通莫队算法 概览 莫队其实是分块的变化版，没有完全分块。
+但莫队的题目一般比分块的题目比较好看一些，其中的“好看”指的是很好看出这是个莫队/分块的题。
+接下来说一下莫队能解决的题型。
+解决题型 莫队一般解决以下问题：
+给你一些信息，和 $q$ 次询问，每次询问可以抽象为一个区间。
+而且这个问题还要满足一些条件：
+可 …">
+    <meta property="twitter:domain" content="https://qjwh.github.io/posts/aln_modui/">
+    <meta property="twitter:url" content="https://qjwh.github.io/posts/aln_modui/">
+    <meta name="twitter:image" content="https://qjwh.github.io/">
+
+    
+    <link rel="canonical" href="https://qjwh.github.io/posts/aln_modui/">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/normalize.min.css" media="print">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/main.min.css">
+
+    
+    <link id="dark-theme" rel="stylesheet" href="/css/dark.min.css">
+
+    
+    <script src="/js/bundle.min.ad84dd09e60165f836ea08a26f86608c070e127d21ac6ab168c87da076554d87.js" integrity="sha256-rYTdCeYBZfg26giib4ZgjAcOEn0hrGqxaMh9oHZVTYc="></script>
+
+    
+    
+        <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          // customised options
+          // ? auto-render specific keys, e.g.:
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false},
+          ],
+          // ? rendering keys, e.g.:
+          throwOnError : false
+        });
+      });
+    </script>
+  
+    
+</head>
+<body>
+        <script>
+            
+            setThemeByUserPref();
+        </script><header class="header">
+    <nav class="header-nav">
+
+        
+
+        <div class="nav-title">
+            <a class="nav-brand" href="https://qjwh.github.io/">CXBlog</a>
+        </div>
+
+        <div class="nav-links">
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/" aria-label="home" >      <i data-feather="home"></i>
+      <script>
+        feather.replace();
+      </script>
+       首页
+      </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/posts" aria-label="posts" >      <i data-feather="book"></i>
+      <script>
+        feather.replace();
+      </script>
+       文章
+      </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/tags" aria-label="tags" >      <i data-feather="tag"></i>
+      <script>
+        feather.replace();
+      </script>
+       标签
+      </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/about" aria-label="about" >      <i data-feather="info"></i>
+      <script>
+        feather.replace();
+      </script>
+       关于
+      </a>
+            </div>
+            
+
+            <span class="nav-icons-divider"></span>
+            <div class="nav-link dark-theme-toggle">
+                <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                <a aria-hidden="true" role="switch">
+                    <span class="theme-toggle-icon" data-feather="moon"></span>
+                </a>
+            </div>
+
+            <div class="nav-link" id="hamburger-menu-toggle">
+                <span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
+                <a aria-checked="false" aria-labelledby="hamburger-menu-toggle" id="hamburger-menu-toggle-target" role="switch">
+                    <span data-feather="menu"></span>
+                </a>
+            </div>
+
+            
+            <ul class="nav-hamburger-list visibility-hidden">
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/" >      <i data-feather="home"></i>
+      <script>
+        feather.replace();
+      </script>
+       首页
+      </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/posts" >      <i data-feather="book"></i>
+      <script>
+        feather.replace();
+      </script>
+       文章
+      </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/tags" >      <i data-feather="tag"></i>
+      <script>
+        feather.replace();
+      </script>
+       标签
+      </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/about" >      <i data-feather="info"></i>
+      <script>
+        feather.replace();
+      </script>
+       关于
+      </a>
+                </li>
+                
+                <li class="nav-item dark-theme-toggle">
+                    <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                    <a role="switch">
+                        <span class="theme-toggle-icon" data-feather="moon"></span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</header>
+<main id="content">
+    <div class="post container">
+    <div class="post-header-section">
+        <h1>莫队算法</h1>
+
+        
+
+        
+	
+	
+	
+	
+        
+
+	
+
+	
+
+	
+          <small role="doc-subtitle"></small>
+	
+
+	
+          <p class="post-date">
+              
+
+              February 9, 2025
+
+              
+          </p>
+	
+
+        <ul class="post-tags">
+          
+           
+             <li class="post-tag"><a href="https://qjwh.github.io/tags/%E4%BF%A1%E6%81%AF%E5%AD%A6%E7%AB%9E%E8%B5%9B">信息学竞赛</a></li>
+           
+         
+           
+             <li class="post-tag"><a href="https://qjwh.github.io/tags/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0">算法学习笔记</a></li>
+           
+         
+        </ul>
+    </div>
+
+    <div class="post-content">
+        <text style="font-family:Noto Sans SC">
+<h1 id="text-stylecolorrgb0150136-普通莫队算法"><text style="color:rgb(0,150,136)"> 普通莫队算法</h1>
+<h2 id="text-stylecolorrgb0150136-概览"><text style="color:rgb(0,150,136)"> 概览</h2>
+<p>莫队其实是分块的变化版，没有完全分块。</p>
+<p>但莫队的题目一般比分块的题目比较好看一些，其中的“好看”指的是很好看出这是个莫队/分块的题。</p>
+<p>接下来说一下莫队能解决的题型。</p>
+<h2 id="text-stylecolorrgb0150136-解决题型"><text style="color:rgb(0,150,136)"> 解决题型</h2>
+<p>莫队一般解决以下问题：</p>
+<blockquote>
+<p>给你一些信息，和 $q$ 次询问，每次询问可以抽象为一个区间。</p></blockquote>
+<p>而且这个问题还要满足一些条件：</p>
+<ul>
+<li>可以离线</li>
+<li>不能有修改（当然带修莫队支持修改，不过普通莫队就不行了）</li>
+<li>从 $[l,r]$ 的答案可以很快转移到 $[l-1,r]$、$[l+1,r]$、$[l,r-1]$、$[l,r+1]$ 的答案</li>
+</ul>
+<h2 id="text-stylecolorrgb0150136-解决方法"><text style="color:rgb(0,150,136)"> 解决方法</h2>
+<p>这种题型有个解决方法。</p>
+<p>还是先从暴力说起。</p>
+<h3 id="text-stylecolorrgb0150136-暴力做法"><text style="color:rgb(0,150,136)"> 暴力做法</h3>
+<p>看见这个问题的最后一个条件没？这个条件就启发我们从第一个问题的答案，暴力调整左、右端点，去得到第二个问题的答案，以此类推。</p>
+<p>这种暴力做法的复杂度一般为 $O($ 任意相邻两个问题的左、右端点差之和 $)$。</p>
+<p>而这个算法可以用一种数据卡掉：</p>
+<ul>
+<li>左、右端点的值的最大值 $n$ 调到最大，把询问次数 $q$ 也调到最大。</li>
+<li>然后的 $q$ 次询问里，交替询问 $1 \sim n$ 和 $n \sim n$。</li>
+</ul>
+<p>于是，复杂度被卡到 $O(qn)$。</p>
+<h3 id="text-stylecolorrgb0150136-一次优化"><text style="color:rgb(0,150,136)"> 一次优化</h3>
+<p>这个做法的复杂度是无法接受的，所以我们考虑优化。</p>
+<p>我们不如把所有询问离线，然后考虑交换询问处理的顺序以减少复杂度。</p>
+<p>一种方式就是把左、右端点分别作为第一、二关键字，然后做排序。</p>
+<p>但这样就会被排序后所有询问的右端点一大一小的数据卡到 $O(qn)$ 的复杂度。</p>
+<h3 id="text-stylecolorrgb0150136-二次优化"><text style="color:rgb(0,150,136)"> 二次优化</h3>
+<p>这样排序还是不好，还是会被卡掉，于是我们考虑变换比较函数。</p>
+<p>直接双关键字比较不好，那我们就分块后进行双关键字比较。</p>
+<p>具体地，遇到两个询问，先按左端点所属块编号从小到大排序，如果相同，则按右端点（不是所属块编号，是原本的下标）从小到大排序。</p>
+<p>这样的话，复杂度就是 $O(n \sqrt n+q \sqrt n)$ 的复杂度了。</p>
+<h2 id="text-stylecolorrgb0150136-做法复杂度证明"><text style="color:rgb(0,150,136)"> 做法复杂度证明</h2>
+<p>这个复杂度很多人看了都不理解，这里就证明一下。</p>
+<p>（如果没有以下证明，很多人都会认为，这个复杂度还是 $O(qn)$ 的，从而失去很多AC题的机会，所以一定要认真理解）</p>
+<p>（我也吃过这个亏，所以有了上面那句话）</p>
+<p>我们仿照双指针证明方式，分别去看左、右端点的总变化次数。</p>
+<h3 id="text-stylecolorrgb0150136-右端点"><text style="color:rgb(0,150,136)"> 右端点</h3>
+<p>先看右端点移动次数，因为比较好证明。</p>
+<p>首先我们看左端点在同一个块内，右端点最多变化几次，显然最多 $O(n)$ 次，一共 $O(\sqrt n)$ 个块，所以这部分总复杂度 $O(n \sqrt n)$。</p>
+<p>接下来看左端点换到另一个块的时候，最多变化几次。</p>
+<p>显然还是 $O(n)$ 次最多，而左端点最多会进行 $O(\sqrt n)$ 次“换块”的过程，所以这部分复杂度也是 $O(n \sqrt n)$。</p>
+<p>所以右端点最多 $O(n \sqrt n)$ 次移动。</p>
+<h3 id="text-stylecolorrgb0150136-左端点"><text style="color:rgb(0,150,136)"> 左端点</h3>
+<p>再看比较难证明的右端点移动次数。</p>
+<p>我们首先看左端点在“换块”的过程中总共会变化几次，显然最多总共变化 $O(n)$ 次。</p>
+<p>接下来看左端点在同一个块内，从前到后总共会变化多少次，显然一次变化最多 $O(\sqrt n)$ 次，最坏情况下所有询问左端点都在同一个块中，所以变化次数最多就 $O(q)$ 次。</p>
+<p>所以右端点最多 $O(q \sqrt n)$ 次移动。</p>
+<p>证毕。</p>
+<h1 id="text-stylecolorrgb0150136-莫队常数优化"><text style="color:rgb(0,150,136)"> 莫队常数优化</h1>
+<p>莫队可以配合很多东西，但如果配合的算法常数大，我们就要对莫队算法本身做优化了。</p>
+<p>据教练实测，这种常数优化能优化一倍常数。</p>
+<h2 id="text-stylecolorrgb0150136-复杂度瓶颈"><text style="color:rgb(0,150,136)"> 复杂度瓶颈</h2>
+<p>首先，我们看上面做法的复杂度慢在哪儿了。</p>
+<p>回顾上述证明过程，我们分几个部分来看总复杂度：</p>
+<ol>
+<li>左端点变化总数：
+<ol>
+<li>同块最多共变化 $O(q \sqrt n)$ 次。</li>
+<li>换块最多共变化 $O(n)$ 次。</li>
+</ol>
+</li>
+<li>右端点变化总数：
+<ol>
+<li>同块最多共变化 $O(n \sqrt n)$ 次。</li>
+<li>换块最多共变化 $O(n \sqrt n)$ 次。</li>
+</ol>
+</li>
+</ol>
+<p>可以发现，复杂度常数大就大在右端点的变化次数上，这里有两倍的常数。</p>
+<p>同块的变化总次数已经最优了，无法优化；但换块过程的总次数是可以更优的。</p>
+<h2 id="text-stylecolorrgb0150136-右端点变化"><text style="color:rgb(0,150,136)"> 右端点变化</h2>
+<p>我们把右端点变化的过程画出来：</p>
+<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/m9fgz075.png" alt=""></p>
+<p>我们标注一下：</p>
+<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/91pbpqcf.png" alt=""></p>
+<p>可以发现，每次换块，右端点都要“从头再来”，而降低这个过程所需时间，就可以减少常数。</p>
+<p>我们可以考虑按左端点所在块的编号 $x$ 分别考虑，如果左端点所在块的编号不同，还是按编号从小到大排序，否则：</p>
+<ul>
+<li>如果 $x$ 为奇数，则按右端点从小到大排序。</li>
+<li>如果 $x$ 为偶数，则按右端点从大到小排序。</li>
+</ul>
+<p>这下，这个右端点的变化图就变了：</p>
+<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/1hdt1qsh.png" alt=""></p>
+<p>而这下常数就少了。</p>
+<h1 id="text-stylecolorrgb0150136-高维莫队"><text style="color:rgb(0,150,136)"> 高维莫队</h1>
+<p>此处以三维莫队为例。</p>
+<p>三维莫队是说每次修改给你 $(l,r,t)$ 三个参数，让你查询所有满足 $x&rsquo; \in [l,r]$ 且 $t&rsquo; \leq t$ 的 $(x&rsquo;,t&rsquo;)$ 数对的某个权值（此处举个例子）。</p>
+<p>这种情况下咋做呢？其实和二维莫队是差不多的。</p>
+<p>我们设计一个块大小 $B$，然后先按 $l$ 所在块从小到大排序，然后按 $r$ 所在块从小到大排序，如果都相同，就按 $t$ 从小到大排序。</p>
+<p>设块数为 $C$，我们尝试计算一下复杂度。</p>
+<ol>
+<li>我们先看一下 $t$ 指针移动的总复杂度：
+<blockquote>
+<p>显然对于每个不同的 $(\text{bel}_l,\text{bel}_r)$（$\text{bel}_i$ 表示 $i$ 所在块），$t$ 最坏会从最小值移动到最大值（$O(n \times C^2)$ 复杂度）；然后在换块的时候，再从最大值移动到最小值（$O(n \times C^2)$ 复杂度）。</p>
+<p>此处设 $l$、$r$、$t$ 的最大值都是 $n$，那么 $t$ 指针的复杂度就是 $O(nC^2)$。</p></blockquote>
+</li>
+<li>我们再看一下 $r$ 指针移动的总复杂度：
+<blockquote>
+<p>在 $\text{bel}_l$ 变化时，$r$ 最坏会从最大值移动到最小值（$O(nC)$ 复杂度）；而在 $\text{bel}_l$ 不变时，如果 $\text{bel}_r$ 也不变，则 $r$ 每次变化最多 $B$（$O(nB)$ 复杂度，注意不是 $O(BC^2)$）；但如果 $\text{bel}_r$ 变化，则 $r$ 变化最多 $2B$（$O(BC^2)$ 复杂度）。</p>
+<p>由于 $O(BC)=O(n)$，所以最后一部分的复杂度就是 $O(BC^2)=O(nC)$；且根据上面复杂度 $O(nC^2)$，我们猜测 $B&gt;C$（因为后面要复杂度均衡）；所以 $r$ 指针的复杂度就是 $O(nB)$。</p></blockquote>
+</li>
+<li>最后看一下 $l$ 指针移动的总复杂度：
+<blockquote>
+<p>在 $\text{bel}_l$ 变化时，$l$ 会变化 $2B$ 次（$O(BC)$ 复杂度）；而在 $\text{bel}_l$ 不变时，$l$ 每次变化最多 $B$ 次（$O(nB)$ 复杂度）。</p>
+<p>综上所述，$l$ 指针的复杂度就是 $O(nB)$。</p></blockquote>
+</li>
+</ol>
+<p>然后，我们的目标就是设计 $B$ 和 $C$ 的值，使得这三个部分的复杂度相同。</p>
+<p>即 $O(nC^2)=O(nB)=O(nB)$，同时要保证 $BC=n$。</p>
+<p>最后一项重复，直接删去，然后把 $n$ 一消，即可得到 $O(C^2)=O(B)$。</p>
+<p>由于要保证 $BC=n$，所以 $B=n^{\frac{2}{3}}$，$C=n^{\frac{1}{3}}$。</p>
+<p>而复杂度就是 $O(nB)$，即 $O(nC^2)$，带入后得到复杂度为 $O(n \times n^{\frac{2}{3}})=O(n^{\frac{5}{3}})$。</p>
+<p>（这个复杂度在 $n=10^5$ 的时候大约为 $2.1 \times 10^8$，在 $n=5 \times 10^4$ 的时候大约为 $6.7 \times 10^7$）</p>
+<p>同理，还可以得到四维莫队复杂度为 $O(n^{\frac{7}{4}})$，$k$ 维莫队复杂度为 $O(n^{\frac{2k-1}{k}})$。</p>
+<p>（四维莫队复杂度在 $n=10^5$ 的时候大约为 $5.6 \times 10^8$，在 $n=5 \times 10^4$ 的时候大约为 $1.6 \times 10^8$，在 $n=10^4$ 的时候为 $10^7$）</p>
+<p>（所以，莫队到四维已经和 $O(n^2)$ 算法差不多了，到五维的时候就根本没必要了，这种情况下就另辟蹊径，或者考虑降维了）</p>
+<h1 id="text-stylecolorrgb0150136-带修莫队"><text style="color:rgb(0,150,136)"> 带修莫队</h1>
+<p>其实所谓的带修莫队，就是三维莫队。</p>
+<p>我们给每个输入的修改和查询都附上时刻参数，意思就是在这个时刻进行修改/查询。</p>
+<p>然后，在时刻自增时，把这个时刻上的修改操作加入考虑范围；在自减时，就踢出考虑范围。</p>
+<p>所以就可以写出代码了，参考M2613。</p>
+<h1 id="text-stylecolorrgb0150136-树上莫队"><text style="color:rgb(0,150,136)"> 树上莫队</h1>
+<p>众所周知，树上莫队只能解决序列问题，但如果搬到树上呢？就需要加一层特殊处理。</p>
+<p>在将这种处理方式前，先引入一个知识点。</p>
+<h2 id="text-stylecolorrgb0150136-括号序"><text style="color:rgb(0,150,136)"> 括号序</h2>
+<p>括号序也是遍历树得到的序列种类之一。</p>
+<h3 id="text-stylecolorrgb0150136-三大遍历序"><text style="color:rgb(0,150,136)"> 三大遍历序</h3>
+<h4 id="text-stylecolorrgb0150136-实现方式"><text style="color:rgb(0,150,136)"> 实现方式</h4>
+<p>我目前了解到的有三大遍历序：（下面每个代码里的<code>v</code>都是一个<code>vector</code>，为对应遍历序列）</p>
+<ol>
+<li>
+<p>欧拉序（又称“DFS序”）</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">dfs</span>(LL x, LL fa){
+</span></span><span style="display:flex;"><span>    v <span style="color:#f92672">+=</span> x;
+</span></span><span style="display:flex;"><span>    erg(i, pre, x){
+</span></span><span style="display:flex;"><span>        LL to <span style="color:#f92672">=</span> a[i].to;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(to <span style="color:#f92672">==</span> fa) <span style="color:#66d9ef">continue</span>;
+</span></span><span style="display:flex;"><span>        dfs(to, x);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></li>
+<li>
+<p>扩展欧拉序（又称“exDFS序”）</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">dfs</span>(LL x, LL fa){
+</span></span><span style="display:flex;"><span>    v <span style="color:#f92672">+=</span> x;
+</span></span><span style="display:flex;"><span>    erg(i, pre, x){
+</span></span><span style="display:flex;"><span>        LL to <span style="color:#f92672">=</span> a[i].to;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(to <span style="color:#f92672">==</span> fa) <span style="color:#66d9ef">continue</span>;
+</span></span><span style="display:flex;"><span>        dfs(to, x);
+</span></span><span style="display:flex;"><span>        v <span style="color:#f92672">+=</span> x;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></li>
+<li>
+<p>括号序</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">dfs</span>(LL x, LL fa){
+</span></span><span style="display:flex;"><span>    v <span style="color:#f92672">+=</span> x;
+</span></span><span style="display:flex;"><span>    erg(i, pre, x){
+</span></span><span style="display:flex;"><span>        LL to <span style="color:#f92672">=</span> a[i].to;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(to <span style="color:#f92672">==</span> fa) <span style="color:#66d9ef">continue</span>;
+</span></span><span style="display:flex;"><span>        dfs(to, x);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    v <span style="color:#f92672">+=</span> x;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></li>
+</ol>
+<h4 id="text-stylecolorrgb0150136-性质与应用场景"><text style="color:rgb(0,150,136)"> 性质与应用场景</h4>
+<p>同时，每个遍历序都有自己的性质和应用场景：</p>
+<ol>
+<li>欧拉序：
+<ul>
+<li>对于一个子树，子树内所有节点的欧拉序连续。</li>
+<li>所以如果把每个节点编号替换成其欧拉序，那么可以直接用树状数组/线段树解决：
+<ul>
+<li>单点修改节点权值。</li>
+<li>查询子树内所有节点权值的和/最值/异或和等。</li>
+</ul>
+</li>
+<li><em>（待补充）</em></li>
+</ul>
+</li>
+<li>扩展欧拉序：
+<ul>
+<li>对于一棵树上的任意两个点，这两点在扩展欧拉序上第一次出现的位置组成的区间内深度最小的点就是LCA。</li>
+<li>所以可以用RMQ更快地解决LCA问题。</li>
+<li><em>（待补充）</em></li>
+</ul>
+</li>
+<li>括号序：
+<ul>
+<li>对于树上的链，有一个特殊性质，见下。</li>
+<li>所以可以解决树上与链相关的问题，不过比较局限，因为上面说的“性质”很复杂。</li>
+<li><em>（待补充）</em></li>
+</ul>
+</li>
+</ol>
+<h3 id="text-stylecolorrgb0150136-括号序的特殊性质"><text style="color:rgb(0,150,136)"> 括号序的特殊性质</h3>
+<p>下面说一下括号序的几个特殊性质。</p>
+<p>可以发现，每个点在括号序上一定都只出现过刚好 $2$ 次，设点 $x$ 第一次出现在位置 $\text{lef}_x$ 上，第二次出现在位置 $\text{rig}_x$ 上。</p>
+<p>然后，我们考虑对于一棵树上的两点 $x$、$y$，考虑在括号序上表示点 $x$ 到 $y$ 的路径上的所有点。</p>
+<p>我们分几种情况：</p>
+<ol>
+<li>如果点 $x$ 和 $y$ 是祖先后代关系（设 $x$ 为 $y$ 的祖先）：
+<ul>
+<li>在括号序的第 $\text{lef}_x \sim \text{lef}_y$ 个位置里，出现过奇数次的所有点，就是点 $x$ 到 $y$ 的路径上的所有点。</li>
+</ul>
+</li>
+<li>如果点 $x$ 和 $y$ 没有任何关系：
+<ul>
+<li>在括号序的第 $\text{rig}_x \sim \text{lef}_y$ 个位置里，出现过奇数次的所有点，加上点 $\text{lca}(x,y)$，就是点 $x$ 到 $y$ 的路径上的所有点。</li>
+</ul>
+</li>
+</ol>
+<p>比如，这棵树：</p>
+<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/rgjlbdvc.png" alt=""></p>
+<p>的括号序就是 $[1,2,3,4,4,3,5,6,6,7,7,5,2,1]$。</p>
+<p>那么，如果 $x=2,y=6$，则我们看的就是第 $2 \sim 8$ 个位置，出现过奇数次的节点有 $2$、$5$、$6$，正确。</p>
+<p>还比如如果 $x=4,y=7$，则我们看的就是第 $5 \sim 10$ 个位置，出现过奇数次的节点有 $3$、$4$、$5$、$7$，加上 $\text{lca}(x,y)=2$，正确。</p>
+<p>可以发现，这个性质一定成立。</p>
+<h2 id="text-stylecolorrgb0150136-处理方式"><text style="color:rgb(0,150,136)"> 处理方式</h2>
+<p>讲完括号序后，我们回到上面说的“处理方式”。</p>
+<h3 id="text-stylecolorrgb0150136-方式简述"><text style="color:rgb(0,150,136)"> 方式简述</h3>
+<p>根据上面说的性质，你应该就猜到了所谓的方式是啥了。</p>
+<p>我们就把括号序求出，然后把询问变成三个参数：</p>
+<ul>
+<li>$l$、$r$：我们看的是括号序的第 $l \sim r$ 个位置。</li>
+<li>$k$：而且不仅要考虑这些位置内出现奇数次的点，还要考虑第 $k$ 个点。</li>
+</ul>
+<p>其中，如果 $k=-1$，则不用多考虑。</p>
+<p>此时，我们就可以用莫队直接处理了。</p>
+<h3 id="text-stylecolorrgb0150136-代码细节"><text style="color:rgb(0,150,136)"> 代码细节</h3>
+<p>我们可以用莫队维护 $l$ 和 $r$ 端点，每次添加/删除一个括号序上的下标时，看这个下标上的值（点编号，设为 $x$）出现过的次数的奇偶性来看要加入 $x$ 点的影响还是要剔除 $x$ 点的影响。</p>
+<p>此外，在调整完 $l$、$r$ 端点，处理完修改（如果有）之后，我们还要临时加入点 $k$（注意，不是下标 $k$）的影响，然后将答案存入数组，并在存入后，重新删除点 $k$ 的影响。</p>
+<p>其他细节见M2621的代码（为树上带修莫队）。</p>
+<h1 id="text-stylecolorrgb0150136-回滚莫队"><text style="color:rgb(0,150,136)"> 回滚莫队</h1>
+<p>解决完特殊题型后，我们再回头看普通莫队的变种——回滚莫队。</p>
+<p>老规矩，先说题型。</p>
+<h2 id="text-stylecolorrgb0150136-解决题型-1"><text style="color:rgb(0,150,136)"> 解决题型</h2>
+<p>在很多题里，你会发现，莫队的<code>add</code>函数很好实现，但<code>del</code>函数却很难实现。</p>
+<p>此时，我们就要用到回滚莫队了。</p>
+<h2 id="text-stylecolorrgb0150136-概览-1"><text style="color:rgb(0,150,136)"> 概览</h2>
+<p>其实回滚莫队的思想很简单，就是通过某种方式让整个莫队里只有<code>add</code>操作。</p>
+<p>但这样还是不能实现，我们就再加一个<code>undo</code>操作（撤销操作）。</p>
+<p>接下来可以看回滚莫队的算法实现了。</p>
+<h2 id="text-stylecolorrgb0150136-实现"><text style="color:rgb(0,150,136)"> 实现</h2>
+<h3 id="text-stylecolorrgb0150136-存储修改"><text style="color:rgb(0,150,136)"> 存储修改</h3>
+<p>在将回滚莫队前，我们要先修改一下原本传统的存储询问结构。</p>
+<p>我们要先分块，然后把左端点所在块相同的询问，存到一起。</p>
+<p>并且，对于左端点在同一个块的询问，按右端点从小到大排序。</p>
+<p>那有人就问了，这样做的用处是啥？接下来你就知道了。</p>
+<h3 id="text-stylecolorrgb0150136-同块处理"><text style="color:rgb(0,150,136)"> 同块处理</h3>
+<p>接下来，我们来枚举左端点所在块 $i$，并循环所有询问左端点为 $i$ 的询问 $[l,r]$。</p>
+<p>那么如果说 $l$ 和 $r$ 在同一个块中，那么直接循环每个 $i \in [l,r]$，并将下标 $i$ 加入影响即可。</p>
+<p>全部加入后，直接把答案存储，并重新撤销全部。</p>
+<h3 id="text-stylecolorrgb0150136-异块处理"><text style="color:rgb(0,150,136)"> 异块处理</h3>
+<p>但如果 $l$ 和 $r$ 不在同一个块中呢？其实也能处理的。</p>
+<p>我们设当前考虑的下标区间为 $[nl,nr]$，初始的时候 $nr$ 为块 $i$ 的右端点，并且 $nl=nr+1$，此时考虑范围为空区间。</p>
+<p>（如果说不允许空区间，可以干脆把 $nl$ 设为 $nr$，而不是 $nr+1$，同样可以执行下面做法）</p>
+<p>然后，由于已经将询问右端点 $r$ 从小到大排序了，所以 $nr$ 必然只会递增，也只会添加元素。</p>
+<p>循环到这个询问时，直接暴力调整 $nr$ 即可。</p>
+<p>接下来考虑调整 $nl$。</p>
+<p>为了方便处理，我们在调整并存入答案后，要把对 $nl$ 的所有修改撤销，让 $nl$ 重新等于初始值。</p>
+<p>所以，这里我们就假设 $nl$ 为初始值。</p>
+<p>那调整就可以直接调整即可。</p>
+<h3 id="text-stylecolorrgb0150136-总结"><text style="color:rgb(0,150,136)"> 总结</h3>
+<p>可以发现，上面并没有涉及删除下标操作，只有加入下标和撤销操作。</p>
+<p>撤销操作可以 $O(1)$ 执行，所以复杂度和普通莫队复杂度相同。</p>
+<h2 id="text-stylecolorrgb0150136-细节"><text style="color:rgb(0,150,136)"> 细节</h2>
+<p>上面说要对于每个左端点所在块都分别存储，那我们就要定义 $\sqrt n$ 个<code>vector</code>，或者 $\sqrt n$ 个长度为 $n$ 的数组。</p>
+<p>这样的话，不是常数大，就是空间大。</p>
+<p>我们不如直接把每个询问一股脑加入一个数组内，并按左端点所在块排序，如果相同按右端点排序。</p>
+<p>然后，在处理时，就可以直接循环，只用判断左端点所在块有没有变化即可。</p>
+<p>具体细节见M2622的代码。</p>
+<h1 id="text-stylecolorrgb0150136-莫队二次离线"><text style="color:rgb(0,150,136)"> 莫队二次离线</h1>
+<p><em>（该算法属于NOI级别算法，将来会补充）</em></p>
+
+        
+    </div>
+
+    <div class="prev-next">
+        
+    </div>
+
+    
+    
+    
+</div>
+
+<aside class="post-toc">
+    <nav id="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#text-stylecolorrgb0150136-普通莫队算法"><text style="color:rgb(0,150,136)"> 普通莫队算法</a>
+      <ul>
+        <li><a href="#text-stylecolorrgb0150136-概览"><text style="color:rgb(0,150,136)"> 概览</a></li>
+        <li><a href="#text-stylecolorrgb0150136-解决题型"><text style="color:rgb(0,150,136)"> 解决题型</a></li>
+        <li><a href="#text-stylecolorrgb0150136-解决方法"><text style="color:rgb(0,150,136)"> 解决方法</a>
+          <ul>
+            <li><a href="#text-stylecolorrgb0150136-暴力做法"><text style="color:rgb(0,150,136)"> 暴力做法</a></li>
+            <li><a href="#text-stylecolorrgb0150136-一次优化"><text style="color:rgb(0,150,136)"> 一次优化</a></li>
+            <li><a href="#text-stylecolorrgb0150136-二次优化"><text style="color:rgb(0,150,136)"> 二次优化</a></li>
+          </ul>
+        </li>
+        <li><a href="#text-stylecolorrgb0150136-做法复杂度证明"><text style="color:rgb(0,150,136)"> 做法复杂度证明</a>
+          <ul>
+            <li><a href="#text-stylecolorrgb0150136-右端点"><text style="color:rgb(0,150,136)"> 右端点</a></li>
+            <li><a href="#text-stylecolorrgb0150136-左端点"><text style="color:rgb(0,150,136)"> 左端点</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#text-stylecolorrgb0150136-莫队常数优化"><text style="color:rgb(0,150,136)"> 莫队常数优化</a>
+      <ul>
+        <li><a href="#text-stylecolorrgb0150136-复杂度瓶颈"><text style="color:rgb(0,150,136)"> 复杂度瓶颈</a></li>
+        <li><a href="#text-stylecolorrgb0150136-右端点变化"><text style="color:rgb(0,150,136)"> 右端点变化</a></li>
+      </ul>
+    </li>
+    <li><a href="#text-stylecolorrgb0150136-高维莫队"><text style="color:rgb(0,150,136)"> 高维莫队</a></li>
+    <li><a href="#text-stylecolorrgb0150136-带修莫队"><text style="color:rgb(0,150,136)"> 带修莫队</a></li>
+    <li><a href="#text-stylecolorrgb0150136-树上莫队"><text style="color:rgb(0,150,136)"> 树上莫队</a>
+      <ul>
+        <li><a href="#text-stylecolorrgb0150136-括号序"><text style="color:rgb(0,150,136)"> 括号序</a>
+          <ul>
+            <li><a href="#text-stylecolorrgb0150136-三大遍历序"><text style="color:rgb(0,150,136)"> 三大遍历序</a>
+              <ul>
+                <li><a href="#text-stylecolorrgb0150136-实现方式"><text style="color:rgb(0,150,136)"> 实现方式</a></li>
+                <li><a href="#text-stylecolorrgb0150136-性质与应用场景"><text style="color:rgb(0,150,136)"> 性质与应用场景</a></li>
+              </ul>
+            </li>
+            <li><a href="#text-stylecolorrgb0150136-括号序的特殊性质"><text style="color:rgb(0,150,136)"> 括号序的特殊性质</a></li>
+          </ul>
+        </li>
+        <li><a href="#text-stylecolorrgb0150136-处理方式"><text style="color:rgb(0,150,136)"> 处理方式</a>
+          <ul>
+            <li><a href="#text-stylecolorrgb0150136-方式简述"><text style="color:rgb(0,150,136)"> 方式简述</a></li>
+            <li><a href="#text-stylecolorrgb0150136-代码细节"><text style="color:rgb(0,150,136)"> 代码细节</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#text-stylecolorrgb0150136-回滚莫队"><text style="color:rgb(0,150,136)"> 回滚莫队</a>
+      <ul>
+        <li><a href="#text-stylecolorrgb0150136-解决题型-1"><text style="color:rgb(0,150,136)"> 解决题型</a></li>
+        <li><a href="#text-stylecolorrgb0150136-概览-1"><text style="color:rgb(0,150,136)"> 概览</a></li>
+        <li><a href="#text-stylecolorrgb0150136-实现"><text style="color:rgb(0,150,136)"> 实现</a>
+          <ul>
+            <li><a href="#text-stylecolorrgb0150136-存储修改"><text style="color:rgb(0,150,136)"> 存储修改</a></li>
+            <li><a href="#text-stylecolorrgb0150136-同块处理"><text style="color:rgb(0,150,136)"> 同块处理</a></li>
+            <li><a href="#text-stylecolorrgb0150136-异块处理"><text style="color:rgb(0,150,136)"> 异块处理</a></li>
+            <li><a href="#text-stylecolorrgb0150136-总结"><text style="color:rgb(0,150,136)"> 总结</a></li>
+          </ul>
+        </li>
+        <li><a href="#text-stylecolorrgb0150136-细节"><text style="color:rgb(0,150,136)"> 细节</a></li>
+      </ul>
+    </li>
+    <li><a href="#text-stylecolorrgb0150136-莫队二次离线"><text style="color:rgb(0,150,136)"> 莫队二次离线</a></li>
+  </ul>
+</nav>
+    </nav>
+</aside>
+
+
+
+    
+
+        </main><footer class="footer">
+    
+    
+
+    
+
+    
+
+    
+
+    <span>
+        Made with &#10084;&#65039; using <a target="_blank" href="https://github.com/gokarna-theme/gokarna-hugo">Gokarna</a>
+    </span>
+</footer>
+</body>
+</html>

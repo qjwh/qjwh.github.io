@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        :root {
+            --accent-color: #FF4D4D;
+            --font-size: 17.5px;
+        }
+    </style>
+
+    
+    
+    
+    
+    
+    
+
+    
+    <title>阶和原根</title>
+    <meta name="description" content="按照正常的思路我们都直接将算法，但这会先讲一道题，然后再讲它的定义和求法。
+参考：
+ABC335G题解 阶和原根 背景 是一场ABC335里的G题，当时在赛场上大概留了一个多小时的时间，但一直都在想用BSGS，但显然最后没想出来。
+而这题的瓶颈就在下面问题：
+对于两个数 $a,b$，是否存在一个 $x$ …">
+    <meta name="keywords" content='信息学竞赛, 算法学习笔记'>
+
+    <meta property="og:url" content="https://qjwh.github.io/posts/aln_orderandpr/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="阶和原根">
+    <meta property="og:description" content="按照正常的思路我们都直接将算法，但这会先讲一道题，然后再讲它的定义和求法。
+参考：
+ABC335G题解 阶和原根 背景 是一场ABC335里的G题，当时在赛场上大概留了一个多小时的时间，但一直都在想用BSGS，但显然最后没想出来。
+而这题的瓶颈就在下面问题：
+对于两个数 $a,b$，是否存在一个 $x$ …">
+    <meta property="og:image" content="https://qjwh.github.io/">
+    <meta property="og:image:secure_url" content="https://qjwh.github.io/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="阶和原根">
+    <meta name="twitter:description" content="按照正常的思路我们都直接将算法，但这会先讲一道题，然后再讲它的定义和求法。
+参考：
+ABC335G题解 阶和原根 背景 是一场ABC335里的G题，当时在赛场上大概留了一个多小时的时间，但一直都在想用BSGS，但显然最后没想出来。
+而这题的瓶颈就在下面问题：
+对于两个数 $a,b$，是否存在一个 $x$ …">
+    <meta property="twitter:domain" content="https://qjwh.github.io/posts/aln_orderandpr/">
+    <meta property="twitter:url" content="https://qjwh.github.io/posts/aln_orderandpr/">
+    <meta name="twitter:image" content="https://qjwh.github.io/">
+
+    
+    <link rel="canonical" href="https://qjwh.github.io/posts/aln_orderandpr/">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/normalize.min.css" media="print">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/main.min.css">
+
+    
+    <link id="dark-theme" rel="stylesheet" href="/css/dark.min.css">
+
+    
+    <script src="/js/bundle.min.ad84dd09e60165f836ea08a26f86608c070e127d21ac6ab168c87da076554d87.js" integrity="sha256-rYTdCeYBZfg26giib4ZgjAcOEn0hrGqxaMh9oHZVTYc="></script>
+
+    
+    
+        <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          // customised options
+          // ? auto-render specific keys, e.g.:
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false},
+          ],
+          // ? rendering keys, e.g.:
+          throwOnError : false
+        });
+      });
+    </script>
+  
+    
+</head>
+<body>
+        <script>
+            
+            setThemeByUserPref();
+        </script><header class="header">
+    <nav class="header-nav">
+
+        
+
+        <div class="nav-title">
+            <a class="nav-brand" href="https://qjwh.github.io/">CXBlog</a>
+        </div>
+
+        <div class="nav-links">
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/" aria-label="home" >      <i data-feather="home"></i>
+      <script>
+        feather.replace();
+      </script>
+       首页
+      </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/posts" aria-label="posts" >      <i data-feather="book"></i>
+      <script>
+        feather.replace();
+      </script>
+       文章
+      </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/tags" aria-label="tags" >      <i data-feather="tag"></i>
+      <script>
+        feather.replace();
+      </script>
+       标签
+      </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/about" aria-label="about" >      <i data-feather="info"></i>
+      <script>
+        feather.replace();
+      </script>
+       关于
+      </a>
+            </div>
+            
+
+            <span class="nav-icons-divider"></span>
+            <div class="nav-link dark-theme-toggle">
+                <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                <a aria-hidden="true" role="switch">
+                    <span class="theme-toggle-icon" data-feather="moon"></span>
+                </a>
+            </div>
+
+            <div class="nav-link" id="hamburger-menu-toggle">
+                <span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
+                <a aria-checked="false" aria-labelledby="hamburger-menu-toggle" id="hamburger-menu-toggle-target" role="switch">
+                    <span data-feather="menu"></span>
+                </a>
+            </div>
+
+            
+            <ul class="nav-hamburger-list visibility-hidden">
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/" >      <i data-feather="home"></i>
+      <script>
+        feather.replace();
+      </script>
+       首页
+      </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/posts" >      <i data-feather="book"></i>
+      <script>
+        feather.replace();
+      </script>
+       文章
+      </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/tags" >      <i data-feather="tag"></i>
+      <script>
+        feather.replace();
+      </script>
+       标签
+      </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/about" >      <i data-feather="info"></i>
+      <script>
+        feather.replace();
+      </script>
+       关于
+      </a>
+                </li>
+                
+                <li class="nav-item dark-theme-toggle">
+                    <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                    <a role="switch">
+                        <span class="theme-toggle-icon" data-feather="moon"></span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</header>
+<main id="content">
+    <div class="post container">
+    <div class="post-header-section">
+        <h1>阶和原根</h1>
+
+        
+
+        
+	
+	
+	
+	
+        
+
+	
+
+	
+
+	
+          <small role="doc-subtitle"></small>
+	
+
+	
+          <p class="post-date">
+              
+
+              February 9, 2025
+
+              
+          </p>
+	
+
+        <ul class="post-tags">
+          
+           
+             <li class="post-tag"><a href="https://qjwh.github.io/tags/%E4%BF%A1%E6%81%AF%E5%AD%A6%E7%AB%9E%E8%B5%9B">信息学竞赛</a></li>
+           
+         
+           
+             <li class="post-tag"><a href="https://qjwh.github.io/tags/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0">算法学习笔记</a></li>
+           
+         
+        </ul>
+    </div>
+
+    <div class="post-content">
+        <text style="font-family:Noto Sans SC">
+<p>按照正常的思路我们都直接将算法，但这会先讲一道题，然后再讲它的定义和求法。</p>
+<p>参考：</p>
+<ul>
+<li><a href="https://zhuanlan.zhihu.com/p/676549667">ABC335G题解</a></li>
+<li><a href="https://www.cnblogs.com/ac-evil/p/12809289.html">阶和原根</a></li>
+</ul>
+<h2 id="text-stylecolorrgb0150136-背景"><text style="color:rgb(0,150,136)"> 背景</h2>
+<p>是一场<a href="https://atcoder.jp/contests/abc335">ABC335</a>里的<a href="https://atcoder.jp/contests/abc335/tasks/abc335_g">G题</a>，当时在赛场上大概留了一个多小时的时间，但一直都在想用<a href="/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/BSGS%E7%AE%97%E6%B3%95%EF%BC%88%E5%88%9D%E7%89%88%EF%BC%89.md">BSGS</a>，但显然最后没想出来。</p>
+<p>而这题的瓶颈就在下面问题：</p>
+<blockquote>
+<p>对于两个数 $a,b$，是否存在一个 $x$ 使得同余方程 $a^x \equiv b \pmod p$ 有解。</p>
+<p>$a,b,p \leq 10^{13}$（原题数据范围）</p></blockquote>
+<p>大家看到的第一眼显然可以用<a href="/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/BSGS%E7%AE%97%E6%B3%95%EF%BC%88%E5%88%9D%E7%89%88%EF%BC%89.md">BSGS</a>求。</p>
+<p>但这个算法是 $O(\sqrt p)$ 的（如果涉及到具体实现的话，可能还得乘个 $\log \sqrt p$，就是<code>set</code>、<code>lower_bound</code>查找的复杂度），比较适用于单组询问，很难推广应用。</p>
+<p>所以还有另外一种方式，比较适用于多组询问。</p>
+<p>是我们求出来 $a$ 和 $b$ 的阶，即 $\text{ord}_p a$ 和 $\text{ord}_p b$，看 $\text{ord}_p b$ 是否是 $\text{ord}_p a$ 的因子（$\text{ord}_p b \mid \text{ord}_p a$）即可。</p>
+<p>这里先不证这个结论是否正确，但相信大家第一次看到“阶”的时候定然是一头雾水的，下面我就来说一下它的定义和求法。</p>
+<h2 id="text-stylecolorrgb0150136-定义"><text style="color:rgb(0,150,136)"> 定义</h2>
+<h3 id="text-stylecolorrgb0150136-阶"><text style="color:rgb(0,150,136)"> 阶</h3>
+<p>阶的话，跟逆元相似，还是需要两个值，只不过这里叫做“$a$ 在模 $p$ 意义下的<strong>阶</strong>”而已，换汤不换料。</p>
+<p>这个表示方法就是 $\text{ord}_p a$。</p>
+<p>它的定义是：</p>
+<ul>
+<li>给你整数 $a$、$p$。</li>
+<li>找到最小的 $x$，使得同余方程 $a^x \equiv 1 \pmod p$ 成立。</li>
+<li>这个 $x$，就是$a$ 在模 $p$ 意义下的阶。</li>
+</ul>
+<h3 id="text-stylecolorrgb0150136-原根"><text style="color:rgb(0,150,136)"> 原根</h3>
+<p>但说到阶，我们定要讲一下它的孪生兄弟，原根了。</p>
+<p>原根的定义就是若 $\text{ord}_p a=\varphi(p)$，则称“$a$ 是 $p$ 的原根”。</p>
+<h2 id="text-stylecolorrgb0150136-性质"><text style="color:rgb(0,150,136)"> 性质</h2>
+<p>阶和原根的定义都很简单，接下来说一下它们的性质。</p>
+<h3 id="text-stylecolorrgb0150136-阶-1"><text style="color:rgb(0,150,136)"> 阶</h3>
+<p>首先，根据欧拉定理：</p>
+<blockquote>
+<p>对于任意两个互质的数 $a$ 和 $p$，$a^x \equiv 1 \pmod p$ 方程必然有解 $x=\varphi(p)$。</p></blockquote>
+<p>在 $a$ 和 $p$ 互质的时候，阶显然存在。</p>
+<p>但阶不一定是欧拉给出的解，但一定满足一个条件：</p>
+<ul>
+<li>$\text{ord}_p a$ 是 $\varphi(p)$ 的因子（$\text{ord}_p a \mid \varphi(p)$）。</li>
+</ul>
+<p>根据阶的定义，我们还可以得到两个推论：</p>
+<ul>
+<li>$a^1,a^2,a^3, \dots a^{\text{ord}_p a}$ 在模 $p$ 意义下互不相等。</li>
+<li>$a^x \equiv a^y \pmod p \Leftrightarrow x \equiv y \pmod {\text{ord}_p a}$，充分必要条件。</li>
+</ul>
+<p>还有很多的结论，具体可以看第二个参考文章。</p>
+<h3 id="text-stylecolorrgb0150136-原根-1"><text style="color:rgb(0,150,136)"> 原根</h3>
+<p>这里的性质认为不太会考，所以没写。</p>
+<p>还是看第二个参考文章，里面也有证明。</p>
+<h2 id="text-stylecolorrgb0150136-求值"><text style="color:rgb(0,150,136)"> 求值</h2>
+<p>最后就是求值。</p>
+<h3 id="text-stylecolorrgb0150136-阶-2"><text style="color:rgb(0,150,136)"> 阶</h3>
+<p>由于 $\text{ord}_p a \mid \varphi(p)$，所以只要求出 $\varphi(p)$（多数时候 $p$ 都保证是质数，直接带 $p-1$ 即可），遍历其所有因子验证即可。</p>
+<p>但这里也有个技巧，就是因子不用一个一个遍历，显然 $\text{ord}_p a$ 具有因子上的单调关系。</p>
+<blockquote>
+<p>说一下，正常情况下二分等算法都是“值上的单调关系”，就是 $x$ 成立，$x+k$（$k \geq 0$）也一定成立。</p>
+<p>而“倍数上的单调关系”意思是 $x$ 成立，那么 $xk$（$k \geq 1$）也成立。</p>
+<p>这里的“因子上的单调关系”意思是 $x$ 成立，那么 $\dfrac{x}{k}$（$k \geq 1$）也成立。</p></blockquote>
+<p>所以只要做一下因式分解，然后从 $\varphi(p)$ 开始，将这些质因子一个一个尝试除以即可。</p>
+<p>具体可以看参考文章，里面有代码。</p>
+<p>另外，阶还有一个特性，就是种类特别少，其实也能理解，因为本来因子就少。</p>
+<p>所以完全可以把所有的阶取出来后，去个重再计算。</p>
+<h3 id="text-stylecolorrgb0150136-原根-2"><text style="color:rgb(0,150,136)"> 原根</h3>
+<p>由于原根数量很多，分布均匀，所以直接暴力求即可。</p>
+
+        
+    </div>
+
+    <div class="prev-next">
+        
+    </div>
+
+    
+    
+    
+</div>
+
+<aside class="post-toc">
+    <nav id="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#text-stylecolorrgb0150136-背景"><text style="color:rgb(0,150,136)"> 背景</a></li>
+        <li><a href="#text-stylecolorrgb0150136-定义"><text style="color:rgb(0,150,136)"> 定义</a>
+          <ul>
+            <li><a href="#text-stylecolorrgb0150136-阶"><text style="color:rgb(0,150,136)"> 阶</a></li>
+            <li><a href="#text-stylecolorrgb0150136-原根"><text style="color:rgb(0,150,136)"> 原根</a></li>
+          </ul>
+        </li>
+        <li><a href="#text-stylecolorrgb0150136-性质"><text style="color:rgb(0,150,136)"> 性质</a>
+          <ul>
+            <li><a href="#text-stylecolorrgb0150136-阶-1"><text style="color:rgb(0,150,136)"> 阶</a></li>
+            <li><a href="#text-stylecolorrgb0150136-原根-1"><text style="color:rgb(0,150,136)"> 原根</a></li>
+          </ul>
+        </li>
+        <li><a href="#text-stylecolorrgb0150136-求值"><text style="color:rgb(0,150,136)"> 求值</a>
+          <ul>
+            <li><a href="#text-stylecolorrgb0150136-阶-2"><text style="color:rgb(0,150,136)"> 阶</a></li>
+            <li><a href="#text-stylecolorrgb0150136-原根-2"><text style="color:rgb(0,150,136)"> 原根</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </nav>
+</aside>
+
+
+
+    
+
+        </main><footer class="footer">
+    
+    
+
+    
+
+    
+
+    
+
+    <span>
+        Made with &#10084;&#65039; using <a target="_blank" href="https://github.com/gokarna-theme/gokarna-hugo">Gokarna</a>
+    </span>
+</footer>
+</body>
+</html>

@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        :root {
+            --accent-color: #FF4D4D;
+            --font-size: 17.5px;
+        }
+    </style>
+
+    
+    
+    
+    
+    
+    
+
+    
+    <title>欧拉函数</title>
+    <meta name="description" content="欧拉函数记为 $\varphi$，$\varphi(n)$ 代表 $1 \sim n$ 内与 $n$ 互质的数的个数。
+欧拉函数有两种求法，下面分别说：
+直接求 我们设 $p$ 为 $n$ 的质因子集合（非可重集），那么 $\varphi(n)=n \times \prod\limits_{x \in p} …">
+    <meta name="keywords" content='信息学竞赛, 算法学习笔记'>
+
+    <meta property="og:url" content="https://qjwh.github.io/posts/aln_eulerfunc/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="欧拉函数">
+    <meta property="og:description" content="欧拉函数记为 $\varphi$，$\varphi(n)$ 代表 $1 \sim n$ 内与 $n$ 互质的数的个数。
+欧拉函数有两种求法，下面分别说：
+直接求 我们设 $p$ 为 $n$ 的质因子集合（非可重集），那么 $\varphi(n)=n \times \prod\limits_{x \in p} …">
+    <meta property="og:image" content="https://qjwh.github.io/">
+    <meta property="og:image:secure_url" content="https://qjwh.github.io/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="欧拉函数">
+    <meta name="twitter:description" content="欧拉函数记为 $\varphi$，$\varphi(n)$ 代表 $1 \sim n$ 内与 $n$ 互质的数的个数。
+欧拉函数有两种求法，下面分别说：
+直接求 我们设 $p$ 为 $n$ 的质因子集合（非可重集），那么 $\varphi(n)=n \times \prod\limits_{x \in p} …">
+    <meta property="twitter:domain" content="https://qjwh.github.io/posts/aln_eulerfunc/">
+    <meta property="twitter:url" content="https://qjwh.github.io/posts/aln_eulerfunc/">
+    <meta name="twitter:image" content="https://qjwh.github.io/">
+
+    
+    <link rel="canonical" href="https://qjwh.github.io/posts/aln_eulerfunc/">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/normalize.min.css" media="print">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/main.min.css">
+
+    
+    <link id="dark-theme" rel="stylesheet" href="/css/dark.min.css">
+
+    
+    <script src="/js/bundle.min.ad84dd09e60165f836ea08a26f86608c070e127d21ac6ab168c87da076554d87.js" integrity="sha256-rYTdCeYBZfg26giib4ZgjAcOEn0hrGqxaMh9oHZVTYc="></script>
+
+    
+    
+        <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          // customised options
+          // ? auto-render specific keys, e.g.:
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false},
+          ],
+          // ? rendering keys, e.g.:
+          throwOnError : false
+        });
+      });
+    </script>
+  
+    
+</head>
+<body>
+        <script>
+            
+            setThemeByUserPref();
+        </script><header class="header">
+    <nav class="header-nav">
+
+        
+
+        <div class="nav-title">
+            <a class="nav-brand" href="https://qjwh.github.io/">CXBlog</a>
+        </div>
+
+        <div class="nav-links">
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/" aria-label="home" >      <i data-feather="home"></i>
+      <script>
+        feather.replace();
+      </script>
+       首页
+      </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/posts" aria-label="posts" >      <i data-feather="book"></i>
+      <script>
+        feather.replace();
+      </script>
+       文章
+      </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/tags" aria-label="tags" >      <i data-feather="tag"></i>
+      <script>
+        feather.replace();
+      </script>
+       标签
+      </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/about" aria-label="about" >      <i data-feather="info"></i>
+      <script>
+        feather.replace();
+      </script>
+       关于
+      </a>
+            </div>
+            
+
+            <span class="nav-icons-divider"></span>
+            <div class="nav-link dark-theme-toggle">
+                <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                <a aria-hidden="true" role="switch">
+                    <span class="theme-toggle-icon" data-feather="moon"></span>
+                </a>
+            </div>
+
+            <div class="nav-link" id="hamburger-menu-toggle">
+                <span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
+                <a aria-checked="false" aria-labelledby="hamburger-menu-toggle" id="hamburger-menu-toggle-target" role="switch">
+                    <span data-feather="menu"></span>
+                </a>
+            </div>
+
+            
+            <ul class="nav-hamburger-list visibility-hidden">
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/" >      <i data-feather="home"></i>
+      <script>
+        feather.replace();
+      </script>
+       首页
+      </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/posts" >      <i data-feather="book"></i>
+      <script>
+        feather.replace();
+      </script>
+       文章
+      </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/tags" >      <i data-feather="tag"></i>
+      <script>
+        feather.replace();
+      </script>
+       标签
+      </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/about" >      <i data-feather="info"></i>
+      <script>
+        feather.replace();
+      </script>
+       关于
+      </a>
+                </li>
+                
+                <li class="nav-item dark-theme-toggle">
+                    <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                    <a role="switch">
+                        <span class="theme-toggle-icon" data-feather="moon"></span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</header>
+<main id="content">
+    <div class="post container">
+    <div class="post-header-section">
+        <h1>欧拉函数</h1>
+
+        
+
+        
+	
+	
+	
+	
+        
+
+	
+
+	
+
+	
+          <small role="doc-subtitle"></small>
+	
+
+	
+          <p class="post-date">
+              
+
+              February 9, 2025
+
+              
+          </p>
+	
+
+        <ul class="post-tags">
+          
+           
+             <li class="post-tag"><a href="https://qjwh.github.io/tags/%E4%BF%A1%E6%81%AF%E5%AD%A6%E7%AB%9E%E8%B5%9B">信息学竞赛</a></li>
+           
+         
+           
+             <li class="post-tag"><a href="https://qjwh.github.io/tags/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0">算法学习笔记</a></li>
+           
+         
+        </ul>
+    </div>
+
+    <div class="post-content">
+        <p>欧拉函数记为 $\varphi$，$\varphi(n)$ 代表 $1 \sim n$ 内与 $n$ 互质的数的个数。</p>
+<p>欧拉函数有两种求法，下面分别说：</p>
+<h3 id="直接求">直接求</h3>
+<p>我们设 $p$ 为 $n$ 的质因子集合（非可重集），那么 $\varphi(n)=n \times \prod\limits_{x \in p} \left( \dfrac{x-1}{x} \right)$，原理：</p>
+<blockquote>
+<p>我们设 $s$ 为目前与 $n$ 互质的数的集合，初始为 ${ 1,2,\dots,n }$。</p>
+<p>每次遍历到一个 $p$ 中的数 $x$，就会筛掉这个集合中 $\dfrac{1}{x}$ 的数，即那些是 $x$ 的倍数的数，由于 $p$ 是去重后的质因子集合，所以当前集合的大小总是 $x$ 的倍数。</p>
+<p>所以这个做法就能证明了，每乘一次 $\dfrac{x-1}{x}$，都相当于筛掉当前集合内 $\dfrac{1}{x}$ 的数，集合大小动态维护。</p></blockquote>
+<p>模板代码：（代码中的 $p$ 数组是提前筛出来的质数集合，$ind$ 为其大小）</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>LL <span style="color:#a6e22e">phi</span>(LL n){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(n <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    LL ret <span style="color:#f92672">=</span> n;
+</span></span><span style="display:flex;"><span>    rep(i, <span style="color:#ae81ff">1</span>, ind){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(n <span style="color:#f92672">%</span> p[i] <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) ret <span style="color:#f92672">=</span> ret <span style="color:#f92672">*</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> ret <span style="color:#f92672">/</span> p[i], n <span style="color:#f92672">/=</span> p[i];
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span>(n <span style="color:#f92672">%</span> p[i] <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) n <span style="color:#f92672">/=</span> p[i];
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(n <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>) ret <span style="color:#f92672">=</span> ret <span style="color:#f92672">*</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> ret <span style="color:#f92672">/</span> n;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> ret;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="通过线性筛预处理">通过线性筛预处理</h3>
+<p>线性筛模板：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">shai</span>(LL n){
+</span></span><span style="display:flex;"><span>    f[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> f[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> true;
+</span></span><span style="display:flex;"><span>    rep(i, <span style="color:#ae81ff">2</span>, n){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span>f[i]) p[<span style="color:#f92672">++</span>ind] <span style="color:#f92672">=</span> i;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(LL j <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;i <span style="color:#f92672">*</span> p[j] <span style="color:#f92672">&lt;=</span> n;j<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>            f[i <span style="color:#f92672">*</span> p[j]] <span style="color:#f92672">=</span> true;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(i <span style="color:#f92672">%</span> p[j] <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>线性筛有一个性质，就是在第二重循环里，每次都会筛掉数 $i \times p_j$，而 $p_j$ 正是这个数（$i \times p_j$）的最小质因子。</p>
+<p>而欧拉函数是一个积性函数（定义一个函数 $f$ 是个积性函数有且仅当对于所有互质的对 $(i,j)$ 都满足 $f(i \times j)=f(i) \times f(j)$，而定义一个函数 $f$ 是个完全积性函数有且仅当对于所有的对 $(i,j)$ 都满足 $f(i \times j)=f(i) \times f(j)$，显然完全积性函数就是积性函数），所以我们就可以在线性筛模板的基础上改一下就是求欧拉函数的函数了：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">shai</span>(LL n){
+</span></span><span style="display:flex;"><span>    f[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> f[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> true;
+</span></span><span style="display:flex;"><span>    rep(i, <span style="color:#ae81ff">2</span>, n){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span>f[i]){
+</span></span><span style="display:flex;"><span>            p[<span style="color:#f92672">++</span>ind] <span style="color:#f92672">=</span> i;
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">//显然
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            phi[i] <span style="color:#f92672">=</span> i <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(LL j <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;i <span style="color:#f92672">*</span> p[j] <span style="color:#f92672">&lt;=</span> n;j<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>            f[i <span style="color:#f92672">*</span> p[j]] <span style="color:#f92672">=</span> true;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(i <span style="color:#f92672">%</span> p[j] <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>){
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">//由于i%p[j]=0，所以i中也存在质因子p[j]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                <span style="color:#75715e">//所以，i*p[j]和i的质因子集合并没有变化，只是值乘了p[j]而已
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                <span style="color:#75715e">//简单想一下可以发现，其实phi[i*p[j]]就是phi[i]的p[j]倍
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                phi[i <span style="color:#f92672">*</span> p[j]] <span style="color:#f92672">=</span> phi[i] <span style="color:#f92672">*</span> p[j];
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">//积性函数性质
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            phi[i <span style="color:#f92672">*</span> p[j]] <span style="color:#f92672">=</span> phi[i] <span style="color:#f92672">*</span> phi[p[j]];
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>
+        
+    </div>
+
+    <div class="prev-next">
+        
+    </div>
+
+    
+    
+    
+</div>
+
+<aside class="post-toc">
+    <nav id="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#直接求">直接求</a></li>
+            <li><a href="#通过线性筛预处理">通过线性筛预处理</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </nav>
+</aside>
+
+
+
+    
+
+        </main><footer class="footer">
+    
+    
+
+    
+
+    
+
+    
+
+    <span>
+        Made with &#10084;&#65039; using <a target="_blank" href="https://github.com/gokarna-theme/gokarna-hugo">Gokarna</a>
+    </span>
+</footer>
+</body>
+</html>

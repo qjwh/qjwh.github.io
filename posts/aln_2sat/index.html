@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        :root {
+            --accent-color: #FF4D4D;
+            --font-size: 17.5px;
+        }
+    </style>
+
+    
+    
+    
+    
+    
+    
+
+    
+    <title>2-SAT算法</title>
+    <meta name="description" content="前言 2-SAT中的SAT是适定性（Satisfiability）问题的简称，一般形式为 $k$ - 适定性问题，简称 $k$ - SAT，但由于 $k&gt;2$ 时问题为NP完全问题（只有指数级别复杂度的解法，或者多项式级别复杂度的相似解法），而 $k=1$ 时都不用解了 （废话） ，所以下面全部考虑 $k=2$ …">
+    <meta name="keywords" content='信息学竞赛, 算法学习笔记'>
+
+    <meta property="og:url" content="https://qjwh.github.io/posts/aln_2sat/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="2-SAT算法">
+    <meta property="og:description" content="前言 2-SAT中的SAT是适定性（Satisfiability）问题的简称，一般形式为 $k$ - 适定性问题，简称 $k$ - SAT，但由于 $k&gt;2$ 时问题为NP完全问题（只有指数级别复杂度的解法，或者多项式级别复杂度的相似解法），而 $k=1$ 时都不用解了 （废话） ，所以下面全部考虑 $k=2$ …">
+    <meta property="og:image" content="https://qjwh.github.io/">
+    <meta property="og:image:secure_url" content="https://qjwh.github.io/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="2-SAT算法">
+    <meta name="twitter:description" content="前言 2-SAT中的SAT是适定性（Satisfiability）问题的简称，一般形式为 $k$ - 适定性问题，简称 $k$ - SAT，但由于 $k&gt;2$ 时问题为NP完全问题（只有指数级别复杂度的解法，或者多项式级别复杂度的相似解法），而 $k=1$ 时都不用解了 （废话） ，所以下面全部考虑 $k=2$ …">
+    <meta property="twitter:domain" content="https://qjwh.github.io/posts/aln_2sat/">
+    <meta property="twitter:url" content="https://qjwh.github.io/posts/aln_2sat/">
+    <meta name="twitter:image" content="https://qjwh.github.io/">
+
+    
+    <link rel="canonical" href="https://qjwh.github.io/posts/aln_2sat/">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/normalize.min.css" media="print">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/main.min.css">
+
+    
+    <link id="dark-theme" rel="stylesheet" href="/css/dark.min.css">
+
+    
+    <script src="/js/bundle.min.ad84dd09e60165f836ea08a26f86608c070e127d21ac6ab168c87da076554d87.js" integrity="sha256-rYTdCeYBZfg26giib4ZgjAcOEn0hrGqxaMh9oHZVTYc="></script>
+
+    
+    
+        <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          // customised options
+          // ? auto-render specific keys, e.g.:
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false},
+          ],
+          // ? rendering keys, e.g.:
+          throwOnError : false
+        });
+      });
+    </script>
+  
+    
+</head>
+<body>
+        <script>
+            
+            setThemeByUserPref();
+        </script><header class="header">
+    <nav class="header-nav">
+
+        
+
+        <div class="nav-title">
+            <a class="nav-brand" href="https://qjwh.github.io/">CXBlog</a>
+        </div>
+
+        <div class="nav-links">
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/" aria-label="home" >      <i data-feather="home"></i>
+      <script>
+        feather.replace();
+      </script>
+       首页
+      </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/posts" aria-label="posts" >      <i data-feather="book"></i>
+      <script>
+        feather.replace();
+      </script>
+       文章
+      </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/tags" aria-label="tags" >      <i data-feather="tag"></i>
+      <script>
+        feather.replace();
+      </script>
+       标签
+      </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/about" aria-label="about" >      <i data-feather="info"></i>
+      <script>
+        feather.replace();
+      </script>
+       关于
+      </a>
+            </div>
+            
+
+            <span class="nav-icons-divider"></span>
+            <div class="nav-link dark-theme-toggle">
+                <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                <a aria-hidden="true" role="switch">
+                    <span class="theme-toggle-icon" data-feather="moon"></span>
+                </a>
+            </div>
+
+            <div class="nav-link" id="hamburger-menu-toggle">
+                <span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
+                <a aria-checked="false" aria-labelledby="hamburger-menu-toggle" id="hamburger-menu-toggle-target" role="switch">
+                    <span data-feather="menu"></span>
+                </a>
+            </div>
+
+            
+            <ul class="nav-hamburger-list visibility-hidden">
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/" >      <i data-feather="home"></i>
+      <script>
+        feather.replace();
+      </script>
+       首页
+      </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/posts" >      <i data-feather="book"></i>
+      <script>
+        feather.replace();
+      </script>
+       文章
+      </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/tags" >      <i data-feather="tag"></i>
+      <script>
+        feather.replace();
+      </script>
+       标签
+      </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/about" >      <i data-feather="info"></i>
+      <script>
+        feather.replace();
+      </script>
+       关于
+      </a>
+                </li>
+                
+                <li class="nav-item dark-theme-toggle">
+                    <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                    <a role="switch">
+                        <span class="theme-toggle-icon" data-feather="moon"></span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</header>
+<main id="content">
+    <div class="post container">
+    <div class="post-header-section">
+        <h1>2-SAT算法</h1>
+
+        
+
+        
+	
+	
+	
+	
+        
+
+	
+
+	
+
+	
+          <small role="doc-subtitle"></small>
+	
+
+	
+          <p class="post-date">
+              
+
+              February 9, 2025
+
+              
+          </p>
+	
+
+        <ul class="post-tags">
+          
+           
+             <li class="post-tag"><a href="https://qjwh.github.io/tags/%E4%BF%A1%E6%81%AF%E5%AD%A6%E7%AB%9E%E8%B5%9B">信息学竞赛</a></li>
+           
+         
+           
+             <li class="post-tag"><a href="https://qjwh.github.io/tags/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0">算法学习笔记</a></li>
+           
+         
+        </ul>
+    </div>
+
+    <div class="post-content">
+        <text style="font-family:Noto Sans SC">
+<h2 id="text-stylecolorrgb0150136-前言"><text style="color:rgb(0,150,136)"> 前言</h2>
+<p>2-SAT中的SAT是适定性（Satisfiability）问题的简称，一般形式为 $k$ - 适定性问题，简称 $k$ - SAT，但由于 $k&gt;2$ 时问题为NP完全问题（只有指数级别复杂度的解法，或者多项式级别复杂度的<strong>相似</strong>解法），而 $k=1$ 时都不用解了 <del>（废话）</del> ，所以下面全部考虑 $k=2$ 的情况。</p>
+<h2 id="text-stylecolorrgb0150136-定义"><text style="color:rgb(0,150,136)"> 定义</h2>
+<p>2-SAT问题简单来说就是，有 $n$ 个集合，每个集合包含两个元素（集合 $i$ 包含元素 $2i-1$ 和 $2i$，但其实编号是无关紧要的，任意都行），你必须要在<strong>每个</strong>集合里分别选择<strong>刚好</strong>一个元素，但某些元素之间可能有矛盾，即这两个元素不能在一种方案里被同时选择，问你是否有解，报告出来，如果有解，输出一种方案（可能不用输出）。</p>
+<h2 id="text-stylecolorrgb0150136-题目"><text style="color:rgb(0,150,136)"> 题目</h2>
+<p>看上面的定义可能有点难懂，这里举个题目。</p>
+<p>有一场宴会，这场宴会只有 $n$ 对幸运夫妻可以参加，每对夫妻里只能选择<strong>刚好</strong>一个人去参加这场宴会。</p>
+<p>但部分人之间可能有矛盾，会给出所有有矛盾的两人编号。</p>
+<p>问你，是否可以构造一种合法方案，如果不行，报告无解，否则输出一种方案。</p>
+<h2 id="text-stylecolorrgb0150136-解法"><text style="color:rgb(0,150,136)"> 解法</h2>
+<p>（下面统一默认要解决的是实际问题，不是定义里的问题）</p>
+<h3 id="text-stylecolorrgb0150136-定义点边"><text style="color:rgb(0,150,136)"> 定义点、边</h3>
+<p>我们考虑把夫妻编个名字：</p>
+<ul>
+<li>第一对夫妻：A男、A女</li>
+<li>第二对夫妻：B男、B女</li>
+<li>第三对夫妻：C男、C女</li>
+<li>以此类推</li>
+</ul>
+<p>然后，我们考虑建图。</p>
+<p>但这个建图就要用到一点思维了。</p>
+<p>我们不以其他的定义定义点，我们就把一个点当做一个<strong>现实</strong>。</p>
+<p>比如：</p>
+<ul>
+<li>$1$ 号点代表第一对夫妻是A男参与宴会，$2$ 号点代表A女参与宴会</li>
+<li>$3$ 号点代表第二对夫妻是B男参与宴会，$4$ 号点代表B女参与宴会</li>
+<li>$5$ 号点代表第三对夫妻是C男参与宴会，$6$ 号点代表C女参与宴会</li>
+<li>以此类推</li>
+</ul>
+<p>边的定义也很难思考出：</p>
+<ul>
+<li>一条<strong>有向边</strong> $u \to v$，代表现实 $u$ <strong>满足</strong>了，现实 $v$ 也要<strong>满足</strong>。</li>
+</ul>
+<h4 id="text-stylecolorrgb0150136-举个例子"><text style="color:rgb(0,150,136)"> 举个例子</h4>
+<p>所以，如果说A男和B女、C男和A女之间都有矛盾，那么就需要在：</p>
+<ul>
+<li>A男、B男（如果A男参与宴会，那么因为有矛盾，B女就不能参与宴会，就需要B男去）</li>
+<li>B女、A女（如果B女参与宴会，那么因为有矛盾，A男就不能参与宴会，就需要A女去）</li>
+<li>C男、A男（如果C男参与宴会，那么因为有矛盾，A女就不能参与宴会，就需要A男去）</li>
+<li>A女、C女（如果A女参与宴会，那么因为有矛盾，C男就不能参与宴会，就需要C女去）</li>
+</ul>
+<p>之间连边。</p>
+<p>换到图上就是要连：</p>
+<ul>
+<li>$1 \to 3$</li>
+<li>$4 \to 2$</li>
+<li>$5 \to 1$</li>
+<li>$2 \to 6$</li>
+</ul>
+<h3 id="text-stylecolorrgb0150136-建图后的处理输出答案"><text style="color:rgb(0,150,136)"> 建图后的处理、输出答案</h3>
+<p>我们可以先考虑对这个有向图做个SCC缩点。</p>
+<p>根据SCC性质，以及边定义具有传递性的性质（如果 $a \to b$ 有边，$b \to c$ 有边，那么 $a \to c$ 之间也可以加边，而不影响答案），只要一个SCC中有一个现实满足了，其他现实都得满足。</p>
+<p>所以，一个SCC里要么就是所有现实都不满足，要么就是全部满足，不可能有部分满足的情况，显然。</p>
+<h4 id="text-stylecolorrgb0150136-判断是否有解"><text style="color:rgb(0,150,136)"> 判断是否有解</h4>
+<p>于是乎，我们就判断一下，一个SCC里是否有同一对夫妻参与宴会的现实对应的两个点（可能有点难懂）。</p>
+<p>如果有，那么根据上一行里写的性质，这一对夫妻要么都参与宴会，要么都不参与，永远不可能满足题目条件。</p>
+<p>所以，我们只用循环每个SCC，然后：</p>
+<ul>
+<li>清空标记数组</li>
+<li>循环当前SCC内的每个点
+<ul>
+<li>标记这个点对应夫妻编号</li>
+<li>如果在标记前，这对夫妻已经被标记过
+<ul>
+<li>输出无解</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>如果到最后都没有说无解
+<ul>
+<li>输出有解</li>
+</ul>
+</li>
+</ul>
+<h4 id="text-stylecolorrgb0150136-输出方案"><text style="color:rgb(0,150,136)"> 输出方案</h4>
+<p>而判断有解后如何构造一种方案输出呢？见下。</p>
+<p>这个输出方案的思路非常妙，也比较难理解。</p>
+<p>我们一对一对夫妻地考虑。</p>
+<p>我们找到这一对夫妻里两个人对应的节点编号 $x$（男性去参加宴会）、$y$（女性去参加宴会），那么一个结论就是，把缩点后的图跑个拓扑排序，如果说 $x$ 所属SCC的拓扑序，比 $y$ 所属SCC的拓扑序，要大，那么就让 $x$ 对应现实满足（男性去参加宴会），否则就让 $y$ 对应现实满足（女性去参加宴会）。</p>
+<p>由于SCC缩点的模板中，缩完点后，这张DAG的拓扑序就是所有SCC编号反向后的结果（设最大编号为 $n$，那么拓扑序就是 $[n,n-1,n-2,n-3,\dots,2,1]$），所以如果说 $x$ 所属SCC的编号比 $y$ 所属SCC的编号要小，那么就让男性去参加，否则让女性，显然。</p>
+<p>为啥这样是对的呢？我们考虑证明一下：</p>
+<blockquote>
+<h4 id="text-stylecolorrgb0150136-性质1"><text style="color:rgb(0,150,136)"> 性质1</h4>
+<p>（下面假设拓扑排序就是用的通用模板）</p>
+<p>对于一个DAG，其拓扑排序的过程就是一个BFS的变种。</p>
+<p>即，我们把这个DAG分层后，按层去往拓扑序序列里加点，得到的最终序列就是拓扑序。</p>
+<p>一个节点被分到哪一层，全部取决于这个节点距离任意一个入度为 $0$ 的点的最长路的最大值；特殊地，本身入度就为 $0$ 的点被分到了第 $0$ 层。</p>
+<blockquote>
+<p>有人问，为啥要用最长路作为编号，而不是最短路？原因见下。</p>
+<p>由于是按照层去编号拓扑序的，所以这种分层方案必须要满足：</p>
+<ul>
+<li>对于每条边 $u \to v$，$u$ 所处层必须要严格小于 $v$ 所处层。</li>
+</ul>
+<p>所以，我们其实就只需要证明，最长路满足上述条件，但最短路不满足</p>
+<hr>
+<p>我们先证明最长路是正确的。</p>
+<p>考虑反证法。</p>
+<p>如果说对于某条边 $u \to v$，不满足上述条件，我们考虑证明这个现象不存在。</p>
+<p>我们求出 $u$ 对应的层 $dis_u$，那么在跑Dijkstra（准确来说是SPFA）算法时，必然会执行语句 $dis_v=\max(dis_v,dis_u+1)$，显然。</p>
+<p>所以，最终 $dis_v \geq dis_u+1$（$dis_v&gt;dis_u$）一定满足，显然。</p>
+<p>这个一定满足的条件也就说明，$v$ 所在层（$dis_v$），一定比 $u$ 所在层（$dis_u$）要大。</p>
+<p>也即，$u$ 所处层严格小于 $v$ 所处层。</p>
+<p>与假设矛盾，证毕。</p>
+<hr>
+<p>我们再证明最短路是错误的。</p>
+<p>$dis_v=\max(dis_v,dis_u+1)$前面的过程先跳过，我们考虑语句 $dis_v=\max(dis_v,dis_u+1)$，在使用最短路时，会变成 $dis_v=\min(dis_v,dis_u+1)$。</p>
+<p>所以，在使用最短路作为层数的时候，只能保证 $dis_v \leq dis_u+1$，不一定满足上述条件。</p>
+<p>虽然说是<strong>不一定</strong>满足上述条件，但可能错误是不可改变的现实，所以最短路不可取，证毕。</p></blockquote>
+<p>如：</p>
+<img src="https://cdn.luogu.com.cn/upload/image_hosting/860jl5zu.png" width="55%">
+<p>的分层方案就是：</p>
+<img src="https://cdn.luogu.com.cn/upload/image_hosting/g9mpbv47.png" width="55%">
+<p>所以拓扑序：（下面只是一种方案）</p>
+<img src="https://cdn.luogu.com.cn/upload/image_hosting/054lnk5u.png" width="55%">
+<p>此时有人就问了，说这个有啥用？待会儿你就知道了。</p>
+<hr>
+<h4 id="text-stylecolorrgb0150136-性质2"><text style="color:rgb(0,150,136)"> 性质2</h4>
+<p>有了这个结论的基础，我们就可以大胆猜想一个推论：</p>
+<blockquote>
+<p>如果说 $x$ 点的拓扑序比 $y$ 点大，那么一定满足下面两个条件之一：</p>
+<ul>
+<li>$x$ 和 $y$ 之间没有路径。</li>
+<li>有从 $y$ 到 $x$ 的有向路径，但没有反向路径（从 $x$ 到 $y$ 的路径）。</li>
+</ul></blockquote>
+<p>这个是很好证明对于任何拓扑序都满足的，所以此处略。</p>
+<hr>
+<h4 id="text-stylecolorrgb0150136-正式证明"><text style="color:rgb(0,150,136)"> 正式证明</h4>
+<p>（上面所有的 $x$、$y$ 都是设的变量，但下面的 $x$、$y$ 则是做法里的两个现实分别对应的编号）</p>
+<p>有了这两个结论的基础，我们就可以开始证明这个做法的正确性了。</p>
+<p>根据性质2，如果说 $x$ 点的拓扑序比 $y$ 点大，那么就有两种情况，只要分别证明即可。</p>
+<p>对于情况1，两点之间没有路径，那么无论是 $x$ 点对应现实满足，还是 $y$ 点，都是可行的，证毕。</p>
+<p>对于情况2，有从 $y$ 到 $x$ 的右项路径，但没有反向路径，那么根据连边具有传递性的性质，如果 $y$ 对应现实满足，$x$ 也要满足，不符合题目条件；但如果说 $x$ 对应现实满足，那么我们完全可以说 $y$ 对应现实不满足，此时就满足题目条件了，证毕。</p>
+<p>两种情况都满足，证毕。</p></blockquote>
+<p>证明完后，直接按上述过程搞即可得到最终方案。</p>
+
+        
+    </div>
+
+    <div class="prev-next">
+        
+    </div>
+
+    
+    
+    
+</div>
+
+<aside class="post-toc">
+    <nav id="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#text-stylecolorrgb0150136-前言"><text style="color:rgb(0,150,136)"> 前言</a></li>
+        <li><a href="#text-stylecolorrgb0150136-定义"><text style="color:rgb(0,150,136)"> 定义</a></li>
+        <li><a href="#text-stylecolorrgb0150136-题目"><text style="color:rgb(0,150,136)"> 题目</a></li>
+        <li><a href="#text-stylecolorrgb0150136-解法"><text style="color:rgb(0,150,136)"> 解法</a>
+          <ul>
+            <li><a href="#text-stylecolorrgb0150136-定义点边"><text style="color:rgb(0,150,136)"> 定义点、边</a>
+              <ul>
+                <li><a href="#text-stylecolorrgb0150136-举个例子"><text style="color:rgb(0,150,136)"> 举个例子</a></li>
+              </ul>
+            </li>
+            <li><a href="#text-stylecolorrgb0150136-建图后的处理输出答案"><text style="color:rgb(0,150,136)"> 建图后的处理、输出答案</a>
+              <ul>
+                <li><a href="#text-stylecolorrgb0150136-判断是否有解"><text style="color:rgb(0,150,136)"> 判断是否有解</a></li>
+                <li><a href="#text-stylecolorrgb0150136-输出方案"><text style="color:rgb(0,150,136)"> 输出方案</a></li>
+                <li><a href="#text-stylecolorrgb0150136-性质1"><text style="color:rgb(0,150,136)"> 性质1</a></li>
+                <li><a href="#text-stylecolorrgb0150136-性质2"><text style="color:rgb(0,150,136)"> 性质2</a></li>
+                <li><a href="#text-stylecolorrgb0150136-正式证明"><text style="color:rgb(0,150,136)"> 正式证明</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </nav>
+</aside>
+
+
+
+    
+
+        </main><footer class="footer">
+    
+    
+
+    
+
+    
+
+    
+
+    <span>
+        Made with &#10084;&#65039; using <a target="_blank" href="https://github.com/gokarna-theme/gokarna-hugo">Gokarna</a>
+    </span>
+</footer>
+</body>
+</html>

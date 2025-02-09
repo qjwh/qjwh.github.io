@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        :root {
+            --accent-color: #FF4D4D;
+            --font-size: 17.5px;
+        }
+    </style>
+
+    
+    
+    
+    
+    
+    
+
+    
+    <title>树链剖分</title>
+    <meta name="description" content="第一次看到树链剖分（简称树剖）可能觉得它非常的深奥，但其实树剖的原理非常简单，下面先说树剖大概的实现思路和解决题型。
+概览 其实树剖就是把一棵树分成若干条链，使得每个点都出现在了刚好一条链上。
+并且，我们称在某条链上的边为“重（zhòng）边”，不在任何一条链上的边为“轻边”。
+然后，我们按某种规则去DFS，求出新 …">
+    <meta name="keywords" content='信息学竞赛, 算法学习笔记'>
+
+    <meta property="og:url" content="https://qjwh.github.io/posts/aln_treechaindivision/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="树链剖分">
+    <meta property="og:description" content="第一次看到树链剖分（简称树剖）可能觉得它非常的深奥，但其实树剖的原理非常简单，下面先说树剖大概的实现思路和解决题型。
+概览 其实树剖就是把一棵树分成若干条链，使得每个点都出现在了刚好一条链上。
+并且，我们称在某条链上的边为“重（zhòng）边”，不在任何一条链上的边为“轻边”。
+然后，我们按某种规则去DFS，求出新 …">
+    <meta property="og:image" content="https://qjwh.github.io/">
+    <meta property="og:image:secure_url" content="https://qjwh.github.io/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="树链剖分">
+    <meta name="twitter:description" content="第一次看到树链剖分（简称树剖）可能觉得它非常的深奥，但其实树剖的原理非常简单，下面先说树剖大概的实现思路和解决题型。
+概览 其实树剖就是把一棵树分成若干条链，使得每个点都出现在了刚好一条链上。
+并且，我们称在某条链上的边为“重（zhòng）边”，不在任何一条链上的边为“轻边”。
+然后，我们按某种规则去DFS，求出新 …">
+    <meta property="twitter:domain" content="https://qjwh.github.io/posts/aln_treechaindivision/">
+    <meta property="twitter:url" content="https://qjwh.github.io/posts/aln_treechaindivision/">
+    <meta name="twitter:image" content="https://qjwh.github.io/">
+
+    
+    <link rel="canonical" href="https://qjwh.github.io/posts/aln_treechaindivision/">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/normalize.min.css" media="print">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/main.min.css">
+
+    
+    <link id="dark-theme" rel="stylesheet" href="/css/dark.min.css">
+
+    
+    <script src="/js/bundle.min.ad84dd09e60165f836ea08a26f86608c070e127d21ac6ab168c87da076554d87.js" integrity="sha256-rYTdCeYBZfg26giib4ZgjAcOEn0hrGqxaMh9oHZVTYc="></script>
+
+    
+    
+        <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          // customised options
+          // ? auto-render specific keys, e.g.:
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false},
+          ],
+          // ? rendering keys, e.g.:
+          throwOnError : false
+        });
+      });
+    </script>
+  
+    
+</head>
+<body>
+        <script>
+            
+            setThemeByUserPref();
+        </script><header class="header">
+    <nav class="header-nav">
+
+        
+
+        <div class="nav-title">
+            <a class="nav-brand" href="https://qjwh.github.io/">CXBlog</a>
+        </div>
+
+        <div class="nav-links">
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/" aria-label="home" >      <i data-feather="home"></i>
+      <script>
+        feather.replace();
+      </script>
+       首页
+      </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/posts" aria-label="posts" >      <i data-feather="book"></i>
+      <script>
+        feather.replace();
+      </script>
+       文章
+      </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/tags" aria-label="tags" >      <i data-feather="tag"></i>
+      <script>
+        feather.replace();
+      </script>
+       标签
+      </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/about" aria-label="about" >      <i data-feather="info"></i>
+      <script>
+        feather.replace();
+      </script>
+       关于
+      </a>
+            </div>
+            
+
+            <span class="nav-icons-divider"></span>
+            <div class="nav-link dark-theme-toggle">
+                <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                <a aria-hidden="true" role="switch">
+                    <span class="theme-toggle-icon" data-feather="moon"></span>
+                </a>
+            </div>
+
+            <div class="nav-link" id="hamburger-menu-toggle">
+                <span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
+                <a aria-checked="false" aria-labelledby="hamburger-menu-toggle" id="hamburger-menu-toggle-target" role="switch">
+                    <span data-feather="menu"></span>
+                </a>
+            </div>
+
+            
+            <ul class="nav-hamburger-list visibility-hidden">
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/" >      <i data-feather="home"></i>
+      <script>
+        feather.replace();
+      </script>
+       首页
+      </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/posts" >      <i data-feather="book"></i>
+      <script>
+        feather.replace();
+      </script>
+       文章
+      </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/tags" >      <i data-feather="tag"></i>
+      <script>
+        feather.replace();
+      </script>
+       标签
+      </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/about" >      <i data-feather="info"></i>
+      <script>
+        feather.replace();
+      </script>
+       关于
+      </a>
+                </li>
+                
+                <li class="nav-item dark-theme-toggle">
+                    <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                    <a role="switch">
+                        <span class="theme-toggle-icon" data-feather="moon"></span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</header>
+<main id="content">
+    <div class="post container">
+    <div class="post-header-section">
+        <h1>树链剖分</h1>
+
+        
+
+        
+	
+	
+	
+	
+        
+
+	
+
+	
+
+	
+          <small role="doc-subtitle"></small>
+	
+
+	
+          <p class="post-date">
+              
+
+              February 9, 2025
+
+              
+          </p>
+	
+
+        <ul class="post-tags">
+          
+           
+             <li class="post-tag"><a href="https://qjwh.github.io/tags/%E4%BF%A1%E6%81%AF%E5%AD%A6%E7%AB%9E%E8%B5%9B">信息学竞赛</a></li>
+           
+         
+           
+             <li class="post-tag"><a href="https://qjwh.github.io/tags/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0">算法学习笔记</a></li>
+           
+         
+        </ul>
+    </div>
+
+    <div class="post-content">
+        <text style="font-family:Noto Sans SC">
+<p>第一次看到树链剖分（简称树剖）可能觉得它非常的深奥，但其实树剖的原理非常简单，下面先说树剖大概的实现思路和解决题型。</p>
+<h2 id="text-stylecolorrgb0150136-概览"><text style="color:rgb(0,150,136)"> 概览</h2>
+<p>其实树剖就是把一棵树分成若干条链，使得每个点都出现在了刚好一条链上。</p>
+<p>并且，我们称在某条链上的边为“重（zhòng）边”，不在任何一条链上的边为“轻边”。</p>
+<p>然后，我们按某种规则去DFS，求出新的DFS序，然后解决对树上路径询问的问题。</p>
+<p>而且，通过合理的设计每条边的轻重，可以把复杂度控制在 $O(\log n)$ 级别。</p>
+<h2 id="text-stylecolorrgb0150136-解决题型"><text style="color:rgb(0,150,136)"> 解决题型</h2>
+<p>上面也提到了，树剖就是用来解决对树上路径进行询问的问题的算法，当然也可以解决对子树询问的问题，不过属于大材小用了。</p>
+<p>此外，树剖属于工具类算法，所以往往会配合树状数组、线段树、分块等算法出现。</p>
+<blockquote>
+<p>我把算法分为了两类，“材料类算法”和“工具类算法”，其中：</p>
+<ul>
+<li>材料类算法可以单独考，比如：
+<ul>
+<li>数论</li>
+<li>推公式</li>
+<li>DP</li>
+<li>树状数组</li>
+<li>线段树</li>
+<li>&hellip;</li>
+</ul>
+</li>
+<li>工具类算法里面必须要套材料类算法才能考出来，比如：
+<ul>
+<li>二分</li>
+<li>01分数规划（二分的一个分支）</li>
+<li>CDQ分治（需要配合树状数组）</li>
+<li>整体二分（需要配合树状数组）</li>
+<li>树剖（这里讲的）</li>
+<li>&hellip;</li>
+</ul>
+</li>
+</ul>
+<p>往往一些较难的题目，都是要用较难的材料类算法（比如DP），或者工具类算法配合材料类算法才能解决的题目。</p>
+<p>而对于后者，难度会更大一些，因为后者的关键在于<strong>转化</strong>后使用工具类算法解决。</p></blockquote>
+<h2 id="text-stylecolorrgb0150136-算法实现"><text style="color:rgb(0,150,136)"> 算法实现</h2>
+<p>下面说一下树剖的实现。</p>
+<h3 id="text-stylecolorrgb0150136-两遍dfs"><text style="color:rgb(0,150,136)"> 两遍DFS</h3>
+<p>我们考虑DFS，当递归到点 $x$ 的时候，找到 $x$ 的儿子中，子树大小最大的那个儿子 $to$。</p>
+<p>然后，我们把 $x \to to$ 这条边设为重边，其他边设为轻边。</p>
+<p>得到每条边的轻重后，我们再做一遍DFS。</p>
+<p>而这一遍DFS是为了找到DFS序。</p>
+<p>而且，DFS序有一个要求，我们要先遍历有重边连接的儿子。</p>
+<p>这样的话，对于任意一条树上的链，链上所有点的DFS序连续，而且是由深度从浅到深依次递增。</p>
+<p>同时，我们还要求出，从一个点开始，不经过任何轻边，最多到哪个点。</p>
+<h3 id="text-stylecolorrgb0150136-解决询问"><text style="color:rgb(0,150,136)"> 解决询问</h3>
+<p>而对于一次路径上某值的询问，我们可以把这个路径拆成若干条链。</p>
+<p>可以证明链数不超过 $O(\log n)$，这一点会在下面“复杂度证明”中证明。</p>
+<p>而这些拆出的链，都是原树中的链的“子集”（一条链 $L_1$ 是另外一条链 $L_2$ 的子集，有且仅当 $L_1$ 中的点，$L_2$ 中也有，边同理）。</p>
+<p>所以，可以把一条路径，拆成最多 $O(\log n)$ 个DFS序区间。</p>
+<p>既然如此，我们就可以拿DFS序作为下标，用数据结构维护题目中的信息，询问就是区间查询。</p>
+<p>当然，很多时候都有修改，所以一般都是用线段树维护。</p>
+<h2 id="text-stylecolorrgb0150136-复杂度证明"><text style="color:rgb(0,150,136)"> 复杂度证明</h2>
+<p>首先，对于任意一个点 $x$，它最多只有一个子节点 $to$（当然，也可能没有），满足 $sz_{to} \geq sz_x \div 2$。</p>
+<p>由于我们选择的是子树大小最大的子节点，让该子节点为“重子节点”。</p>
+<p>所以，其他“轻子节点”的大小一定不超过 $sz_x \div 2$，显然。</p>
+<p>也就是说，如果一个点 $x$ 到其父亲 $fa$ 之间的边是轻边，那么 $sz_{fa} \geq sz_x \times 2$ 一定满足，显然。</p>
+<p>而由于 $sz$ 值最多为 $n$，所以从一条路径 $(x,y)$ 的某一端点，走到 $\text{lca}$，最多只会经过 $\log n$ 个重链。</p>
+<p>所以单次询问最多分成 $O(\log n)$ 个重链。</p>
+<p>总复杂度在 $O(q \log n) \sim O(q \log^3 n)$ 内不等，依据题目和实现决定。</p>
+
+        
+    </div>
+
+    <div class="prev-next">
+        
+    </div>
+
+    
+    
+    
+</div>
+
+<aside class="post-toc">
+    <nav id="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#text-stylecolorrgb0150136-概览"><text style="color:rgb(0,150,136)"> 概览</a></li>
+        <li><a href="#text-stylecolorrgb0150136-解决题型"><text style="color:rgb(0,150,136)"> 解决题型</a></li>
+        <li><a href="#text-stylecolorrgb0150136-算法实现"><text style="color:rgb(0,150,136)"> 算法实现</a>
+          <ul>
+            <li><a href="#text-stylecolorrgb0150136-两遍dfs"><text style="color:rgb(0,150,136)"> 两遍DFS</a></li>
+            <li><a href="#text-stylecolorrgb0150136-解决询问"><text style="color:rgb(0,150,136)"> 解决询问</a></li>
+          </ul>
+        </li>
+        <li><a href="#text-stylecolorrgb0150136-复杂度证明"><text style="color:rgb(0,150,136)"> 复杂度证明</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </nav>
+</aside>
+
+
+
+    
+
+        </main><footer class="footer">
+    
+    
+
+    
+
+    
+
+    
+
+    <span>
+        Made with &#10084;&#65039; using <a target="_blank" href="https://github.com/gokarna-theme/gokarna-hugo">Gokarna</a>
+    </span>
+</footer>
+</body>
+</html>

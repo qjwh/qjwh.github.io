@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        :root {
+            --accent-color: #FF4D4D;
+            --font-size: 17.5px;
+        }
+    </style>
+
+    
+    
+    
+    
+    
+    
+
+    
+    <title>BSGS算法</title>
+    <meta name="description" content="basic
+BSGS算法英文名叫“baby-step giant-step”，又称“大步小步算法”。
+这个算法听名字似乎是个随机化算法，但实际上是数论算法。
+具体地，这个算法解决的是 $a^x \equiv b \pmod{p}$ 的解，其中 $a$、$b$、$p$ 是已知的（$0 \leq a,b&lt;p$， …">
+    <meta name="keywords" content='信息学竞赛, 算法学习笔记'>
+
+    <meta property="og:url" content="https://qjwh.github.io/posts/aln_bsgs/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="BSGS算法">
+    <meta property="og:description" content="basic
+BSGS算法英文名叫“baby-step giant-step”，又称“大步小步算法”。
+这个算法听名字似乎是个随机化算法，但实际上是数论算法。
+具体地，这个算法解决的是 $a^x \equiv b \pmod{p}$ 的解，其中 $a$、$b$、$p$ 是已知的（$0 \leq a,b&lt;p$， …">
+    <meta property="og:image" content="https://qjwh.github.io/">
+    <meta property="og:image:secure_url" content="https://qjwh.github.io/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="BSGS算法">
+    <meta name="twitter:description" content="basic
+BSGS算法英文名叫“baby-step giant-step”，又称“大步小步算法”。
+这个算法听名字似乎是个随机化算法，但实际上是数论算法。
+具体地，这个算法解决的是 $a^x \equiv b \pmod{p}$ 的解，其中 $a$、$b$、$p$ 是已知的（$0 \leq a,b&lt;p$， …">
+    <meta property="twitter:domain" content="https://qjwh.github.io/posts/aln_bsgs/">
+    <meta property="twitter:url" content="https://qjwh.github.io/posts/aln_bsgs/">
+    <meta name="twitter:image" content="https://qjwh.github.io/">
+
+    
+    <link rel="canonical" href="https://qjwh.github.io/posts/aln_bsgs/">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/normalize.min.css" media="print">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/main.min.css">
+
+    
+    <link id="dark-theme" rel="stylesheet" href="/css/dark.min.css">
+
+    
+    <script src="/js/bundle.min.ad84dd09e60165f836ea08a26f86608c070e127d21ac6ab168c87da076554d87.js" integrity="sha256-rYTdCeYBZfg26giib4ZgjAcOEn0hrGqxaMh9oHZVTYc="></script>
+
+    
+    
+        <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          // customised options
+          // ? auto-render specific keys, e.g.:
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false},
+          ],
+          // ? rendering keys, e.g.:
+          throwOnError : false
+        });
+      });
+    </script>
+  
+    
+</head>
+<body>
+        <script>
+            
+            setThemeByUserPref();
+        </script><header class="header">
+    <nav class="header-nav">
+
+        
+
+        <div class="nav-title">
+            <a class="nav-brand" href="https://qjwh.github.io/">CXBlog</a>
+        </div>
+
+        <div class="nav-links">
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/" aria-label="home" >      <i data-feather="home"></i>
+      <script>
+        feather.replace();
+      </script>
+       首页
+      </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/posts" aria-label="posts" >      <i data-feather="book"></i>
+      <script>
+        feather.replace();
+      </script>
+       文章
+      </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/tags" aria-label="tags" >      <i data-feather="tag"></i>
+      <script>
+        feather.replace();
+      </script>
+       标签
+      </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/about" aria-label="about" >      <i data-feather="info"></i>
+      <script>
+        feather.replace();
+      </script>
+       关于
+      </a>
+            </div>
+            
+
+            <span class="nav-icons-divider"></span>
+            <div class="nav-link dark-theme-toggle">
+                <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                <a aria-hidden="true" role="switch">
+                    <span class="theme-toggle-icon" data-feather="moon"></span>
+                </a>
+            </div>
+
+            <div class="nav-link" id="hamburger-menu-toggle">
+                <span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
+                <a aria-checked="false" aria-labelledby="hamburger-menu-toggle" id="hamburger-menu-toggle-target" role="switch">
+                    <span data-feather="menu"></span>
+                </a>
+            </div>
+
+            
+            <ul class="nav-hamburger-list visibility-hidden">
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/" >      <i data-feather="home"></i>
+      <script>
+        feather.replace();
+      </script>
+       首页
+      </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/posts" >      <i data-feather="book"></i>
+      <script>
+        feather.replace();
+      </script>
+       文章
+      </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/tags" >      <i data-feather="tag"></i>
+      <script>
+        feather.replace();
+      </script>
+       标签
+      </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/about" >      <i data-feather="info"></i>
+      <script>
+        feather.replace();
+      </script>
+       关于
+      </a>
+                </li>
+                
+                <li class="nav-item dark-theme-toggle">
+                    <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                    <a role="switch">
+                        <span class="theme-toggle-icon" data-feather="moon"></span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</header>
+<main id="content">
+    <div class="post container">
+    <div class="post-header-section">
+        <h1>BSGS算法</h1>
+
+        
+
+        
+	
+	
+	
+	
+        
+
+	
+
+	
+
+	
+          <small role="doc-subtitle"></small>
+	
+
+	
+          <p class="post-date">
+              
+
+              February 9, 2025
+
+              
+          </p>
+	
+
+        <ul class="post-tags">
+          
+           
+             <li class="post-tag"><a href="https://qjwh.github.io/tags/%E4%BF%A1%E6%81%AF%E5%AD%A6%E7%AB%9E%E8%B5%9B">信息学竞赛</a></li>
+           
+         
+           
+             <li class="post-tag"><a href="https://qjwh.github.io/tags/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0">算法学习笔记</a></li>
+           
+         
+        </ul>
+    </div>
+
+    <div class="post-content">
+        <p><strong>basic</strong></p>
+<p>BSGS算法英文名叫“baby-step giant-step”，又称“大步小步算法”。</p>
+<p>这个算法听名字似乎是个随机化算法，但实际上是数论算法。</p>
+<p>具体地，这个算法解决的是 $a^x \equiv b \pmod{p}$ 的解，其中 $a$、$b$、$p$ 是已知的（$0 \leq a,b&lt;p$，保证 $\gcd(a,p)=1$），$x$ 是要求的。</p>
+<p>这个算法甚至可以求出所有的 $x$，但为了好讲，我们先考虑如何求出是否有解，以下代码中<code>YES</code>就代表确定有解了。</p>
+<hr>
+<p><strong>force algorithm</strong></p>
+<p>首先，有一个暴力算法：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>rep(x, <span style="color:#ae81ff">0</span>, INF)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(ksm(a, x, p) <span style="color:#f92672">==</span> b)
+</span></span><span style="display:flex;"><span>        YES
+</span></span></code></pre></div><p>但这个算法是 $O(\infty)$ 的，我们考虑优化。</p>
+<hr>
+<p><strong>optimization algorithm 1</strong></p>
+<p>我们考虑 $x$ 的上界，根据欧拉定理，$a^{\varphi(p)} \equiv 1 \pmod{p}$，我们就可以确定，$x$ 的上界就是 $\varphi(p)$（准确来说减 $1$ 也彳亍），因为如果 $x&gt;\varphi(p)$，那么 $a^x$ 就等于 $a^{x-\varphi(p)}$，也就成为了一个循环，所以上界就是 $\varphi(p)$。</p>
+<p>由于 $\varphi(p)&lt;p$，所以可以把 $p$ <strong>当做</strong>是质数，$x$ 的上界也就是 $p-1$ 了。</p>
+<p>所以：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>rep(x, <span style="color:#ae81ff">0</span>, p <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(ksm(a, x, p) <span style="color:#f92672">==</span> b)
+</span></span><span style="display:flex;"><span>        YES
+</span></span></code></pre></div><hr>
+<p><strong>optimization algorithm 2 (BSGS)</strong></p>
+<p>但这个算法还是可能会TLE，我们继续考虑优化</p>
+<p>我们定义 $q=\left\lceil \sqrt{p} \right\rceil$，那么我们其实就可以把 $x$ 表示为 $q$ 进制下的两位数，具体地，我们把 $x$ 表示为了 $Aq+B$（$0 \leq A,B&lt;q$），然后上述公式就可以化成 $a^{Aq+B} \equiv b \pmod{p}$，即 $a^{Aq} \times a^B \equiv b \pmod{p}$。</p>
+<p>但此时仍然不好求答案，我们继续转化，我们考虑移项，变成 $a^{Aq} \equiv b \times a^{-B} \pmod{p}$。</p>
+<p>但这个 $a^{-B}$ 不好看，我们换一下。</p>
+<p>我们从最初公式开始修改：</p>
+<p>$a^{Aq-B} \equiv b \pmod{p}$（$0 \leq A \leq q \land 0 \leq B&lt;q$）</p>
+<p>变化后：</p>
+<p>$a^{Aq} \times a^{-B} \equiv b \pmod{p}$</p>
+<p>移项后：</p>
+<p>$a^{Aq} \equiv b \times a^B \pmod{p}$</p>
+<p>但此时我们发现还是没有显著优化效果啊，代码还是 $O(p)$ 的：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>rep(A, <span style="color:#ae81ff">0</span>, q)
+</span></span><span style="display:flex;"><span>    rep(B, <span style="color:#ae81ff">0</span>, q <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(ksm(a, A <span style="color:#f92672">*</span> q, p) <span style="color:#f92672">==</span> b <span style="color:#f92672">*</span> ksm(a, B, p) <span style="color:#f92672">%</span> p)
+</span></span><span style="display:flex;"><span>            YES
+</span></span></code></pre></div><p>但我们发现，两重循环枚举的 $A$ 和 $B$ 是独立的，我们可以使用类似于双向搜索的思想变化成：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>set<span style="color:#f92672">&lt;</span>LL<span style="color:#f92672">&gt;</span> s;
+</span></span><span style="display:flex;"><span>rep(A, <span style="color:#ae81ff">0</span>, q)
+</span></span><span style="display:flex;"><span>    s.insert(ksm(a, A <span style="color:#f92672">*</span> q, p));
+</span></span><span style="display:flex;"><span>rep(B, <span style="color:#ae81ff">0</span>, q <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(s.count(b <span style="color:#f92672">*</span> ksm(a, B, p) <span style="color:#f92672">%</span> p))
+</span></span><span style="display:flex;"><span>        YES
+</span></span></code></pre></div><p>所以这个算法复杂度就变成了 $O(q \times \log q)$，即 $O(\sqrt{p} \times \log \sqrt{p})$，在 $p \leq 2 \times 10^9$ 左右的数据范围下是稳稳地过的。</p>
+<hr>
+<p><strong>summary and exdend</strong></p>
+<p>其实BSGS就是用的（类似于）拆分的方法，把 $x$ 拆成用两个数 $A$、$B$（$A,B$ 在根号范围）来表示，然后发现 $A$ 和 $B$ 的枚举独立，然后才有这个优化。</p>
+<p>最开始的时候，提到有求出所有的 $x$ 的方法，其实也就是小改动一下，把<code>set&lt;LL&gt;</code>换成<code>map&lt;LL,bs&lt;LL&gt;&gt;</code>即可，代码很相似。</p>
+<p>不过，让求出所有的 $x$ 的题目必须要保证解的数量，但求出 $x$ 的数量的题目就不需要，对于求数量的题目，要换成<code>map&lt;LL,LL&gt;</code>来存。</p>
+<hr>
+<p><strong>exBSGS</strong></p>
+<p>上面说要保证 $\gcd(a,p)=1$，但如果不保证呢？就需要用到exBSGS。</p>
+<p>其实exBSGS也很简单，首先我们设 $d=\gcd(a,p)$，那么显然在 $d|b$ 的时候，方程才有解。</p>
+<p>然后我们考虑转化。</p>
+<p>我们把方程直接转化为 $\dfrac{a^x}{d} \equiv \dfrac{b}{d} ~ \left( \bmod~\dfrac{p}{d} \right)$，即 $\dfrac{a}{d} \times a^{x-1} \equiv \dfrac{b}{d} ~ \left( \bmod~\dfrac{p}{d} \right)$。</p>
+<p>但此时的 $a$ 和 $\dfrac{p}{d}$ 也不一定互质，我们需要继续进行操作。</p>
+<p>我们设进行了 $k$ 次操作，第 $i$ 次操作前，$d$ 的值为 $d_i$，那么其实最终的方程就是：</p>
+<p>$\dfrac{a^k}{d_1 \times d_2 \times d_3 \times \dots \times d_k} \times a^{x-k} \equiv \dfrac{b}{d_1 \times d_2 \times d_3 \times \dots \times d_k} ~ \left( \bmod~\dfrac{p}{d_1 \times d_2 \times d_3 \times \dots \times d_k} \right)$。</p>
+<p>此时直接用<strong>类似于</strong>BSGS的方法求即可。</p>
+
+        
+    </div>
+
+    <div class="prev-next">
+        
+    </div>
+
+    
+    
+    
+</div>
+
+<aside class="post-toc">
+    <nav id="toc">
+        <nav id="TableOfContents"></nav>
+    </nav>
+</aside>
+
+
+
+    
+
+        </main><footer class="footer">
+    
+    
+
+    
+
+    
+
+    
+
+    <span>
+        Made with &#10084;&#65039; using <a target="_blank" href="https://github.com/gokarna-theme/gokarna-hugo">Gokarna</a>
+    </span>
+</footer>
+</body>
+</html>

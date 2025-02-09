@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        :root {
+            --accent-color: #FF4D4D;
+            --font-size: 17.5px;
+        }
+    </style>
+
+    
+    
+    
+    
+    
+    
+
+    
+    <title>类欧几里得算法</title>
+    <meta name="description" content="来源：ABC372G官方题解
+贡献：OI Wiki
+这个算法确实挺妙的，所以我就写个笔记。
+定义 这个算法需要用到一个函数：
+$$ f(a,b,c,n)=\sum\limits_{i=0}^n \left\lfloor …">
+    <meta name="keywords" content='信息学竞赛, 算法学习笔记'>
+
+    <meta property="og:url" content="https://qjwh.github.io/posts/aln_similargcd/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="类欧几里得算法">
+    <meta property="og:description" content="来源：ABC372G官方题解
+贡献：OI Wiki
+这个算法确实挺妙的，所以我就写个笔记。
+定义 这个算法需要用到一个函数：
+$$ f(a,b,c,n)=\sum\limits_{i=0}^n \left\lfloor …">
+    <meta property="og:image" content="https://qjwh.github.io/">
+    <meta property="og:image:secure_url" content="https://qjwh.github.io/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="类欧几里得算法">
+    <meta name="twitter:description" content="来源：ABC372G官方题解
+贡献：OI Wiki
+这个算法确实挺妙的，所以我就写个笔记。
+定义 这个算法需要用到一个函数：
+$$ f(a,b,c,n)=\sum\limits_{i=0}^n \left\lfloor …">
+    <meta property="twitter:domain" content="https://qjwh.github.io/posts/aln_similargcd/">
+    <meta property="twitter:url" content="https://qjwh.github.io/posts/aln_similargcd/">
+    <meta name="twitter:image" content="https://qjwh.github.io/">
+
+    
+    <link rel="canonical" href="https://qjwh.github.io/posts/aln_similargcd/">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/normalize.min.css" media="print">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/main.min.css">
+
+    
+    <link id="dark-theme" rel="stylesheet" href="/css/dark.min.css">
+
+    
+    <script src="/js/bundle.min.ad84dd09e60165f836ea08a26f86608c070e127d21ac6ab168c87da076554d87.js" integrity="sha256-rYTdCeYBZfg26giib4ZgjAcOEn0hrGqxaMh9oHZVTYc="></script>
+
+    
+    
+        <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          // customised options
+          // ? auto-render specific keys, e.g.:
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false},
+          ],
+          // ? rendering keys, e.g.:
+          throwOnError : false
+        });
+      });
+    </script>
+  
+    
+</head>
+<body>
+        <script>
+            
+            setThemeByUserPref();
+        </script><header class="header">
+    <nav class="header-nav">
+
+        
+
+        <div class="nav-title">
+            <a class="nav-brand" href="https://qjwh.github.io/">CXBlog</a>
+        </div>
+
+        <div class="nav-links">
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/" aria-label="home" >      <i data-feather="home"></i>
+      <script>
+        feather.replace();
+      </script>
+       首页
+      </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/posts" aria-label="posts" >      <i data-feather="book"></i>
+      <script>
+        feather.replace();
+      </script>
+       文章
+      </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/tags" aria-label="tags" >      <i data-feather="tag"></i>
+      <script>
+        feather.replace();
+      </script>
+       标签
+      </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/about" aria-label="about" >      <i data-feather="info"></i>
+      <script>
+        feather.replace();
+      </script>
+       关于
+      </a>
+            </div>
+            
+
+            <span class="nav-icons-divider"></span>
+            <div class="nav-link dark-theme-toggle">
+                <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                <a aria-hidden="true" role="switch">
+                    <span class="theme-toggle-icon" data-feather="moon"></span>
+                </a>
+            </div>
+
+            <div class="nav-link" id="hamburger-menu-toggle">
+                <span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
+                <a aria-checked="false" aria-labelledby="hamburger-menu-toggle" id="hamburger-menu-toggle-target" role="switch">
+                    <span data-feather="menu"></span>
+                </a>
+            </div>
+
+            
+            <ul class="nav-hamburger-list visibility-hidden">
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/" >      <i data-feather="home"></i>
+      <script>
+        feather.replace();
+      </script>
+       首页
+      </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/posts" >      <i data-feather="book"></i>
+      <script>
+        feather.replace();
+      </script>
+       文章
+      </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/tags" >      <i data-feather="tag"></i>
+      <script>
+        feather.replace();
+      </script>
+       标签
+      </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/about" >      <i data-feather="info"></i>
+      <script>
+        feather.replace();
+      </script>
+       关于
+      </a>
+                </li>
+                
+                <li class="nav-item dark-theme-toggle">
+                    <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                    <a role="switch">
+                        <span class="theme-toggle-icon" data-feather="moon"></span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</header>
+<main id="content">
+    <div class="post container">
+    <div class="post-header-section">
+        <h1>类欧几里得算法</h1>
+
+        
+
+        
+	
+	
+	
+	
+        
+
+	
+
+	
+
+	
+          <small role="doc-subtitle"></small>
+	
+
+	
+          <p class="post-date">
+              
+
+              February 9, 2025
+
+              
+          </p>
+	
+
+        <ul class="post-tags">
+          
+           
+             <li class="post-tag"><a href="https://qjwh.github.io/tags/%E4%BF%A1%E6%81%AF%E5%AD%A6%E7%AB%9E%E8%B5%9B">信息学竞赛</a></li>
+           
+         
+           
+             <li class="post-tag"><a href="https://qjwh.github.io/tags/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0">算法学习笔记</a></li>
+           
+         
+        </ul>
+    </div>
+
+    <div class="post-content">
+        <text style="font-family:Noto Sans SC">
+<p>来源：<a href="https://atcoder.jp/contests/abc372/tasks/abc372_g">ABC372G</a><a href="https://atcoder.jp/contests/abc372/editorial/10988">官方题解</a></p>
+<p>贡献：<a href="https://oi-wiki.org/math/number-theory/euclidean">OI Wiki</a></p>
+<p>这个算法确实挺妙的，所以我就写个笔记。</p>
+<h2 id="text-stylecolorrgb0150136-定义"><text style="color:rgb(0,150,136)"> 定义</h2>
+<p>这个算法需要用到一个函数：</p>
+<p>$$
+f(a,b,c,n)=\sum\limits_{i=0}^n \left\lfloor \dfrac{\color{red}a\color{default}i+\color{blue}b\color{default}}{\color{green}c\color{default}} \right\rfloor
+$$</p>
+<p>在下面参数 $a$、$b$、$c$ 都会用三种颜色标出，以便于区分。</p>
+<p>因为 $a$、$b$、$c$、$n$ 都很大，所以我们没法直接暴力求。</p>
+<p>数论分块显然也不彳亍。</p>
+<p>所以我们只能另辟蹊径了。</p>
+<h2 id="text-stylecolorrgb0150136-求值"><text style="color:rgb(0,150,136)"> 求值</h2>
+<p>咱从简单到复杂走。</p>
+<h3 id="text-stylecolorrgb0150136-1"><text style="color:rgb(0,150,136)"> 1</h3>
+<p>首先，我们可以知道：</p>
+<p>$$
+\begin{aligned}
+f(a,b,c,n)&amp;=\sum\limits_{i=0}^n \left\lfloor \dfrac{\color{red}a\color{default}i+\color{blue}b\color{default}}{\color{green}c\color{default}} \right\rfloor \
+&amp;=\sum\limits_{i=0}^n \left\lfloor \dfrac{(\lfloor \frac{a}{c} \rfloor c + a \bmod c)i+(\lfloor \frac{b}{c} \rfloor c + b \bmod c)}{c} \right\rfloor \
+&amp;=\sum\limits_{i=0}^n \left\lfloor \dfrac{\lfloor \frac{a}{c} \rfloor c \cdot i + a \bmod c \cdot i+\lfloor \frac{b}{c} \rfloor c + b \bmod c}{c} \right\rfloor \
+&amp;=\sum\limits_{i=0}^n \left( \left\lfloor \frac{a}{c} \right\rfloor i + \left\lfloor \frac{b}{c} \right\rfloor + \left\lfloor \dfrac{a \bmod c \cdot i+b \bmod c}{c} \right\rfloor \right) \
+&amp;=\dfrac{n(n+1)}{2} \left\lfloor \frac{a}{c} \right\rfloor + (n+1) \left\lfloor \frac{b}{c} \right\rfloor + \sum\limits_{i=0}^n \left\lfloor \dfrac{\color{red}a \bmod c\color{default} \cdot i+\color{blue}b \bmod c\color{default}}{\color{green}c\color{default}} \right\rfloor \
+&amp;=\dfrac{n(n+1)}{2} \left\lfloor \frac{a}{c} \right\rfloor + (n+1) \left\lfloor \frac{b}{c} \right\rfloor + f(a \bmod c,b \bmod c,c,n) \
+\end{aligned}
+$$</p>
+<p>所以经过一番推导，我们就可以把 $f(a,b,c,n)$ 转换到 $a,b&lt;c$ 的形式。</p>
+<h3 id="text-stylecolorrgb0150136-2"><text style="color:rgb(0,150,136)"> 2</h3>
+<p>但光是这样也不彳亍，我们并不知道这种形式如何处理，所以我们继续推导。</p>
+<p>考虑贡献转换：（公式看不清的话可以放大）</p>
+<p>$$
+\begin{aligned}
+f(a,b,c,n)&amp;=\sum\limits_{i=0}^n \left\lfloor \dfrac{\color{red}a\color{default}i+\color{blue}b\color{default}}{\color{green}c\color{default}} \right\rfloor \
+&amp;=\sum\limits_{i=0}^n \sum\limits_{j=0}^{\left\lfloor \frac{ai+b}{c} \right\rfloor-1} 1 \
+&amp;=\sum\limits_{j=0}^{\left\lfloor \frac{an+b}{c} \right\rfloor-1} \sum\limits_{i=0}^n \left[ ~ j&lt;\left\lfloor \frac{ai+b}{c} \right\rfloor ~ \right] \
+\end{aligned}
+$$</p>
+<p>此时我们考虑把向下取整符号去掉：（$j \in \mathbb{Z}$）</p>
+<p>$$
+j&lt;\lfloor x \rfloor \iff j+1 \leq \lfloor x \rfloor \iff j+1 \leq x
+$$</p>
+<p>然后继续：（灰色是上面已有部分）</p>
+<p>$$
+\begin{aligned}
+f(a,b,c,n)&amp;\color{gray}=\sum\limits_{i=0}^n \left\lfloor \dfrac{ai+b}{c} \right\rfloor \
+&amp;\color{gray}=\sum\limits_{i=0}^n \sum\limits_{j=0}^{\left\lfloor \frac{ai+b}{c} \right\rfloor-1} 1 \
+&amp;\color{gray}=\sum\limits_{j=0}^{\left\lfloor \frac{an+b}{c} \right\rfloor-1} \sum\limits_{i=0}^n \left[ ~ j&lt;\left\lfloor \frac{ai+b}{c} \right\rfloor ~ \right] \
+&amp;=\sum\limits_{j=0}^{\left\lfloor \frac{an+b}{c} \right\rfloor-1} \sum\limits_{i=0}^n \left[ ~ j+1 \leq \frac{ai+b}{c} ~ \right] \
+&amp;=\sum\limits_{j=0}^{\left\lfloor \frac{an+b}{c} \right\rfloor-1} \sum\limits_{i=0}^n \left[ ~ jc+c \leq ai+b ~ \right] \
+&amp;=\sum\limits_{j=0}^{\left\lfloor \frac{an+b}{c} \right\rfloor-1} \sum\limits_{i=0}^n \left[ ~ jc+c-b \leq ai ~ \right] \
+&amp;=\sum\limits_{j=0}^{\left\lfloor \frac{an+b}{c} \right\rfloor-1} \sum\limits_{i=0}^n \left[ ~ jc+c-b-1&lt;ai ~ \right] \
+&amp;=\sum\limits_{j=0}^{\left\lfloor \frac{an+b}{c} \right\rfloor-1} \sum\limits_{i=0}^n \left[ ~ \left\lfloor \dfrac{jc+c-b-1}{a} \right\rfloor &lt;i ~ \right] \
+\end{aligned}
+$$</p>
+<p>这下向下取整里面的东西和 $i$ 没关系了，消了。</p>
+<p>我们设 $m=\left\lfloor \frac{an+b}{c} \right\rfloor$，继续：（灰色是上面已有部分）</p>
+<p>$$
+\begin{aligned}
+f(a,b,c,n)&amp;\color{gray}=\sum\limits_{i=0}^n \left\lfloor \dfrac{ai+b}{c} \right\rfloor \
+&amp;\color{gray}=\sum\limits_{i=0}^n \sum\limits_{j=0}^{\left\lfloor \frac{ai+b}{c} \right\rfloor-1} 1 \
+&amp;\color{gray}=\sum\limits_{j=0}^{m-1} \sum\limits_{i=0}^n \left[ ~ j&lt;\left\lfloor \frac{ai+b}{c} \right\rfloor ~ \right] \
+&amp;\color{gray}=\sum\limits_{j=0}^{m-1} \sum\limits_{i=0}^n \left[ ~ j+1 \leq \frac{ai+b}{c} ~ \right] \
+&amp;\color{gray}=\sum\limits_{j=0}^{m-1} \sum\limits_{i=0}^n \left[ ~ jc+c \leq ai+b ~ \right] \
+&amp;\color{gray}=\sum\limits_{j=0}^{m-1} \sum\limits_{i=0}^n \left[ ~ jc+c-b \leq ai ~ \right] \
+&amp;\color{gray}=\sum\limits_{j=0}^{m-1} \sum\limits_{i=0}^n \left[ ~ jc+c-b-1&lt;ai ~ \right] \
+&amp;\color{gray}=\sum\limits_{j=0}^{m-1} \sum\limits_{i=0}^n \left[ ~ \left\lfloor \dfrac{jc+c-b-1}{a} \right\rfloor &lt;i ~ \right] \
+&amp;=\sum\limits_{j=0}^{m-1} \left( n-\left\lfloor \dfrac{jc+c-b-1}{a} \right\rfloor \right) \
+&amp;=nm-\sum\limits_{j=0}^{m-1} \left\lfloor \dfrac{j\color{red}c\color{default}+\color{blue}c-b-1\color{default}}{\color{green}a\color{default}} \right\rfloor \
+&amp;=nm-f(c,c-b-1,a,m-1) \
+\end{aligned}
+$$</p>
+<p>所以我们就可以通过一车操作把 $a$ 和 $c$ 交换。</p>
+<p>接下来我们继续像上面一样让 $a$ 模 $c$，以此往复，就像欧几里得算法一样。</p>
+<p>所以最终复杂度就是 $O(\log)$ 级别的。</p>
+<h2 id="text-stylecolorrgb0150136-总结"><text style="color:rgb(0,150,136)"> 总结</h2>
+<p>式子：</p>
+<p>$$
+f(a,b,c,n)=\dfrac{n(n+1)}{2} \left\lfloor \frac{a}{c} \right\rfloor + (n+1) \left\lfloor \frac{b}{c} \right\rfloor + f(a \bmod c,b \bmod c,c,n)
+$$</p>
+<p>设 $m=\left\lfloor \frac{an+b}{c} \right\rfloor$：</p>
+<p>$$
+f(a,b,c,n)=nm-f(c,c-b-1,a,m-1)
+$$</p>
+<p>递归即可。</p>
+
+        
+    </div>
+
+    <div class="prev-next">
+        
+    </div>
+
+    
+    
+    
+</div>
+
+<aside class="post-toc">
+    <nav id="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#text-stylecolorrgb0150136-定义"><text style="color:rgb(0,150,136)"> 定义</a></li>
+        <li><a href="#text-stylecolorrgb0150136-求值"><text style="color:rgb(0,150,136)"> 求值</a>
+          <ul>
+            <li><a href="#text-stylecolorrgb0150136-1"><text style="color:rgb(0,150,136)"> 1</a></li>
+            <li><a href="#text-stylecolorrgb0150136-2"><text style="color:rgb(0,150,136)"> 2</a></li>
+          </ul>
+        </li>
+        <li><a href="#text-stylecolorrgb0150136-总结"><text style="color:rgb(0,150,136)"> 总结</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </nav>
+</aside>
+
+
+
+    
+
+        </main><footer class="footer">
+    
+    
+
+    
+
+    
+
+    
+
+    <span>
+        Made with &#10084;&#65039; using <a target="_blank" href="https://github.com/gokarna-theme/gokarna-hugo">Gokarna</a>
+    </span>
+</footer>
+</body>
+</html>

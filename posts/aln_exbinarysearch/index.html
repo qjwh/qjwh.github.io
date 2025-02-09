@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        :root {
+            --accent-color: #FF4D4D;
+            --font-size: 17.5px;
+        }
+    </style>
+
+    
+    
+    
+    
+    
+    
+
+    
+    <title>整体二分</title>
+    <meta name="description" content="整体二分类似于线段树上二分，在讲这个算法前，先引入几个问题。
+解决题型 整体二分一般解决的是如下的问题：
+给你一个【集合/序列/矩阵/树】，要求【静态/动态】维护所有【元素/区间/子矩阵/链/子树】中的第 $k$【可能每次给定】大元素，【可能强制在线】。
+下面是一堆例题。
+例题1 动态查询集合第k大（可离线） 题意  …">
+    <meta name="keywords" content='信息学竞赛, 算法学习笔记'>
+
+    <meta property="og:url" content="https://qjwh.github.io/posts/aln_exbinarysearch/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="整体二分">
+    <meta property="og:description" content="整体二分类似于线段树上二分，在讲这个算法前，先引入几个问题。
+解决题型 整体二分一般解决的是如下的问题：
+给你一个【集合/序列/矩阵/树】，要求【静态/动态】维护所有【元素/区间/子矩阵/链/子树】中的第 $k$【可能每次给定】大元素，【可能强制在线】。
+下面是一堆例题。
+例题1 动态查询集合第k大（可离线） 题意  …">
+    <meta property="og:image" content="https://qjwh.github.io/">
+    <meta property="og:image:secure_url" content="https://qjwh.github.io/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="整体二分">
+    <meta name="twitter:description" content="整体二分类似于线段树上二分，在讲这个算法前，先引入几个问题。
+解决题型 整体二分一般解决的是如下的问题：
+给你一个【集合/序列/矩阵/树】，要求【静态/动态】维护所有【元素/区间/子矩阵/链/子树】中的第 $k$【可能每次给定】大元素，【可能强制在线】。
+下面是一堆例题。
+例题1 动态查询集合第k大（可离线） 题意  …">
+    <meta property="twitter:domain" content="https://qjwh.github.io/posts/aln_exbinarysearch/">
+    <meta property="twitter:url" content="https://qjwh.github.io/posts/aln_exbinarysearch/">
+    <meta name="twitter:image" content="https://qjwh.github.io/">
+
+    
+    <link rel="canonical" href="https://qjwh.github.io/posts/aln_exbinarysearch/">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/normalize.min.css" media="print">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/main.min.css">
+
+    
+    <link id="dark-theme" rel="stylesheet" href="/css/dark.min.css">
+
+    
+    <script src="/js/bundle.min.ad84dd09e60165f836ea08a26f86608c070e127d21ac6ab168c87da076554d87.js" integrity="sha256-rYTdCeYBZfg26giib4ZgjAcOEn0hrGqxaMh9oHZVTYc="></script>
+
+    
+    
+        <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          // customised options
+          // ? auto-render specific keys, e.g.:
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false},
+          ],
+          // ? rendering keys, e.g.:
+          throwOnError : false
+        });
+      });
+    </script>
+  
+    
+</head>
+<body>
+        <script>
+            
+            setThemeByUserPref();
+        </script><header class="header">
+    <nav class="header-nav">
+
+        
+
+        <div class="nav-title">
+            <a class="nav-brand" href="https://qjwh.github.io/">CXBlog</a>
+        </div>
+
+        <div class="nav-links">
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/" aria-label="home" >      <i data-feather="home"></i>
+      <script>
+        feather.replace();
+      </script>
+       首页
+      </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/posts" aria-label="posts" >      <i data-feather="book"></i>
+      <script>
+        feather.replace();
+      </script>
+       文章
+      </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/tags" aria-label="tags" >      <i data-feather="tag"></i>
+      <script>
+        feather.replace();
+      </script>
+       标签
+      </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/about" aria-label="about" >      <i data-feather="info"></i>
+      <script>
+        feather.replace();
+      </script>
+       关于
+      </a>
+            </div>
+            
+
+            <span class="nav-icons-divider"></span>
+            <div class="nav-link dark-theme-toggle">
+                <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                <a aria-hidden="true" role="switch">
+                    <span class="theme-toggle-icon" data-feather="moon"></span>
+                </a>
+            </div>
+
+            <div class="nav-link" id="hamburger-menu-toggle">
+                <span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
+                <a aria-checked="false" aria-labelledby="hamburger-menu-toggle" id="hamburger-menu-toggle-target" role="switch">
+                    <span data-feather="menu"></span>
+                </a>
+            </div>
+
+            
+            <ul class="nav-hamburger-list visibility-hidden">
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/" >      <i data-feather="home"></i>
+      <script>
+        feather.replace();
+      </script>
+       首页
+      </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/posts" >      <i data-feather="book"></i>
+      <script>
+        feather.replace();
+      </script>
+       文章
+      </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/tags" >      <i data-feather="tag"></i>
+      <script>
+        feather.replace();
+      </script>
+       标签
+      </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/about" >      <i data-feather="info"></i>
+      <script>
+        feather.replace();
+      </script>
+       关于
+      </a>
+                </li>
+                
+                <li class="nav-item dark-theme-toggle">
+                    <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                    <a role="switch">
+                        <span class="theme-toggle-icon" data-feather="moon"></span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</header>
+<main id="content">
+    <div class="post container">
+    <div class="post-header-section">
+        <h1>整体二分</h1>
+
+        
+
+        
+	
+	
+	
+	
+        
+
+	
+
+	
+
+	
+          <small role="doc-subtitle"></small>
+	
+
+	
+          <p class="post-date">
+              
+
+              February 9, 2025
+
+              
+          </p>
+	
+
+        <ul class="post-tags">
+          
+           
+             <li class="post-tag"><a href="https://qjwh.github.io/tags/%E4%BF%A1%E6%81%AF%E5%AD%A6%E7%AB%9E%E8%B5%9B">信息学竞赛</a></li>
+           
+         
+           
+             <li class="post-tag"><a href="https://qjwh.github.io/tags/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0">算法学习笔记</a></li>
+           
+         
+        </ul>
+    </div>
+
+    <div class="post-content">
+        <text style="font-family:Noto Sans SC">
+<p>整体二分类似于线段树上二分，在讲这个算法前，先引入几个问题。</p>
+<h2 id="text-stylecolorrgb0150136-解决题型"><text style="color:rgb(0,150,136)"> 解决题型</h2>
+<p>整体二分一般解决的是如下的问题：</p>
+<blockquote>
+<p>给你一个【集合/序列/矩阵/树】，要求【静态/动态】维护所有【元素/区间/子矩阵/链/子树】中的第 $k$【可能每次给定】大元素，【可能强制在线】。</p></blockquote>
+<p>下面是一堆例题。</p>
+<h2 id="text-stylecolorrgb0150136-例题1-动态查询集合第k大可离线"><text style="color:rgb(0,150,136)"> 例题1 动态查询集合第k大（可离线）</h2>
+<h3 id="text-stylecolorrgb0150136-题意"><text style="color:rgb(0,150,136)"> 题意</h3>
+<p>让你维护一个初始为空的多重集合 $s$，并支持 $q$ 次操作，操作都是下面三种之一：</p>
+<ul>
+<li>添加一个数 $x$ 到集合 $s$ 中。</li>
+<li>在集合 $s$ 中删除一个数 $x$（保证元素存在）。</li>
+<li>查询集合第 $k$ 大（保证第 $k$ 大存在）。</li>
+</ul>
+<h3 id="text-stylecolorrgb0150136-数据范围"><text style="color:rgb(0,150,136)"> 数据范围</h3>
+<ul>
+<li>$1 \leq q \leq 2 \times 10^5$</li>
+<li>$0 \leq x \leq 10^9$</li>
+</ul>
+<h3 id="text-stylecolorrgb0150136-题解"><text style="color:rgb(0,150,136)"> 题解</h3>
+<p>维护一个权值线段树（权值线段树其实就是一个维护值域的线段树），维护一段值域里有多少个数，每次询问在线段树上二分即可。</p>
+<p>具体地，对于线段树上某个节点对应的区间 $[l,r]$，这个节点上的值为集合中，值在 $[l,r]$ 的数的个数有多少。</p>
+<p>在询问时，我们要记录当前节点编号 $x$，$x$ 维护区间 $[l,r]$，以及要查询值在 $[l,r]$ 内的所有数的第 $k$ 大。</p>
+<p>当递归到某个状态后，我们看这个节点的左子树 $\text{lc}$ 内有多少个值，如果大于等于 $k$，则递归到左子树；否则递归到右子树，且 $k$ 减去(左子树内数的个数)。</p>
+<p>由于值域较大，权值线段树可能会爆，所以要先把所有询问离线下来，做个离散化，然后就可以把 $x$ 控制到 $q$ 级别，就不会爆了。</p>
+<p>修改操作就是典中典了，此处不再赘述。</p>
+<p><strong>时间复杂度</strong>：$O(q \log q)$</p>
+<h2 id="text-stylecolorrgb0150136-例题2-动态查询集合第k大强制在线"><text style="color:rgb(0,150,136)"> 例题2 动态查询集合第k大（强制在线）</h2>
+<h3 id="text-stylecolorrgb0150136-题意-1"><text style="color:rgb(0,150,136)"> 题意</h3>
+<p>同上，不过加了个强制在线的限制。</p>
+<h3 id="text-stylecolorrgb0150136-数据范围-1"><text style="color:rgb(0,150,136)"> 数据范围</h3>
+<p>同上。</p>
+<h3 id="text-stylecolorrgb0150136-题解-1"><text style="color:rgb(0,150,136)"> 题解</h3>
+<p>此时就不能离线，然后离散化了。</p>
+<p>此时有四种做法：</p>
+<ol>
+<li>动态开点线段树，<strong>时间复杂度</strong>：$O(q \log^2 q)$</li>
+<li>PBDS（<a href="https://www.luogu.com.cn/blog/Chanis/gnu-pbds">笔记</a>），<strong>时间复杂度</strong>：$O(q \log q)$</li>
+<li>平衡树，<strong>时间复杂度</strong>：$O(q \log q)$</li>
+<li>对顶堆，<strong>时间复杂度</strong>：$O(q \log q)$
+<blockquote>
+<p>有人一看“对顶堆”就感觉很难，但其实很好理解。</p>
+<p>（注：使用该做法的前提是 $k$ 是一个定值）</p>
+<p>我们维护一个<strong>小根堆</strong> $h_1$ 和一个<strong>大根堆</strong> $h_2$。</p>
+<p>$h_1$ 里维护的是前 $k$ 大，$h_2$ 里则是维护的其他值。</p>
+<p>由于涉及删除（查找），所以要用<code>set</code>，而不是<code>priority_queue</code>。</p>
+<p>每次添加操作，先加入到 $h_1$ 里，如果说 $h_1$ 的大小大于 $k$（显然只可能是 $k+1$），那么弹出 $h_1$ 内的最小元素，并加入到 $h_2$。</p>
+<p>每次删除操作，如果 $h_2$ 里有删除的元素，直接在 $h_2$ 里删；否则在 $h_1$ 里删，如果说 $h_1$ 的大小小于 $k$（显然只可能是 $k-1$），那么弹出 $h_2$ 内的最大元素，并加入到 $h_1$。</p>
+<p>每次查询操作，直接弹出 $h_1$ 内的最小值即可。</p>
+<p>上面做法里只涉及几种操作：</p>
+<ul>
+<li>添加元素（<code>multiset.insert(LL)</code>，复杂度为 $O(\log n)$）</li>
+<li>找到元素出现位置/判断元素是否存在（<code>multiset.find(LL)</code>，复杂度为 $O(\log n)$）
+<blockquote>
+<p>注意，这里不能使用<code>multiset.count(LL)</code>，因为这个函数的复杂度其实是 $O(\log n+\text{cnt})$，其中 $\text{cnt}$ 为返回值。</p>
+<p>而这样的复杂度显然会被特殊数据卡到 $\text{cnt}=n$，也就炸了。</p></blockquote>
+</li>
+<li>删除元素（<code>multiset.erase(multiset::iterator)</code>，复杂度均摊常数）
+<blockquote>
+<p>有人问为啥不能直接用<code>multiset.erase(LL)</code>？有两个原因：</p>
+<ol>
+<li><code>multiset.erase(LL)</code>会直接删除这个<code>multiset</code>中<strong>所有</strong>与传参相同的位置，但题目说的是只删除一个，所以会WA。</li>
+<li>直接用<code>multiset.erase(multiset::iterator)</code>复杂度是均摊常数的（如果要加上<code>multiset.find(LL)</code>的复杂度，也只是 $O(\log n)$ 而已），但<code>multiset.erase(LL)</code>的复杂度是 $O(\log n+\text{cnt})$，会TLE。</li>
+</ol></blockquote>
+</li>
+</ul>
+<p>所以总复杂度为 $O(q \log q)$。</p></blockquote>
+</li>
+</ol>
+<h2 id="text-stylecolorrgb0150136-例题3-静态查询区间第k小可离线"><text style="color:rgb(0,150,136)"> 例题3 静态查询区间第k小（可离线）</h2>
+<h3 id="text-stylecolorrgb0150136-题意-2"><text style="color:rgb(0,150,136)"> 题意</h3>
+<p>给你一个长度为 $n$ 的数组 $a$，你要回答 $q$ 次询问，每次询问会给定 $l$、$r$、$k$，问你 $a_l \sim a_r$ 内第 $k$ 小的数是多少。</p>
+<h3 id="text-stylecolorrgb0150136-数据范围-2"><text style="color:rgb(0,150,136)"> 数据范围</h3>
+<ul>
+<li>$1 \leq n \leq 2 \times 10^5$</li>
+<li>$1 \leq q \leq 2 \times 10^5$</li>
+<li>$0 \leq a_i \leq n$</li>
+</ul>
+<h3 id="text-stylecolorrgb0150136-题解-2"><text style="color:rgb(0,150,136)"> 题解</h3>
+<p>一看这道题，再看例题1的解法，有些人就想到了主席树（可持久化线段树），然后直接开干，$O((n+q) \log n)$ 的复杂度，稳过。</p>
+<p>上面这种做法比下面要讲的整体二分还要少一个 $\log$，不过缺点是，这个代码忒长了。</p>
+<p>下面讲一下整体二分。</p>
+<h4 id="text-stylecolorrgb0150136-概览"><text style="color:rgb(0,150,136)"> 概览</h4>
+<p>整体二分，顾名思义就是「<text style="color:gray">对</text>整体<text style="color:gray">做线段树上</text>二分」，而具体怎么个思路呢？见下。</p>
+<p>整体二分本质还是一个分治。</p>
+<h4 id="text-stylecolorrgb0150136-设计分治函数"><text style="color:rgb(0,150,136)"> 设计分治函数</h4>
+<p>看到「（权值）线段树上二分」，那么分治里必须有值域。</p>
+<p>再看例题1的做法，在例题1里，整体来看，每当递归到一个节点，我们就是把问题分为了两类：一类去了左儿子，一类则是去了右儿子。</p>
+<p>这里也一样，于是我们就得到了一个分治函数：$\text{solve}(l,r,q_l,q_r)$，代表已经确定了第 $q_l$ 个询问到第 $q_r$ 个询问（我们已经把所有询问都存到了一个数组，且这个数组可能会随时变化）的答案在 $[l,r]$ 内。</p>
+<p>就像本题，初始的状态就是 $\text{solve}(1,n,1,q)$。</p>
+<h4 id="text-stylecolorrgb0150136-询问分类"><text style="color:rgb(0,150,136)"> 询问分类</h4>
+<p>接下来考虑把这些询问分成两类：一类答案在 $[l,\text{mid}]$ 内，另一类答案在 $[\text{mid}+1,r]$ 内，其中 $\text{mid}$ 为区间 $[l,r]$ 的中点下标。</p>
+<p>对于一个询问 $(c_l,c_r,c_k)$，分类看的其实就是 $a_{c_l} \sim a_{c_r}$ 内有多少值在 $[l,\text{mid}]$ 内的下标，是否大于等于 $c_k$。</p>
+<p>上面说的值域 $[l,\text{mid}]$ 是固定的，所以我们考虑维护一个树状数组。</p>
+<p>在初始时，对于所有值在 $[l,\text{mid}]$ 内的下标 $x$ 都加 $1$。</p>
+<blockquote>
+<p>有人感觉描述有点模糊，此处用数学方式表达一下。</p>
+<p>我们把所有满足 $a_x \in [l,\text{mid}]$ 的 $x$（$1 \leq x \leq n$）全部加入一个集合 $s$，然后对于 $s$ 中的所有值 $v$，在树状数组的 $v$ 下标上加 $1$（<code>add(v,1)</code>）。</p></blockquote>
+<p>但直接实现会TLE，我们考虑在初始时，就记录一个<code>vector</code>数组 $\text{pos}$，$\text{pos}_i$ 为一个<code>vector</code>，存储满足 $a_x=i$ 的 $x$ 集合。</p>
+<p>然后，直接遍历 $i \in [l,\text{mid}]$，并对于每个 $i$，循环所有 $x \in \text{pos}_i$，并在树状数组的 $x$ 位置上加 $1$ 即可。</p>
+<p>所以就可以很快分类了，我们直接看树状数组的下标 $c_l \sim c_r$ 上的值的和 $\text{sum}$，如果 $\text{sum} \geq c_k$，则该询问 $(c_l,c_r,c_k)$ 分到“左子树类”，否则分到“右子树类”。</p>
+<p>由于要分类，所以需要记录一个临时数组防止WA。</p>
+<p>到最后，我们就讲这个问题变成了两个子问题：一个 $\text{solve}(l,\text{mid},左子树类下标区间)$，另一个 $\text{solve}(\text{mid}+1,r,右子树类下标区间)$。</p>
+<h4 id="text-stylecolorrgb0150136-边界情况"><text style="color:rgb(0,150,136)"> 边界情况</h4>
+<p>最后是一些边界。</p>
+<p>如果我们发现 $q_l&gt;q_r$，那么就说明考虑范围为空，<code>return</code>。</p>
+<p>如果 $l=r$，就说明询问 $q_l \sim q_r$ 的答案唯一，都是 $l$，直接赋值即可，<code>return</code>。</p>
+<p><strong>时间复杂度</strong>：$O((n+q) \log^2 n)$</p>
+<h3 id="text-stylecolorrgb0150136-代码"><text style="color:rgb(0,150,136)"> 代码</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> LL N <span style="color:#f92672">=</span> <span style="color:#ae81ff">2e5</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">10</span>, Q <span style="color:#f92672">=</span> <span style="color:#ae81ff">2e5</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">10</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>LL n, qc;
+</span></span><span style="display:flex;"><span>LL a[N];
+</span></span><span style="display:flex;"><span>LL l, r, k;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>bs<span style="color:#f92672">&lt;</span>LL<span style="color:#f92672">&gt;</span> pos[N];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Query</span>{ LL l, r, k, id; };
+</span></span><span style="display:flex;"><span>Query q[Q];
+</span></span><span style="display:flex;"><span>Query b[Q];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#define lowbit(x) ((x) &amp; (-(x)))
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>LL c[N];
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">add</span>(LL x, LL v){ <span style="color:#66d9ef">for</span>(LL i <span style="color:#f92672">=</span> x;i <span style="color:#f92672">&lt;=</span> n;i <span style="color:#f92672">+=</span> lowbit(i)) c[i] <span style="color:#f92672">+=</span> v; }
+</span></span><span style="display:flex;"><span>LL <span style="color:#a6e22e">query</span>(LL x){ LL ret <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#66d9ef">for</span>(LL i <span style="color:#f92672">=</span> x;i;i <span style="color:#f92672">-=</span> lowbit(i)) ret <span style="color:#f92672">+=</span> c[i]; <span style="color:#66d9ef">return</span> ret; }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>LL ans[Q];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">work</span>(LL l, LL r, LL ql, LL qr){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(l <span style="color:#f92672">&gt;</span> r <span style="color:#f92672">||</span> ql <span style="color:#f92672">&gt;</span> qr) <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(l <span style="color:#f92672">==</span> r){
+</span></span><span style="display:flex;"><span>        rep(i, ql, qr) ans[q[i].id] <span style="color:#f92672">=</span> l;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    LL mid <span style="color:#f92672">=</span> l <span style="color:#f92672">+</span> (r <span style="color:#f92672">-</span> l) <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>    rep(i, l, mid)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">auto</span> x : pos[i])
+</span></span><span style="display:flex;"><span>            add(x, <span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    LL pa <span style="color:#f92672">=</span> ql, pb <span style="color:#f92672">=</span> qr;
+</span></span><span style="display:flex;"><span>    rep(i, ql, qr){
+</span></span><span style="display:flex;"><span>        LL l <span style="color:#f92672">=</span> q[i].l, r <span style="color:#f92672">=</span> q[i].r, k <span style="color:#f92672">=</span> q[i].k;
+</span></span><span style="display:flex;"><span>        LL s <span style="color:#f92672">=</span> query(r) <span style="color:#f92672">-</span> query(l <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(s <span style="color:#f92672">&gt;=</span> k) b[pa<span style="color:#f92672">++</span>] <span style="color:#f92672">=</span> q[i];
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span> q[i].k <span style="color:#f92672">-=</span> s, b[pb<span style="color:#f92672">--</span>] <span style="color:#f92672">=</span> q[i];
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    rep(i, ql, qr) q[i] <span style="color:#f92672">=</span> b[i];
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    rep(i, l, mid)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">auto</span> x : pos[i])
+</span></span><span style="display:flex;"><span>            add(x, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    work(l, mid, ql, pa <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>), work(mid <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, r, pb <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, qr);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">solve</span>(){
+</span></span><span style="display:flex;"><span>    rd(n), rd(qc);
+</span></span><span style="display:flex;"><span>    rep(i, <span style="color:#ae81ff">1</span>, n) rd(a[i]), pos[a[i]] <span style="color:#f92672">+=</span> i;
+</span></span><span style="display:flex;"><span>    rep(i, <span style="color:#ae81ff">1</span>, qc) rd(l), rd(r), rd(k), q[i] <span style="color:#f92672">=</span> {l, r, k, i};
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    work(<span style="color:#ae81ff">1</span>, n, <span style="color:#ae81ff">1</span>, qc);
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    rep(i, <span style="color:#ae81ff">1</span>, qc) printf(<span style="color:#e6db74">&#34;%lld</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, ans[i]);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="text-stylecolorrgb0150136-例题4-静态查询区间第k小强制在线"><text style="color:rgb(0,150,136)"> 例题4 静态查询区间第k小（强制在线）</h2>
+<h3 id="text-stylecolorrgb0150136-题意-3"><text style="color:rgb(0,150,136)"> 题意</h3>
+<p>同上，不过加了个强制在线的限制。</p>
+<h3 id="text-stylecolorrgb0150136-数据范围-3"><text style="color:rgb(0,150,136)"> 数据范围</h3>
+<p>同上。</p>
+<h3 id="text-stylecolorrgb0150136-题解-3"><text style="color:rgb(0,150,136)"> 题解</h3>
+<p>本题可用树状数组套主席树以 $O((n+q) \log^2 n)$ 的复杂度解决。</p>
+<h2 id="text-stylecolorrgb0150136-例题5-动态查询区间第k小可离线"><text style="color:rgb(0,150,136)"> 例题5 动态查询区间第k小（可离线）</h2>
+<h3 id="text-stylecolorrgb0150136-题意-4"><text style="color:rgb(0,150,136)"> 题意</h3>
+<p>给你一个长度为 $n$ 的数组 $a$，你要处理 $q$ 次操作，每次操作分两种：</p>
+<ul>
+<li>操作：给定 $x$、$v$，将 $a_x$ 的值更改为 $v$。</li>
+<li>询问：给定 $l$、$r$、$k$，问你 $a_l \sim a_r$ 内第 $k$ 小的数是多少。</li>
+</ul>
+<h3 id="text-stylecolorrgb0150136-数据范围-4"><text style="color:rgb(0,150,136)"> 数据范围</h3>
+<ul>
+<li>$1 \leq n \leq 2 \times 10^5$</li>
+<li>$1 \leq q \leq 2 \times 10^5$</li>
+<li>$0 \leq a_i \leq 10^9$</li>
+</ul>
+<h3 id="text-stylecolorrgb0150136-题解-4"><text style="color:rgb(0,150,136)"> 题解</h3>
+<p>一看这道题，再看例题1的解法，有些人就想到了树状数组套主席树，然后直接开干，$O((n+q) \log^2 n)$ 的复杂度，稳过。</p>
+<p>上面这种做法比下面要讲的带修整体二分复杂度一样，不过缺点是，这个代码忒长了。</p>
+<p>下面讲一下带修整体二分。</p>
+<h4 id="text-stylecolorrgb0150136-概览-1"><text style="color:rgb(0,150,136)"> 概览</h4>
+<p>带修整体二分其实就是「带修<text style="color:gray">改的</text>整体二分」。</p>
+<p>带修整体二分和普通整体二分代码差别很大，但思想一致。</p>
+<p>注意：和CDQ分治一样，$\text{solve}(l,r,q_l,q_r)$ 代表的是，<strong>只考虑 $q_l \sim q_r$ 内的修改</strong>，去更新 $q_l \sim q_r$ 内的查询。</p>
+<h4 id="text-stylecolorrgb0150136-变化修改操作"><text style="color:rgb(0,150,136)"> 变化修改操作</h4>
+<p>看见这个修改操作，也是最难搞的一个操作。</p>
+<p>但修改操作本身难搞，并不代表转化后难搞。</p>
+<p>我们把一次修改操作 $(x,v)$ 变化成两部分：</p>
+<ul>
+<li>第一步：$a_x$ 减去 $a_x$</li>
+<li>第二步：$a_x$ 加上 $v$</li>
+</ul>
+<p>这样变化后，我们就可以继续设计新的分治思路了。</p>
+<h4 id="text-stylecolorrgb0150136-变化分治函数"><text style="color:rgb(0,150,136)"> 变化分治函数</h4>
+<p>还是一样的思路，我们要把第 $q_l$ 到第 $q_r$ 个询问分类。</p>
+<p>但这里带上了修改操作，不太好处理。</p>
+<p>但也不是不能处理，我们直接去遍历 $i=q_l \sim q_r$：</p>
+<ul>
+<li>如果说第 $i$ 个操作是修改，我们假设是 $a_x$ 加上 $v \times \text{mul}$（$\text{mul} \in { -1,1 }$）的操作：
+<ul>
+<li>那么，由于 $v$ 不是修改前 $a_x$ 的值，就是修改后 $a_x$ 的值，所以通过 $v$ 即可得到修改前/后的值。</li>
+<li>所以：
+<ul>
+<li>如果我们发现 $v \leq \text{mid}$，那么，就需要在树状数组上做修改：在位置 $x$ 上加上值 $\text{mul}$，很容易理解，此处略。
+<ul>
+<li>同时，即使当前操作是修改，也要加入到第一类操作中。</li>
+</ul>
+</li>
+<li>否则，加入到第二类操作中，而不改变树状数组。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>如果第 $i$ 个操作是询问 $(l,r,k)$：
+<ul>
+<li>那么我们找到树状数组第 $l$ 到 $r$ 个位置上数的和 $\text{cnt}$。</li>
+<li>然后就是一样的处理了：
+<ul>
+<li>如果 $\text{cnt} \geq k$，则加入到第一类操作中。</li>
+<li>否则，将 $k$ 减去 $\text{cnt}$ 并加入到第二类操作中。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>（很好理解，此处略）</p>
+<p><strong>时间复杂度</strong>：$O((n+q) \log^2 n)$</p>
+<h3 id="text-stylecolorrgb0150136-代码-1"><text style="color:rgb(0,150,136)"> 代码</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> LL N <span style="color:#f92672">=</span> <span style="color:#ae81ff">1e5</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">10</span>, Q <span style="color:#f92672">=</span> <span style="color:#ae81ff">3e5</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">10</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>LL n, qc;
+</span></span><span style="display:flex;"><span>LL a[N];
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">char</span> opt[<span style="color:#ae81ff">2</span>];
+</span></span><span style="display:flex;"><span>LL x, v;
+</span></span><span style="display:flex;"><span>LL l, r, k;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>LL ma;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Query</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//opt=1：修改操作，a[x]+=v*mul
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">//opt=2：查询操作，查询a[l]~a[r]内的第k大，并将答案存入ans[qid]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    LL opt;
+</span></span><span style="display:flex;"><span>    LL x, v, mul;
+</span></span><span style="display:flex;"><span>    LL l, r, k;
+</span></span><span style="display:flex;"><span>    LL qid;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Query q[Q];
+</span></span><span style="display:flex;"><span>LL qi;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Query b[Q];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#define lowbit(x) ((x) &amp; (-(x)))
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>LL c[N];
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">add</span>(LL x, LL v){ <span style="color:#66d9ef">for</span>(LL i <span style="color:#f92672">=</span> x;i <span style="color:#f92672">&lt;=</span> n;i <span style="color:#f92672">+=</span> lowbit(i)) c[i] <span style="color:#f92672">+=</span> v; }
+</span></span><span style="display:flex;"><span>LL <span style="color:#a6e22e">query</span>(LL x){ LL ret <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#66d9ef">for</span>(LL i <span style="color:#f92672">=</span> x;i;i <span style="color:#f92672">-=</span> lowbit(i)) ret <span style="color:#f92672">+=</span> c[i]; <span style="color:#66d9ef">return</span> ret; }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>LL ans[Q];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">work</span>(LL l, LL r, LL ql, LL qr){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(l <span style="color:#f92672">&gt;</span> r <span style="color:#f92672">||</span> ql <span style="color:#f92672">&gt;</span> qr) <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(l <span style="color:#f92672">==</span> r){
+</span></span><span style="display:flex;"><span>        rep(i, ql, qr) <span style="color:#66d9ef">if</span>(q[i].opt <span style="color:#f92672">==</span> <span style="color:#ae81ff">2</span>) ans[q[i].qid] <span style="color:#f92672">=</span> l;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    LL mid <span style="color:#f92672">=</span> l <span style="color:#f92672">+</span> (r <span style="color:#f92672">-</span> l) <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>    LL pa <span style="color:#f92672">=</span> ql, pb <span style="color:#f92672">=</span> qr;
+</span></span><span style="display:flex;"><span>    rep(i, ql, qr)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(q[i].opt <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>){
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(q[i].v <span style="color:#f92672">&lt;=</span> mid) add(q[i].x, q[i].mul), b[pa<span style="color:#f92672">++</span>] <span style="color:#f92672">=</span> q[i];
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span> b[pb<span style="color:#f92672">--</span>] <span style="color:#f92672">=</span> q[i];
+</span></span><span style="display:flex;"><span>        }<span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>            LL cnt <span style="color:#f92672">=</span> query(q[i].r) <span style="color:#f92672">-</span> query(q[i].l <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(cnt <span style="color:#f92672">&gt;=</span> q[i].k) b[pa<span style="color:#f92672">++</span>] <span style="color:#f92672">=</span> q[i];
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span> q[i].k <span style="color:#f92672">-=</span> cnt, b[pb<span style="color:#f92672">--</span>] <span style="color:#f92672">=</span> q[i];
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    rep(i, ql, qr) <span style="color:#66d9ef">if</span>(q[i].opt <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">&amp;&amp;</span> q[i].v <span style="color:#f92672">&lt;=</span> mid) add(q[i].x, <span style="color:#f92672">-</span>q[i].mul);
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    rep(i, ql, qr) q[i] <span style="color:#f92672">=</span> b[i];
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//q[pb+1]~q[qr]在上面是倒序赋值的，所以此处要把q[pb+1]~q[qr]翻转一下
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    reverse(q <span style="color:#f92672">+</span> pb <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, q <span style="color:#f92672">+</span> qr <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>    work(l, mid, ql, pa <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>), work(mid <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, r, pb <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, qr);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">solve</span>(){
+</span></span><span style="display:flex;"><span>    rd(n), rd(qc);
+</span></span><span style="display:flex;"><span>    rep(i, <span style="color:#ae81ff">1</span>, n){
+</span></span><span style="display:flex;"><span>        rd(a[i]);
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//初始值处理
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        q[<span style="color:#f92672">++</span>qi] <span style="color:#f92672">=</span> {<span style="color:#ae81ff">1</span>, i, a[i], <span style="color:#ae81ff">1</span>};
+</span></span><span style="display:flex;"><span>        ma <span style="color:#f92672">=</span> max(ma, a[i]);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    LL qryc <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    rep(i, <span style="color:#ae81ff">1</span>, qc){
+</span></span><span style="display:flex;"><span>        scanf(<span style="color:#e6db74">&#34;%s&#34;</span>, opt);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>((<span style="color:#f92672">*</span>opt) <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;C&#39;</span>){
+</span></span><span style="display:flex;"><span>            rd(x), rd(v);
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            q[<span style="color:#f92672">++</span>qi] <span style="color:#f92672">=</span> {<span style="color:#ae81ff">1</span>, x, a[x], <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>};
+</span></span><span style="display:flex;"><span>            q[<span style="color:#f92672">++</span>qi] <span style="color:#f92672">=</span> {<span style="color:#ae81ff">1</span>, x, v, <span style="color:#ae81ff">1</span>};
+</span></span><span style="display:flex;"><span>            a[x] <span style="color:#f92672">=</span> v;
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">//最大值更新要带上修改操作
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            ma <span style="color:#f92672">=</span> max(ma, v);
+</span></span><span style="display:flex;"><span>        }<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span>((<span style="color:#f92672">*</span>opt) <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;Q&#39;</span>){
+</span></span><span style="display:flex;"><span>            rd(l), rd(r), rd(k);
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            q[<span style="color:#f92672">++</span>qi] <span style="color:#f92672">=</span> {<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, l, r, k, <span style="color:#f92672">++</span>qryc};
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    work(<span style="color:#ae81ff">0</span>, ma, <span style="color:#ae81ff">1</span>, qi);
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    rep(i, <span style="color:#ae81ff">1</span>, qryc) printf(<span style="color:#e6db74">&#34;%lld</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, ans[i]);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="text-stylecolorrgb0150136-例题6-动态查询区间第k小强制在线"><text style="color:rgb(0,150,136)"> 例题6 动态查询区间第k小（强制在线）</h2>
+<h3 id="text-stylecolorrgb0150136-题意-5"><text style="color:rgb(0,150,136)"> 题意</h3>
+<p>同上，不过加了个强制在线的限制。</p>
+<h3 id="text-stylecolorrgb0150136-数据范围-5"><text style="color:rgb(0,150,136)"> 数据范围</h3>
+<p>同上。</p>
+<h3 id="text-stylecolorrgb0150136-题解-5"><text style="color:rgb(0,150,136)"> 题解</h3>
+<p>本题可用树状数组套主席树以 $O((n+q) \log^2 n)$ 的复杂度解决。</p>
+<h2 id="text-stylecolorrgb0150136-例题7-静态查询子矩阵第k小可离线"><text style="color:rgb(0,150,136)"> 例题7 静态查询子矩阵第k小（可离线）</h2>
+<h3 id="text-stylecolorrgb0150136-题意-6"><text style="color:rgb(0,150,136)"> 题意</h3>
+<p>给你一个大小为 $n \times m$ 的矩阵 $a$，你要处理 $q$ 次询问，每次询问给定 $x_1$、$y_1$、$x_2$、$y_2$、$k$，问你以 $(x_1,y_1)$ 为左上角、以 $(x_2,y_2)$ 为右下角的子矩阵的第 $k$ 小的数是多少。</p>
+<h3 id="text-stylecolorrgb0150136-数据范围-6"><text style="color:rgb(0,150,136)"> 数据范围</h3>
+<ul>
+<li>$1 \leq n,m \leq 2 \times 10^3$</li>
+<li>$1 \leq q \leq 2 \times 10^5$</li>
+<li>$0 \leq a_i \leq 10^9$</li>
+</ul>
+<h3 id="text-stylecolorrgb0150136-题解-6"><text style="color:rgb(0,150,136)"> 题解</h3>
+<p>这题和例题3几乎没有什么区别，只不过平面维度变成了二维。</p>
+<p>所以，我们就需要用到二维树状数组。</p>
+<p>这里简单说一下原理。</p>
+<p>一维树状数组里，$c_x$ 维护的是区间 $(x-\text{lowbit}(x),x]$ 的某个值。</p>
+<p>同理，在二维树状数组里，$c_{x,y}$ 就代表X坐标在 $(x-\text{lowbit}(x),x]$ 内、Y坐标在 $(y-\text{lowbit}(y),y]$ 内的这个子矩阵的某个值。</p>
+<p>所以，其实<code>add</code>和<code>query</code>函数也差不了多少，详情见代码，很好理解。</p>
+<p><strong>时间复杂度</strong>：$O((n+q) \log^3 n)$</p>
+<h3 id="text-stylecolorrgb0150136-代码-2"><text style="color:rgb(0,150,136)"> 代码</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> LL N <span style="color:#f92672">=</span> <span style="color:#ae81ff">2010</span>, A <span style="color:#f92672">=</span> <span style="color:#ae81ff">4e6</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">10</span>, Q <span style="color:#f92672">=</span> <span style="color:#ae81ff">6e4</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">10</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>LL n, qc;
+</span></span><span style="display:flex;"><span>LL a[N][N];
+</span></span><span style="display:flex;"><span>LL xa, ya, xb, yb, k;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>bs<span style="color:#f92672">&lt;</span>LL<span style="color:#f92672">&gt;</span> alls;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#define find(x) (lower_bound(all(alls), x) - alls.begin() + 1)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>LL nn;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>vector<span style="color:#f92672">&lt;</span>PII<span style="color:#f92672">&gt;</span> pos[A];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Query</span>{ LL xa, ya, xb, yb, k, id; };
+</span></span><span style="display:flex;"><span>Query q[Q];
+</span></span><span style="display:flex;"><span>Query b[Q];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#define lowbit(x) ((x) &amp; (-(x)))
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>LL c[N][N];
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">add</span>(LL x, LL y, LL v){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(LL i <span style="color:#f92672">=</span> x;i <span style="color:#f92672">&lt;=</span> n;i <span style="color:#f92672">+=</span> lowbit(i))
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(LL j <span style="color:#f92672">=</span> y;j <span style="color:#f92672">&lt;=</span> n;j <span style="color:#f92672">+=</span> lowbit(j))
+</span></span><span style="display:flex;"><span>            c[i][j] <span style="color:#f92672">+=</span> v;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>LL <span style="color:#a6e22e">query</span>(LL x, LL y){
+</span></span><span style="display:flex;"><span>    LL ret <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(LL i <span style="color:#f92672">=</span> x;i;i <span style="color:#f92672">-=</span> lowbit(i))
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(LL j <span style="color:#f92672">=</span> y;j;j <span style="color:#f92672">-=</span> lowbit(j))
+</span></span><span style="display:flex;"><span>            ret <span style="color:#f92672">+=</span> c[i][j];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> ret;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>LL <span style="color:#a6e22e">query_zi</span>(LL xa, LL ya, LL xb, LL yb){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> query(xb, yb) <span style="color:#f92672">-</span> query(xa <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>, yb) <span style="color:#f92672">-</span> query(xb, ya <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span> query(xa <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>, ya <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>LL ans[Q];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">work</span>(LL l, LL r, LL ql, LL qr){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(l <span style="color:#f92672">&gt;</span> r <span style="color:#f92672">||</span> ql <span style="color:#f92672">&gt;</span> qr) <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(l <span style="color:#f92672">==</span> r){
+</span></span><span style="display:flex;"><span>        rep(i, ql, qr) ans[q[i].id] <span style="color:#f92672">=</span> l;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    LL mid <span style="color:#f92672">=</span> l <span style="color:#f92672">+</span> (r <span style="color:#f92672">-</span> l) <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>    rep(i, l, mid)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">auto</span> it : pos[i])
+</span></span><span style="display:flex;"><span>            add(it.fir, it.sec, <span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    LL pa <span style="color:#f92672">=</span> ql, pb <span style="color:#f92672">=</span> qr;
+</span></span><span style="display:flex;"><span>    rep(i, ql, qr){
+</span></span><span style="display:flex;"><span>        LL xa <span style="color:#f92672">=</span> q[i].xa, ya <span style="color:#f92672">=</span> q[i].ya, xb <span style="color:#f92672">=</span> q[i].xb, yb <span style="color:#f92672">=</span> q[i].yb, k <span style="color:#f92672">=</span> q[i].k;
+</span></span><span style="display:flex;"><span>        LL s <span style="color:#f92672">=</span> query_zi(xa, ya, xb, yb);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(s <span style="color:#f92672">&gt;=</span> k) b[pa<span style="color:#f92672">++</span>] <span style="color:#f92672">=</span> q[i];
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span> q[i].k <span style="color:#f92672">-=</span> s, b[pb<span style="color:#f92672">--</span>] <span style="color:#f92672">=</span> q[i];
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    rep(i, ql, qr) q[i] <span style="color:#f92672">=</span> b[i];
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    rep(i, l, mid)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">auto</span> it : pos[i])
+</span></span><span style="display:flex;"><span>            add(it.fir, it.sec, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    work(l, mid, ql, pa <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>), work(mid <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, r, pb <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, qr);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">solve</span>(){
+</span></span><span style="display:flex;"><span>    rd(n), rd(qc);
+</span></span><span style="display:flex;"><span>    rep(i, <span style="color:#ae81ff">1</span>, n) rep(j, <span style="color:#ae81ff">1</span>, n) rd(a[i][j]), alls <span style="color:#f92672">+=</span> a[i][j];
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    sort(all(alls));
+</span></span><span style="display:flex;"><span>    alls.erase(unique(all(alls)), alls.end());
+</span></span><span style="display:flex;"><span>    nn <span style="color:#f92672">=</span> alls.size();
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    rep(i, <span style="color:#ae81ff">1</span>, n) rep(j, <span style="color:#ae81ff">1</span>, n) a[i][j] <span style="color:#f92672">=</span> find(a[i][j]), pos[a[i][j]].pb({i, j});
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    rep(i, <span style="color:#ae81ff">1</span>, qc) rd(xa), rd(ya), rd(xb), rd(yb), rd(k), q[i] <span style="color:#f92672">=</span> {xa, ya, xb, yb, k, i};
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    work(<span style="color:#ae81ff">1</span>, nn, <span style="color:#ae81ff">1</span>, qc);
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    rep(i, <span style="color:#ae81ff">1</span>, qc) printf(<span style="color:#e6db74">&#34;%lld</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, alls[ans[i] <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>]);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="text-stylecolorrgb0150136-例题8-动态查询子矩阵第k小可离线"><text style="color:rgb(0,150,136)"> 例题8 动态查询子矩阵第k小（可离线）</h2>
+<h3 id="text-stylecolorrgb0150136-题意-7"><text style="color:rgb(0,150,136)"> 题意</h3>
+<p>给你一个大小为 $n \times m$ 的矩阵 $a$，你要处理 $q$ 次操作，每次操作分两种：</p>
+<ul>
+<li>操作：给定 $x$、$y$、$v$，将 $a_{x,y}$ 的值更改为 $v$。</li>
+<li>询问：给定 $x_1$、$y_1$、$x_2$、$y_2$、$k$，问你以 $(x_1,y_1)$ 为左上角、以 $(x_2,y_2)$ 为右下角的子矩阵的第 $k$ 小的数是多少。</li>
+</ul>
+<h3 id="text-stylecolorrgb0150136-数据范围-7"><text style="color:rgb(0,150,136)"> 数据范围</h3>
+<ul>
+<li>$1 \leq n,m \leq 2 \times 10^3$</li>
+<li>$1 \leq q \leq 2 \times 10^5$</li>
+<li>$0 \leq a_i \leq 10^9$</li>
+</ul>
+<h3 id="text-stylecolorrgb0150136-题解-7"><text style="color:rgb(0,150,136)"> 题解</h3>
+<p>这题和例题4很像，改成二维和例题7是一样的方式，此处略。</p>
+<p><strong>时间复杂度</strong>：$O((n+q) \log^3 n)$</p>
+<h2 id="text-stylecolorrgb0150136-例题9-动态查询区间第k小强制在线"><text style="color:rgb(0,150,136)"> 例题9 动态查询区间第k小（强制在线）</h2>
+<h3 id="text-stylecolorrgb0150136-题意-8"><text style="color:rgb(0,150,136)"> 题意</h3>
+<p>同上，不过加了个强制在线的限制。</p>
+<h3 id="text-stylecolorrgb0150136-数据范围-8"><text style="color:rgb(0,150,136)"> 数据范围</h3>
+<p>同上。</p>
+<h3 id="text-stylecolorrgb0150136-题解-8"><text style="color:rgb(0,150,136)"> 题解</h3>
+<p>本题可用权值线段树套KD Tree解决。</p>
+<h2 id="text-stylecolorrgb0150136-例题10-动态查询树上第k小可离线"><text style="color:rgb(0,150,136)"> 例题10 动态查询树上第k小（可离线）</h2>
+<h3 id="text-stylecolorrgb0150136-题意-9"><text style="color:rgb(0,150,136)"> 题意</h3>
+<p>给你一颗 $n$ 个节点的树，你要处理 $q$ 次操作，每次操作分两种：</p>
+<ul>
+<li>操作：给定 $x$、$v$，将 $x$ 点的权值更改为 $v$。</li>
+<li>询问：给你 $x$，问你 $x$ 及其子树内权值第 $k$ 小的节点的权值是多少。</li>
+</ul>
+<h3 id="text-stylecolorrgb0150136-数据范围-9"><text style="color:rgb(0,150,136)"> 数据范围</h3>
+<ul>
+<li>$1 \leq n \leq 2 \times 10^5$</li>
+<li>$1 \leq q \leq 2 \times 10^5$</li>
+<li>$0 \leq a_i \leq 10^9$</li>
+</ul>
+<h3 id="text-stylecolorrgb0150136-题解-9"><text style="color:rgb(0,150,136)"> 题解</h3>
+<p>根据给这个笔记写的经验，我们可以直接求出每个节点的欧拉序，然后把节点编号直接重新赋值为其欧拉序。</p>
+<p>于是乎，对单点的权值修改就变成了序列单点修改，对子树的权值第 $k$ 小查询就变成了序列区间求第 $k$ 小。</p>
+<p>于是就转化为了例题5。</p>
+<p><strong>时间复杂度</strong>：$O((n+q) \log^2 n)$</p>
+<h2 id="text-stylecolorrgb0150136-例题11-动态查询树上第k小强制在线"><text style="color:rgb(0,150,136)"> 例题11 动态查询树上第k小（强制在线）</h2>
+<h3 id="text-stylecolorrgb0150136-题意-10"><text style="color:rgb(0,150,136)"> 题意</h3>
+<p>同上，不过加了个强制在线的限制。</p>
+<h3 id="text-stylecolorrgb0150136-数据范围-10"><text style="color:rgb(0,150,136)"> 数据范围</h3>
+<p>同上。</p>
+<h3 id="text-stylecolorrgb0150136-题解-10"><text style="color:rgb(0,150,136)"> 题解</h3>
+<p>本题可用树状数组套主席树解决。</p>
+<h2 id="text-stylecolorrgb0150136-总结"><text style="color:rgb(0,150,136)"> 总结</h2>
+<h3 id="text-stylecolorrgb0150136-题型1-普通整体二分"><text style="color:rgb(0,150,136)"> 题型1 普通整体二分</h3>
+<p>上面说的，其实都是整体二分优化线段树上二分过程的例题。</p>
+<p>实际上，整体二分可以解决所有形如一下的问题：</p>
+<blockquote>
+<p>给你一些信息，让你维护 $q$ 次询问。</p>
+<p>但这 $q$ 次询问要满足一些要求，查询可以通过一次二分/线段树上二分来解决，但直接每次二分会TLE。</p></blockquote>
+<p>这种情况下，我们就可以把所有询问离线下来，然后定义如上的分治函数。</p>
+<p>前面对边界的处理一样，然后先跑一遍调用二分 $\text{check}(\text{mid})$ 函数时做的修改操作。</p>
+<p>然后，对所有 $[q_l,q_r]$ 内的询问，都跑一遍调用二分 $\text{check}(\text{mid})$ 函数时做的判断过程。</p>
+<p>利用上面的结果，把这以内的所有询问分成两部分，一部分是答案在 $[l,\text{mid}]$ 内的询问，另一部分则是答案在 $[\text{mid}+1,r]$ 内的询问。</p>
+<p>说完上面部分，你应该也想到了，其实整体二分是有模板的，所有题的代码都差不多，只不过要在那些差别部分多加思考。</p>
+<h3 id="text-stylecolorrgb0150136-题型2-带修整体二分"><text style="color:rgb(0,150,136)"> 题型2 带修整体二分</h3>
+<p>那如果说题目里存在修改操作呢？其实也一样，只不过加一个对修改的处理即可。</p>
+<p>带修整体二分比普通整体二分肯定要复杂一些，我们要在这些复杂的地方多加思考才能搞定题目。</p>
+
+        
+    </div>
+
+    <div class="prev-next">
+        
+    </div>
+
+    
+    
+    
+</div>
+
+<aside class="post-toc">
+    <nav id="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#text-stylecolorrgb0150136-解决题型"><text style="color:rgb(0,150,136)"> 解决题型</a></li>
+        <li><a href="#text-stylecolorrgb0150136-例题1-动态查询集合第k大可离线"><text style="color:rgb(0,150,136)"> 例题1 动态查询集合第k大（可离线）</a>
+          <ul>
+            <li><a href="#text-stylecolorrgb0150136-题意"><text style="color:rgb(0,150,136)"> 题意</a></li>
+            <li><a href="#text-stylecolorrgb0150136-数据范围"><text style="color:rgb(0,150,136)"> 数据范围</a></li>
+            <li><a href="#text-stylecolorrgb0150136-题解"><text style="color:rgb(0,150,136)"> 题解</a></li>
+          </ul>
+        </li>
+        <li><a href="#text-stylecolorrgb0150136-例题2-动态查询集合第k大强制在线"><text style="color:rgb(0,150,136)"> 例题2 动态查询集合第k大（强制在线）</a>
+          <ul>
+            <li><a href="#text-stylecolorrgb0150136-题意-1"><text style="color:rgb(0,150,136)"> 题意</a></li>
+            <li><a href="#text-stylecolorrgb0150136-数据范围-1"><text style="color:rgb(0,150,136)"> 数据范围</a></li>
+            <li><a href="#text-stylecolorrgb0150136-题解-1"><text style="color:rgb(0,150,136)"> 题解</a></li>
+          </ul>
+        </li>
+        <li><a href="#text-stylecolorrgb0150136-例题3-静态查询区间第k小可离线"><text style="color:rgb(0,150,136)"> 例题3 静态查询区间第k小（可离线）</a>
+          <ul>
+            <li><a href="#text-stylecolorrgb0150136-题意-2"><text style="color:rgb(0,150,136)"> 题意</a></li>
+            <li><a href="#text-stylecolorrgb0150136-数据范围-2"><text style="color:rgb(0,150,136)"> 数据范围</a></li>
+            <li><a href="#text-stylecolorrgb0150136-题解-2"><text style="color:rgb(0,150,136)"> 题解</a>
+              <ul>
+                <li><a href="#text-stylecolorrgb0150136-概览"><text style="color:rgb(0,150,136)"> 概览</a></li>
+                <li><a href="#text-stylecolorrgb0150136-设计分治函数"><text style="color:rgb(0,150,136)"> 设计分治函数</a></li>
+                <li><a href="#text-stylecolorrgb0150136-询问分类"><text style="color:rgb(0,150,136)"> 询问分类</a></li>
+                <li><a href="#text-stylecolorrgb0150136-边界情况"><text style="color:rgb(0,150,136)"> 边界情况</a></li>
+              </ul>
+            </li>
+            <li><a href="#text-stylecolorrgb0150136-代码"><text style="color:rgb(0,150,136)"> 代码</a></li>
+          </ul>
+        </li>
+        <li><a href="#text-stylecolorrgb0150136-例题4-静态查询区间第k小强制在线"><text style="color:rgb(0,150,136)"> 例题4 静态查询区间第k小（强制在线）</a>
+          <ul>
+            <li><a href="#text-stylecolorrgb0150136-题意-3"><text style="color:rgb(0,150,136)"> 题意</a></li>
+            <li><a href="#text-stylecolorrgb0150136-数据范围-3"><text style="color:rgb(0,150,136)"> 数据范围</a></li>
+            <li><a href="#text-stylecolorrgb0150136-题解-3"><text style="color:rgb(0,150,136)"> 题解</a></li>
+          </ul>
+        </li>
+        <li><a href="#text-stylecolorrgb0150136-例题5-动态查询区间第k小可离线"><text style="color:rgb(0,150,136)"> 例题5 动态查询区间第k小（可离线）</a>
+          <ul>
+            <li><a href="#text-stylecolorrgb0150136-题意-4"><text style="color:rgb(0,150,136)"> 题意</a></li>
+            <li><a href="#text-stylecolorrgb0150136-数据范围-4"><text style="color:rgb(0,150,136)"> 数据范围</a></li>
+            <li><a href="#text-stylecolorrgb0150136-题解-4"><text style="color:rgb(0,150,136)"> 题解</a>
+              <ul>
+                <li><a href="#text-stylecolorrgb0150136-概览-1"><text style="color:rgb(0,150,136)"> 概览</a></li>
+                <li><a href="#text-stylecolorrgb0150136-变化修改操作"><text style="color:rgb(0,150,136)"> 变化修改操作</a></li>
+                <li><a href="#text-stylecolorrgb0150136-变化分治函数"><text style="color:rgb(0,150,136)"> 变化分治函数</a></li>
+              </ul>
+            </li>
+            <li><a href="#text-stylecolorrgb0150136-代码-1"><text style="color:rgb(0,150,136)"> 代码</a></li>
+          </ul>
+        </li>
+        <li><a href="#text-stylecolorrgb0150136-例题6-动态查询区间第k小强制在线"><text style="color:rgb(0,150,136)"> 例题6 动态查询区间第k小（强制在线）</a>
+          <ul>
+            <li><a href="#text-stylecolorrgb0150136-题意-5"><text style="color:rgb(0,150,136)"> 题意</a></li>
+            <li><a href="#text-stylecolorrgb0150136-数据范围-5"><text style="color:rgb(0,150,136)"> 数据范围</a></li>
+            <li><a href="#text-stylecolorrgb0150136-题解-5"><text style="color:rgb(0,150,136)"> 题解</a></li>
+          </ul>
+        </li>
+        <li><a href="#text-stylecolorrgb0150136-例题7-静态查询子矩阵第k小可离线"><text style="color:rgb(0,150,136)"> 例题7 静态查询子矩阵第k小（可离线）</a>
+          <ul>
+            <li><a href="#text-stylecolorrgb0150136-题意-6"><text style="color:rgb(0,150,136)"> 题意</a></li>
+            <li><a href="#text-stylecolorrgb0150136-数据范围-6"><text style="color:rgb(0,150,136)"> 数据范围</a></li>
+            <li><a href="#text-stylecolorrgb0150136-题解-6"><text style="color:rgb(0,150,136)"> 题解</a></li>
+            <li><a href="#text-stylecolorrgb0150136-代码-2"><text style="color:rgb(0,150,136)"> 代码</a></li>
+          </ul>
+        </li>
+        <li><a href="#text-stylecolorrgb0150136-例题8-动态查询子矩阵第k小可离线"><text style="color:rgb(0,150,136)"> 例题8 动态查询子矩阵第k小（可离线）</a>
+          <ul>
+            <li><a href="#text-stylecolorrgb0150136-题意-7"><text style="color:rgb(0,150,136)"> 题意</a></li>
+            <li><a href="#text-stylecolorrgb0150136-数据范围-7"><text style="color:rgb(0,150,136)"> 数据范围</a></li>
+            <li><a href="#text-stylecolorrgb0150136-题解-7"><text style="color:rgb(0,150,136)"> 题解</a></li>
+          </ul>
+        </li>
+        <li><a href="#text-stylecolorrgb0150136-例题9-动态查询区间第k小强制在线"><text style="color:rgb(0,150,136)"> 例题9 动态查询区间第k小（强制在线）</a>
+          <ul>
+            <li><a href="#text-stylecolorrgb0150136-题意-8"><text style="color:rgb(0,150,136)"> 题意</a></li>
+            <li><a href="#text-stylecolorrgb0150136-数据范围-8"><text style="color:rgb(0,150,136)"> 数据范围</a></li>
+            <li><a href="#text-stylecolorrgb0150136-题解-8"><text style="color:rgb(0,150,136)"> 题解</a></li>
+          </ul>
+        </li>
+        <li><a href="#text-stylecolorrgb0150136-例题10-动态查询树上第k小可离线"><text style="color:rgb(0,150,136)"> 例题10 动态查询树上第k小（可离线）</a>
+          <ul>
+            <li><a href="#text-stylecolorrgb0150136-题意-9"><text style="color:rgb(0,150,136)"> 题意</a></li>
+            <li><a href="#text-stylecolorrgb0150136-数据范围-9"><text style="color:rgb(0,150,136)"> 数据范围</a></li>
+            <li><a href="#text-stylecolorrgb0150136-题解-9"><text style="color:rgb(0,150,136)"> 题解</a></li>
+          </ul>
+        </li>
+        <li><a href="#text-stylecolorrgb0150136-例题11-动态查询树上第k小强制在线"><text style="color:rgb(0,150,136)"> 例题11 动态查询树上第k小（强制在线）</a>
+          <ul>
+            <li><a href="#text-stylecolorrgb0150136-题意-10"><text style="color:rgb(0,150,136)"> 题意</a></li>
+            <li><a href="#text-stylecolorrgb0150136-数据范围-10"><text style="color:rgb(0,150,136)"> 数据范围</a></li>
+            <li><a href="#text-stylecolorrgb0150136-题解-10"><text style="color:rgb(0,150,136)"> 题解</a></li>
+          </ul>
+        </li>
+        <li><a href="#text-stylecolorrgb0150136-总结"><text style="color:rgb(0,150,136)"> 总结</a>
+          <ul>
+            <li><a href="#text-stylecolorrgb0150136-题型1-普通整体二分"><text style="color:rgb(0,150,136)"> 题型1 普通整体二分</a></li>
+            <li><a href="#text-stylecolorrgb0150136-题型2-带修整体二分"><text style="color:rgb(0,150,136)"> 题型2 带修整体二分</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </nav>
+</aside>
+
+
+
+    
+
+        </main><footer class="footer">
+    
+    
+
+    
+
+    
+
+    
+
+    <span>
+        Made with &#10084;&#65039; using <a target="_blank" href="https://github.com/gokarna-theme/gokarna-hugo">Gokarna</a>
+    </span>
+</footer>
+</body>
+</html>

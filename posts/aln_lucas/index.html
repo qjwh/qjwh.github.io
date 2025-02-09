@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        :root {
+            --accent-color: #FF4D4D;
+            --font-size: 17.5px;
+        }
+    </style>
+
+    
+    
+    
+    
+    
+    
+
+    
+    <title>Lucas定理</title>
+    <meta name="description" content="（以下全部假设 $C_n^m$ 中的 $n$ 和 $m$ 都很大，最大能达到 $10^{18}$）
+Lucas定理 Lucas定理往往用于求组合数的结果且模数较小的题目。
+其实定理很简单，也很好记，$\Large C_n^m=C_{\lfloor \frac{n}{p} \rfloor}^{\lfloor …">
+    <meta name="keywords" content='信息学竞赛, 算法学习笔记'>
+
+    <meta property="og:url" content="https://qjwh.github.io/posts/aln_lucas/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Lucas定理">
+    <meta property="og:description" content="（以下全部假设 $C_n^m$ 中的 $n$ 和 $m$ 都很大，最大能达到 $10^{18}$）
+Lucas定理 Lucas定理往往用于求组合数的结果且模数较小的题目。
+其实定理很简单，也很好记，$\Large C_n^m=C_{\lfloor \frac{n}{p} \rfloor}^{\lfloor …">
+    <meta property="og:image" content="https://qjwh.github.io/">
+    <meta property="og:image:secure_url" content="https://qjwh.github.io/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Lucas定理">
+    <meta name="twitter:description" content="（以下全部假设 $C_n^m$ 中的 $n$ 和 $m$ 都很大，最大能达到 $10^{18}$）
+Lucas定理 Lucas定理往往用于求组合数的结果且模数较小的题目。
+其实定理很简单，也很好记，$\Large C_n^m=C_{\lfloor \frac{n}{p} \rfloor}^{\lfloor …">
+    <meta property="twitter:domain" content="https://qjwh.github.io/posts/aln_lucas/">
+    <meta property="twitter:url" content="https://qjwh.github.io/posts/aln_lucas/">
+    <meta name="twitter:image" content="https://qjwh.github.io/">
+
+    
+    <link rel="canonical" href="https://qjwh.github.io/posts/aln_lucas/">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/normalize.min.css" media="print">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/main.min.css">
+
+    
+    <link id="dark-theme" rel="stylesheet" href="/css/dark.min.css">
+
+    
+    <script src="/js/bundle.min.ad84dd09e60165f836ea08a26f86608c070e127d21ac6ab168c87da076554d87.js" integrity="sha256-rYTdCeYBZfg26giib4ZgjAcOEn0hrGqxaMh9oHZVTYc="></script>
+
+    
+    
+        <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          // customised options
+          // ? auto-render specific keys, e.g.:
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false},
+          ],
+          // ? rendering keys, e.g.:
+          throwOnError : false
+        });
+      });
+    </script>
+  
+    
+</head>
+<body>
+        <script>
+            
+            setThemeByUserPref();
+        </script><header class="header">
+    <nav class="header-nav">
+
+        
+
+        <div class="nav-title">
+            <a class="nav-brand" href="https://qjwh.github.io/">CXBlog</a>
+        </div>
+
+        <div class="nav-links">
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/" aria-label="home" >      <i data-feather="home"></i>
+      <script>
+        feather.replace();
+      </script>
+       首页
+      </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/posts" aria-label="posts" >      <i data-feather="book"></i>
+      <script>
+        feather.replace();
+      </script>
+       文章
+      </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/tags" aria-label="tags" >      <i data-feather="tag"></i>
+      <script>
+        feather.replace();
+      </script>
+       标签
+      </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/about" aria-label="about" >      <i data-feather="info"></i>
+      <script>
+        feather.replace();
+      </script>
+       关于
+      </a>
+            </div>
+            
+
+            <span class="nav-icons-divider"></span>
+            <div class="nav-link dark-theme-toggle">
+                <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                <a aria-hidden="true" role="switch">
+                    <span class="theme-toggle-icon" data-feather="moon"></span>
+                </a>
+            </div>
+
+            <div class="nav-link" id="hamburger-menu-toggle">
+                <span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
+                <a aria-checked="false" aria-labelledby="hamburger-menu-toggle" id="hamburger-menu-toggle-target" role="switch">
+                    <span data-feather="menu"></span>
+                </a>
+            </div>
+
+            
+            <ul class="nav-hamburger-list visibility-hidden">
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/" >      <i data-feather="home"></i>
+      <script>
+        feather.replace();
+      </script>
+       首页
+      </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/posts" >      <i data-feather="book"></i>
+      <script>
+        feather.replace();
+      </script>
+       文章
+      </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/tags" >      <i data-feather="tag"></i>
+      <script>
+        feather.replace();
+      </script>
+       标签
+      </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/about" >      <i data-feather="info"></i>
+      <script>
+        feather.replace();
+      </script>
+       关于
+      </a>
+                </li>
+                
+                <li class="nav-item dark-theme-toggle">
+                    <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                    <a role="switch">
+                        <span class="theme-toggle-icon" data-feather="moon"></span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</header>
+<main id="content">
+    <div class="post container">
+    <div class="post-header-section">
+        <h1>Lucas定理</h1>
+
+        
+
+        
+	
+	
+	
+	
+        
+
+	
+
+	
+
+	
+          <small role="doc-subtitle"></small>
+	
+
+	
+          <p class="post-date">
+              
+
+              February 9, 2025
+
+              
+          </p>
+	
+
+        <ul class="post-tags">
+          
+           
+             <li class="post-tag"><a href="https://qjwh.github.io/tags/%E4%BF%A1%E6%81%AF%E5%AD%A6%E7%AB%9E%E8%B5%9B">信息学竞赛</a></li>
+           
+         
+           
+             <li class="post-tag"><a href="https://qjwh.github.io/tags/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0">算法学习笔记</a></li>
+           
+         
+        </ul>
+    </div>
+
+    <div class="post-content">
+        <p>（以下全部假设 $C_n^m$ 中的 $n$ 和 $m$ 都很大，最大能达到 $10^{18}$）</p>
+<h2 id="lucas定理">Lucas定理</h2>
+<p>Lucas定理往往用于求组合数的结果且<strong>模数较小</strong>的题目。</p>
+<p>其实定理很简单，也很好记，$\Large C_n^m=C_{\lfloor \frac{n}{p} \rfloor}^{\lfloor \frac{m}{p} \rfloor} \times \color{orange} C_{n \bmod p}^{m \bmod p}$，在 $p$ 为质数的条件成立。</p>
+<p>上面之所以强调模数较小，是因为我们需要通过预处理阶乘的方式去求橙色项的值。</p>
+<p>代码实现很简单，此处略。</p>
+<p>但有个注意点，在我的代码模板里，由于求<code>facny</code>数组是递推求出的，而不是每个分别去用<code>getny</code>求出的，所以调用<code>init</code>函数时，传参应该是<code>MOD-1</code>而不是<code>MOD</code>。</p>
+<h2 id="exlucas定理">exLucas定理</h2>
+<p><del>（前方高能）</del></p>
+<p>这个定理还是解决求 $C_n^m \bmod p$ 的值的问题，$p$ 仍然很小，但<strong>不保证是质数</strong>。</p>
+<p>根据M2579的做法，我们可以考虑对 $p$ 做一个唯一分解，分解成 ${p_1}^{a_1} \times {p_2}^{a_2} \times {p_3}^{a_3} \times \dots \times {p_k}^{a_k}$。</p>
+<p>然后，分别求出 $C_n^m \bmod {p_1}^{a_1}$ 的值、$C_n^m \bmod {p_2}^{a_2}$ 的值、$C_n^m \bmod {p_3}^{a_3}$ 的值、&hellip;、$C_n^m \bmod {p_k}^{a_k}$ 的值，然后就可以用CRT求出 $C_n^m \bmod p$ 的值了。</p>
+<p>在M2579内，$p$ 唯一分解后，每个 $a_i$ 都等于 $1$，所以直接用Lucas定理就可以求，但在一般的题目中，指数不一定都等于 $1$，所以才要用到exLucas定理。</p>
+<p>Lucas定理解决的是模数为质数的问题，exLucas定理在经过上述转化后，就转化为了模数是质数幂（几个质数乘起来）的问题。</p>
+<hr>
+<p>我们统一设模数为 $q^a$。</p>
+<p>根据组合数公式，$C_n^m=\dfrac{n!}{m!(n-m)!}$，所以 $C_n^m \bmod q^a=\dfrac{n!}{m!(n-m)!} \bmod q^a$。</p>
+<p>虽然说 $q$ 是质数，但 $q^a$ 不一定是质数，分母中的 $m!$ 和 $(n-m)!$ 也不一定有逆元，显然。</p>
+<p>所以，我们设三个变量 $x$、$y$、$z$，其中 $x$ 代表 $n!$ 唯一分解后，$q$ 的指数是多少，$y$ 代表 $m!$ 分解后 $q$ 的指数，$z$ 代表 $(n-m)!$ 分解后 $q$ 的指数。</p>
+<p>进而，我们就可以对公式做个转化，变成 $C_n^m \bmod q^a=\Large \dfrac{\frac{n!}{q^x}}{\frac{m!}{q^y} \times \frac{(n-m)!}{q^z}} \normalsize \times q^{x-y-z} \bmod q^a$。</p>
+<blockquote>
+<p>此处证明一下两个公式的等价性。</p>
+<p>其实也很简单，首先拆分一下外面 $q$ 的指数：</p>
+<p>$C_n^m \bmod q^a=\Large \dfrac{\frac{n!}{q^x}}{\frac{m!}{q^y} \times \frac{(n-m)!}{q^z}} \normalsize \times q^x \div q^y \div q^z \bmod q^a$</p>
+<p>变成分数：</p>
+<p>$C_n^m \bmod q^a=\Large \dfrac{\frac{n!}{q^x}}{\frac{m!}{q^y} \times \frac{(n-m)!}{q^z}} \normalsize \times \dfrac{q^x}{q^y \times q^z} \bmod q^a$</p>
+<p>分数乘法：</p>
+<p>$C_n^m \bmod q^a=\Large \dfrac{\frac{n!}{q^x} \times \color{orange} q^x}{\frac{m!}{q^y} \times \frac{(n-m)!}{q^z} \times \color{orange} q^y \times q^z} \normalsize \bmod q^a$</p>
+<p>（为了好看一些，我把新加进来的系数标成了橙色）</p>
+<p>化简：</p>
+<p>$C_n^m \bmod q^a=\dfrac{n!}{m!(n-m)!} \bmod q^a$</p>
+<p>与原式相同，证毕。</p></blockquote>
+<p>有人问，这个转化有啥用呢？用处很大，因为此时三项（$\dfrac{n!}{q^x}$、$\dfrac{m!}{q^y}$、$\dfrac{(n-m)!}{q^z}$）的唯一分解中<strong>都没有 $q$ 了</strong>，也就意味着分母中的两个数<strong>都有在模 $q^a$ 意义下的逆元了</strong>，也就<strong>可以直接除</strong>了。</p>
+<p>所以，我们又把问题转化为了，求 $\dfrac{n!}{q^x} \bmod q^a$ 的值。</p>
+<hr>
+<p>这个值显然是没法直接求的，所以我们考虑递归求。</p>
+<p>我们首先求 $n! \bmod q^a$ 的值，再变化公式。</p>
+<p>我们先把 $n!$ 展开：</p>
+<p>$1 \times 2 \times 3 \times \dots \times n$</p>
+<p>然后把所有 $q$（不是 $q^a$）的倍数提取出来：</p>
+<p>$\color{orange} (q \times 2q \times 3q \times \dots \times \lfloor \frac{n}{q} \rfloor ~ q) \color{default} \times \color{green} \big( 1 \times 2 \times 3 \times \dots \times (q-1) \big) \times \big( (q+1) \times (q+2) \times (q+3) \times \dots \times (2q-1) \big) \times \dots$</p>
+<p>（先转化橙色部分）</p>
+<p>由于都有 $q$，所以变化一下：</p>
+<p>$\color{orange} \Large q^{\lfloor \frac{n}{q} \rfloor} \normalsize \times (1 \times 2 \times 3 \times \dots \times \lfloor \frac{n}{q} \rfloor) \color{default} \times \color{green} \big( 1 \times 2 \times 3 \times \dots \times (q-1) \big) \times \dots$</p>
+<p>也就是：</p>
+<p>$\color{orange} \Large q^{\lfloor \frac{n}{q} \rfloor} \normalsize \times \left( \left\lfloor \dfrac{n}{q} \right\rfloor \right) ! \color{default} \times \color{green} \big( 1 \times 2 \times 3 \times \dots \times (q-1) \big) \times \dots$</p>
+<p>（再转化绿色部分）</p>
+<p>其实绿色部分也可以转化为：</p>
+<p>（除非特殊注明，默认以下所有 $\prod$ 中 $i$ 的起始值是 $1$）</p>
+<p>$\color{orange} \Large q^{\lfloor \frac{n}{q} \rfloor} \normalsize \times \left( \left\lfloor \dfrac{n}{q} \right\rfloor \right) ! \color{default} \times \color{green} \Large \prod\limits_{q <del>\nmid</del> i}^n i \normalsize$</p>
+<p>根据定理 $\Large \prod\limits_{q <del>\nmid</del> i}^{q^a} i \equiv \prod\limits_{q <del>\nmid</del> i}^{q^a} (i+cq^a) \pmod{q^k}$ 对于每个 $c \in \mathbb{N^+}$，可转化为：</p>
+<p>$\color{orange} \Large q^{\lfloor \frac{n}{q} \rfloor} \normalsize \times \left( \left\lfloor \dfrac{n}{q} \right\rfloor \right) ! \color{default} \times \color{green} \left( \Large \prod\limits_{q <del>\nmid</del> i}^{q^a} i \normalsize \right)^{\Large \left\lfloor \frac{n}{q^a} \right\rfloor} \times \Large \prod\limits_{q <del>\nmid</del> i}^n i$</p>
+<p>（注：最后一个 $\prod$ 中，$i$ 的起始值是 $\Large \left\lfloor \frac{n}{q^a} \right\rfloor \normalsize \times q^a+1$）</p>
+<p>所以，我们就可以递归了。</p>
+<hr>
+<p>但这只是最初的公式，还没有把除以 $q^x$ 带入进去呢。</p>
+<p>由于 $x$ 保证<strong>刚好</strong>是 $n!$ 的唯一分解中 $q$ 的指数，所以我们直接把最后的那个公式中的所有 $q$ 都去掉就是最后的公式。</p>
+<p>在绿色部分中，显然是不存在 $q$ 的，所有的 $q$ 都在橙色部分。</p>
+<p>橙色部分的左项都是 $q$，直接去掉。</p>
+<p>右项是个递归的部分，所以会自动把所有 $q$ 都除掉，还是那样写即可。</p>
+<p>我们设 $f(n)=\dfrac{n!}{q^x} \bmod q^a$（$q$、$a$ 已知，$x$ 可以通过 $n$ 求出，所以不用再加参数了），那么上式就变成了：</p>
+<p>$f(n)=\color{orange} f \left( \left\lfloor \dfrac{n}{q} \right\rfloor \right) \color{default} \times \color{green} \left( \Large \prod\limits_{q <del>\nmid</del> i}^{q^a} i \normalsize \right)^{\Large \left\lfloor \frac{n}{q^a} \right\rfloor} \times \Large \prod\limits_{q <del>\nmid</del> i}^n i$</p>
+<p>橙色部分直接递归，绿色部分中每一项只有 $O(q^a)$ 的计算量，由于模数很小，而 $q^a \leq p$（$p$ 为模数），所以绿色部分的计算量可以当做是 $O(p)$。</p>
+<p>最后的总复杂度（查询复杂度）为 $O(p \log n)$，显然。</p>
+
+        
+    </div>
+
+    <div class="prev-next">
+        
+    </div>
+
+    
+    
+    
+</div>
+
+<aside class="post-toc">
+    <nav id="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#lucas定理">Lucas定理</a></li>
+        <li><a href="#exlucas定理">exLucas定理</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </nav>
+</aside>
+
+
+
+    
+
+        </main><footer class="footer">
+    
+    
+
+    
+
+    
+
+    
+
+    <span>
+        Made with &#10084;&#65039; using <a target="_blank" href="https://github.com/gokarna-theme/gokarna-hugo">Gokarna</a>
+    </span>
+</footer>
+</body>
+</html>
