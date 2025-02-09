@@ -62,7 +62,7 @@
       <link>https://qjwh.github.io/posts/test/</link>
       <pubDate>Sat, 08 Feb 2025 11:00:00 +0800</pubDate>
       <guid>https://qjwh.github.io/posts/test/</guid>
-      <description>&lt;p&gt;This page is just for test&lt;/p&gt;&#xA;&lt;p&gt;123&lt;/p&gt;&#xA;&lt;p&gt;$123$&lt;/p&gt;&#xA;&lt;p&gt;$$&#xA;123&#xA;$$&lt;/p&gt;&#xA;&lt;p&gt;$x^2$&lt;/p&gt;</description>
+      <description>&lt;p&gt;This page is just for test&lt;/p&gt;&#xA;&lt;p&gt;123&lt;/p&gt;&#xA;&lt;p&gt;$123$&lt;/p&gt;&#xA;&lt;p&gt;$$&#xA;123&#xA;$$&lt;/p&gt;&#xA;&lt;p&gt;$x^2$&lt;/p&gt;&#xA;&lt;p&gt;$\color{green}(\sum a_i) \color{default} 123$&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
