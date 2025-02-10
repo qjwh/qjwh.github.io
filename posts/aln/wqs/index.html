@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        :root {
+            --accent-color: #FF4D4D;
+            --font-size: 17.5px;
+        }
+    </style>
+
+    
+    
+    
+    
+    
+    
+
+    
+    <title>wqs二分</title>
+    <meta name="description" content="感谢这篇文章的作者。
+wqs二分一般解决这类问题：
+有 $n$ 个物品，你要选出恰好 $m$ 个（下称“选择物品个数限制”），可能有限制（下称“其他限制”），你要最大/小化某个权值。
+但除此之外，还有一些限制：
+如果我们设 $g_i$ 为选出恰好 $i$ 个时的最大/小权值，那么 $g$ 函数就应该是上凸（求最大权 …">
+    <meta name="keywords" content='信息学竞赛, 算法学习笔记'>
+
+    <meta property="og:url" content="https://qjwh.github.io/posts/aln/wqs/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="wqs二分">
+    <meta property="og:description" content="感谢这篇文章的作者。
+wqs二分一般解决这类问题：
+有 $n$ 个物品，你要选出恰好 $m$ 个（下称“选择物品个数限制”），可能有限制（下称“其他限制”），你要最大/小化某个权值。
+但除此之外，还有一些限制：
+如果我们设 $g_i$ 为选出恰好 $i$ 个时的最大/小权值，那么 $g$ 函数就应该是上凸（求最大权 …">
+    <meta property="og:image" content="https://qjwh.github.io/">
+    <meta property="og:image:secure_url" content="https://qjwh.github.io/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="wqs二分">
+    <meta name="twitter:description" content="感谢这篇文章的作者。
+wqs二分一般解决这类问题：
+有 $n$ 个物品，你要选出恰好 $m$ 个（下称“选择物品个数限制”），可能有限制（下称“其他限制”），你要最大/小化某个权值。
+但除此之外，还有一些限制：
+如果我们设 $g_i$ 为选出恰好 $i$ 个时的最大/小权值，那么 $g$ 函数就应该是上凸（求最大权 …">
+    <meta property="twitter:domain" content="https://qjwh.github.io/posts/aln/wqs/">
+    <meta property="twitter:url" content="https://qjwh.github.io/posts/aln/wqs/">
+    <meta name="twitter:image" content="https://qjwh.github.io/">
+
+    
+    <link rel="canonical" href="https://qjwh.github.io/posts/aln/wqs/">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/normalize.min.css" media="print">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/main.min.css">
+
+    
+    <link id="dark-theme" rel="stylesheet" href="/css/dark.min.css">
+
+    
+    <script src="/js/bundle.min.ad84dd09e60165f836ea08a26f86608c070e127d21ac6ab168c87da076554d87.js" integrity="sha256-rYTdCeYBZfg26giib4ZgjAcOEn0hrGqxaMh9oHZVTYc="></script>
+
+    
+    
+        <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          // customised options
+          // ? auto-render specific keys, e.g.:
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false},
+          ],
+          // ? rendering keys, e.g.:
+          throwOnError : false
+        });
+      });
+    </script>
+  
+    
+</head>
+<body>
+        <script>
+            
+            setThemeByUserPref();
+        </script><header class="header">
+    <nav class="header-nav">
+
+        
+
+        <div class="nav-title">
+            <a class="nav-brand" href="https://qjwh.github.io/">CXBlog</a>
+        </div>
+
+        <div class="nav-links">
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/" aria-label="home" >      <i data-feather="home"></i>
+      <script>
+        feather.replace();
+      </script>
+       首页
+      </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/posts" aria-label="posts" >      <i data-feather="book"></i>
+      <script>
+        feather.replace();
+      </script>
+       文章
+      </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/tags" aria-label="tags" >      <i data-feather="tag"></i>
+      <script>
+        feather.replace();
+      </script>
+       标签
+      </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/about" aria-label="about" >      <i data-feather="info"></i>
+      <script>
+        feather.replace();
+      </script>
+       关于
+      </a>
+            </div>
+            
+
+            <span class="nav-icons-divider"></span>
+            <div class="nav-link dark-theme-toggle">
+                <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                <a aria-hidden="true" role="switch">
+                    <span class="theme-toggle-icon" data-feather="moon"></span>
+                </a>
+            </div>
+
+            <div class="nav-link" id="hamburger-menu-toggle">
+                <span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
+                <a aria-checked="false" aria-labelledby="hamburger-menu-toggle" id="hamburger-menu-toggle-target" role="switch">
+                    <span data-feather="menu"></span>
+                </a>
+            </div>
+
+            
+            <ul class="nav-hamburger-list visibility-hidden">
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/" >      <i data-feather="home"></i>
+      <script>
+        feather.replace();
+      </script>
+       首页
+      </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/posts" >      <i data-feather="book"></i>
+      <script>
+        feather.replace();
+      </script>
+       文章
+      </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/tags" >      <i data-feather="tag"></i>
+      <script>
+        feather.replace();
+      </script>
+       标签
+      </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/about" >      <i data-feather="info"></i>
+      <script>
+        feather.replace();
+      </script>
+       关于
+      </a>
+                </li>
+                
+                <li class="nav-item dark-theme-toggle">
+                    <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                    <a role="switch">
+                        <span class="theme-toggle-icon" data-feather="moon"></span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</header>
+<main id="content">
+    <div class="post container">
+    <div class="post-header-section">
+        <h1>wqs二分</h1>
+
+        
+
+        
+	
+	
+	
+	
+        
+
+	
+
+	
+
+	
+          <small role="doc-subtitle"></small>
+	
+
+	
+          <p class="post-date">
+              
+
+              February 9, 2025
+
+              
+          </p>
+	
+
+        <ul class="post-tags">
+          
+           
+             <li class="post-tag"><a href="https://qjwh.github.io/tags/%E4%BF%A1%E6%81%AF%E5%AD%A6%E7%AB%9E%E8%B5%9B">信息学竞赛</a></li>
+           
+         
+           
+             <li class="post-tag"><a href="https://qjwh.github.io/tags/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0">算法学习笔记</a></li>
+           
+         
+        </ul>
+    </div>
+
+    <div class="post-content">
+        <p>感谢<a href="https://www.acwing.com/file_system/file/content/whole/index/content/5873556/">这篇文章</a>的作者。</p>
+<hr>
+<p>wqs二分一般解决这类问题：</p>
+<blockquote>
+<p>有 $n$ 个物品，你要选出恰好 $m$ 个（下称“选择物品个数限制”），可能有限制（下称“其他限制”），你要最大/小化某个权值。</p></blockquote>
+<p>但除此之外，还有一些限制：</p>
+<ul>
+<li>如果我们设 $g_i$ 为选出恰好 $i$ 个时的最大/小权值，那么 $g$ 函数就应该是上凸（求最大权值）/下凹（求最小权值）的，即斜率单调递减（上凸）/递增（下凹）。</li>
+<li><strong>一般来说</strong>，如果没有任何限制（包括选择物品个数限制和其他限制），那么答案是很好求的。</li>
+<li><strong>一般来说</strong>，如果没有其他限制，那么选择物品数量越多，最小权值就越大/小。</li>
+</ul>
+<hr>
+<p>以下是<a href="https://www.luogu.com.cn/problem/P5633">P5633</a>的题解，顺带着讲了wqs二分的原理和应用。</p>
+<p>在原题中，我们可以以标号为 $s$ 点在最小生成树上的出度为横坐标，以这个出度对应的答案为纵坐标，画出图像：（网上粘的图，只画了部分横坐标的情况）</p>
+<p><img src="https://cdn.acwing.com/media/article/image/2022/06/21/58579_3af7039bf1-%E4%B8%8B%E5%87%B8%E5%A3%B3.png" alt=""></p>
+<p>显然D和E点就是最小值点。</p>
+<hr>
+<p><strong>接下来就是wqs二分的重点了</strong></p>
+<p>wqs二分也是二分，那它二分什么值呢，它二分的是斜率 $mid$。</p>
+<p>具体而言，一个斜率就对应若干条平行的边，而总有一条边是完全切这个凸包的，如 $mid=-1$ 的时候，上图中被且的那个点就刚好是C点：</p>
+<p><img src="https://cdn.acwing.com/media/article/image/2022/06/21/58579_3213b178f1-%E5%88%87%E7%BA%BF.png" alt=""></p>
+<p>如果我们设题目要求 $s$ 的度数要恰好为 $6$，那么 $mid=-1$ 的时候被切的那个点C的纵坐标就是答案了。</p>
+<p>但此时我们就有两个问题了：</p>
+<ol>
+<li>如何求出被切的那个点的下标？</li>
+<li>就算求出了下标，那这个点的纵坐标又如何计算？</li>
+</ol>
+<p>接下来我们来解决这两个问题。</p>
+<p>首先，这个切线肯定是所有经过某个点且斜率等于 $mid$ 的直线中截距最小的点：</p>
+<blockquote>
+<p>具体地，根据切线的性质，在上述例子中，经过C点的斜率等于 $mid$ 的直线（即切线），与经过D点的斜率等于 $mid$ 的直线、经过E点的斜率等于 $mid$ 的直线相比，切线的截距肯定最小，后两者的截距肯定更大。</p></blockquote>
+<p>其次，显然，经过点 $(x,y)$ 且斜率等于 $k$ 的直线（肯定唯一），其截距一定等于 $y-kx$（$y=kx+b$，$b=y-kx$）。</p>
+<p>而在二分的<code>calc</code>函数（此处不是<code>check</code>函数了，<code>calc</code>函数的返回值、返回值含义以及应用见下）中，我们已经知道了上述公式中的 $k$ 了（$k=mid$），所以我们只要让 $y-kx$ 最小、斜率为 $k$ 且经过了某个图上的点即可。</p>
+<p>考虑到上述公式中的 $x$ 未知，所以我们可以干脆把所有 $s$ 的出边的边权都减 $mid$。<em>（关于是加、减还是都彳亍的问题存疑）</em></p>
+<p>然后我们对新图跑一个最小生成树，看这个最小生成树中 $s$ 的出度是多少，那么被切点的X坐标就是多少；并且这颗最小生成树的边权和就是这个切线的截距，显然。</p>
+<p>有了这个切线的斜率、截距，也有了切点的X坐标，不就可以计算切点的Y坐标了吗？很简单，此处略。</p>
+<hr>
+<p>接下来就是主函数部分了，可以发现，斜率越小，那么切点的X坐标就越靠后。</p>
+<p>所以，我们就可以考虑用<code>LL calc(LL mid)</code>函数代表用斜率为 $mid$ 的某条直线去切那个 $g$ 函数的图像，那么切点的X坐标是多少。</p>
+<p>由于传参越小，返回值就越大，所以我们就可以二分了，二分找到第一个返回值小于等于 $need$ 的传参 $mid$（要保证 $\text{calc}(mid)=need$），然后计算如果调用<code>calc(mid)</code>，那么这颗最小生成树的边权和是多少（设为 $sum$），最后输出 $sum+mid \times need$ 即可，显然。</p>
+<hr>
+<p>上面说“要保证 $\text{calc}(mid)=need$”，但如果整数的 $mid$ 始终无法满足这个条件，就需要用到小数二分，但小数二分很可能会TLE，所以我们考虑修改。</p>
+<p>（下述做法为假）</p>
+<blockquote>
+<p>我觉得解决方法也很简单，我们直接找到最后一个 $\text{calc}(mid) \leq need$ 的 $mid$，然后答案就不输出 $sum+mid \times need$ 了，而是输出 $sum+mid \times \text{calc}(mid)$ 即可。</p></blockquote>
+<p>其实解决方法也很简单，我们还是输出 $sum+mid \times need$ 即可，证明见M2434的代码。</p>
+<hr>
+<p>其实也不是所有题目都要用到上述方法，如果图像像上面说的那样：</p>
+<p><img src="https://cdn.acwing.com/media/article/image/2022/06/21/58579_3af7039bf1-%E4%B8%8B%E5%87%B8%E5%A3%B3.png" alt=""></p>
+<p>除了底部（即那些全局最小值点）可能会是平的，其他地方都不可能有三点共线，如这样的图像就需要用上述做法：</p>
+<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/6qa5yykl.png" alt=""></p>
+<p>（因为红色的三个点共线了）</p>
+
+        
+    </div>
+
+    <div class="prev-next">
+        
+    </div>
+
+    
+    
+    
+</div>
+
+<aside class="post-toc">
+    <nav id="toc">
+        <nav id="TableOfContents"></nav>
+    </nav>
+</aside>
+
+
+
+    
+
+        </main><footer class="footer">
+    
+    
+
+    
+
+    
+
+    
+
+    <span>
+        Made with &#10084;&#65039; using <a target="_blank" href="https://github.com/gokarna-theme/gokarna-hugo">Gokarna</a>
+    </span>
+</footer>
+</body>
+</html>

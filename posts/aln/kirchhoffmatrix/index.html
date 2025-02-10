@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        :root {
+            --accent-color: #FF4D4D;
+            --font-size: 17.5px;
+        }
+    </style>
+
+    
+    
+    
+    
+    
+    
+
+    
+    <title>基尔霍夫矩阵</title>
+    <meta name="description" content="基尔霍夫矩阵是用来求解生成树计数、求（权值）和相关题目的利器。
+0. 求完全图的生成树数量（Prufer序列） 要说基尔霍夫矩阵，就要从一道题目说起：
+给你 $n$，问 $n$ 个节点组成的无向无根树有多少种。
+这道题可以用Prufer序列去做。
+这里简单说一下Prufer序列的求法：
+对于一张无向无根树，重复执行以下 …">
+    <meta name="keywords" content='信息学竞赛, 算法学习笔记'>
+
+    <meta property="og:url" content="https://qjwh.github.io/posts/aln/kirchhoffmatrix/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="基尔霍夫矩阵">
+    <meta property="og:description" content="基尔霍夫矩阵是用来求解生成树计数、求（权值）和相关题目的利器。
+0. 求完全图的生成树数量（Prufer序列） 要说基尔霍夫矩阵，就要从一道题目说起：
+给你 $n$，问 $n$ 个节点组成的无向无根树有多少种。
+这道题可以用Prufer序列去做。
+这里简单说一下Prufer序列的求法：
+对于一张无向无根树，重复执行以下 …">
+    <meta property="og:image" content="https://qjwh.github.io/">
+    <meta property="og:image:secure_url" content="https://qjwh.github.io/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="基尔霍夫矩阵">
+    <meta name="twitter:description" content="基尔霍夫矩阵是用来求解生成树计数、求（权值）和相关题目的利器。
+0. 求完全图的生成树数量（Prufer序列） 要说基尔霍夫矩阵，就要从一道题目说起：
+给你 $n$，问 $n$ 个节点组成的无向无根树有多少种。
+这道题可以用Prufer序列去做。
+这里简单说一下Prufer序列的求法：
+对于一张无向无根树，重复执行以下 …">
+    <meta property="twitter:domain" content="https://qjwh.github.io/posts/aln/kirchhoffmatrix/">
+    <meta property="twitter:url" content="https://qjwh.github.io/posts/aln/kirchhoffmatrix/">
+    <meta name="twitter:image" content="https://qjwh.github.io/">
+
+    
+    <link rel="canonical" href="https://qjwh.github.io/posts/aln/kirchhoffmatrix/">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/normalize.min.css" media="print">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/main.min.css">
+
+    
+    <link id="dark-theme" rel="stylesheet" href="/css/dark.min.css">
+
+    
+    <script src="/js/bundle.min.ad84dd09e60165f836ea08a26f86608c070e127d21ac6ab168c87da076554d87.js" integrity="sha256-rYTdCeYBZfg26giib4ZgjAcOEn0hrGqxaMh9oHZVTYc="></script>
+
+    
+    
+        <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          // customised options
+          // ? auto-render specific keys, e.g.:
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false},
+          ],
+          // ? rendering keys, e.g.:
+          throwOnError : false
+        });
+      });
+    </script>
+  
+    
+</head>
+<body>
+        <script>
+            
+            setThemeByUserPref();
+        </script><header class="header">
+    <nav class="header-nav">
+
+        
+
+        <div class="nav-title">
+            <a class="nav-brand" href="https://qjwh.github.io/">CXBlog</a>
+        </div>
+
+        <div class="nav-links">
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/" aria-label="home" >      <i data-feather="home"></i>
+      <script>
+        feather.replace();
+      </script>
+       首页
+      </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/posts" aria-label="posts" >      <i data-feather="book"></i>
+      <script>
+        feather.replace();
+      </script>
+       文章
+      </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/tags" aria-label="tags" >      <i data-feather="tag"></i>
+      <script>
+        feather.replace();
+      </script>
+       标签
+      </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/about" aria-label="about" >      <i data-feather="info"></i>
+      <script>
+        feather.replace();
+      </script>
+       关于
+      </a>
+            </div>
+            
+
+            <span class="nav-icons-divider"></span>
+            <div class="nav-link dark-theme-toggle">
+                <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                <a aria-hidden="true" role="switch">
+                    <span class="theme-toggle-icon" data-feather="moon"></span>
+                </a>
+            </div>
+
+            <div class="nav-link" id="hamburger-menu-toggle">
+                <span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
+                <a aria-checked="false" aria-labelledby="hamburger-menu-toggle" id="hamburger-menu-toggle-target" role="switch">
+                    <span data-feather="menu"></span>
+                </a>
+            </div>
+
+            
+            <ul class="nav-hamburger-list visibility-hidden">
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/" >      <i data-feather="home"></i>
+      <script>
+        feather.replace();
+      </script>
+       首页
+      </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/posts" >      <i data-feather="book"></i>
+      <script>
+        feather.replace();
+      </script>
+       文章
+      </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/tags" >      <i data-feather="tag"></i>
+      <script>
+        feather.replace();
+      </script>
+       标签
+      </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/about" >      <i data-feather="info"></i>
+      <script>
+        feather.replace();
+      </script>
+       关于
+      </a>
+                </li>
+                
+                <li class="nav-item dark-theme-toggle">
+                    <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                    <a role="switch">
+                        <span class="theme-toggle-icon" data-feather="moon"></span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</header>
+<main id="content">
+    <div class="post container">
+    <div class="post-header-section">
+        <h1>基尔霍夫矩阵</h1>
+
+        
+
+        
+	
+	
+	
+	
+        
+
+	
+
+	
+
+	
+          <small role="doc-subtitle"></small>
+	
+
+	
+          <p class="post-date">
+              
+
+              February 9, 2025
+
+              
+          </p>
+	
+
+        <ul class="post-tags">
+          
+           
+             <li class="post-tag"><a href="https://qjwh.github.io/tags/%E4%BF%A1%E6%81%AF%E5%AD%A6%E7%AB%9E%E8%B5%9B">信息学竞赛</a></li>
+           
+         
+           
+             <li class="post-tag"><a href="https://qjwh.github.io/tags/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0">算法学习笔记</a></li>
+           
+         
+        </ul>
+    </div>
+
+    <div class="post-content">
+        <p>基尔霍夫矩阵是用来求解生成树计数、求（权值）和相关题目的利器。</p>
+<hr>
+<h3 id="text-stylecolorrgb0150136-0-求完全图的生成树数量prufer序列"><text style="color:rgb(0,150,136)"> 0. 求完全图的生成树数量（Prufer序列）</h3>
+<p>要说基尔霍夫矩阵，就要从一道题目说起：</p>
+<blockquote>
+<p>给你 $n$，问 $n$ 个节点组成的无向无根树有多少种。</p></blockquote>
+<p>这道题可以用Prufer序列去做。</p>
+<p>这里简单说一下Prufer序列的求法：</p>
+<blockquote>
+<p>对于一张无向无根树，重复执行以下操作直到只剩 $2$ 个或更少的点，最后得到的那个序列 $a$ 就是这棵树的Prufer序列：</p>
+<ul>
+<li>我们找到此时度为 $1$ 的节点，若有多个，找编号最小的，设找到的节点编号为 $x$。</li>
+<li>在 $a$ 的末尾添加：与 $x$ 有连边的那个唯一节点。</li>
+<li>删除 $x$。</li>
+</ul></blockquote>
+<p>Prufer序列别看求法非常简单，也没啥容易发现的性质，其实用处很大。</p>
+<p>Prufer序列满足一个性质，就是，所有无向无根树，都可以唯一地对应一个Prufer序列；所有Prufer序列都可以唯一地对应一棵树。</p>
+<p>所以，这道题就有解了，答案其实就是长为 $n-2$ 的Prufer序列有多少种。</p>
+<p>由于Prufer序列的每个元素的值都是从 $1$ 到 $n$ 的，所以答案就是 $n^{n-2}$，显然。</p>
+<hr>
+<h3 id="text-stylecolorrgb0150136-11-求任意无向图的生成树数量基尔霍夫矩阵"><text style="color:rgb(0,150,136)"> 1.1. 求任意无向图的生成树数量（基尔霍夫矩阵）</h3>
+<p>但如果把题目变化一下，就不能用Prufer序列去求了：</p>
+<blockquote>
+<p>给你一张 $n$ 个节点 $m$ 条边的无向图，问这张图的生成树有多少个。</p></blockquote>
+<p>这题要用基尔霍夫矩阵。</p>
+<p>具体地，我们定义 $D$ 矩阵，求法：</p>
+<p>$
+D_{i,j}=
+\begin{cases}
+0 &amp; i \not= j \
+\text{deg}(i) &amp; i=j
+\end{cases}
+$</p>
+<p>其中，$\text{deg}(i)$ 代表这张图上 $i$ 的度是多少。</p>
+<p>我们再定义 $A$ 矩阵，求法：</p>
+<p>$
+A_{i,j}=
+\begin{cases}
+\text{ecnt}(i,j) &amp; i \not= j \
+0 &amp; i=j
+\end{cases}
+$</p>
+<p>其中，$\text{ecnt}(i,j)$ 代表这张图上点 $i$ 和点 $j$ 之间的边数。</p>
+<p>然后，我们再定义基尔霍夫矩阵 $K=D-A$，即：</p>
+<p>$
+K_{i,j}=
+\begin{cases}
+-\text{ecnt}(i,j) &amp; i \not= j \
+\text{deg}(i) &amp; i=j
+\end{cases}
+$</p>
+<p>最后，我们同时删掉 $K$ 中的一行和一列（一般是删掉最后一行和最后一列，但删掉哪一行、哪一列答案都不变），此时 $K$ 的行列式即为本题答案。</p>
+<p>（以下所有 $D$、$A$、$K$ 的求法都是一样的，答案求法也是一样的，所以只说 $\text{deg}$ 函数和 $\text{ecnt}$ 函数的求法）</p>
+<blockquote>
+<text style="color:orangered">
+<p>*注：</p>
+<p>如果是有向图生成树相关题目，且题目指定了根，那么<strong>删除的那一行和那一列的编号，必须是根节点的编号</strong>。</p>
+<p>如，题目要求 $1$ 节点为根，那么删除的必须要是第一行和第一列，否则会WA。</p>
+<hr>
+<p>此外，以下所有题里，在求 $\text{deg}$ 函数和 $\text{ecnt}$ 函数时，都要<strong>忽略自环</strong>。</p>
+<hr>
+<p>并且，<strong>如果说下面构造的方阵没有行列式，那么就说明没有生成树</strong>，要输出 $0$。</p>
+</text></blockquote>
+<hr>
+<h3 id="text-stylecolorrgb0150136-12-求任意无向带权图的生成树权值之和基尔霍夫矩阵"><text style="color:rgb(0,150,136)"> 1.2. 求任意无向带权图的生成树权值之和（基尔霍夫矩阵）</h3>
+<p>这题还有变种：</p>
+<blockquote>
+<p>给你一张 $n$ 个节点 $m$ 条边的无向带权图，问这张图所有生成树的权值之和。</p>
+<p>一棵生成树的权值定义为这棵生成树内所有边权之和。</p></blockquote>
+<p>$\text{deg}(i)$ 代表这张图上 $i$ 的所有出边的边权之和，$\text{ecnt}(i,j)$ 代表这张图上点 $i$ 和点 $j$ 之间所有边的边权和。</p>
+<hr>
+<h3 id="text-stylecolorrgb0150136-211-求任意有向图的生成外向树数量基尔霍夫矩阵"><text style="color:rgb(0,150,136)"> 2.1.1. 求任意有向图的生成外向树数量（基尔霍夫矩阵）</h3>
+<p>但还没完，还有题目：</p>
+<blockquote>
+<p>给你一张 $n$ 个节点 $m$ 条边的有向图，问这张图的生成树有多少个。</p>
+<p>此处，生成树要求是外向树。</p>
+<p>所谓外向树，就是一棵有向树，满足每条边都是从父亲指向儿子的。</p></blockquote>
+<p>$\text{deg}(i)$ 代表这张图上 $i$ 的入度，$\text{ecnt}(i,j)$ 代表这张图上从点 $i$ 连向点 $j$ 的边的数量。</p>
+<hr>
+<h3 id="text-stylecolorrgb0150136-212-求任意有向带权图的生成外向树权值之和基尔霍夫矩阵"><text style="color:rgb(0,150,136)"> 2.1.2. 求任意有向带权图的生成外向树权值之和（基尔霍夫矩阵）</h3>
+<p>但还没完，还有题目：</p>
+<blockquote>
+<p>给你一张 $n$ 个节点 $m$ 条边的有向带权图，问这张图的生成树的权值之和。</p>
+<p>此处，生成树要求是外向树。</p></blockquote>
+<p>$\text{deg}(i)$ 代表这张图内连向 $i$ 的边权之和，$\text{ecnt}(i,j)$ 代表这张图上从点 $i$ 连向点 $j$ 的边权之和。</p>
+<hr>
+<h3 id="text-stylecolorrgb0150136-221-求任意有向图的生成内向树数量基尔霍夫矩阵"><text style="color:rgb(0,150,136)"> 2.2.1. 求任意有向图的生成内向树数量（基尔霍夫矩阵）</h3>
+<p>但还没完，还有题目：</p>
+<blockquote>
+<p>给你一张 $n$ 个节点 $m$ 条边的有向图，问这张图的生成树有多少个。</p>
+<p>此处，生成树要求是内向树。</p>
+<p>所谓内向树，就是一棵有向树，满足每条边都是从儿子指向父亲的。</p></blockquote>
+<p>$\text{deg}(i)$ 代表这张图上 $i$ 的出度，$\text{ecnt}(i,j)$ 代表这张图上从点 $i$ 连向点 $j$ 的边的数量。</p>
+<hr>
+<h3 id="text-stylecolorrgb0150136-222-求任意有向带权图的生成内向树权值之和基尔霍夫矩阵"><text style="color:rgb(0,150,136)"> 2.2.2. 求任意有向带权图的生成内向树权值之和（基尔霍夫矩阵）</h3>
+<p>但还没完，还有题目：</p>
+<blockquote>
+<p>给你一张 $n$ 个节点 $m$ 条边的有向带权图，问这张图的生成树的权值之和。</p>
+<p>此处，生成树要求是内向树。</p></blockquote>
+<p>$\text{deg}(i)$ 代表这张图内 $i$ 的出边边权之和，$\text{ecnt}(i,j)$ 代表这张图上从点 $i$ 连向点 $j$ 的边权之和。</p>
+<hr>
+<h3 id="text-stylecolorrgb0150136-3-求完全二分图的生成树个数基尔霍夫矩阵拓展"><text style="color:rgb(0,150,136)"> 3. 求完全二分图的生成树个数（基尔霍夫矩阵拓展）</h3>
+<p>但还没完，还有题目：</p>
+<blockquote>
+<p>给你两个数 $n$、$m$，问左边 $n$ 个点，右边 $m$ 个点的完全二分图的生成树个数。</p></blockquote>
+<p>这个问题可以被转化为问题1.1，所以我们就可以得到基尔霍夫矩阵：</p>
+<p>$
+\begin{bmatrix}
+m &amp; 0 &amp; \cdots &amp; 0 &amp; -1 &amp; -1 &amp; \cdots &amp; -1 \
+0 &amp; m &amp; \cdots &amp; 0 &amp; -1 &amp; -1 &amp; \cdots &amp; -1 \
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \
+0 &amp; 0 &amp; \cdots &amp; m &amp; -1 &amp; -1 &amp; \cdots &amp; -1 \
+-1 &amp; -1 &amp; \cdots &amp; -1 &amp; n &amp; 0 &amp; \cdots &amp; 0 \
+-1 &amp; -1 &amp; \cdots &amp; -1 &amp; 0 &amp; n &amp; \cdots &amp; 0 \
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \
+-1 &amp; -1 &amp; \cdots &amp; -1 &amp; 0 &amp; 0 &amp; \cdots &amp; n \
+\end{bmatrix}
+$</p>
+<p>标一些参数：</p>
+<img src="https://cdn.luogu.com.cn/upload/image_hosting/p3q3rf8y.png" width="50%">
+<p>（图1）</p>
+<p>然后，可以发现，在上面的划分方案中，左上部分和右下部分其实都是方阵，所以我们只要让左下部分全部变为 $0$ 就可以用行列式性质转化问题了。</p>
+<p>进而，既然求这个矩阵的行列式，我们就先把最后一行和最后一列去掉，即把图1的参数内的两个 $m$ 改成 $m-1$。</p>
+<p>我们既然要把左下部分变成 $0$，我们就要变化矩阵。</p>
+<p>我们首先把矩阵前 $n$ 行全部除以 $m$，得到：</p>
+<p>$
+\large
+\begin{bmatrix}
+1 &amp; 0 &amp; \cdots &amp; 0 &amp; \frac{-1}{m} &amp; \frac{-1}{m} &amp; \cdots &amp; \frac{-1}{m} \
+0 &amp; 1 &amp; \cdots &amp; 0 &amp; \frac{-1}{m} &amp; \frac{-1}{m} &amp; \cdots &amp; \frac{-1}{m} \
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \
+0 &amp; 0 &amp; \cdots &amp; 1 &amp; \frac{-1}{m} &amp; \frac{-1}{m} &amp; \cdots &amp; \frac{-1}{m} \
+-1 &amp; -1 &amp; \cdots &amp; -1 &amp; n &amp; 0 &amp; \cdots &amp; 0 \
+-1 &amp; -1 &amp; \cdots &amp; -1 &amp; 0 &amp; n &amp; \cdots &amp; 0 \
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \
+-1 &amp; -1 &amp; \cdots &amp; -1 &amp; 0 &amp; 0 &amp; \cdots &amp; n \
+\end{bmatrix}
+$</p>
+<p>其次，算出前 $n$ 行矩阵之和：</p>
+<p>$
+\large
+\begin{bmatrix}
+1 &amp; 1 &amp; \cdots &amp; 1 &amp; \frac{-n}{m} &amp; \frac{-n}{m} &amp; \cdots &amp; \frac{-n}{m}
+\end{bmatrix}
+$</p>
+<p>然后，对于后 $m-1$ 行，每一行都加上前 $n$ 行之和：</p>
+<p>$
+\large
+\begin{bmatrix}
+1 &amp; 0 &amp; \cdots &amp; 0 &amp; \frac{-1}{m} &amp; \frac{-1}{m} &amp; \cdots &amp; \frac{-1}{m} \
+0 &amp; 1 &amp; \cdots &amp; 0 &amp; \frac{-1}{m} &amp; \frac{-1}{m} &amp; \cdots &amp; \frac{-1}{m} \
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \
+0 &amp; 0 &amp; \cdots &amp; 1 &amp; \frac{-1}{m} &amp; \frac{-1}{m} &amp; \cdots &amp; \frac{-1}{m} \
+0 &amp; 0 &amp; \cdots &amp; 0 &amp; n-\frac{n}{m} &amp; -\frac{n}{m} &amp; \cdots &amp; -\frac{n}{m} \
+0 &amp; 0 &amp; \cdots &amp; 0 &amp; -\frac{n}{m} &amp; n-\frac{n}{m} &amp; \cdots &amp; -\frac{n}{m} \
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \
+0 &amp; 0 &amp; \cdots &amp; 0 &amp; -\frac{n}{m} &amp; -\frac{n}{m} &amp; \cdots &amp; n-\frac{n}{m} \
+\end{bmatrix}
+$</p>
+<p>最后，把前 $n$ 行重新都乘上 $m$：</p>
+<p>$
+\large
+\begin{bmatrix}
+m &amp; 0 &amp; \cdots &amp; 0 &amp; -1 &amp; -1 &amp; \cdots &amp; -1 \
+0 &amp; m &amp; \cdots &amp; 0 &amp; -1 &amp; -1 &amp; \cdots &amp; -1 \
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \
+0 &amp; 0 &amp; \cdots &amp; m &amp; -1 &amp; -1 &amp; \cdots &amp; -1 \
+0 &amp; 0 &amp; \cdots &amp; 0 &amp; n-\frac{n}{m} &amp; -\frac{n}{m} &amp; \cdots &amp; -\frac{n}{m} \
+0 &amp; 0 &amp; \cdots &amp; 0 &amp; -\frac{n}{m} &amp; n-\frac{n}{m} &amp; \cdots &amp; -\frac{n}{m} \
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \
+0 &amp; 0 &amp; \cdots &amp; 0 &amp; -\frac{n}{m} &amp; -\frac{n}{m} &amp; \cdots &amp; n-\frac{n}{m} \
+\end{bmatrix}
+$</p>
+<p>此时左下角都是 $0$ 了。</p>
+<p>于是乎，问题就转化为了以下两个矩阵的行列式之积：</p>
+<p>$
+D_1=
+\large
+\begin{bmatrix}
+m &amp; 0 &amp; \cdots &amp; 0 \
+0 &amp; m &amp; \cdots &amp; 0 \
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \
+0 &amp; 0 &amp; \cdots &amp; m
+\end{bmatrix}
+$</p>
+<p>$
+D_2=
+\large
+\begin{bmatrix}
+n-\frac{n}{m} &amp; -\frac{n}{m} &amp; \cdots &amp; -\frac{n}{m} \\
+-\frac{n}{m} &amp; n-\frac{n}{m} &amp; \cdots &amp; -\frac{n}{m} \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+-\frac{n}{m} &amp; -\frac{n}{m} &amp; \cdots &amp; n-\frac{n}{m}
+\end{bmatrix}
+$</p>
+<p>（注意，$D_2$ 是个 $(m-1) \times (m-1)$ 的矩阵，而不是 $m \times m$ 的）</p>
+<p>$D_1$ 由于本身就是上三角矩阵，根据行列式性质，$\det D_1=m^n$。</p>
+<p>但 $D_2$ 并不是，所以还要转化。</p>
+<p>（以下都针对 $D_2$ 矩阵进行转化）</p>
+<p>我们首先求出这 $m-1$ 行的和：</p>
+<p>$
+\begin{bmatrix}
+n-(m-1) \times \frac{n}{m} &amp; n-(m-1) \times \frac{n}{m} &amp; \cdots &amp; n-(m-1) \times \frac{n}{m}
+\end{bmatrix}
+$</p>
+<p>其次把上述矩阵直接替换到第一行：</p>
+<p>$
+\begin{bmatrix}
+n-(m-1) \times \frac{n}{m} &amp; n-(m-1) \times \frac{n}{m} &amp; \cdots &amp; n-(m-1) \times \frac{n}{m} \\
+-\frac{n}{m} &amp; n-\frac{n}{m} &amp; \cdots &amp; -\frac{n}{m} \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+-\frac{n}{m} &amp; -\frac{n}{m} &amp; \cdots &amp; n-\frac{n}{m}
+\end{bmatrix}
+$</p>
+<p>发现第一行都是一样的，所以我们就把第一行统一除以 $n-(m-1) \times \frac{n}{m}$，行列式也除以了 $n-(m-1) \times \frac{n}{m}$，所以 $D_2$ 的行列式其实是下述矩阵的行列式<strong>乘上</strong> $n-(m-1) \times \frac{n}{m}$：</p>
+<p>$
+T=
+\begin{bmatrix}
+1 &amp; 1 &amp; \cdots &amp; 1 \\
+-\frac{n}{m} &amp; n-\frac{n}{m} &amp; \cdots &amp; -\frac{n}{m} \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+-\frac{n}{m} &amp; -\frac{n}{m} &amp; \cdots &amp; n-\frac{n}{m}
+\end{bmatrix}
+$</p>
+<p>（以下暂时换为针对 $T$ 矩阵进行转化）</p>
+<p>我们把第一行全部乘上 $\frac{m}{n}$，然后加到下面每一行：（即把下面每一行内的 $-\frac{n}{m}$ 都删掉）</p>
+<p>$
+\begin{bmatrix}
+1 &amp; 1 &amp; \cdots &amp; 1 \
+0 &amp; n &amp; \cdots &amp; 0 \
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \
+0 &amp; 0 &amp; \cdots &amp; n
+\end{bmatrix}
+$</p>
+<p>此时就是个上三角矩阵了，这个矩阵的行列式 $\det T=n^{m-2}$，显然。</p>
+<p>但 $\det D_2=(n-(m-1) \times \frac{n}{m}) \times (\det T)$，所以我们转化一下式子：</p>
+<blockquote>
+<p>（以下省略 $\det D_2=$）</p>
+<p>带入 $\det T$：</p>
+<p>$(n-(m-1) \times \frac{n}{m}) \times n^{m-2}$</p>
+<p>拆括号：</p>
+<p>$n \times n^{m-2}-(m-1) \times \frac{n}{m} \times n^{m-2}$</p>
+<p>简化式子：</p>
+<p>$n^{m-1}-(m-1) \times \frac{n}{m} \times n^{m-2}$</p>
+<p>拆开分数：</p>
+<p>$n^{m-1}-(m-1) \times \frac{1}{m} \times n \times n^{m-2}$</p>
+<p>即：</p>
+<p>$n^{m-1}-(m-1) \times \frac{1}{m} \times n^{m-1}$</p>
+<p>拆括号：</p>
+<p>$n^{m-1}-(m \times \frac{1}{m}-\frac{1}{m}) \times n^{m-1}$</p>
+<p>即：</p>
+<p>$n^{m-1}-(1-\frac{1}{m}) \times n^{m-1}$</p>
+<p>拆括号：</p>
+<p>$n^{m-1}-(n^{m-1}-\frac{1}{m} \times n^{m-1})$</p>
+<p>拆括号：</p>
+<p>$n^{m-1}-n^{m-1}+\frac{1}{m} \times n^{m-1}$</p>
+<p>即：</p>
+<p>$\frac{1}{m} \times n^{m-1}$</p></blockquote>
+<p>但还没完，答案是 $(\det D_1) \times (\det D_2)$，所以需要推导一下：</p>
+<blockquote>
+<p>带入：</p>
+<p>$(m^n) \times (\frac{1}{m} \times n^{m-1})$</p>
+<p>拆括号：</p>
+<p>$m^n \times \frac{1}{m} \times n^{m-1}$</p>
+<p>即：</p>
+<p>$m^{n-1} \times n^{m-1}$</p></blockquote>
+<p>所以其实这题的代码很短，只用算 $m^{n-1} \times n^{m-1}$ 的值即可。</p>
+<blockquote>
+<p>*注：这道题原题是M2733，另一种用Prufer序列证明这个答案的方法见本题写的题解，在题解文件夹内。</p></blockquote>
+
+        
+    </div>
+
+    <div class="prev-next">
+        
+    </div>
+
+    
+    
+    
+</div>
+
+<aside class="post-toc">
+    <nav id="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#text-stylecolorrgb0150136-0-求完全图的生成树数量prufer序列"><text style="color:rgb(0,150,136)"> 0. 求完全图的生成树数量（Prufer序列）</a></li>
+            <li><a href="#text-stylecolorrgb0150136-11-求任意无向图的生成树数量基尔霍夫矩阵"><text style="color:rgb(0,150,136)"> 1.1. 求任意无向图的生成树数量（基尔霍夫矩阵）</a></li>
+            <li><a href="#text-stylecolorrgb0150136-12-求任意无向带权图的生成树权值之和基尔霍夫矩阵"><text style="color:rgb(0,150,136)"> 1.2. 求任意无向带权图的生成树权值之和（基尔霍夫矩阵）</a></li>
+            <li><a href="#text-stylecolorrgb0150136-211-求任意有向图的生成外向树数量基尔霍夫矩阵"><text style="color:rgb(0,150,136)"> 2.1.1. 求任意有向图的生成外向树数量（基尔霍夫矩阵）</a></li>
+            <li><a href="#text-stylecolorrgb0150136-212-求任意有向带权图的生成外向树权值之和基尔霍夫矩阵"><text style="color:rgb(0,150,136)"> 2.1.2. 求任意有向带权图的生成外向树权值之和（基尔霍夫矩阵）</a></li>
+            <li><a href="#text-stylecolorrgb0150136-221-求任意有向图的生成内向树数量基尔霍夫矩阵"><text style="color:rgb(0,150,136)"> 2.2.1. 求任意有向图的生成内向树数量（基尔霍夫矩阵）</a></li>
+            <li><a href="#text-stylecolorrgb0150136-222-求任意有向带权图的生成内向树权值之和基尔霍夫矩阵"><text style="color:rgb(0,150,136)"> 2.2.2. 求任意有向带权图的生成内向树权值之和（基尔霍夫矩阵）</a></li>
+            <li><a href="#text-stylecolorrgb0150136-3-求完全二分图的生成树个数基尔霍夫矩阵拓展"><text style="color:rgb(0,150,136)"> 3. 求完全二分图的生成树个数（基尔霍夫矩阵拓展）</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </nav>
+</aside>
+
+
+
+    
+
+        </main><footer class="footer">
+    
+    
+
+    
+
+    
+
+    
+
+    <span>
+        Made with &#10084;&#65039; using <a target="_blank" href="https://github.com/gokarna-theme/gokarna-hugo">Gokarna</a>
+    </span>
+</footer>
+</body>
+</html>

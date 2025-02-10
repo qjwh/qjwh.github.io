@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        :root {
+            --accent-color: #FF4D4D;
+            --font-size: 17.5px;
+        }
+    </style>
+
+    
+    
+    
+    
+    
+    
+
+    
+    <title>Kruskal重构树</title>
+    <meta name="description" content="参考：
+老师讲解 Fighting_Peter 的文章 其实Kruskal重构树并不难。
+概览 首先，Kruskal重构树，顾名思义就是把整棵树重构。
+并且其是基于Kruskal算法的。
+它能解决很多问题，并且变种很多。
+但我们先从基础的实现说起。
+实现过程 我们考虑，在Kruskal算法里，我们每次会合并两个并查集集 …">
+    <meta name="keywords" content='信息学竞赛, 算法学习笔记'>
+
+    <meta property="og:url" content="https://qjwh.github.io/posts/aln/kruskalcgs/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Kruskal重构树">
+    <meta property="og:description" content="参考：
+老师讲解 Fighting_Peter 的文章 其实Kruskal重构树并不难。
+概览 首先，Kruskal重构树，顾名思义就是把整棵树重构。
+并且其是基于Kruskal算法的。
+它能解决很多问题，并且变种很多。
+但我们先从基础的实现说起。
+实现过程 我们考虑，在Kruskal算法里，我们每次会合并两个并查集集 …">
+    <meta property="og:image" content="https://qjwh.github.io/">
+    <meta property="og:image:secure_url" content="https://qjwh.github.io/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Kruskal重构树">
+    <meta name="twitter:description" content="参考：
+老师讲解 Fighting_Peter 的文章 其实Kruskal重构树并不难。
+概览 首先，Kruskal重构树，顾名思义就是把整棵树重构。
+并且其是基于Kruskal算法的。
+它能解决很多问题，并且变种很多。
+但我们先从基础的实现说起。
+实现过程 我们考虑，在Kruskal算法里，我们每次会合并两个并查集集 …">
+    <meta property="twitter:domain" content="https://qjwh.github.io/posts/aln/kruskalcgs/">
+    <meta property="twitter:url" content="https://qjwh.github.io/posts/aln/kruskalcgs/">
+    <meta name="twitter:image" content="https://qjwh.github.io/">
+
+    
+    <link rel="canonical" href="https://qjwh.github.io/posts/aln/kruskalcgs/">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/normalize.min.css" media="print">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/main.min.css">
+
+    
+    <link id="dark-theme" rel="stylesheet" href="/css/dark.min.css">
+
+    
+    <script src="/js/bundle.min.ad84dd09e60165f836ea08a26f86608c070e127d21ac6ab168c87da076554d87.js" integrity="sha256-rYTdCeYBZfg26giib4ZgjAcOEn0hrGqxaMh9oHZVTYc="></script>
+
+    
+    
+        <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          // customised options
+          // ? auto-render specific keys, e.g.:
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false},
+          ],
+          // ? rendering keys, e.g.:
+          throwOnError : false
+        });
+      });
+    </script>
+  
+    
+</head>
+<body>
+        <script>
+            
+            setThemeByUserPref();
+        </script><header class="header">
+    <nav class="header-nav">
+
+        
+
+        <div class="nav-title">
+            <a class="nav-brand" href="https://qjwh.github.io/">CXBlog</a>
+        </div>
+
+        <div class="nav-links">
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/" aria-label="home" >      <i data-feather="home"></i>
+      <script>
+        feather.replace();
+      </script>
+       首页
+      </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/posts" aria-label="posts" >      <i data-feather="book"></i>
+      <script>
+        feather.replace();
+      </script>
+       文章
+      </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/tags" aria-label="tags" >      <i data-feather="tag"></i>
+      <script>
+        feather.replace();
+      </script>
+       标签
+      </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/about" aria-label="about" >      <i data-feather="info"></i>
+      <script>
+        feather.replace();
+      </script>
+       关于
+      </a>
+            </div>
+            
+
+            <span class="nav-icons-divider"></span>
+            <div class="nav-link dark-theme-toggle">
+                <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                <a aria-hidden="true" role="switch">
+                    <span class="theme-toggle-icon" data-feather="moon"></span>
+                </a>
+            </div>
+
+            <div class="nav-link" id="hamburger-menu-toggle">
+                <span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
+                <a aria-checked="false" aria-labelledby="hamburger-menu-toggle" id="hamburger-menu-toggle-target" role="switch">
+                    <span data-feather="menu"></span>
+                </a>
+            </div>
+
+            
+            <ul class="nav-hamburger-list visibility-hidden">
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/" >      <i data-feather="home"></i>
+      <script>
+        feather.replace();
+      </script>
+       首页
+      </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/posts" >      <i data-feather="book"></i>
+      <script>
+        feather.replace();
+      </script>
+       文章
+      </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/tags" >      <i data-feather="tag"></i>
+      <script>
+        feather.replace();
+      </script>
+       标签
+      </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/about" >      <i data-feather="info"></i>
+      <script>
+        feather.replace();
+      </script>
+       关于
+      </a>
+                </li>
+                
+                <li class="nav-item dark-theme-toggle">
+                    <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                    <a role="switch">
+                        <span class="theme-toggle-icon" data-feather="moon"></span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</header>
+<main id="content">
+    <div class="post container">
+    <div class="post-header-section">
+        <h1>Kruskal重构树</h1>
+
+        
+
+        
+	
+	
+	
+	
+        
+
+	
+
+	
+
+	
+          <small role="doc-subtitle"></small>
+	
+
+	
+          <p class="post-date">
+              
+
+              February 9, 2025
+
+              
+          </p>
+	
+
+        <ul class="post-tags">
+          
+           
+             <li class="post-tag"><a href="https://qjwh.github.io/tags/%E4%BF%A1%E6%81%AF%E5%AD%A6%E7%AB%9E%E8%B5%9B">信息学竞赛</a></li>
+           
+         
+           
+             <li class="post-tag"><a href="https://qjwh.github.io/tags/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0">算法学习笔记</a></li>
+           
+         
+        </ul>
+    </div>
+
+    <div class="post-content">
+        <p>参考：</p>
+<ul>
+<li>老师讲解</li>
+<li><a href="https://blog.csdn.net/Fighting_Peter/article/details/109149369">Fighting_Peter 的文章</a></li>
+</ul>
+<p>其实Kruskal重构树并不难。</p>
+<h2 id="概览">概览</h2>
+<p>首先，Kruskal重构树，顾名思义就是把整棵树重构。</p>
+<p>并且其是基于Kruskal算法的。</p>
+<p>它能解决很多问题，并且变种很多。</p>
+<p>但我们先从基础的实现说起。</p>
+<h2 id="实现过程">实现过程</h2>
+<p>我们考虑，在Kruskal算法里，我们每次会合并两个并查集集合。</p>
+<p>准确来说是在两个点 $u$、$v$ 之间加一个边权为 $w$ 的无向边。</p>
+<p>那么，我们就考虑，在重构树里，我们找到 $u$ 和 $v$ 分别所在的子树，把这两个子树的根拎出来，设为 $u&rsquo;$ 和 $v&rsquo;$。</p>
+<p>然后，我们就新建一个点 $w$，然后把 $u&rsquo;$ 和 $v&rsquo;$ 的父亲设为 $w$。</p>
+<p>此时我们就得到了另外一棵树。</p>
+<p>比如说这个例子：</p>
+<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/4t6kbaq1.png" alt=""></p>
+<p>而在代码中，我们需要给这些方点一个别的编号，而不是以 $w$ 作为编号，否则会重，并且会炸。</p>
+<h2 id="特性">特性</h2>
+<p>我们讲一些Kruskal重构树的特性：</p>
+<ul>
+<li>
+<p>这棵树一定是二叉树。</p>
+</li>
+<li>
+<p>原树中的点放到重构树上一定是叶子，重构树上其他点都是原树中的边权。</p>
+</li>
+<li>
+<p>节点个数一定是 $2n-1$，且 $2n-1$ 一定是根。</p>
+</li>
+<li>
+<p>如果是最小生成树，那么这棵重构树一定是大根堆<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>，否则是小根堆。</p>
+</li>
+<li>
+<p>原图中两个点 $u$、$v$ 之间所有路径上的边权最大值的最小值，就是该图的最小生成树重构树上，$u$ 和 $v$​ 的LCA的权值。</p>
+<blockquote>
+<p><em>尚未想到证明方式</em></p></blockquote>
+</li>
+<li>
+<p>对于一个最小生成树上的点 $x$，其只通过（边权）不超过 $v$ 的边，能到的点集；和 $x$ 在重构树上深度最浅的、权值 $\leq v$ 的点 $y$ 的子树内（叶子）节点集合，是一样的。</p>
+<blockquote>
+<p>这里稍微证明一下。</p>
+<p>就是我们根据上面的性质，可以发现，设后者对应集合为 $S$，那么显然 $S$ 内的点，和 $x$ 点，的LCA的权值一定不超过 $v$，显然。</p>
+<p>那根据上面那个性质，LCA不超过 $v$，那么路径上的最大权值最小值一定也不超过 $v$。</p>
+<p>既然如此，就证毕了。</p></blockquote>
+</li>
+</ul>
+<h2 id="解决题型">解决题型</h2>
+<h3 id="题型1">题型1</h3>
+<p>Kruskal重构树本来就是为了解决时间戳问题的。</p>
+<h3 id="题型2">题型2</h3>
+<p>比如“混合药剂”（只是猜测，因为我找不到这道题的来源）这道题就是Kruskal重构树的变种。</p>
+<p>还比如说在正常情况下，如果要求如上面所说的「原图中两个点 $u$、$v$ 之间所有路径上的边权最大值的最小值」，那么其实可以用最小生成树。</p>
+<p>不过这样得要写路径上最大的边权，需要用倍增。</p>
+<blockquote>
+<p>为了防止部分人不了解，或者对下述文字出现误解或不理解，此处解释一下如何做这个倍增的。</p>
+<p>正常情况下，如果是序列内一个区间的最大边权，那么可以用RMQ，也就是ST表（本质上就是倍增）求出。</p>
+<p>但如果放到树上，就得稍微改一下了。</p>
+<p>定义两个状态 $up_{x,i}$ 表示 $x$ 点向上走 $2^i$ 条边后，到达的点的编号。</p>
+<p>还有 $ma_{x,i}$ 表示 $x$ 点往上的 $2^i$ 条边的最大边权。</p>
+<p>那么，可以得到 $ma_{x,i}=\max(ma_{x,i-1},ma_{up_{x,i-1},i-1})$。</p>
+<p>而求一条路径上的边权最大值，我们可以求出这条路径两端点的LCA。</p>
+<p>随后我们把这条路径分成左右两段<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>处理。</p>
+<p>然后可以发现，这个取 $\max$ 操作是可重的。</p>
+<p>但是尽管如此，我们还得倍增，而不是像ST表一样直接求值。</p>
+<p>具体而言，我们看 $len=dep_u-dep_t$ 的值，即 $u \to t$ 的路径长度。</p>
+<p>然后，我们找到这个值的 $\log_2$ 值，即 $lg=\big\lfloor \log_2 (dep_u-dep_t) ~\big\rfloor$。</p>
+<p>随后，我们可以发现，我们得求出 $u$ 往上 $len-2^{lg}$ 条边的点。</p>
+<p>因为只有在知道这个点 $x$ 后，我们才能确定 $\max$ 的第二项。</p>
+<p>最后我们可以直接求出答案 $\max(ma_{u,lg},ma_{x,lg})$。</p></blockquote>
+<p>那么，可以发现，这个复杂度是 $\log$ 的，跑得慢，细节多~~（不过实际上不多）~~。</p>
+<p>不过根据上述特性，我们可以用Kruskal重构树做。</p>
+<p>我们使用RMQ可以 $O(1)$ 在线求出任意两点的LCA值，即可 $O(1)$ 回答询问。</p>
+<p>就是这样，我们就可以把那个 $\log$ 去掉了。</p>
+<p>不过这样代码会长一些（我觉得实际上会长很多，不过以消掉一个 $\log$ 为获利也是很值的）</p>
+<h3 id="其他题型待补充"><em>其他题型待补充</em></h3>
+<p><em>待补充</em></p>
+<hr>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p>此处假设叶子节点的点权是 $-\infty$，并且我们比较的是点权，而不是代码里的节点编号（不过按理编号也是大根堆吧）。&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2">
+<p>设一端点为 $u$，另一端点为 $v$，LCA为 $t$，那么这两段分别为 $u \to t$ 和 $v \to t$。&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+
+        
+    </div>
+
+    <div class="prev-next">
+        
+    </div>
+
+    
+    
+    
+</div>
+
+<aside class="post-toc">
+    <nav id="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#概览">概览</a></li>
+        <li><a href="#实现过程">实现过程</a></li>
+        <li><a href="#特性">特性</a></li>
+        <li><a href="#解决题型">解决题型</a>
+          <ul>
+            <li><a href="#题型1">题型1</a></li>
+            <li><a href="#题型2">题型2</a></li>
+            <li><a href="#其他题型待补充"><em>其他题型待补充</em></a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </nav>
+</aside>
+
+
+
+    
+
+        </main><footer class="footer">
+    
+    
+
+    
+
+    
+
+    
+
+    <span>
+        Made with &#10084;&#65039; using <a target="_blank" href="https://github.com/gokarna-theme/gokarna-hugo">Gokarna</a>
+    </span>
+</footer>
+</body>
+</html>
