@@ -285,6 +285,29 @@ $\texttt{\color{RoyalBlue}@\color{default}#\color{default}a\color{RoyalBlue}#\co
 <p>这里解释一个代码细节，我的模板中，可以发现 $p_i$ 赋的初始值是 $\min(r-i,p_{i&rsquo;})$，有人会问，如果最小值最后取的是 $p_{i&rsquo;}$，会不会多复杂度（继续扩展）？答案是否定的，因为 $p_{i&rsquo;}$ 是极大值，如果能继续扩展，那么 $p_{i&rsquo;}$ 也会增大，证毕。</p>
 
         
+        <div class="post-comments">
+            <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "qjwh-github-io" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        </div>
+        
     </div>
 
     <div class="prev-next">
@@ -308,6 +331,9 @@ $\texttt{\color{RoyalBlue}@\color{default}#\color{default}a\color{RoyalBlue}#\co
 
         </main><footer class="footer">
     
+    
+        {{ template "_internal/disqus.html" . }}
+  
     
 
     
