@@ -2,31 +2,31 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Posts on CXBlog</title>
-    <link>/posts/</link>
+    <link>https://qjwh.github.io/posts/</link>
     <description>Recent content in Posts on CXBlog</description>
     <generator>Hugo -- 0.143.1</generator>
     <language>en</language>
     <lastBuildDate>Mon, 10 Feb 2025 22:30:00 +0800</lastBuildDate>
-    <atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://qjwh.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>【村新晚报】2025W03</title>
-      <link>/posts/cxep/2025w03/</link>
+      <link>https://qjwh.github.io/posts/cxep/2025w03/</link>
       <pubDate>Mon, 10 Feb 2025 22:30:00 +0800</pubDate>
-      <guid>/posts/cxep/2025w03/</guid>
+      <guid>https://qjwh.github.io/posts/cxep/2025w03/</guid>
       <description>每晚十点半不见不散</description>
     </item>
     <item>
       <title>【村新晚报】2025W02</title>
-      <link>/posts/cxep/2025w02/</link>
+      <link>https://qjwh.github.io/posts/cxep/2025w02/</link>
       <pubDate>Sun, 09 Feb 2025 22:30:00 +0800</pubDate>
-      <guid>/posts/cxep/2025w02/</guid>
+      <guid>https://qjwh.github.io/posts/cxep/2025w02/</guid>
       <description>每晚十点半不见不散</description>
     </item>
     <item>
       <title>【娱乐】炒饭每日小测验食用指南</title>
-      <link>/posts/play/xiaoce_fun_daily/</link>
+      <link>https://qjwh.github.io/posts/play/xiaoce_fun_daily/</link>
       <pubDate>Sun, 09 Feb 2025 19:38:00 +0800</pubDate>
-      <guid>/posts/play/xiaoce_fun_daily/</guid>
+      <guid>https://qjwh.github.io/posts/play/xiaoce_fun_daily/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://xiaoce.fun/daily&#34;&gt;网址&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;每天北京时间0点整会更新所有测验。&lt;/p&gt;
 &lt;p&gt;这里只说部分，其他的自行摸索。&lt;/p&gt;
@@ -72,9 +72,9 @@
     </item>
     <item>
       <title>【娱乐】交流必备 florr中那些特殊的简写或别称</title>
-      <link>/posts/play/florr_simple_name/</link>
+      <link>https://qjwh.github.io/posts/play/florr_simple_name/</link>
       <pubDate>Sun, 09 Feb 2025 17:05:00 +0800</pubDate>
-      <guid>/posts/play/florr_simple_name/</guid>
+      <guid>https://qjwh.github.io/posts/play/florr_simple_name/</guid>
       <description>&lt;p&gt;更新中……&lt;/p&gt;
 &lt;h2 id=&#34;稀有度&#34;&gt;稀有度&lt;/h2&gt;
 &lt;ul&gt;
@@ -135,9 +135,9 @@
     </item>
     <item>
       <title>2-SAT算法</title>
-      <link>/posts/aln/2sat/</link>
+      <link>https://qjwh.github.io/posts/aln/2sat/</link>
       <pubDate>Sun, 09 Feb 2025 15:28:00 +0800</pubDate>
-      <guid>/posts/aln/2sat/</guid>
+      <guid>https://qjwh.github.io/posts/aln/2sat/</guid>
       <description>&lt;text style=&#34;font-family:Noto Sans SC&#34;&gt;
 &lt;h2 id=&#34;text-stylecolorrgb0150136-前言&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 前言&lt;/h2&gt;
 &lt;p&gt;2-SAT中的SAT是适定性（Satisfiability）问题的简称，一般形式为 $k$ - 适定性问题，简称 $k$ - SAT，但由于 $k&amp;gt;2$ 时问题为NP完全问题（只有指数级别复杂度的解法，或者多项式级别复杂度的&lt;strong&gt;相似&lt;/strong&gt;解法），而 $k=1$ 时都不用解了 &lt;del&gt;（废话）&lt;/del&gt; ，所以下面全部考虑 $k=2$ 的情况。&lt;/p&gt;
@@ -177,9 +177,9 @@
     </item>
     <item>
       <title>BSGS算法</title>
-      <link>/posts/aln/bsgs/</link>
+      <link>https://qjwh.github.io/posts/aln/bsgs/</link>
       <pubDate>Sun, 09 Feb 2025 15:28:00 +0800</pubDate>
-      <guid>/posts/aln/bsgs/</guid>
+      <guid>https://qjwh.github.io/posts/aln/bsgs/</guid>
       <description>&lt;p&gt;&lt;strong&gt;basic&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;BSGS算法英文名叫“baby-step giant-step”，又称“大步小步算法”。&lt;/p&gt;
 &lt;p&gt;这个算法听名字似乎是个随机化算法，但实际上是数论算法。&lt;/p&gt;
@@ -207,9 +207,9 @@
     </item>
     <item>
       <title>CDQ分治</title>
-      <link>/posts/aln/cdq/</link>
+      <link>https://qjwh.github.io/posts/aln/cdq/</link>
       <pubDate>Sun, 09 Feb 2025 15:28:00 +0800</pubDate>
-      <guid>/posts/aln/cdq/</guid>
+      <guid>https://qjwh.github.io/posts/aln/cdq/</guid>
       <description>&lt;text style=&#34;font-family:Noto Sans SC&#34;&gt;
 &lt;p&gt;CDQ分治是一种解决三维、四维偏序的算法。&lt;/p&gt;
 &lt;h2 id=&#34;text-stylecolorrgb0150136-三维偏序&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 三维偏序&lt;/h2&gt;
@@ -243,9 +243,9 @@
     </item>
     <item>
       <title>Kruskal重构树</title>
-      <link>/posts/aln/kruskalcgs/</link>
+      <link>https://qjwh.github.io/posts/aln/kruskalcgs/</link>
       <pubDate>Sun, 09 Feb 2025 15:28:00 +0800</pubDate>
-      <guid>/posts/aln/kruskalcgs/</guid>
+      <guid>https://qjwh.github.io/posts/aln/kruskalcgs/</guid>
       <description>&lt;p&gt;参考：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;老师讲解&lt;/li&gt;
@@ -294,9 +294,9 @@
     </item>
     <item>
       <title>Lucas定理</title>
-      <link>/posts/aln/lucas/</link>
+      <link>https://qjwh.github.io/posts/aln/lucas/</link>
       <pubDate>Sun, 09 Feb 2025 15:28:00 +0800</pubDate>
-      <guid>/posts/aln/lucas/</guid>
+      <guid>https://qjwh.github.io/posts/aln/lucas/</guid>
       <description>&lt;p&gt;（以下全部假设 $C_n^m$ 中的 $n$ 和 $m$ 都很大，最大能达到 $10^{18}$）&lt;/p&gt;
 &lt;h2 id=&#34;lucas定理&#34;&gt;Lucas定理&lt;/h2&gt;
 &lt;p&gt;Lucas定理往往用于求组合数的结果且&lt;strong&gt;模数较小&lt;/strong&gt;的题目。&lt;/p&gt;
@@ -313,16 +313,16 @@
     </item>
     <item>
       <title>nth_element（未完工）</title>
-      <link>/posts/aln/nthelement/</link>
+      <link>https://qjwh.github.io/posts/aln/nthelement/</link>
       <pubDate>Sun, 09 Feb 2025 15:28:00 +0800</pubDate>
-      <guid>/posts/aln/nthelement/</guid>
+      <guid>https://qjwh.github.io/posts/aln/nthelement/</guid>
       <description></description>
     </item>
     <item>
       <title>wqs二分</title>
-      <link>/posts/aln/wqs/</link>
+      <link>https://qjwh.github.io/posts/aln/wqs/</link>
       <pubDate>Sun, 09 Feb 2025 15:28:00 +0800</pubDate>
-      <guid>/posts/aln/wqs/</guid>
+      <guid>https://qjwh.github.io/posts/aln/wqs/</guid>
       <description>&lt;p&gt;感谢&lt;a href=&#34;https://www.acwing.com/file_system/file/content/whole/index/content/5873556/&#34;&gt;这篇文章&lt;/a&gt;的作者。&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;wqs二分一般解决这类问题：&lt;/p&gt;
@@ -360,9 +360,9 @@
     </item>
     <item>
       <title>一个非常重要的语法点</title>
-      <link>/posts/aln/animportantgrammer/</link>
+      <link>https://qjwh.github.io/posts/aln/animportantgrammer/</link>
       <pubDate>Sun, 09 Feb 2025 15:28:00 +0800</pubDate>
-      <guid>/posts/aln/animportantgrammer/</guid>
+      <guid>https://qjwh.github.io/posts/aln/animportantgrammer/</guid>
       <description>&lt;p&gt;说一个非常重要的语法错误。&lt;/p&gt;
 &lt;p&gt;如果你写这样一句话：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;v&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;newnode&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;
@@ -399,9 +399,9 @@
     </item>
     <item>
       <title>一元二次方程解法（未完工）</title>
-      <link>/posts/aln/quadraticequation/</link>
+      <link>https://qjwh.github.io/posts/aln/quadraticequation/</link>
       <pubDate>Sun, 09 Feb 2025 15:28:00 +0800</pubDate>
-      <guid>/posts/aln/quadraticequation/</guid>
+      <guid>https://qjwh.github.io/posts/aln/quadraticequation/</guid>
       <description>&lt;text style=&#34;font-family:Noto Sans SC&#34;&gt;
 &lt;p&gt;在数学、编程界里，可能会经常遇到方程，而且有时候还会遇到一种特殊方程——一元二次方程。&lt;/p&gt;
 &lt;p&gt;除此之外，还有含参一元二次方程，这里也会一起讲。&lt;em&gt;（待补充）&lt;/em&gt;&lt;/p&gt;
@@ -446,9 +446,9 @@
     </item>
     <item>
       <title>中国剩余定理</title>
-      <link>/posts/aln/crt/</link>
+      <link>https://qjwh.github.io/posts/aln/crt/</link>
       <pubDate>Sun, 09 Feb 2025 15:28:00 +0800</pubDate>
-      <guid>/posts/aln/crt/</guid>
+      <guid>https://qjwh.github.io/posts/aln/crt/</guid>
       <description>&lt;p&gt;中国剩余定理，Chinese Remainder Theorem，又称CRT，我们接下来就讲一下这个算法的原理。&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;要说原理，就得从古代说起。&lt;/p&gt;
@@ -485,9 +485,9 @@ $&lt;/p&gt;
     </item>
     <item>
       <title>决策单调性</title>
-      <link>/posts/aln/juecedandiaoxing/</link>
+      <link>https://qjwh.github.io/posts/aln/juecedandiaoxing/</link>
       <pubDate>Sun, 09 Feb 2025 15:28:00 +0800</pubDate>
-      <guid>/posts/aln/juecedandiaoxing/</guid>
+      <guid>https://qjwh.github.io/posts/aln/juecedandiaoxing/</guid>
       <description>&lt;h2 id=&#34;二维决策单调性&#34;&gt;二维决策单调性&lt;/h2&gt;
 &lt;p&gt;对于形如 $d_{i,j}=\min\limits_{k=0}^{i-1} \Big( d_{k,j-1}+w(k+1,i) \Big)$ 的方程，我们尝试记录 $f_{i,j}$ 代表 $d_{i,j}$ 的最优转移点（$k$ 变量），如果有 $f_{i,j-1} \leq f_{i,j} \leq f_{i+1,j}$，那么就是经典的四边形不等式优化，复杂度为 $O(n^2)$，证明此处略（在&amp;quot;四边形不等式相关.md&amp;quot;里有）。&lt;/p&gt;
 &lt;p&gt;但是，如果只有 $f_{i,j} \leq f_{i+1,j}$，那么就不能用四边形不等式优化了，需要用分治的方式优化。&lt;/p&gt;
@@ -503,9 +503,9 @@ $&lt;/p&gt;
     </item>
     <item>
       <title>判断拓扑序是否唯一</title>
-      <link>/posts/aln/judgetopounique/</link>
+      <link>https://qjwh.github.io/posts/aln/judgetopounique/</link>
       <pubDate>Sun, 09 Feb 2025 15:28:00 +0800</pubDate>
-      <guid>/posts/aln/judgetopounique/</guid>
+      <guid>https://qjwh.github.io/posts/aln/judgetopounique/</guid>
       <description>&lt;text style=&#34;font-family:Lato,楷体&#34;&gt;
 &lt;p&gt;我们现在要解决一个问题，就如标题所说，我们要判断一个DAG的拓扑序是否唯一。&lt;/p&gt;
 &lt;p&gt;以下说两种做法。&lt;/p&gt;
@@ -538,9 +538,9 @@ $&lt;/p&gt;
     </item>
     <item>
       <title>博弈论三种扩展题型</title>
-      <link>/posts/aln/games/</link>
+      <link>https://qjwh.github.io/posts/aln/games/</link>
       <pubDate>Sun, 09 Feb 2025 15:28:00 +0800</pubDate>
-      <guid>/posts/aln/games/</guid>
+      <guid>https://qjwh.github.io/posts/aln/games/</guid>
       <description>&lt;text style=&#34;font-family:Noto Sans SC&#34;&gt;
 &lt;p&gt;下面是三道与博弈论相关的题目及其做法。&lt;/p&gt;
 &lt;h1 id=&#34;text-stylecolorrgb0150136-题目1皮肤病&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 题目1：皮肤病&lt;/h1&gt;
@@ -589,9 +589,9 @@ $&lt;/p&gt;
     </item>
     <item>
       <title>同余最短路</title>
-      <link>/posts/aln/modsp/</link>
+      <link>https://qjwh.github.io/posts/aln/modsp/</link>
       <pubDate>Sun, 09 Feb 2025 15:28:00 +0800</pubDate>
-      <guid>/posts/aln/modsp/</guid>
+      <guid>https://qjwh.github.io/posts/aln/modsp/</guid>
       <description>&lt;text style=&#34;font-family:Lato,楷体&#34;&gt;
 &lt;p&gt;同余最短路看名字感觉很难，但其实非常简单，也好理解，先说一道题：&lt;/p&gt;
 &lt;h2 id=&#34;text-stylecolorrgb0150136-题目&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 题目&lt;/h2&gt;
@@ -617,9 +617,9 @@ $&lt;/p&gt;
     </item>
     <item>
       <title>四边形不等式</title>
-      <link>/posts/aln/quadrangleinequality/</link>
+      <link>https://qjwh.github.io/posts/aln/quadrangleinequality/</link>
       <pubDate>Sun, 09 Feb 2025 15:28:00 +0800</pubDate>
-      <guid>/posts/aln/quadrangleinequality/</guid>
+      <guid>https://qjwh.github.io/posts/aln/quadrangleinequality/</guid>
       <description>&lt;p&gt;（四边形不等式看标题可能觉得很难，其实比较简单）&lt;/p&gt;
 &lt;p&gt;四边形不等式是一种DP优化的技巧，一般针对二维DP进行优化。&lt;/p&gt;
 &lt;p&gt;在DP中，往往会有多个决策点，而其中就有一个是最优的，设 $d_{i,j}$ 的最优决策点为 $f_{i,j}$。&lt;/p&gt;
@@ -654,9 +654,9 @@ $&lt;/p&gt;
     </item>
     <item>
       <title>基尔霍夫矩阵</title>
-      <link>/posts/aln/kirchhoffmatrix/</link>
+      <link>https://qjwh.github.io/posts/aln/kirchhoffmatrix/</link>
       <pubDate>Sun, 09 Feb 2025 15:28:00 +0800</pubDate>
-      <guid>/posts/aln/kirchhoffmatrix/</guid>
+      <guid>https://qjwh.github.io/posts/aln/kirchhoffmatrix/</guid>
       <description>&lt;p&gt;基尔霍夫矩阵是用来求解生成树计数、求（权值）和相关题目的利器。&lt;/p&gt;
 &lt;hr&gt;
 &lt;h3 id=&#34;text-stylecolorrgb0150136-0-求完全图的生成树数量prufer序列&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 0. 求完全图的生成树数量（Prufer序列）&lt;/h3&gt;
@@ -694,9 +694,9 @@ $&lt;/p&gt;
     </item>
     <item>
       <title>平衡树</title>
-      <link>/posts/aln/balancedtree/</link>
+      <link>https://qjwh.github.io/posts/aln/balancedtree/</link>
       <pubDate>Sun, 09 Feb 2025 15:28:00 +0800</pubDate>
-      <guid>/posts/aln/balancedtree/</guid>
+      <guid>https://qjwh.github.io/posts/aln/balancedtree/</guid>
       <description>&lt;text style=&#34;font-family:Noto Sans SC&#34;&gt;
 &lt;p&gt;说到平衡树，很多人的第一印象就是：&lt;/p&gt;
 &lt;ul&gt;
@@ -741,9 +741,9 @@ $&lt;/p&gt;
     </item>
     <item>
       <title>整体二分</title>
-      <link>/posts/aln/exbinarysearch/</link>
+      <link>https://qjwh.github.io/posts/aln/exbinarysearch/</link>
       <pubDate>Sun, 09 Feb 2025 15:28:00 +0800</pubDate>
-      <guid>/posts/aln/exbinarysearch/</guid>
+      <guid>https://qjwh.github.io/posts/aln/exbinarysearch/</guid>
       <description>&lt;text style=&#34;font-family:Noto Sans SC&#34;&gt;
 &lt;p&gt;整体二分类似于线段树上二分，在讲这个算法前，先引入几个问题。&lt;/p&gt;
 &lt;h2 id=&#34;text-stylecolorrgb0150136-解决题型&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 解决题型&lt;/h2&gt;
@@ -773,9 +773,9 @@ $&lt;/p&gt;
     </item>
     <item>
       <title>整除分块</title>
-      <link>/posts/aln/divisionblock/</link>
+      <link>https://qjwh.github.io/posts/aln/divisionblock/</link>
       <pubDate>Sun, 09 Feb 2025 15:28:00 +0800</pubDate>
-      <guid>/posts/aln/divisionblock/</guid>
+      <guid>https://qjwh.github.io/posts/aln/divisionblock/</guid>
       <description>&lt;text style=&#34;font-family:Noto Sans SC&#34;&gt;
 &lt;p&gt;感谢&lt;a href=&#34;https://blog.csdn.net/qq_58207591/article/details/123883428&#34;&gt;这篇文章&lt;/a&gt;的作者&lt;/p&gt;
 &lt;p&gt;整除分块主要解决求解 $\sum\limits_{i=1}^n \lfloor \frac{n}{i} \rfloor$ 的值。&lt;/p&gt;
@@ -798,9 +798,9 @@ $&lt;/p&gt;
     </item>
     <item>
       <title>斜率优化</title>
-      <link>/posts/aln/slopeopm/</link>
+      <link>https://qjwh.github.io/posts/aln/slopeopm/</link>
       <pubDate>Sun, 09 Feb 2025 15:28:00 +0800</pubDate>
-      <guid>/posts/aln/slopeopm/</guid>
+      <guid>https://qjwh.github.io/posts/aln/slopeopm/</guid>
       <description>&lt;text style=&#34;font-family:Noto Sans SC&#34;&gt;
 &lt;p&gt;&lt;del&gt;（说是斜率优化，其实和斜率几乎没有关系）&lt;/del&gt;&lt;/p&gt;
 &lt;p&gt;&lt;del&gt;（e&amp;hellip;更新后确实有关系）&lt;/del&gt;&lt;/p&gt;
@@ -833,9 +833,9 @@ $&lt;/p&gt;
     </item>
     <item>
       <title>树链剖分</title>
-      <link>/posts/aln/treechaindivision/</link>
+      <link>https://qjwh.github.io/posts/aln/treechaindivision/</link>
       <pubDate>Sun, 09 Feb 2025 15:28:00 +0800</pubDate>
-      <guid>/posts/aln/treechaindivision/</guid>
+      <guid>https://qjwh.github.io/posts/aln/treechaindivision/</guid>
       <description>&lt;text style=&#34;font-family:Noto Sans SC&#34;&gt;
 &lt;p&gt;第一次看到树链剖分（简称树剖）可能觉得它非常的深奥，但其实树剖的原理非常简单，下面先说树剖大概的实现思路和解决题型。&lt;/p&gt;
 &lt;h2 id=&#34;text-stylecolorrgb0150136-概览&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 概览&lt;/h2&gt;
@@ -890,9 +890,9 @@ $&lt;/p&gt;
     </item>
     <item>
       <title>欧拉函数</title>
-      <link>/posts/aln/eulerfunc/</link>
+      <link>https://qjwh.github.io/posts/aln/eulerfunc/</link>
       <pubDate>Sun, 09 Feb 2025 15:28:00 +0800</pubDate>
-      <guid>/posts/aln/eulerfunc/</guid>
+      <guid>https://qjwh.github.io/posts/aln/eulerfunc/</guid>
       <description>&lt;p&gt;欧拉函数记为 $\varphi$，$\varphi(n)$ 代表 $1 \sim n$ 内与 $n$ 互质的数的个数。&lt;/p&gt;
 &lt;p&gt;欧拉函数有两种求法，下面分别说：&lt;/p&gt;
 &lt;h3 id=&#34;直接求&#34;&gt;直接求&lt;/h3&gt;
@@ -928,9 +928,9 @@ $&lt;/p&gt;
     </item>
     <item>
       <title>点分治</title>
-      <link>/posts/aln/dfz/</link>
+      <link>https://qjwh.github.io/posts/aln/dfz/</link>
       <pubDate>Sun, 09 Feb 2025 15:28:00 +0800</pubDate>
-      <guid>/posts/aln/dfz/</guid>
+      <guid>https://qjwh.github.io/posts/aln/dfz/</guid>
       <description>&lt;text style=&#34;font-family:Noto Sans SC&#34;&gt;
 &lt;p&gt;点分治和树剖有一个相同点，就是算法都是从暴力经过一小步优化而来，但就是这一小步，让算法复杂度有了质的飞跃。&lt;/p&gt;
 &lt;p&gt;下面来讲一下这个算法的原理。&lt;/p&gt;
@@ -958,9 +958,9 @@ $&lt;/p&gt;
     </item>
     <item>
       <title>生成随机数（未完工）</title>
-      <link>/posts/aln/genrandomnumber/</link>
+      <link>https://qjwh.github.io/posts/aln/genrandomnumber/</link>
       <pubDate>Sun, 09 Feb 2025 15:28:00 +0800</pubDate>
-      <guid>/posts/aln/genrandomnumber/</guid>
+      <guid>https://qjwh.github.io/posts/aln/genrandomnumber/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/LU_ZHAO/article/details/104305240&#34;&gt;参考&lt;/a&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;引用头文件（常用）&lt;/li&gt;
@@ -1013,9 +1013,9 @@ $&lt;/p&gt;
     </item>
     <item>
       <title>类欧几里得算法</title>
-      <link>/posts/aln/similargcd/</link>
+      <link>https://qjwh.github.io/posts/aln/similargcd/</link>
       <pubDate>Sun, 09 Feb 2025 15:28:00 +0800</pubDate>
-      <guid>/posts/aln/similargcd/</guid>
+      <guid>https://qjwh.github.io/posts/aln/similargcd/</guid>
       <description>&lt;text style=&#34;font-family:Noto Sans SC&#34;&gt;
 &lt;p&gt;来源：&lt;a href=&#34;https://atcoder.jp/contests/abc372/tasks/abc372_g&#34;&gt;ABC372G&lt;/a&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc372/editorial/10988&#34;&gt;官方题解&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;贡献：&lt;a href=&#34;https://oi-wiki.org/math/number-theory/euclidean&#34;&gt;OI Wiki&lt;/a&gt;&lt;/p&gt;
@@ -1046,14 +1046,14 @@ $$&lt;/p&gt;</description>
     </item>
     <item>
       <title>组合数学（待补充）</title>
-      <link>/posts/aln/c/</link>
+      <link>https://qjwh.github.io/posts/aln/c/</link>
       <pubDate>Sun, 09 Feb 2025 15:28:00 +0800</pubDate>
-      <guid>/posts/aln/c/</guid>
+      <guid>https://qjwh.github.io/posts/aln/c/</guid>
       <description>&lt;text style=&#34;font-family:Lato,楷体&#34;&gt;
 &lt;p&gt;有人问，组合数学不是就一些简单的公式吗？不是的，其实组合数学是数学中的一个非常庞大的分支，接下来就举&lt;strong&gt;一些&lt;/strong&gt;例子。&lt;em&gt;（更新中）&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;本文主要讲各种数据范围下，求组合数的方式；以及球盒模型各种情况下的公式；最后是一些球盒模型的扩展情况。&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;/posts/aln/c/#%e7%90%83%e7%9b%92%e6%a8%a1%e5%9e%8b%e4%b8%bb%e8%a6%81%e6%83%85%e5%86%b5%e6%80%bb%e7%bb%93&#34;&gt;转到：球盒模型公式&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;/posts/aln/c/#%e7%90%83%e7%9b%92%e6%a8%a1%e5%9e%8b%e6%89%a9%e5%b1%95%e4%b8%bb%e8%a6%81%e6%83%85%e5%86%b5%e6%80%bb%e7%bb%93&#34;&gt;转到：球盒模型扩展公式&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://qjwh.github.io/posts/aln/c/#%e7%90%83%e7%9b%92%e6%a8%a1%e5%9e%8b%e4%b8%bb%e8%a6%81%e6%83%85%e5%86%b5%e6%80%bb%e7%bb%93&#34;&gt;转到：球盒模型公式&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://qjwh.github.io/posts/aln/c/#%e7%90%83%e7%9b%92%e6%a8%a1%e5%9e%8b%e6%89%a9%e5%b1%95%e4%b8%bb%e8%a6%81%e6%83%85%e5%86%b5%e6%80%bb%e7%bb%93&#34;&gt;转到：球盒模型扩展公式&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;（下面部分标题里的LaTeX公式更新后炸了，就凑合着看吧）&lt;/p&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;text-stylecolorrgb0150136-求组合数&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 求组合数&lt;/h2&gt;
@@ -1091,9 +1091,9 @@ $$&lt;/p&gt;</description>
     </item>
     <item>
       <title>网络流</title>
-      <link>/posts/aln/flow/</link>
+      <link>https://qjwh.github.io/posts/aln/flow/</link>
       <pubDate>Sun, 09 Feb 2025 15:28:00 +0800</pubDate>
-      <guid>/posts/aln/flow/</guid>
+      <guid>https://qjwh.github.io/posts/aln/flow/</guid>
       <description>&lt;text style=&#34;font-family:Noto Sans SC&#34;&gt;
 &lt;h2 id=&#34;text-stylecolorrgb0150136-前言&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 前言&lt;/h2&gt;
 &lt;p&gt;首先，网络流不是一个算法，而是一个整合包（玩MC玩的），说白了就是网络流是多个算法的统称：&lt;/p&gt;
@@ -1141,9 +1141,9 @@ $$&lt;/p&gt;</description>
     </item>
     <item>
       <title>莫队算法</title>
-      <link>/posts/aln/modui/</link>
+      <link>https://qjwh.github.io/posts/aln/modui/</link>
       <pubDate>Sun, 09 Feb 2025 15:28:00 +0800</pubDate>
-      <guid>/posts/aln/modui/</guid>
+      <guid>https://qjwh.github.io/posts/aln/modui/</guid>
       <description>&lt;text style=&#34;font-family:Noto Sans SC&#34;&gt;
 &lt;h1 id=&#34;text-stylecolorrgb0150136-普通莫队算法&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 普通莫队算法&lt;/h1&gt;
 &lt;h2 id=&#34;text-stylecolorrgb0150136-概览&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 概览&lt;/h2&gt;
@@ -1185,9 +1185,9 @@ $$&lt;/p&gt;</description>
     </item>
     <item>
       <title>行列式</title>
-      <link>/posts/aln/hanglieshi/</link>
+      <link>https://qjwh.github.io/posts/aln/hanglieshi/</link>
       <pubDate>Sun, 09 Feb 2025 15:28:00 +0800</pubDate>
-      <guid>/posts/aln/hanglieshi/</guid>
+      <guid>https://qjwh.github.io/posts/aln/hanglieshi/</guid>
       <description>&lt;p&gt;要说行列式，就得先说一下矩阵（其实是方阵）的秩的定义。&lt;/p&gt;
 &lt;p&gt;对于一个方阵，其秩的定义就是矩阵里线性无关的极大值。&lt;/p&gt;
 &lt;p&gt;听这个定义有点难懂，这里解释一下。&lt;/p&gt;
@@ -1239,9 +1239,9 @@ $&lt;/p&gt;
     </item>
     <item>
       <title>阶和原根</title>
-      <link>/posts/aln/orderandpr/</link>
+      <link>https://qjwh.github.io/posts/aln/orderandpr/</link>
       <pubDate>Sun, 09 Feb 2025 15:28:00 +0800</pubDate>
-      <guid>/posts/aln/orderandpr/</guid>
+      <guid>https://qjwh.github.io/posts/aln/orderandpr/</guid>
       <description>&lt;text style=&#34;font-family:Noto Sans SC&#34;&gt;
 &lt;p&gt;按照正常的思路我们都直接将算法，但这会先讲一道题，然后再讲它的定义和求法。&lt;/p&gt;
 &lt;p&gt;参考：&lt;/p&gt;
@@ -1250,12 +1250,12 @@ $&lt;/p&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.cnblogs.com/ac-evil/p/12809289.html&#34;&gt;阶和原根&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;text-stylecolorrgb0150136-背景&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 背景&lt;/h2&gt;
-&lt;p&gt;是一场&lt;a href=&#34;https://atcoder.jp/contests/abc335&#34;&gt;ABC335&lt;/a&gt;里的&lt;a href=&#34;https://atcoder.jp/contests/abc335/tasks/abc335_g&#34;&gt;G题&lt;/a&gt;，当时在赛场上大概留了一个多小时的时间，但一直都在想用&lt;a href=&#34;/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/BSGS%E7%AE%97%E6%B3%95%EF%BC%88%E5%88%9D%E7%89%88%EF%BC%89.md&#34;&gt;BSGS&lt;/a&gt;，但显然最后没想出来。&lt;/p&gt;
+&lt;p&gt;是一场&lt;a href=&#34;https://atcoder.jp/contests/abc335&#34;&gt;ABC335&lt;/a&gt;里的&lt;a href=&#34;https://atcoder.jp/contests/abc335/tasks/abc335_g&#34;&gt;G题&lt;/a&gt;，当时在赛场上大概留了一个多小时的时间，但一直都在想用&lt;a href=&#34;https://qjwh.github.io/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/BSGS%E7%AE%97%E6%B3%95%EF%BC%88%E5%88%9D%E7%89%88%EF%BC%89.md&#34;&gt;BSGS&lt;/a&gt;，但显然最后没想出来。&lt;/p&gt;
 &lt;p&gt;而这题的瓶颈就在下面问题：&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;对于两个数 $a,b$，是否存在一个 $x$ 使得同余方程 $a^x \equiv b \pmod p$ 有解。&lt;/p&gt;
 &lt;p&gt;$a,b,p \leq 10^{13}$（原题数据范围）&lt;/p&gt;&lt;/blockquote&gt;
-&lt;p&gt;大家看到的第一眼显然可以用&lt;a href=&#34;/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/BSGS%E7%AE%97%E6%B3%95%EF%BC%88%E5%88%9D%E7%89%88%EF%BC%89.md&#34;&gt;BSGS&lt;/a&gt;求。&lt;/p&gt;
+&lt;p&gt;大家看到的第一眼显然可以用&lt;a href=&#34;https://qjwh.github.io/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/BSGS%E7%AE%97%E6%B3%95%EF%BC%88%E5%88%9D%E7%89%88%EF%BC%89.md&#34;&gt;BSGS&lt;/a&gt;求。&lt;/p&gt;
 &lt;p&gt;但这个算法是 $O(\sqrt p)$ 的（如果涉及到具体实现的话，可能还得乘个 $\log \sqrt p$，就是&lt;code&gt;set&lt;/code&gt;、&lt;code&gt;lower_bound&lt;/code&gt;查找的复杂度），比较适用于单组询问，很难推广应用。&lt;/p&gt;
 &lt;p&gt;所以还有另外一种方式，比较适用于多组询问。&lt;/p&gt;
 &lt;p&gt;是我们求出来 $a$ 和 $b$ 的阶，即 $\text{ord}_p a$ 和 $\text{ord}_p b$，看 $\text{ord}_p b$ 是否是 $\text{ord}_p a$ 的因子（$\text{ord}_p b \mid \text{ord}_p a$）即可。&lt;/p&gt;
@@ -1275,9 +1275,9 @@ $&lt;/p&gt;
     </item>
     <item>
       <title>马拉车算法</title>
-      <link>/posts/aln/manacher/</link>
+      <link>https://qjwh.github.io/posts/aln/manacher/</link>
       <pubDate>Sun, 09 Feb 2025 15:28:00 +0800</pubDate>
-      <guid>/posts/aln/manacher/</guid>
+      <guid>https://qjwh.github.io/posts/aln/manacher/</guid>
       <description>&lt;text style=&#34;font-family:Lato,楷体&#34;&gt;
 &lt;p&gt;马拉车算法其实就是解决一个字符串中由某个位置为中心的最大回文串长度：（下图中蓝色部分为字符串，绿色框中的值就是以这个位置为中心的最大回文串长度）&lt;/p&gt;
 &lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;https://cdn.luogu.com.cn/upload/image_hosting/z9ugcm59.png&#34;&gt;&lt;/p&gt;
@@ -1317,23 +1317,23 @@ $\texttt{\color{RoyalBlue}@\color{default}#\color{default}a\color{RoyalBlue}#\co
     </item>
     <item>
       <title>【漂流本电子稿】06 - 友谊的旅途（未完工）</title>
-      <link>/posts/plb/plb06/</link>
+      <link>https://qjwh.github.io/posts/plb/plb06/</link>
       <pubDate>Sun, 09 Feb 2025 09:30:00 +0800</pubDate>
-      <guid>/posts/plb/plb06/</guid>
+      <guid>https://qjwh.github.io/posts/plb/plb06/</guid>
       <description></description>
     </item>
     <item>
       <title>【漂流本电子稿】05 - 个人自传（内容缺失）</title>
-      <link>/posts/plb/plb05/</link>
+      <link>https://qjwh.github.io/posts/plb/plb05/</link>
       <pubDate>Sun, 09 Feb 2025 09:29:00 +0800</pubDate>
-      <guid>/posts/plb/plb05/</guid>
+      <guid>https://qjwh.github.io/posts/plb/plb05/</guid>
       <description></description>
     </item>
     <item>
       <title>【漂流本电子稿】04 - 离别开出花</title>
-      <link>/posts/plb/plb04/</link>
+      <link>https://qjwh.github.io/posts/plb/plb04/</link>
       <pubDate>Sun, 09 Feb 2025 09:28:00 +0800</pubDate>
-      <guid>/posts/plb/plb04/</guid>
+      <guid>https://qjwh.github.io/posts/plb/plb04/</guid>
       <description>&lt;p&gt;温馨提示：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;在读本文章的时候，请勿玩梗。本文与题目同名歌曲无关。&lt;/li&gt;
@@ -1385,9 +1385,9 @@ $^{12}$ 一稿：2024/9/30，二稿：2024/10/8，三稿：2024/10/10，四稿�
     </item>
     <item>
       <title>【漂流本电子稿】03 - 一个组合的相遇与分离</title>
-      <link>/posts/plb/plb03/</link>
+      <link>https://qjwh.github.io/posts/plb/plb03/</link>
       <pubDate>Sun, 09 Feb 2025 09:20:00 +0800</pubDate>
-      <guid>/posts/plb/plb03/</guid>
+      <guid>https://qjwh.github.io/posts/plb/plb03/</guid>
       <description>&lt;h1 id=&#34;一个组合的相遇与分离&#34;&gt;一个组合的相遇与分离&lt;/h1&gt;
 &lt;p&gt;&lt;em&gt;（纪实性抒情文章）&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;不知道在9月26日座位洗牌之后，有多少人与自己的好友远离。所以我今天就来与大家讲一下7-29-39组合 $^1$ 的相遇与分离的全过程。&lt;/p&gt;
@@ -1428,9 +1428,9 @@ $^{16}$ 仿照老舍《我的母亲》结尾段。&lt;/p&gt;</description>
     </item>
     <item>
       <title>【漂流本电子稿】02 - 忆2023暑假</title>
-      <link>/posts/plb/plb02/</link>
+      <link>https://qjwh.github.io/posts/plb/plb02/</link>
       <pubDate>Sun, 09 Feb 2025 09:09:00 +0800</pubDate>
-      <guid>/posts/plb/plb02/</guid>
+      <guid>https://qjwh.github.io/posts/plb/plb02/</guid>
       <description>&lt;p&gt;因为原定的稿子需要二次修改一下，所以中秋假期没有来得及，这次漂流本就写之前写好的一个稿子了。&lt;/p&gt;
 &lt;h1 id=&#34;忆2023暑假-1&#34;&gt;忆2023暑假 $^1$&lt;/h1&gt;
 &lt;p&gt;&lt;em&gt;（为何对2023暑假如此怀恋）&lt;/em&gt;&lt;/p&gt;
@@ -1467,23 +1467,23 @@ $^7$ 本诗以2023暑假的回忆曲《起风了》和《星星点灯》改编�
     </item>
     <item>
       <title>【漂流本电子稿】01 - 独立生活之得（内容缺失）</title>
-      <link>/posts/plb/plb01/</link>
+      <link>https://qjwh.github.io/posts/plb/plb01/</link>
       <pubDate>Sun, 09 Feb 2025 09:00:00 +0800</pubDate>
-      <guid>/posts/plb/plb01/</guid>
+      <guid>https://qjwh.github.io/posts/plb/plb01/</guid>
       <description></description>
     </item>
     <item>
       <title>【村新晚报】2025W01</title>
-      <link>/posts/cxep/2025w01/</link>
+      <link>https://qjwh.github.io/posts/cxep/2025w01/</link>
       <pubDate>Sat, 08 Feb 2025 22:30:00 +0800</pubDate>
-      <guid>/posts/cxep/2025w01/</guid>
+      <guid>https://qjwh.github.io/posts/cxep/2025w01/</guid>
       <description>每晚十点半不见不散</description>
     </item>
     <item>
       <title>Hello, world!</title>
-      <link>/posts/test/</link>
+      <link>https://qjwh.github.io/posts/test/</link>
       <pubDate>Sat, 08 Feb 2025 11:00:00 +0800</pubDate>
-      <guid>/posts/test/</guid>
+      <guid>https://qjwh.github.io/posts/test/</guid>
       <description>A blog post</description>
     </item>
   </channel>

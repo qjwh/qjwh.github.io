@@ -2,59 +2,59 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Tags on CXBlog</title>
-    <link>/tags/</link>
+    <link>https://qjwh.github.io/tags/</link>
     <description>Recent content in Tags on CXBlog</description>
     <generator>Hugo -- 0.143.1</generator>
     <language>en</language>
     <lastBuildDate>Mon, 10 Feb 2025 22:30:00 +0800</lastBuildDate>
-    <atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://qjwh.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>村新晚报</title>
-      <link>/tags/%E6%9D%91%E6%96%B0%E6%99%9A%E6%8A%A5/</link>
+      <link>https://qjwh.github.io/tags/%E6%9D%91%E6%96%B0%E6%99%9A%E6%8A%A5/</link>
       <pubDate>Mon, 10 Feb 2025 22:30:00 +0800</pubDate>
-      <guid>/tags/%E6%9D%91%E6%96%B0%E6%99%9A%E6%8A%A5/</guid>
+      <guid>https://qjwh.github.io/tags/%E6%9D%91%E6%96%B0%E6%99%9A%E6%8A%A5/</guid>
       <description></description>
     </item>
     <item>
       <title>娱乐</title>
-      <link>/tags/%E5%A8%B1%E4%B9%90/</link>
+      <link>https://qjwh.github.io/tags/%E5%A8%B1%E4%B9%90/</link>
       <pubDate>Sun, 09 Feb 2025 19:38:00 +0800</pubDate>
-      <guid>/tags/%E5%A8%B1%E4%B9%90/</guid>
+      <guid>https://qjwh.github.io/tags/%E5%A8%B1%E4%B9%90/</guid>
       <description></description>
     </item>
     <item>
       <title>炒饭测验</title>
-      <link>/tags/%E7%82%92%E9%A5%AD%E6%B5%8B%E9%AA%8C/</link>
+      <link>https://qjwh.github.io/tags/%E7%82%92%E9%A5%AD%E6%B5%8B%E9%AA%8C/</link>
       <pubDate>Sun, 09 Feb 2025 19:38:00 +0800</pubDate>
-      <guid>/tags/%E7%82%92%E9%A5%AD%E6%B5%8B%E9%AA%8C/</guid>
+      <guid>https://qjwh.github.io/tags/%E7%82%92%E9%A5%AD%E6%B5%8B%E9%AA%8C/</guid>
       <description></description>
     </item>
     <item>
       <title>Florr</title>
-      <link>/tags/florr/</link>
+      <link>https://qjwh.github.io/tags/florr/</link>
       <pubDate>Sun, 09 Feb 2025 17:05:00 +0800</pubDate>
-      <guid>/tags/florr/</guid>
+      <guid>https://qjwh.github.io/tags/florr/</guid>
       <description></description>
     </item>
     <item>
       <title>信息学竞赛</title>
-      <link>/tags/%E4%BF%A1%E6%81%AF%E5%AD%A6%E7%AB%9E%E8%B5%9B/</link>
+      <link>https://qjwh.github.io/tags/%E4%BF%A1%E6%81%AF%E5%AD%A6%E7%AB%9E%E8%B5%9B/</link>
       <pubDate>Sun, 09 Feb 2025 15:28:00 +0800</pubDate>
-      <guid>/tags/%E4%BF%A1%E6%81%AF%E5%AD%A6%E7%AB%9E%E8%B5%9B/</guid>
+      <guid>https://qjwh.github.io/tags/%E4%BF%A1%E6%81%AF%E5%AD%A6%E7%AB%9E%E8%B5%9B/</guid>
       <description></description>
     </item>
     <item>
       <title>算法学习笔记</title>
-      <link>/tags/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
+      <link>https://qjwh.github.io/tags/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
       <pubDate>Sun, 09 Feb 2025 15:28:00 +0800</pubDate>
-      <guid>/tags/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
+      <guid>https://qjwh.github.io/tags/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
       <description></description>
     </item>
     <item>
       <title>漂流本电子稿</title>
-      <link>/tags/%E6%BC%82%E6%B5%81%E6%9C%AC%E7%94%B5%E5%AD%90%E7%A8%BF/</link>
+      <link>https://qjwh.github.io/tags/%E6%BC%82%E6%B5%81%E6%9C%AC%E7%94%B5%E5%AD%90%E7%A8%BF/</link>
       <pubDate>Sun, 09 Feb 2025 09:30:00 +0800</pubDate>
-      <guid>/tags/%E6%BC%82%E6%B5%81%E6%9C%AC%E7%94%B5%E5%AD%90%E7%A8%BF/</guid>
+      <guid>https://qjwh.github.io/tags/%E6%BC%82%E6%B5%81%E6%9C%AC%E7%94%B5%E5%AD%90%E7%A8%BF/</guid>
       <description></description>
     </item>
   </channel>
