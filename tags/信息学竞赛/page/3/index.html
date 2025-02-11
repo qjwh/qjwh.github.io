@@ -167,141 +167,284 @@
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">一元二次方程解法（未完工）
+    <h2 class="entry-hint-parent">整除分块
     </h2>
   </header>
   <div class="entry-content">
-    <p>在数学、编程界里，可能会经常遇到方程，而且有时候还会遇到一种特殊方程——一元二次方程。
-除此之外，还有含参一元二次方程，这里也会一起讲。（待补充）
-其实还有如二元一次方程、一元三次方程等的特殊方程，但在这里不讲。
-一元二次方程 有人看到“一元二次方程”就不知道是啥意思，这里先说一下定义
-定义 首先，方程相信大家都见过，所以这里不写对方程的定义解释。（废话
-而 $x$ 元 $y$ 次方程就是这么定义的：
-这个方程经过化简后，共有 $x$ 个未知数，且未知数上的最大指数为 $y$ 的方程。 如：
-$3(x&#43;1)=6x$：一元一次方程，也是最常见的方程。 $3(x&#43;1)^2=2(x&#43;1)$：一元一次方程，因为两边可以同时除以 $x&#43;1$ 以让指数减少 $1$。 $x^2-4x&#43;1=0$：一元二次方程，也是下面要讲的方程类型。 $x^3&#43;2x^2-1=16x$：一元三次方程，也是一种不常见的方程类型。 讲完定义，接下来说怎么解
-解法 推导 我们把方程一般化，变成：
-$ax^2&#43;bx&#43;c=0$
-其中 $a$、$b$、$c$ 均为常量。
-然后，我们不断对方程做一些推导。
-移项
-$ax^2&#43;bx=-c$
-同时除以 $a$ 常量
-$x^2&#43;\dfrac{b}{a}x=-\dfrac{c}{a}$
-这个式子很多人看了就不知道怎么继续推导了。
-但还是可以继续转化的。
-我们考虑配方，即把式子的左/右项同时加/减/乘/除一个相同的数，然后让这个等式的左/右项变成一个数的平方的形式。
-这一步比较考验数感，一个结论就是，我们同时加上 $\left( \dfrac{b}{2a} \right)^2$ 常量 即可。
-$x^2&#43;\dfrac{b}{a}x&#43;\left( \dfrac{b}{2a} \right)^2=-\dfrac{c}{a}&#43;\left( \dfrac{b}{2a} \right)^2$
-化简
-$\left( x&#43;\dfrac{b}{2a} \right)^2=\dfrac{-c}{a}&#43;\dfrac{b^2}{4a^2}$
-二次化简
-$\left( x&#43;\dfrac{b}{2a} \right)^2=\dfrac{b^2-4ac}{4a^2}$
-同时开根号
-$x&#43;\dfrac{b}{2a}=\sqrt{\dfrac{b^2-4ac}{4a^2}}$
+    <p>感谢这篇文章的作者
+整除分块主要解决求解 $\sum\limits_{i=1}^n \lfloor \frac{n}{i} \rfloor$ 的值。
+一看这个公式，可能毫无头绪，但画张图你就有点思路了：（$n=11$）
+（灰色线：$y=\frac{11}{x}$，绿色点：$y=\lfloor \frac{11}{x} \rfloor$，橙色线：仅为辅助）
+这张图其实就是在提示我们：
+$\lfloor \frac{n}{i} \rfloor$ 的值随着 $i$ 的增长而非单调递减 $\lfloor \frac{n}{i} \rfloor$ 的值往往会在一段区间内相等 所以，我们就有一个思路了，就是求出所有值（下面的“值”都代指的是 $\lfloor \frac{n}{i} \rfloor$）相等的极大区间集，然后就可以快速统计了。
+有人问，这不就是个常数级别的优化吗，怎么能叫“快速”呢？其实区间个数总是 $O(\sqrt{n})$ 级别，最多约 $2 \times \sqrt{n}$。
+证明：
+我们把 $i$ 分成两部分去考虑，一部分是 $i \leq \sqrt{n}$，另一部分是 $i&gt;\sqrt{n}$。
+在第一部分内，$i$ 也就只有 $\sqrt{n}$ 种取值，$\lfloor \frac{n}{i} \rfloor$ 最多只有约 $\sqrt{n}$ 种取值。
+在第二部分内，$\lfloor \frac{n}{i} \rfloor$ 在 $i$ 最小时（$i=\sqrt{n}&#43;1$）会达到最大值，约 $\sqrt{n}$；而上面说“$\lfloor \frac{n}{i} \rfloor$ 的值随着 $i$ 的增长而非单调递减”，所以易得 $\lfloor \frac{n}{i} \rfloor$ 最多也只有约 $\sqrt{n}$ 种取值。
+$\lfloor \frac{n}{i} \rfloor$ 的总取值种数最多只有第一、二部分的取值个数和，即 $2 \times \sqrt{n}$，证毕。
 ...</p>
   </div>
   <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 一元二次方程解法（未完工）" href="https://qjwh.github.io/posts/oi/aln/quadraticequation/"></a>
+  <a class="entry-link" aria-label="post link to 整除分块" href="https://qjwh.github.io/posts/oi/aln/divisionblock/"></a>
 </article>
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">中国剩余定理
+    <h2 class="entry-hint-parent">斜率优化
     </h2>
   </header>
   <div class="entry-content">
-    <p>中国剩余定理，Chinese Remainder Theorem，又称CRT，我们接下来就讲一下这个算法的原理。
-要说原理，就得从古代说起。
-（你到底是在讲编程课还是在讲历史课）
-（真的是在将编程课）
-在古代，有一个问题，叫做“物不知数问题”，原文是这样的：
-有物不知其数 三三数之剩二 五五数之剩三 七七数之剩二 问物几何？ 这个问题翻译过来就是问以下方程的所有正整数解：
-$ \begin{cases} x \equiv 2 \pmod{3} \ x \equiv 3 \pmod{5} \ x \equiv 2 \pmod{7} \end{cases} $
-这个问题在后来有一个解了，解出来这个问题的人，编了一首诗，叫做“孙子歌诀”，原文：
-三人同行七十稀 五树梅花廿一支 七子团圆正半月 除百零五便得知 这个解翻译过来就是说，若设 $r_3$ 为方程中 $x$ 模 $3$ 的余数，$r_5$、$r_7$ 同理，那么所有解 $x$ 一定满足：
-$x \equiv r_3 \times 70&#43;r_5 \times 21&#43;r_7 \times 15 \pmod{105}$
-其中 $105$ 的实际来源是上面三个方程的模数的 $\text{lcm}$，即 $\text{lcm}(3,5,7)=3 \times 5 \times 7=105$。
-关于 $70$、$21$、$15$ 的来源下面再说，我们先证明一下这个解是正确的。
-由于 $105$ 是三个模数的 $\text{lcm}$，所以说如果 $x$ 是满足条件的，$x-105$、$x&#43;105$ 都是满足条件的（此处暂时忽略“正整数解”的限制），显然。
+    <p>（说是斜率优化，其实和斜率几乎没有关系）
+（e…更新后确实有关系）
+其实斜率优化和决策二分栈（队列）很像，下面分几种类型来讲。
+一维斜率优化 针对形如 $d_i=\min\limits_{j=0}^{i-1} \big( d_j&#43;w(j&#43;1,i) \big)$ 的方程，而且需要满足决策单调性。
+此处重新说一下，如果我们发现一个转移点 $x$ 在 $d_i$ 的时候已经比另外一个转移点 $y$ 要更优了（$x&gt;y$），那么转移点 $y$ 在后面（$d_{i&#43;1}$ 及以后）就不可能比转移点 $x$ 要更优了，那么这个DP一定满足决策单调性，而且反过来也一样（见&#34;决策单调性.md&#34;）。
+其实证明是否满足单调性只用看：如果一个决策点 $x$ 如果在 $d_i$ 的转移中已经比决策点 $y$ 要优了，那么 $d_{i&#43;1}$ 中是否仍然满足这个条件。
+证明了满足决策单调性后，就可以开始斜率优化了。
+我们首先要考虑推斜率式：
+其实斜率式就是把式子 $d_x&#43;w(x&#43;1,i)&lt;d_y&#43;w(y&#43;1,i)$（$x&gt;y$）不断移项、变化，直到式子左边只和 $x$、$y$ 有关，右边只和 $i$ 有关为止。
+此时的斜率式一般左边是个分数，而且这个分数还需要把分子和分母的下标对应：
+如果斜率式最后是像这样的：
+$\dfrac{d_x-d_y}{v_y-v_x}&gt;-a_i$
+那么就不是个合法的斜率式，需要变成：
+$\dfrac{d_x-d_y}{v_x-v_y}&lt;a_i$
+才是合法的。
+注意，这里说的是“合法的”，而不是“正确的”，其实最上方的斜率式也可以使用，就是不能叫“斜率式”了（斜率的公式是 $\dfrac{y_2-y_1}{x_2-x_1}$）。
+设此时的斜率式就是上面说的：
+$\dfrac{d_x-d_y}{v_x-v_y}&lt;a_i$
+那么，我们就定义 $\text{slope}(y,x)=\dfrac{d_x-d_y}{v_x-v_y}$。
+有了上面函数，显然如果存在两个转移点 $x$ 和 $y$（$x&gt;y$）在转移到 $d_i$ 的时候满足 $\text{slope}(x,y)&lt;a_i$，那么就说明转移点 $x$ 比转移点 $y$ 更优，转移点 $y$ 在后面就不需要了。
+下面默认推出来的斜率式就是上式，并默认 $a$ 数组单调不降。
 ...</p>
   </div>
   <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 中国剩余定理" href="https://qjwh.github.io/posts/oi/aln/crt/"></a>
+  <a class="entry-link" aria-label="post link to 斜率优化" href="https://qjwh.github.io/posts/oi/aln/slopeopm/"></a>
 </article>
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">决策单调性
+    <h2 class="entry-hint-parent">树链剖分
     </h2>
   </header>
   <div class="entry-content">
-    <p>二维决策单调性 对于形如 $d_{i,j}=\min\limits_{k=0}^{i-1} \Big( d_{k,j-1}&#43;w(k&#43;1,i) \Big)$ 的方程，我们尝试记录 $f_{i,j}$ 代表 $d_{i,j}$ 的最优转移点（$k$ 变量），如果有 $f_{i,j-1} \leq f_{i,j} \leq f_{i&#43;1,j}$，那么就是经典的四边形不等式优化，复杂度为 $O(n^2)$，证明此处略（在&#34;四边形不等式相关.md&#34;里有）。
-但是，如果只有 $f_{i,j} \leq f_{i&#43;1,j}$，那么就不能用四边形不等式优化了，需要用分治的方式优化。
-具体地，我们从小到大枚举 $j$，然后转移所有的 $d_{i,j}$。
-定义分治函数dp(l,r,jl,jr)代表我们要转移所有的 $d_{i,j}$（$l \leq i \leq r$），并且保证所有在本次分治转移范围内的 $d_{i,j}$ 的转移点 $f_{i,j}$ 都在 $[jl,jr]$ 内。
-我们可以先求出 $[l,r]$ 的中点 $mid$，然后转移 $d_{mid,j}$：暴力枚举转移点 $k$（当然，要在 $[jl,jr]$ 内）进行转移，并递归dp(l,mid-1,jl,最终转移点)和dp(mid&#43;1,r,最终转移点,jr)。
-该算法复杂度为 $O(n^2 \log n)$，证明：
-首先，枚举 $j$ 的复杂度 $O(n)$。
-其次，只看 $[jl,jr]$，$[jl,jr]$ 在递归的过程中就形成了个线段树的类似结构，只不过单层内可能有部分重叠位置，而且划分点（上面说的“最终转移点”）可能不是中点，不过无关紧要。
-然后，再看 $[l,r]$，$[l,r]$ 在递归过程中也形成了类似于线段树的结构，并且易证这个递归树深度是不会超过 $\log n$ 的。
-有了深度的保证，而且一层内的 $[jl,jr]$ 区间长度和最多只有 $O(n)$ 级别，所以一次分治的复杂度就是 $O(n \log n)$。
+    <p>第一次看到树链剖分（简称树剖）可能觉得它非常的深奥，但其实树剖的原理非常简单，下面先说树剖大概的实现思路和解决题型。
+概览 其实树剖就是把一棵树分成若干条链，使得每个点都出现在了刚好一条链上。
+并且，我们称在某条链上的边为“重（zhòng）边”，不在任何一条链上的边为“轻边”。
+然后，我们按某种规则去DFS，求出新的DFS序，然后解决对树上路径询问的问题。
+而且，通过合理的设计每条边的轻重，可以把复杂度控制在 $O(\log n)$ 级别。
+解决题型 上面也提到了，树剖就是用来解决对树上路径进行询问的问题的算法，当然也可以解决对子树询问的问题，不过属于大材小用了。
+此外，树剖属于工具类算法，所以往往会配合树状数组、线段树、分块等算法出现。
+我把算法分为了两类，“材料类算法”和“工具类算法”，其中：
+材料类算法可以单独考，比如： 数论 推公式 DP 树状数组 线段树 … 工具类算法里面必须要套材料类算法才能考出来，比如： 二分 01分数规划（二分的一个分支） CDQ分治（需要配合树状数组） 整体二分（需要配合树状数组） 树剖（这里讲的） … 往往一些较难的题目，都是要用较难的材料类算法（比如DP），或者工具类算法配合材料类算法才能解决的题目。
+而对于后者，难度会更大一些，因为后者的关键在于转化后使用工具类算法解决。
+算法实现 下面说一下树剖的实现。
+两遍DFS 我们考虑DFS，当递归到点 $x$ 的时候，找到 $x$ 的儿子中，子树大小最大的那个儿子 $to$。
+然后，我们把 $x \to to$ 这条边设为重边，其他边设为轻边。
+得到每条边的轻重后，我们再做一遍DFS。
+而这一遍DFS是为了找到DFS序。
+而且，DFS序有一个要求，我们要先遍历有重边连接的儿子。
+这样的话，对于任意一条树上的链，链上所有点的DFS序连续，而且是由深度从浅到深依次递增。
+同时，我们还要求出，从一个点开始，不经过任何轻边，最多到哪个点。
+解决询问 而对于一次路径上某值的询问，我们可以把这个路径拆成若干条链。
+可以证明链数不超过 $O(\log n)$，这一点会在下面“复杂度证明”中证明。
+而这些拆出的链，都是原树中的链的“子集”（一条链 $L_1$ 是另外一条链 $L_2$ 的子集，有且仅当 $L_1$ 中的点，$L_2$ 中也有，边同理）。
+所以，可以把一条路径，拆成最多 $O(\log n)$ 个DFS序区间。
 ...</p>
   </div>
   <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 决策单调性" href="https://qjwh.github.io/posts/oi/aln/juecedandiaoxing/"></a>
+  <a class="entry-link" aria-label="post link to 树链剖分" href="https://qjwh.github.io/posts/oi/aln/treechaindivision/"></a>
 </article>
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">判断拓扑序是否唯一
+    <h2 class="entry-hint-parent">欧拉函数
     </h2>
   </header>
   <div class="entry-content">
-    <p>我们现在要解决一个问题，就如标题所说，我们要判断一个DAG的拓扑序是否唯一。
-以下说两种做法。
-做法1（推荐） 在拓扑排序时，我们只要每时每刻都判断一下，此时的队列大小是否大于 $1$ 即可。
-因为，如果队列大小大于 $1$，则选择任何一个元素都可以加入到拓扑序的最后下标，所以拓扑序不唯一。
-做法2 （以下是我考试时想出来的做法，思维难度较高，但整个构思过程中都没有思维跳跃）
-1 首先，我们建出这个DAG，然后我们考虑，其实一个DAG唯一，有且仅当对于所有点对 $(u,v)$（$1 \leq u,v \leq n$），都满足以下两点之一：
-点 $u$ 可以到达点 $v$。 点 $v$ 可以到达点 $u$。 此处证明一下。
-其实，如果存在一个不满足上述条件的点对 $(u,v)$，那么整张图可能会张这样：（下面标记的 $(u,v)$ 只是其中一个）
-在这种情况里，我们直接把红色集合和蓝色集合里的拓扑序“交换”，变成：
-于是乎，就得到了另一个合法的拓扑序，证毕。
-关于如果满足条件，则拓扑序唯一，此处不多赘述，自行脑补。
-2 上述条件还可以继续变化，变成：
-对于所有点对 $(u,v)$（$1 \leq u,v \leq n$，且 $v$ 的拓扑序比 $u$ 的要大），都满足点 $u$ 可以到达点 $v$。 3 我们考虑定义函数 $f(x)$ 代表拓扑序为 $x$ 的节点，是否能到达所有拓扑序为 $y$（$x&lt;y$）的点。
-4 我们考虑求 $f(x)$，我们可以枚举拓扑序为 $x$ 的节点 $u$ 的所有出点 $v$（设其拓扑序为 $y$，且排除 $y \leq x$ 的所有点）。
+    <p>欧拉函数记为 $\varphi$，$\varphi(n)$ 代表 $1 \sim n$ 内与 $n$ 互质的数的个数。
+欧拉函数有两种求法，下面分别说：
+直接求 我们设 $p$ 为 $n$ 的质因子集合（非可重集），那么 $\varphi(n)=n \times \prod\limits_{x \in p} \left( \dfrac{x-1}{x} \right)$，原理：
+我们设 $s$ 为目前与 $n$ 互质的数的集合，初始为 ${ 1,2,\dots,n }$。
+每次遍历到一个 $p$ 中的数 $x$，就会筛掉这个集合中 $\dfrac{1}{x}$ 的数，即那些是 $x$ 的倍数的数，由于 $p$ 是去重后的质因子集合，所以当前集合的大小总是 $x$ 的倍数。
+所以这个做法就能证明了，每乘一次 $\dfrac{x-1}{x}$，都相当于筛掉当前集合内 $\dfrac{1}{x}$ 的数，集合大小动态维护。
+模板代码：（代码中的 $p$ 数组是提前筛出来的质数集合，$ind$ 为其大小）
+LL phi(LL n){ if(n == 0) return 0; LL ret = n; rep(i, 1, ind){ if(n % p[i] == 0) ret = ret * 1 - ret / p[i], n /= p[i]; while(n % p[i] == 0) n /= p[i]; } if(n &gt; 1) ret = ret * 1 - ret / n; return ret; } 通过线性筛预处理 线性筛模板：
+void shai(LL n){ f[0] = f[1] = true; rep(i, 2, n){ if(!f[i]) p[&#43;&#43;ind] = i; for(LL j = 1;i * p[j] &lt;= n;j&#43;&#43;){ f[i * p[j]] = true; if(i % p[j] == 0) break; } } } 线性筛有一个性质，就是在第二重循环里，每次都会筛掉数 $i \times p_j$，而 $p_j$ 正是这个数（$i \times p_j$）的最小质因子。
 ...</p>
   </div>
   <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 判断拓扑序是否唯一" href="https://qjwh.github.io/posts/oi/aln/judgetopounique/"></a>
+  <a class="entry-link" aria-label="post link to 欧拉函数" href="https://qjwh.github.io/posts/oi/aln/eulerfunc/"></a>
 </article>
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">博弈论三种扩展题型
+    <h2 class="entry-hint-parent">点分治
     </h2>
   </header>
   <div class="entry-content">
-    <p>下面是三道与博弈论相关的题目及其做法。
-题目1：皮肤病 题面 （改编自《不可思议事件簿 第5册 魔法学院》，由艾教提供变体）
-（原题名称：加试难题）
-在一个学校内，共有 $100$ 个人，每个人都养了一只狗。
-但由于某些原因，校长确定了这 $100$ 条狗内，必然存在至少一条狗有皮肤病。
-现在那些学生要确定一下哪些狗有皮肤病。
-他们准备这样确定：
-每天上午的时候，所有人看一下除了自己的狗之外的所有狗。 如果确认自己的狗病了，就在晚上敲一下宠物房内的钟。 现在已知：
-无论谁，看那只狗，都能立刻确认它是否有皮肤病。 假设皮肤病不会对狗的寿命造成影响，即所有的狗都不会死亡。 皮肤病不能传染，并且忽略“人患病”造成的影响。 所有人都绝顶聪明（废话 并且：
-第 $1$ 天晚上，没有钟声响起。 第 $2$ 天晚上，没有钟声响起。 第 $3$ 天晚上，没有钟声响起。 … 直到第 $10$ 天晚上，终于有钟声响起了。 请问：
-那天晚上，共有多少人共同敲响了钟？ 在第 $10$ 天后，除了那些敲钟的人养的狗，是否会存在其他病了的狗？ 答案 $10$ 个人 不会 题解 我们考虑一下，如果说第 $1$ 天晚上有人敲钟，那么代表啥。
-我们从人的角度考虑，如果说一个人发现其他狗都是好狗（指没有皮肤病的狗），那么必然自己的狗有皮肤病 （除了自己的，还有谁的？难不成是他自己？）。
-这种情况下，他便会去敲钟。
-但第 $1$ 天晚上没有钟声，所以每个人都观察到了至少 $1$ 个病狗，也就是说至少有 $2$ 个病狗。
-随后第 $2$ 天，如果说一个人观察到其他的狗内，只有 $1$ 个病狗，那么显然自己的狗也得有皮肤病。
+    <p>点分治和树剖有一个相同点，就是算法都是从暴力经过一小步优化而来，但就是这一小步，让算法复杂度有了质的飞跃。
+下面来讲一下这个算法的原理。
+概览 其实“点分治”也是一个名不副实的算法，看完下面的讲述你就会发现这个算法根“分治”几乎无关。
+点分治是专门解决树上路径统计的一种算法（树剖则是解决对树上路径的判断的算法）。
+点分治的思想很朴素，就是DFS一下 $\text{lca}$ 的节点编号 $x$，然后统计 $\text{lca}$ 值刚好为 $x$ 的、满足题目条件的路径的数量，并累加到答案。
+但直接进行统计还是炸裂的，点分治则是对这种统计方式做了一步优化
+解决题型 上面说了，「点分治是专门解决树上路径统计的一种算法」，但并不是所有的树上路径统计都可以用点分治解决。
+其实看完下面的实现，你就能知道它解决什么类问题，不过这里还是说一下。
+就是首先，这个条件是形如“总和比某个值低”、“总和是某个值的倍数”等“可累加”的条件。
+其中“可累加”指的是，如果知道了 $A$ 部分的某个值，和 $B$ 部分的某个值，那么 $A$ 和 $B$ 部分合并后的部分是否合法也一定知道。
+但其他的条件目前还没有太明确，得自己去总结。
+算法实现 下面说一下点分治的实现。
+大体思路 我们拿“路径长度（路径上的边的边权之和）刚好为 $k$”问题举例。
+注：原题链接P3806
+就是我们考虑，当DFS到某个点 $x$ 的时候，就如上所说，设 $x$ 为 $\text{lca}$ 值。
+然后，我们按顺序遍历所有子节点 $to$。
+由于只要两个点 $y$、$z$ 满足 $y$ 和 $z$ 分别在 $x$ 的两个不同儿子及其子树内，那么 $\text{lca}(y,z)=x$。
+并且所有满足条件 $\text{lca}(y,z)=x$ 的对 $(y,z)$ 只有满足上述条件的对。
+所以，我们可以通过（另一种）DFS（方式）求出 $to$ 到 ( 所有 $to$ 及其子树内的点 ) 之间的距离（加上 $x \to to$ 的边权）的集合 $T$。
 ...</p>
   </div>
   <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 博弈论三种扩展题型" href="https://qjwh.github.io/posts/oi/aln/games/"></a>
+  <a class="entry-link" aria-label="post link to 点分治" href="https://qjwh.github.io/posts/oi/aln/dfz/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">生成随机数（未完工）
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>参考
+引用头文件（常用） #include &lt;stdlib.h&gt; //生成随机数、设定随机数种子 #include &lt;ctime&gt; //生成随机数种子（1） #include &lt;time.h&gt; //生成随机数种子（2） #include &lt;unistd.h&gt; //等待（sleep(...)或usleep(...)），该头文件现在不常用 随机种子 srand(time(0) ^ clock()); 注：随机种子为time(0) ^ clock()，这个随机种子可以再毫秒级别内生成（大概率）不同的随机种子。
+取 $[l,r]$ 内的随机数 #define random(l, r) (rand() % ((LL)(r) - (LL)(l) &#43; 1) &#43; (LL)(l)) 注：rand函数只能生成 $[1,32767]$ 内的随机数（见宏RAND_MAX），大概只能生成位数 $\leq 5$ 的随机数；测试程序：
+LL ma = 0; for(LL i = 1;i &lt;= 200;i&#43;&#43;){ srand(time(0) ^ clock()); LL t = rand(); cout &lt;&lt; t &lt;&lt;endl; ma = max(ma, t); usleep(10000); } cout &lt;&lt; ma &lt;&lt;endl; 所以此处引用一个新方法：mt19937（2022/12/24：现在开始使用mt19937_64了，它可以生成 $[1,2^{64})$ 内的随机数，大一倍）。
+其实它的语法和rand的语法差不多 （才怪），是这样的：
+引用头文件（常用） #include &lt;random&gt; //生成随机数、设定随机数种子 #include &lt;ctime&gt; //生成随机数种子（1） #include &lt;time.h&gt; //生成随机数种子（2） #include &lt;unistd.h&gt; //等待（sleep(...)或usleep(...)），该头文件现在不常用 随机种子 mt19937 _rand(time(0) ^ clock()); 注：这个随机种子也可以再毫秒级别内生成（大概率）不同的随机种子
+取 $[l,r]$ 内的随机数 （就差一个字符_而已） #define random(l, r) (_rand() % ((LL)(r) - (LL)(l) &#43; 1) &#43; (LL)(l)) 据测试，这个函数可以生成在unsigned int范围内的随机数（即可以生成 $[1,2^{32})$ 内的随机数），测试程序：
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to 生成随机数（未完工）" href="https://qjwh.github.io/posts/oi/aln/genrandomnumber/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">类欧几里得算法
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>来源：ABC372G官方题解
+贡献：OI Wiki
+这个算法确实挺妙的，所以我就写个笔记。
+定义 这个算法需要用到一个函数：
+$$ f(a,b,c,n)=\sum\limits_{i=0}^n \left\lfloor \dfrac{\color{red}a\color{default}i&#43;\color{blue}b\color{default}}{\color{green}c\color{default}} \right\rfloor $$
+在下面参数 $a$、$b$、$c$ 都会用三种颜色标出，以便于区分。
+因为 $a$、$b$、$c$、$n$ 都很大，所以我们没法直接暴力求。
+数论分块显然也不彳亍。
+所以我们只能另辟蹊径了。
+求值 咱从简单到复杂走。
+1 首先，我们可以知道：
+$$ \begin{aligned} f(a,b,c,n)&amp;=\sum\limits_{i=0}^n \left\lfloor \dfrac{\color{red}a\color{default}i&#43;\color{blue}b\color{default}}{\color{green}c\color{default}} \right\rfloor \ &amp;=\sum\limits_{i=0}^n \left\lfloor \dfrac{(\lfloor \frac{a}{c} \rfloor c &#43; a \bmod c)i&#43;(\lfloor \frac{b}{c} \rfloor c &#43; b \bmod c)}{c} \right\rfloor \ &amp;=\sum\limits_{i=0}^n \left\lfloor \dfrac{\lfloor \frac{a}{c} \rfloor c \cdot i &#43; a \bmod c \cdot i&#43;\lfloor \frac{b}{c} \rfloor c &#43; b \bmod c}{c} \right\rfloor \ &amp;=\sum\limits_{i=0}^n \left( \left\lfloor \frac{a}{c} \right\rfloor i &#43; \left\lfloor \frac{b}{c} \right\rfloor &#43; \left\lfloor \dfrac{a \bmod c \cdot i&#43;b \bmod c}{c} \right\rfloor \right) \ &amp;=\dfrac{n(n&#43;1)}{2} \left\lfloor \frac{a}{c} \right\rfloor &#43; (n&#43;1) \left\lfloor \frac{b}{c} \right\rfloor &#43; \sum\limits_{i=0}^n \left\lfloor \dfrac{\color{red}a \bmod c\color{default} \cdot i&#43;\color{blue}b \bmod c\color{default}}{\color{green}c\color{default}} \right\rfloor \ &amp;=\dfrac{n(n&#43;1)}{2} \left\lfloor \frac{a}{c} \right\rfloor &#43; (n&#43;1) \left\lfloor \frac{b}{c} \right\rfloor &#43; f(a \bmod c,b \bmod c,c,n) \ \end{aligned} $$
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to 类欧几里得算法" href="https://qjwh.github.io/posts/oi/aln/similargcd/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">组合数学（待补充）
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>有人问，组合数学不是就一些简单的公式吗？不是的，其实组合数学是数学中的一个非常庞大的分支，接下来就举一些例子。（更新中）
+本文主要讲各种数据范围下，求组合数的方式；以及球盒模型各种情况下的公式；最后是一些球盒模型的扩展情况。
+转到：球盒模型公式
+转到：球盒模型扩展公式
+（下面部分标题里的LaTeX公式更新后炸了，就凑合着看吧）
+求组合数 以下所有范围都可以当成是以下题目的某个Subtask：
+给你 $p$，代表模数。
+之后会给你一个 $q$，代表询问次数。
+每次询问给定 $n$ 和 $m$，问 $C_n^m \bmod p$ 的值。
+下面不给定 $q$ 的范围，因为不重要。
+以下全部默认 $n \geq m$。
+范围1：$n,m \leq 2000,p \leq 10^9&#43;7$ 先递推预处理，然后直接回答询问即可。
+递推式：$C_n^m=C_{n-1}^m&#43;C_{n-1}^{m-1}$。
+预处理复杂度：$O(n^2)$ 查询复杂度：$O(1)$ 范围2：$n,m \leq 10^6,p \leq 10^9&#43;7,p\text{ is prime}$ 1 先预处理阶乘，然后直接回答询问即可。
+回答询问式：$C_n^m=\dfrac{n!}{m!(n-m)!}$。
+为了节省时间复杂度，此处还可以预处理一下阶乘的逆元。
+2 预处理复杂度：$O(n)$ 查询复杂度：$O(1)$ 范围3：$n,m \leq 10^6,p \leq 10^9&#43;7$ 1 可以发现，范围2与范围3唯一的不同就是，范围3把质数的条件去掉了。
+而把质数的条件后，就没法求逆元了，因为逆元可能不存在。
+所以我们考虑换做法。
+2 我们考虑把模数做个质因数分解，变成 ${p_1}^{a_1} \times {p_2}^{a_2} \times {p_3}^{a_3} \times \dots \times {p_k}^{a_k}$。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to 组合数学（待补充）" href="https://qjwh.github.io/posts/oi/aln/c/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">网络流
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>前言 首先，网络流不是一个算法，而是一个整合包（玩MC玩的），说白了就是网络流是多个算法的统称：
+最大流 EK Dinic 最小割 费用流 … 而且，有些不常用的，可能就不会提，粘个OI Wiki的链接就不详细写了。
+接下来就按照这个目录挨个讲一下每个算法。
+最大流 如果有哪里没有说清楚，可以看这里，里面还有我没有说到的最大流类型。
+看到最大流这个名字很多人都很陌生，这里就先从定义说起。
+定义 还是拆词法，“网络流”就可以大致理解为“网络”上的“流”，接下来就挨个说一下这两个的定义。
+网络 先说网络的定义。（当然不是Internet）
+我们在理解的时候可以认为是管道，但实际上它是一张特殊的有向图。
+建设管道的必然知道，管道内流过的水，准确来说是单位时间内流过的水，必然是有上限限制的，否则管道就炸了。
+这里也一样，对于每条边 $x \to y$，都有一个函数 $c(x,y)$ 表示这条边的限制，又称容量。
+如果在图上没有这条边，则统一规定 $c(x,y)=0$。
+最后，还是跟最短路一样，它有一个起点和一个终点，又称源点 $S$ 和汇点 $T$（$S \not= T$）。
+流函数 再说流函数。
+流函数就是说，在真实操作中，一个单位时间内一条边 $x \to y$ 流过的水量 $f(x,y)$。
+这里默认保证每个单位时间内都得流过这么多。
+其实很好理解。
+流函数性质 顺便说一下流函数要满足的性质。
+首先，源点可以无限输出水，汇点可以无限输入水。
+接下来就是一堆性质：
+对于每个 $x,y$，显然 $f(x,y) \leq c(x,y)$（容量限制）。 对于每个 $x,y$，$f(x,y)=-f(y,x)$（斜对称）。 对于每个 $x$，满足不是源点也不是汇点，$\sum\limits_{u \to x} f(u,x)=\sum\limits_{x \to v} f(x,v)$（流量守恒）。 这里说一下最后一点性质。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to 网络流" href="https://qjwh.github.io/posts/oi/aln/flow/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">莫队算法
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>普通莫队算法 概览 莫队其实是分块的变化版，没有完全分块。
+但莫队的题目一般比分块的题目比较好看一些，其中的“好看”指的是很好看出这是个莫队/分块的题。
+接下来说一下莫队能解决的题型。
+解决题型 莫队一般解决以下问题：
+给你一些信息，和 $q$ 次询问，每次询问可以抽象为一个区间。
+而且这个问题还要满足一些条件：
+可以离线 不能有修改（当然带修莫队支持修改，不过普通莫队就不行了） 从 $[l,r]$ 的答案可以很快转移到 $[l-1,r]$、$[l&#43;1,r]$、$[l,r-1]$、$[l,r&#43;1]$ 的答案 解决方法 这种题型有个解决方法。
+还是先从暴力说起。
+暴力做法 看见这个问题的最后一个条件没？这个条件就启发我们从第一个问题的答案，暴力调整左、右端点，去得到第二个问题的答案，以此类推。
+这种暴力做法的复杂度一般为 $O($ 任意相邻两个问题的左、右端点差之和 $)$。
+而这个算法可以用一种数据卡掉：
+左、右端点的值的最大值 $n$ 调到最大，把询问次数 $q$ 也调到最大。 然后的 $q$ 次询问里，交替询问 $1 \sim n$ 和 $n \sim n$。 于是，复杂度被卡到 $O(qn)$。
+一次优化 这个做法的复杂度是无法接受的，所以我们考虑优化。
+我们不如把所有询问离线，然后考虑交换询问处理的顺序以减少复杂度。
+一种方式就是把左、右端点分别作为第一、二关键字，然后做排序。
+但这样就会被排序后所有询问的右端点一大一小的数据卡到 $O(qn)$ 的复杂度。
+二次优化 这样排序还是不好，还是会被卡掉，于是我们考虑变换比较函数。
+直接双关键字比较不好，那我们就分块后进行双关键字比较。
+具体地，遇到两个询问，先按左端点所属块编号从小到大排序，如果相同，则按右端点（不是所属块编号，是原本的下标）从小到大排序。
+这样的话，复杂度就是 $O(n \sqrt n&#43;q \sqrt n)$ 的复杂度了。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to 莫队算法" href="https://qjwh.github.io/posts/oi/aln/modui/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

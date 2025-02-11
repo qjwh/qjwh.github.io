@@ -182,126 +182,287 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">中国剩余定理
+    <h2 class="entry-hint-parent">类欧几里得算法
     </h2>
   </header>
   <div class="entry-content">
-    <p>中国剩余定理，Chinese Remainder Theorem，又称CRT，我们接下来就讲一下这个算法的原理。
-要说原理，就得从古代说起。
-（你到底是在讲编程课还是在讲历史课）
-（真的是在将编程课）
-在古代，有一个问题，叫做“物不知数问题”，原文是这样的：
-有物不知其数 三三数之剩二 五五数之剩三 七七数之剩二 问物几何？ 这个问题翻译过来就是问以下方程的所有正整数解：
-$ \begin{cases} x \equiv 2 \pmod{3} \ x \equiv 3 \pmod{5} \ x \equiv 2 \pmod{7} \end{cases} $
-这个问题在后来有一个解了，解出来这个问题的人，编了一首诗，叫做“孙子歌诀”，原文：
-三人同行七十稀 五树梅花廿一支 七子团圆正半月 除百零五便得知 这个解翻译过来就是说，若设 $r_3$ 为方程中 $x$ 模 $3$ 的余数，$r_5$、$r_7$ 同理，那么所有解 $x$ 一定满足：
-$x \equiv r_3 \times 70&#43;r_5 \times 21&#43;r_7 \times 15 \pmod{105}$
-其中 $105$ 的实际来源是上面三个方程的模数的 $\text{lcm}$，即 $\text{lcm}(3,5,7)=3 \times 5 \times 7=105$。
-关于 $70$、$21$、$15$ 的来源下面再说，我们先证明一下这个解是正确的。
-由于 $105$ 是三个模数的 $\text{lcm}$，所以说如果 $x$ 是满足条件的，$x-105$、$x&#43;105$ 都是满足条件的（此处暂时忽略“正整数解”的限制），显然。
+    <p>来源：ABC372G官方题解
+贡献：OI Wiki
+这个算法确实挺妙的，所以我就写个笔记。
+定义 这个算法需要用到一个函数：
+$$ f(a,b,c,n)=\sum\limits_{i=0}^n \left\lfloor \dfrac{\color{red}a\color{default}i&#43;\color{blue}b\color{default}}{\color{green}c\color{default}} \right\rfloor $$
+在下面参数 $a$、$b$、$c$ 都会用三种颜色标出，以便于区分。
+因为 $a$、$b$、$c$、$n$ 都很大，所以我们没法直接暴力求。
+数论分块显然也不彳亍。
+所以我们只能另辟蹊径了。
+求值 咱从简单到复杂走。
+1 首先，我们可以知道：
+$$ \begin{aligned} f(a,b,c,n)&amp;=\sum\limits_{i=0}^n \left\lfloor \dfrac{\color{red}a\color{default}i&#43;\color{blue}b\color{default}}{\color{green}c\color{default}} \right\rfloor \ &amp;=\sum\limits_{i=0}^n \left\lfloor \dfrac{(\lfloor \frac{a}{c} \rfloor c &#43; a \bmod c)i&#43;(\lfloor \frac{b}{c} \rfloor c &#43; b \bmod c)}{c} \right\rfloor \ &amp;=\sum\limits_{i=0}^n \left\lfloor \dfrac{\lfloor \frac{a}{c} \rfloor c \cdot i &#43; a \bmod c \cdot i&#43;\lfloor \frac{b}{c} \rfloor c &#43; b \bmod c}{c} \right\rfloor \ &amp;=\sum\limits_{i=0}^n \left( \left\lfloor \frac{a}{c} \right\rfloor i &#43; \left\lfloor \frac{b}{c} \right\rfloor &#43; \left\lfloor \dfrac{a \bmod c \cdot i&#43;b \bmod c}{c} \right\rfloor \right) \ &amp;=\dfrac{n(n&#43;1)}{2} \left\lfloor \frac{a}{c} \right\rfloor &#43; (n&#43;1) \left\lfloor \frac{b}{c} \right\rfloor &#43; \sum\limits_{i=0}^n \left\lfloor \dfrac{\color{red}a \bmod c\color{default} \cdot i&#43;\color{blue}b \bmod c\color{default}}{\color{green}c\color{default}} \right\rfloor \ &amp;=\dfrac{n(n&#43;1)}{2} \left\lfloor \frac{a}{c} \right\rfloor &#43; (n&#43;1) \left\lfloor \frac{b}{c} \right\rfloor &#43; f(a \bmod c,b \bmod c,c,n) \ \end{aligned} $$
 ...</p>
   </div>
   <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 中国剩余定理" href="https://qjwh.github.io/posts/oi/aln/crt/"></a>
+  <a class="entry-link" aria-label="post link to 类欧几里得算法" href="https://qjwh.github.io/posts/oi/aln/similargcd/"></a>
 </article>
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">决策单调性
+    <h2 class="entry-hint-parent">组合数学（待补充）
     </h2>
   </header>
   <div class="entry-content">
-    <p>二维决策单调性 对于形如 $d_{i,j}=\min\limits_{k=0}^{i-1} \Big( d_{k,j-1}&#43;w(k&#43;1,i) \Big)$ 的方程，我们尝试记录 $f_{i,j}$ 代表 $d_{i,j}$ 的最优转移点（$k$ 变量），如果有 $f_{i,j-1} \leq f_{i,j} \leq f_{i&#43;1,j}$，那么就是经典的四边形不等式优化，复杂度为 $O(n^2)$，证明此处略（在&#34;四边形不等式相关.md&#34;里有）。
-但是，如果只有 $f_{i,j} \leq f_{i&#43;1,j}$，那么就不能用四边形不等式优化了，需要用分治的方式优化。
-具体地，我们从小到大枚举 $j$，然后转移所有的 $d_{i,j}$。
-定义分治函数dp(l,r,jl,jr)代表我们要转移所有的 $d_{i,j}$（$l \leq i \leq r$），并且保证所有在本次分治转移范围内的 $d_{i,j}$ 的转移点 $f_{i,j}$ 都在 $[jl,jr]$ 内。
-我们可以先求出 $[l,r]$ 的中点 $mid$，然后转移 $d_{mid,j}$：暴力枚举转移点 $k$（当然，要在 $[jl,jr]$ 内）进行转移，并递归dp(l,mid-1,jl,最终转移点)和dp(mid&#43;1,r,最终转移点,jr)。
-该算法复杂度为 $O(n^2 \log n)$，证明：
-首先，枚举 $j$ 的复杂度 $O(n)$。
-其次，只看 $[jl,jr]$，$[jl,jr]$ 在递归的过程中就形成了个线段树的类似结构，只不过单层内可能有部分重叠位置，而且划分点（上面说的“最终转移点”）可能不是中点，不过无关紧要。
-然后，再看 $[l,r]$，$[l,r]$ 在递归过程中也形成了类似于线段树的结构，并且易证这个递归树深度是不会超过 $\log n$ 的。
-有了深度的保证，而且一层内的 $[jl,jr]$ 区间长度和最多只有 $O(n)$ 级别，所以一次分治的复杂度就是 $O(n \log n)$。
+    <p>有人问，组合数学不是就一些简单的公式吗？不是的，其实组合数学是数学中的一个非常庞大的分支，接下来就举一些例子。（更新中）
+本文主要讲各种数据范围下，求组合数的方式；以及球盒模型各种情况下的公式；最后是一些球盒模型的扩展情况。
+转到：球盒模型公式
+转到：球盒模型扩展公式
+（下面部分标题里的LaTeX公式更新后炸了，就凑合着看吧）
+求组合数 以下所有范围都可以当成是以下题目的某个Subtask：
+给你 $p$，代表模数。
+之后会给你一个 $q$，代表询问次数。
+每次询问给定 $n$ 和 $m$，问 $C_n^m \bmod p$ 的值。
+下面不给定 $q$ 的范围，因为不重要。
+以下全部默认 $n \geq m$。
+范围1：$n,m \leq 2000,p \leq 10^9&#43;7$ 先递推预处理，然后直接回答询问即可。
+递推式：$C_n^m=C_{n-1}^m&#43;C_{n-1}^{m-1}$。
+预处理复杂度：$O(n^2)$ 查询复杂度：$O(1)$ 范围2：$n,m \leq 10^6,p \leq 10^9&#43;7,p\text{ is prime}$ 1 先预处理阶乘，然后直接回答询问即可。
+回答询问式：$C_n^m=\dfrac{n!}{m!(n-m)!}$。
+为了节省时间复杂度，此处还可以预处理一下阶乘的逆元。
+2 预处理复杂度：$O(n)$ 查询复杂度：$O(1)$ 范围3：$n,m \leq 10^6,p \leq 10^9&#43;7$ 1 可以发现，范围2与范围3唯一的不同就是，范围3把质数的条件去掉了。
+而把质数的条件后，就没法求逆元了，因为逆元可能不存在。
+所以我们考虑换做法。
+2 我们考虑把模数做个质因数分解，变成 ${p_1}^{a_1} \times {p_2}^{a_2} \times {p_3}^{a_3} \times \dots \times {p_k}^{a_k}$。
 ...</p>
   </div>
   <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 决策单调性" href="https://qjwh.github.io/posts/oi/aln/juecedandiaoxing/"></a>
+  <a class="entry-link" aria-label="post link to 组合数学（待补充）" href="https://qjwh.github.io/posts/oi/aln/c/"></a>
 </article>
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">判断拓扑序是否唯一
+    <h2 class="entry-hint-parent">网络流
     </h2>
   </header>
   <div class="entry-content">
-    <p>我们现在要解决一个问题，就如标题所说，我们要判断一个DAG的拓扑序是否唯一。
-以下说两种做法。
-做法1（推荐） 在拓扑排序时，我们只要每时每刻都判断一下，此时的队列大小是否大于 $1$ 即可。
-因为，如果队列大小大于 $1$，则选择任何一个元素都可以加入到拓扑序的最后下标，所以拓扑序不唯一。
-做法2 （以下是我考试时想出来的做法，思维难度较高，但整个构思过程中都没有思维跳跃）
-1 首先，我们建出这个DAG，然后我们考虑，其实一个DAG唯一，有且仅当对于所有点对 $(u,v)$（$1 \leq u,v \leq n$），都满足以下两点之一：
-点 $u$ 可以到达点 $v$。 点 $v$ 可以到达点 $u$。 此处证明一下。
-其实，如果存在一个不满足上述条件的点对 $(u,v)$，那么整张图可能会张这样：（下面标记的 $(u,v)$ 只是其中一个）
-在这种情况里，我们直接把红色集合和蓝色集合里的拓扑序“交换”，变成：
-于是乎，就得到了另一个合法的拓扑序，证毕。
-关于如果满足条件，则拓扑序唯一，此处不多赘述，自行脑补。
-2 上述条件还可以继续变化，变成：
-对于所有点对 $(u,v)$（$1 \leq u,v \leq n$，且 $v$ 的拓扑序比 $u$ 的要大），都满足点 $u$ 可以到达点 $v$。 3 我们考虑定义函数 $f(x)$ 代表拓扑序为 $x$ 的节点，是否能到达所有拓扑序为 $y$（$x&lt;y$）的点。
-4 我们考虑求 $f(x)$，我们可以枚举拓扑序为 $x$ 的节点 $u$ 的所有出点 $v$（设其拓扑序为 $y$，且排除 $y \leq x$ 的所有点）。
+    <p>前言 首先，网络流不是一个算法，而是一个整合包（玩MC玩的），说白了就是网络流是多个算法的统称：
+最大流 EK Dinic 最小割 费用流 … 而且，有些不常用的，可能就不会提，粘个OI Wiki的链接就不详细写了。
+接下来就按照这个目录挨个讲一下每个算法。
+最大流 如果有哪里没有说清楚，可以看这里，里面还有我没有说到的最大流类型。
+看到最大流这个名字很多人都很陌生，这里就先从定义说起。
+定义 还是拆词法，“网络流”就可以大致理解为“网络”上的“流”，接下来就挨个说一下这两个的定义。
+网络 先说网络的定义。（当然不是Internet）
+我们在理解的时候可以认为是管道，但实际上它是一张特殊的有向图。
+建设管道的必然知道，管道内流过的水，准确来说是单位时间内流过的水，必然是有上限限制的，否则管道就炸了。
+这里也一样，对于每条边 $x \to y$，都有一个函数 $c(x,y)$ 表示这条边的限制，又称容量。
+如果在图上没有这条边，则统一规定 $c(x,y)=0$。
+最后，还是跟最短路一样，它有一个起点和一个终点，又称源点 $S$ 和汇点 $T$（$S \not= T$）。
+流函数 再说流函数。
+流函数就是说，在真实操作中，一个单位时间内一条边 $x \to y$ 流过的水量 $f(x,y)$。
+这里默认保证每个单位时间内都得流过这么多。
+其实很好理解。
+流函数性质 顺便说一下流函数要满足的性质。
+首先，源点可以无限输出水，汇点可以无限输入水。
+接下来就是一堆性质：
+对于每个 $x,y$，显然 $f(x,y) \leq c(x,y)$（容量限制）。 对于每个 $x,y$，$f(x,y)=-f(y,x)$（斜对称）。 对于每个 $x$，满足不是源点也不是汇点，$\sum\limits_{u \to x} f(u,x)=\sum\limits_{x \to v} f(x,v)$（流量守恒）。 这里说一下最后一点性质。
 ...</p>
   </div>
   <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 判断拓扑序是否唯一" href="https://qjwh.github.io/posts/oi/aln/judgetopounique/"></a>
+  <a class="entry-link" aria-label="post link to 网络流" href="https://qjwh.github.io/posts/oi/aln/flow/"></a>
 </article>
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">博弈论三种扩展题型
+    <h2 class="entry-hint-parent">莫队算法
     </h2>
   </header>
   <div class="entry-content">
-    <p>下面是三道与博弈论相关的题目及其做法。
-题目1：皮肤病 题面 （改编自《不可思议事件簿 第5册 魔法学院》，由艾教提供变体）
-（原题名称：加试难题）
-在一个学校内，共有 $100$ 个人，每个人都养了一只狗。
-但由于某些原因，校长确定了这 $100$ 条狗内，必然存在至少一条狗有皮肤病。
-现在那些学生要确定一下哪些狗有皮肤病。
-他们准备这样确定：
-每天上午的时候，所有人看一下除了自己的狗之外的所有狗。 如果确认自己的狗病了，就在晚上敲一下宠物房内的钟。 现在已知：
-无论谁，看那只狗，都能立刻确认它是否有皮肤病。 假设皮肤病不会对狗的寿命造成影响，即所有的狗都不会死亡。 皮肤病不能传染，并且忽略“人患病”造成的影响。 所有人都绝顶聪明（废话 并且：
-第 $1$ 天晚上，没有钟声响起。 第 $2$ 天晚上，没有钟声响起。 第 $3$ 天晚上，没有钟声响起。 … 直到第 $10$ 天晚上，终于有钟声响起了。 请问：
-那天晚上，共有多少人共同敲响了钟？ 在第 $10$ 天后，除了那些敲钟的人养的狗，是否会存在其他病了的狗？ 答案 $10$ 个人 不会 题解 我们考虑一下，如果说第 $1$ 天晚上有人敲钟，那么代表啥。
-我们从人的角度考虑，如果说一个人发现其他狗都是好狗（指没有皮肤病的狗），那么必然自己的狗有皮肤病 （除了自己的，还有谁的？难不成是他自己？）。
-这种情况下，他便会去敲钟。
-但第 $1$ 天晚上没有钟声，所以每个人都观察到了至少 $1$ 个病狗，也就是说至少有 $2$ 个病狗。
-随后第 $2$ 天，如果说一个人观察到其他的狗内，只有 $1$ 个病狗，那么显然自己的狗也得有皮肤病。
+    <p>普通莫队算法 概览 莫队其实是分块的变化版，没有完全分块。
+但莫队的题目一般比分块的题目比较好看一些，其中的“好看”指的是很好看出这是个莫队/分块的题。
+接下来说一下莫队能解决的题型。
+解决题型 莫队一般解决以下问题：
+给你一些信息，和 $q$ 次询问，每次询问可以抽象为一个区间。
+而且这个问题还要满足一些条件：
+可以离线 不能有修改（当然带修莫队支持修改，不过普通莫队就不行了） 从 $[l,r]$ 的答案可以很快转移到 $[l-1,r]$、$[l&#43;1,r]$、$[l,r-1]$、$[l,r&#43;1]$ 的答案 解决方法 这种题型有个解决方法。
+还是先从暴力说起。
+暴力做法 看见这个问题的最后一个条件没？这个条件就启发我们从第一个问题的答案，暴力调整左、右端点，去得到第二个问题的答案，以此类推。
+这种暴力做法的复杂度一般为 $O($ 任意相邻两个问题的左、右端点差之和 $)$。
+而这个算法可以用一种数据卡掉：
+左、右端点的值的最大值 $n$ 调到最大，把询问次数 $q$ 也调到最大。 然后的 $q$ 次询问里，交替询问 $1 \sim n$ 和 $n \sim n$。 于是，复杂度被卡到 $O(qn)$。
+一次优化 这个做法的复杂度是无法接受的，所以我们考虑优化。
+我们不如把所有询问离线，然后考虑交换询问处理的顺序以减少复杂度。
+一种方式就是把左、右端点分别作为第一、二关键字，然后做排序。
+但这样就会被排序后所有询问的右端点一大一小的数据卡到 $O(qn)$ 的复杂度。
+二次优化 这样排序还是不好，还是会被卡掉，于是我们考虑变换比较函数。
+直接双关键字比较不好，那我们就分块后进行双关键字比较。
+具体地，遇到两个询问，先按左端点所属块编号从小到大排序，如果相同，则按右端点（不是所属块编号，是原本的下标）从小到大排序。
+这样的话，复杂度就是 $O(n \sqrt n&#43;q \sqrt n)$ 的复杂度了。
 ...</p>
   </div>
   <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 博弈论三种扩展题型" href="https://qjwh.github.io/posts/oi/aln/games/"></a>
+  <a class="entry-link" aria-label="post link to 莫队算法" href="https://qjwh.github.io/posts/oi/aln/modui/"></a>
 </article>
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">同余最短路
+    <h2 class="entry-hint-parent">行列式
     </h2>
   </header>
   <div class="entry-content">
-    <p>同余最短路看名字感觉很难，但其实非常简单，也好理解，先说一道题：
-题目 原型：洛谷P3403 跳楼机
-有一栋 $h$ 层的大楼（层数编号从 $1$ 到 $h$），有 $n&#43;1$ 种移动方式：
-回到 $1$ 层 向上走 $x_1 \sim x_n$ 层 楼层不是循环的，你无论如何都无法到达 $h&#43;1$ 层或以上。
-最初你可以在任意一层（但也无关紧要），问你能到达多少个不同的楼层。
-题解 分类 我们按楼层模 $x_1$ 的余数分类，把楼层 $i$ 分到 $i \bmod x_1$ 类。
-这样分类有什么用呢？见下。
-定义状态 有了这个分类，我们可以定义状态 $d_i$（$i \in [0,x_1)$）代表不用「向上走 $x_1$ 层」操作能到达的、最小的第 $i$ 类楼层是多少。
-那么，由于有「向上走 $x_1$ 层」操作，所以 $d_i,d_i&#43;x_1,d_i&#43;2x_1,\dots$（比 $d_i$ 大或相等的第 $i$ 类楼层）都是可达的。
-接下来考虑转移这个状态。
-转移 其实也很好想，比如用一次「向上走 $x_2$ 层」操作，那么 $d_i$ 可以转移到 $d_{(i&#43;x_2) \bmod x_1}$，转移代价为 $x_2$，所以：
-$d_{(i&#43;x_2) \bmod x_1}=\min(d_{(i&#43;x_2) \bmod x_1},d_i&#43;x_2)$
+    <p>要说行列式，就得先说一下矩阵（其实是方阵）的秩的定义。
+对于一个方阵，其秩的定义就是矩阵里线性无关的极大值。
+听这个定义有点难懂，这里解释一下。
+其实一个方阵就可以被当做是一个没有右项的方程集。
+而一个方阵的秩就可以当做是，这个没有右项的方程集在经过高斯消元后，非 $0$ 行的数量。
+有了这个定义，矩阵的秩还可以被当做是，这个没有右项的方程集中，不会被其他方程替代掉的方程数量：
+解释一下，如果方程长这样：
+$ \begin{cases} -x_1&#43;2x_2&#43;5x_3=11 \ 2x_1=8 \ x_1&#43;2x_2&#43;5x_3=19 \end{cases} $
+那么，其实第三个方程式可以通过前两个方程式推出来，也就称作第三个方程式可以被前两个方程式替代掉。
+知道了“替代”的定义后，就知道了一件事，就是上面说的“会被其他方程替代掉的方程”，这些方程可以直接从方程组里去掉，而不影响最终的解。
+所以，我们就可以对奥数里的一个点做一个更简洁的解释：
+在奥数里，讲了解 $n$ 元一次方程（组）的方法。
+同时还说了，在这个 $n$ 元一次方程组内，如果“有用”的方程数量，刚好等于未知数的数量，或者大于未知数的数量，那么这个方程组就有唯一解。
+这一点可以被更简洁地解释为：
+这个 $n$ 元一次方程组，转化为“高斯矩阵”，并删除最后一列后（变成 $n \times n$ 的方阵），如果这个方阵的秩刚好为 $n$，那么这个方程组就有唯一解。
+然后，我们回归正题，说行列式。
+行列式是对于一个方阵来讲的，一个方阵有行列式有且仅当这个方程的秩刚好等于方阵的大小（行或者列）。
+行列式的定义此处不讲，因为：
+太复杂了 （几乎）没有用处 行列式的计算方法是用的高斯消元。
+在高斯消元的思路里，提到了三种“基本行变换”：（以下全部以高斯矩阵的角度去说）
+将一行全部乘上一个非 $0$ 实数 $x$，解不变。 将一行内的所有元素对应地加上/减去另一行对应的元素乘上一个非 $0$ 实数 $x$，解不变。 交换两行，解不变。 这三种基本行变换在执行前后，行列式并不是都不变的：
+将一行全部乘上一个非 $0$ 实数 $x$，行列式也会乘上 $x$。 将一行内的所有元素对应地加上/减去另一行对应的元素乘上一个非 $0$ 实数 $x$，行列式不变。 交换两行，行列式变号（负数变成正数，反之亦然）。 所以我们只用写一下高斯消元，然后处理一下对行列式的值的变化即可。
+但这儿还有一点问题，就是行列式怎么求。
+求法很好记，如果说当前方阵是个上三角矩阵（设方阵叫 $a$，那么 $a$ 是个上三角矩阵有且仅当对于所有的 $(i,j)$，如果满足 $i&gt;j$，那么 $a_{i,j}$ 一定要等于 $0$，当然其他方格不做要求），那么这个方阵的行列式就是这个方阵中正对角线上的元素的乘积。
 ...</p>
   </div>
   <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 同余最短路" href="https://qjwh.github.io/posts/oi/aln/modsp/"></a>
+  <a class="entry-link" aria-label="post link to 行列式" href="https://qjwh.github.io/posts/oi/aln/hanglieshi/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">阶和原根
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>按照正常的思路我们都直接将算法，但这会先讲一道题，然后再讲它的定义和求法。
+参考：
+ABC335G题解 阶和原根 背景 是一场ABC335里的G题，当时在赛场上大概留了一个多小时的时间，但一直都在想用BSGS，但显然最后没想出来。
+而这题的瓶颈就在下面问题：
+对于两个数 $a,b$，是否存在一个 $x$ 使得同余方程 $a^x \equiv b \pmod p$ 有解。
+$a,b,p \leq 10^{13}$（原题数据范围）
+大家看到的第一眼显然可以用BSGS求。
+但这个算法是 $O(\sqrt p)$ 的（如果涉及到具体实现的话，可能还得乘个 $\log \sqrt p$，就是set、lower_bound查找的复杂度），比较适用于单组询问，很难推广应用。
+所以还有另外一种方式，比较适用于多组询问。
+是我们求出来 $a$ 和 $b$ 的阶，即 $\text{ord}_p a$ 和 $\text{ord}_p b$，看 $\text{ord}_p b$ 是否是 $\text{ord}_p a$ 的因子（$\text{ord}_p b \mid \text{ord}_p a$）即可。
+这里先不证这个结论是否正确，但相信大家第一次看到“阶”的时候定然是一头雾水的，下面我就来说一下它的定义和求法。
+定义 阶 阶的话，跟逆元相似，还是需要两个值，只不过这里叫做“$a$ 在模 $p$ 意义下的阶”而已，换汤不换料。
+这个表示方法就是 $\text{ord}_p a$。
+它的定义是：
+给你整数 $a$、$p$。 找到最小的 $x$，使得同余方程 $a^x \equiv 1 \pmod p$ 成立。 这个 $x$，就是$a$ 在模 $p$ 意义下的阶。 原根 但说到阶，我们定要讲一下它的孪生兄弟，原根了。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to 阶和原根" href="https://qjwh.github.io/posts/oi/aln/orderandpr/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">马拉车算法
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>马拉车算法其实就是解决一个字符串中由某个位置为中心的最大回文串长度：（下图中蓝色部分为字符串，绿色框中的值就是以这个位置为中心的最大回文串长度）
+其次，我们发现最底下的一排绿色数字涉及到空隙，所以我们可以把字符串扩展一下：
+比如，原字符串是 $\texttt{abccabbc}$，那么扩展之后就是：
+（LaTeX炸了） $\texttt{\color{RoyalBlue}@\color{default}#\color{default}a\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{default}a\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{RoyalBlue}&amp;}$
+第一个和最后一个字符可以自己定，但是最好不要和原字符串中的字符、中间插入的字符冲突（相等）。
+注：其实还有第二种扩展方法：
+$\texttt{\color{RoyalBlue}#\color{default}a\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{default}a\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{default}}$
+还是，中间字符不能与原串字符相等。
+下面统一设「以下标 $i$ 为中心的最大回文串长度除以 $2$ 并下取整」后的答案为 $p_i$。
+然后，我们就开始求 $p$ 数组了，当我们求到 $p_i$ 的时候，我们看前面求出的 $p_j&#43;j$ 的最大值是多少（设为 $r$），即 $\max\limits_{j=1}^{i-1} { p_j&#43;j }$，同时求出最大的 $p_j&#43;j$ 对应的 $j$（设为 $c$）。
+并且，我们求出 $i$ 的对称点 $i’$，对称中心为 $c$，显然 $i’=2c-i$。
+然后，分类讨论：
+注：图中 $r$ 的意思与上面说的 $r$ 的意思有冲突，统一以上面说的定义为准。
+$i&gt;r$，那么暴力算 $p_i$。 $r-i \geq p_{i’}$，那么 $p_i=p_{i’}$。 $r-i&lt;p_{i’}$，那么让 $p_i=r-i$，继续暴力扩展。 最后就是时间复杂度问题了。
+关于时间复杂度的证明，我们可以分类讨论 $p_i$ 是用那种情况求值的：
+用情况1转移：$r$ 肯定会增加。 用情况2转移：复杂度忽略。 用情况3转移：$r$ 也肯定会增加。 由于每时每刻，$r$ 都小于等于 $n$，所以总复杂度就是 $O(n)$ 的。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to 马拉车算法" href="https://qjwh.github.io/posts/oi/aln/manacher/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">【漂流本电子稿】06 - 友谊的旅途（未完工）
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p></p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-09 09:30:00 +0800 CST'>February 9, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to 【漂流本电子稿】06 - 友谊的旅途（未完工）" href="https://qjwh.github.io/posts/plb/plb06/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">【漂流本电子稿】05 - 个人自传（内容缺失）
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p></p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-09 09:29:00 +0800 CST'>February 9, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to 【漂流本电子稿】05 - 个人自传（内容缺失）" href="https://qjwh.github.io/posts/plb/plb05/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">【漂流本电子稿】04 - 离别开出花
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>温馨提示：
+在读本文章的时候，请勿玩梗。本文与题目同名歌曲无关。 本文不聊班务。 离别开出花 （《一个组合的相遇与分离》文学版）
+不知道在那次座位洗牌之后，有多少人与自己的好友远离。所以今天我就来与大家讲一下7-29-39组合 $^1$ 的相遇与分离，看看离别如何开出花。
+从相遇到全盛 在那个春末 $^2$，偶然之间，我们相遇了。
+大概从那时候开始，我的心中便有了他们俩较为清晰的印象。
+朱熠辰是一个开朗的、好学的男生。我与他相伴的时间最长，他问我的问题自然也是很多的。他问过我英语，到了八上也问过我化学。所有他在当时没有搞明白的，不是问我就是问老师。$^3$ 他在听到一些有趣的事情的时候会笑，露出了两个酒窝，眼睛几乎眯成一条缝。
+柳旻辰是一个友善的、外向的女生。我记得她经常与我交流，可以聊课上那些有趣的事情，可以问对方自己不会的问题，可以一起讨论难题……我至今仍然记得她那双明亮如星辰般的眼睛，那如夏日清晨的露珠般的明朗的笑，和她那清脆中带着一些柔和的声音。
+在我们一起的那些天，我们几乎没有发生过任何矛盾。
+相伴地久天长？ 时光如白驹过隙，走过暮春，走过盛夏，暮秋九月的一天 $^4$，班主任突然要再次换座位。
+在最后一次回答了朱熠辰问我的关于英语比较级的问题，最后一次告诉了柳旻辰一个化学式的写法 $^5$ 之后，我们便走出了教室。
+最终，不出意外地，我们分离了。
+我还记得，那天傍晚天是阴沉沉的，正如我们的心。
+当时我的心情久久不能平复，直到第二天，晚风吹过，才抚平回忆留下的疤。
+结语 $^6$ 即使在座位换了之后，那些之前的话语似乎仍然在我的耳旁响起，那些之前的画面似乎仍然在我眼前重演。在化学课上，当我再次听见“碳酸钙” $^7$ 的时候感觉内心百感交集——也许是想念之前坐在一起的生活了吧。
+不管是跟他们中的谁，都会经常和我讨论问题，我们能在课堂上、课间内共同进步。在和他们一起的时候，他们愿意解答我的问题，愿意聆听我的所有话语，这对我之后的性格影响很大，我变得喜欢与周围人讨论化学题目 $^8$，我变得乐于解答同桌问我的几乎所有问题 $^9$……所以我说过，他们让我展现出了自己最好的一面，可以说这是对一个同桌最好的评价。
+如果把时间轴缩小，我和你们的相遇，好像就是为了分离。但与其这么说，不如说，这次分离是为了将来更好的相遇。我不知道将来会怎样，也许在命运的安排里，我们只能在一起这么长时间。但在我找到一个更好的“安身之地”之前——这大概是不可能了 $^{10}$，我一直等待着我，能够在将来的某一天，日出，进班，坐在你们中间，日光透过窗户照在了柳旻辰问我的一道化学题上 $^{11}$，我打开手表告诉朱熠辰今天是几月几号……
+但是不管怎样，感谢你们与我走过七十九个日日夜夜，也感谢你们陪我度过的六百八十九个小时中的每一分、每一秒；感谢你们回答我的每一个问题，也感谢你们问过我的每一个疑问；感谢你们在我2024年的风景线上画上最美的一道彩虹，也感谢你们在我七下、八上的生活中点上最亮的一盏灯。
+离别开出花，希望那朵花能永远在我心中扎根，让我想起那过去的美好，让我向往于未来的重逢。
+（谨以此文，纪念7-29-39组合相遇的五周月与分离的第十九天）
+听风的秋
+2024年10月15日 $^{12}$
+备注：
+$^1$ 由三个人的学号按照升序排序组成。
+$^2$ 指2024年5月15日。
+$^3$ 不太记得真实发生什么了。
+$^4$ 指2024年9月26日。这里说“暮秋”只是为了衬托心情，实际上九月只是初秋。
+$^5$ 虚构的。
+$^6$ 这部分有修改，不要认为全是上一篇的内容。
+$^7$ 碳酸钙（CaCO3）也被我称作“卡（kǎ）扣三”，是在化学中较为常见的沉淀，我之前和他们讨论化学的时候经常提到这个元素。
+$^8$ 纯属虚构。
+$^9$ 特殊情况除外。
+$^{10}$ 因为我在还和他们一起的时候，认为只有他们组是最好的地方。
+$^{11}$ 纯属虚构。
+$^{12}$ 一稿：2024/9/30，二稿：2024/10/8，三稿：2024/10/10，四稿：2024/10/12，五稿：2024/10/14。
+后记：
+有人可能会问为何我这么急迫地想在9月27日就写一个千字长文说这件事，是因为我觉得在当下情绪还未完全稳定的时候，情感的抒发会更加自然、真实，事实证明确实如此，我周围很多人都表示写得很感人——这算是我创作的最大鼓励。另外那篇文章也告诉了我一个道理，真正好的情感抒发，并不是语速、语调、背景音乐的增益，而是来自自己内心深处真挚、深刻的情感流露。
+这或许是我写过的所有作文中，修改过程最波折，草稿数量最多，修改周期最长的一篇作文。比如第5段末尾对柳旻辰的描写，这三句话，我改了五次。这篇作文我存了六个草稿，历时十五天终于完工。
+感谢英语祁老师、朱熠辰对本作文创作的肯定与鼓励，感谢杜仔希、柳旻辰对本作文提供细节上的修改意见，最后也感谢赵老师的耐心地、不断地指导。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-09 09:28:00 +0800 CST'>February 9, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to 【漂流本电子稿】04 - 离别开出花" href="https://qjwh.github.io/posts/plb/plb04/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

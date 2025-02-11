@@ -282,6 +282,136 @@ rep(x, 0, p - 1) if(ksm(a, x, p) == b) YES optimization algorithm 2 (BSGS)
   <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
   <a class="entry-link" aria-label="post link to CDQ分治" href="https://qjwh.github.io/posts/oi/aln/cdq/"></a>
 </article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Kruskal重构树
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>参考：
+老师讲解 Fighting_Peter 的文章 其实Kruskal重构树并不难。
+概览 首先，Kruskal重构树，顾名思义就是把整棵树重构。
+并且其是基于Kruskal算法的。
+它能解决很多问题，并且变种很多。
+但我们先从基础的实现说起。
+实现过程 我们考虑，在Kruskal算法里，我们每次会合并两个并查集集合。
+准确来说是在两个点 $u$、$v$ 之间加一个边权为 $w$ 的无向边。
+那么，我们就考虑，在重构树里，我们找到 $u$ 和 $v$ 分别所在的子树，把这两个子树的根拎出来，设为 $u’$ 和 $v’$。
+然后，我们就新建一个点 $w$，然后把 $u’$ 和 $v’$ 的父亲设为 $w$。
+此时我们就得到了另外一棵树。
+比如说这个例子：
+而在代码中，我们需要给这些方点一个别的编号，而不是以 $w$ 作为编号，否则会重，并且会炸。
+特性 我们讲一些Kruskal重构树的特性：
+这棵树一定是二叉树。
+原树中的点放到重构树上一定是叶子，重构树上其他点都是原树中的边权。
+节点个数一定是 $2n-1$，且 $2n-1$ 一定是根。
+如果是最小生成树，那么这棵重构树一定是大根堆1，否则是小根堆。
+原图中两个点 $u$、$v$ 之间所有路径上的边权最大值的最小值，就是该图的最小生成树重构树上，$u$ 和 $v$​ 的LCA的权值。
+尚未想到证明方式
+对于一个最小生成树上的点 $x$，其只通过（边权）不超过 $v$ 的边，能到的点集；和 $x$ 在重构树上深度最浅的、权值 $\leq v$ 的点 $y$ 的子树内（叶子）节点集合，是一样的。
+这里稍微证明一下。
+就是我们根据上面的性质，可以发现，设后者对应集合为 $S$，那么显然 $S$ 内的点，和 $x$ 点，的LCA的权值一定不超过 $v$，显然。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to Kruskal重构树" href="https://qjwh.github.io/posts/oi/aln/kruskalcgs/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Lucas定理
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>（以下全部假设 $C_n^m$ 中的 $n$ 和 $m$ 都很大，最大能达到 $10^{18}$）
+Lucas定理 Lucas定理往往用于求组合数的结果且模数较小的题目。
+其实定理很简单，也很好记，$\Large C_n^m=C_{\lfloor \frac{n}{p} \rfloor}^{\lfloor \frac{m}{p} \rfloor} \times \color{orange} C_{n \bmod p}^{m \bmod p}$，在 $p$ 为质数的条件成立。
+上面之所以强调模数较小，是因为我们需要通过预处理阶乘的方式去求橙色项的值。
+代码实现很简单，此处略。
+但有个注意点，在我的代码模板里，由于求facny数组是递推求出的，而不是每个分别去用getny求出的，所以调用init函数时，传参应该是MOD-1而不是MOD。
+exLucas定理 （前方高能）
+这个定理还是解决求 $C_n^m \bmod p$ 的值的问题，$p$ 仍然很小，但不保证是质数。
+根据M2579的做法，我们可以考虑对 $p$ 做一个唯一分解，分解成 ${p_1}^{a_1} \times {p_2}^{a_2} \times {p_3}^{a_3} \times \dots \times {p_k}^{a_k}$。
+然后，分别求出 $C_n^m \bmod {p_1}^{a_1}$ 的值、$C_n^m \bmod {p_2}^{a_2}$ 的值、$C_n^m \bmod {p_3}^{a_3}$ 的值、…、$C_n^m \bmod {p_k}^{a_k}$ 的值，然后就可以用CRT求出 $C_n^m \bmod p$ 的值了。
+在M2579内，$p$ 唯一分解后，每个 $a_i$ 都等于 $1$，所以直接用Lucas定理就可以求，但在一般的题目中，指数不一定都等于 $1$，所以才要用到exLucas定理。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to Lucas定理" href="https://qjwh.github.io/posts/oi/aln/lucas/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">nth_element（未完工）
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p></p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to nth_element（未完工）" href="https://qjwh.github.io/posts/oi/aln/nthelement/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">wqs二分
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>感谢这篇文章的作者。
+wqs二分一般解决这类问题：
+有 $n$ 个物品，你要选出恰好 $m$ 个（下称“选择物品个数限制”），可能有限制（下称“其他限制”），你要最大/小化某个权值。
+但除此之外，还有一些限制：
+如果我们设 $g_i$ 为选出恰好 $i$ 个时的最大/小权值，那么 $g$ 函数就应该是上凸（求最大权值）/下凹（求最小权值）的，即斜率单调递减（上凸）/递增（下凹）。 一般来说，如果没有任何限制（包括选择物品个数限制和其他限制），那么答案是很好求的。 一般来说，如果没有其他限制，那么选择物品数量越多，最小权值就越大/小。 以下是P5633的题解，顺带着讲了wqs二分的原理和应用。
+在原题中，我们可以以标号为 $s$ 点在最小生成树上的出度为横坐标，以这个出度对应的答案为纵坐标，画出图像：（网上粘的图，只画了部分横坐标的情况）
+显然D和E点就是最小值点。
+接下来就是wqs二分的重点了
+wqs二分也是二分，那它二分什么值呢，它二分的是斜率 $mid$。
+具体而言，一个斜率就对应若干条平行的边，而总有一条边是完全切这个凸包的，如 $mid=-1$ 的时候，上图中被且的那个点就刚好是C点：
+如果我们设题目要求 $s$ 的度数要恰好为 $6$，那么 $mid=-1$ 的时候被切的那个点C的纵坐标就是答案了。
+但此时我们就有两个问题了：
+如何求出被切的那个点的下标？ 就算求出了下标，那这个点的纵坐标又如何计算？ 接下来我们来解决这两个问题。
+首先，这个切线肯定是所有经过某个点且斜率等于 $mid$ 的直线中截距最小的点：
+具体地，根据切线的性质，在上述例子中，经过C点的斜率等于 $mid$ 的直线（即切线），与经过D点的斜率等于 $mid$ 的直线、经过E点的斜率等于 $mid$ 的直线相比，切线的截距肯定最小，后两者的截距肯定更大。
+其次，显然，经过点 $(x,y)$ 且斜率等于 $k$ 的直线（肯定唯一），其截距一定等于 $y-kx$（$y=kx&#43;b$，$b=y-kx$）。
+而在二分的calc函数（此处不是check函数了，calc函数的返回值、返回值含义以及应用见下）中，我们已经知道了上述公式中的 $k$ 了（$k=mid$），所以我们只要让 $y-kx$ 最小、斜率为 $k$ 且经过了某个图上的点即可。
+考虑到上述公式中的 $x$ 未知，所以我们可以干脆把所有 $s$ 的出边的边权都减 $mid$。（关于是加、减还是都彳亍的问题存疑）
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to wqs二分" href="https://qjwh.github.io/posts/oi/aln/wqs/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">一个非常重要的语法点
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>说一个非常重要的语法错误。
+如果你写这样一句话：
+v[x] = newnode(); 其中：
+v为一个vector。 x为不越界的非负整数，且不会变化。 newnode()函数内会向vector内push_back一个新元素，并返回加入元素（即最后一个元素）的下标。 那么，你会发现，v[x]的值并不是这样变化的：
+1,2,3,4,5,6,7,... 而是类似于这样的：（非真实输出结果，仅供参考）
+1,1,2,2,3,4,4,5,6,7,8,8,9,10,11,12,13,14,15,16,16,17,18,19,20,... 你会发现部分情况下，v[x]没有变化！
+这实际上是因为vector的内部机制。
+vector会有一个capacity，就是提供的内存大小。
+每次push_back的时候，如果说加入后，不超过当前的capacity，就会直接加入。
+否则，vector会新开辟一块等于当前capacity的两倍（这个在不同编辑器上是不一样的，有些可能是每次新增 $5$ 个）的新空间，并把原本的数据拷进这块新空间内。
+比如说现在的vector是：
+内存354~357位置：3 1 2 4 且capacity是 $4$，那么我们如果尝试push_back一个 $5$，则vector就会发现大于了capacity，便会新开一块等于当前capacity的两倍的空间：
+内存354~357位置：3 1 2 4内存382~389位置： 并把当前数据拷进去：
+内存354~357位置：3 1 2 4内存382~389位置：3 1 2 4 然后在新空间内加入 $5$：
+内存354~357位置：3 1 2 4内存382~389位置：3 1 2 4 5 并把所有v[x]指向的内存都改成382~389这块新内存内对应的地方。
+不过由于C&#43;&#43;的赋值机制，系统会先找到要赋值给的变量的指针，然后求出要赋的值，赋给以前找到的指针。（这一步是推测，可能不准确）
+所以就会导致把newnode()的值赋给了原本的v[x]，导致输出的时候访问的新v[x]值出错。
+解决方法也很简单，把newnode()用个临时变量t存储，并将v[x]赋值为t即可。
+</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to 一个非常重要的语法点" href="https://qjwh.github.io/posts/oi/aln/animportantgrammer/"></a>
+</article>
 <footer class="page-footer">
   <nav class="pagination">
     <a class="next" href="https://qjwh.github.io/tags/%E4%BF%A1%E6%81%AF%E5%AD%A6%E7%AB%9E%E8%B5%9B/page/2/">Next&nbsp;&nbsp;»
