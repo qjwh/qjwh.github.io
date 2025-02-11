@@ -1,265 +1,314 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="en" dir="auto">
 
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>一个非常重要的语法点 | CXBlog</title>
+<meta name="keywords" content="信息学竞赛, 算法学习笔记">
+<meta name="description" content="说一个非常重要的语法错误。
+如果你写这样一句话：
+v[x] = newnode();
+其中：
+
+v为一个vector。
+x为不越界的非负整数，且不会变化。
+newnode()函数内会向vector内push_back一个新元素，并返回加入元素（即最后一个元素）的下标。
+
+那么，你会发现，v[x]的值并不是这样变化的：
+1,2,3,4,5,6,7,...
+而是类似于这样的：（非真实输出结果，仅供参考）
+1,1,2,2,3,4,4,5,6,7,8,8,9,10,11,12,13,14,15,16,16,17,18,19,20,...
+你会发现部分情况下，v[x]没有变化！
+这实际上是因为vector的内部机制。
+vector会有一个capacity，就是提供的内存大小。
+每次push_back的时候，如果说加入后，不超过当前的capacity，就会直接加入。
+否则，vector会新开辟一块等于当前capacity的两倍（这个在不同编辑器上是不一样的，有些可能是每次新增 $5$ 个）的新空间，并把原本的数据拷进这块新空间内。
+比如说现在的vector是：
+内存354~357位置：3 1 2 4
+且capacity是 $4$，那么我们如果尝试push_back一个 $5$，则vector就会发现大于了capacity，便会新开一块等于当前capacity的两倍的空间：
+内存354~357位置：3 1 2 4
+内存382~389位置：
+并把当前数据拷进去：
+内存354~357位置：3 1 2 4
+内存382~389位置：3 1 2 4
+然后在新空间内加入 $5$：
+内存354~357位置：3 1 2 4
+内存382~389位置：3 1 2 4 5
+并把所有v[x]指向的内存都改成382~389这块新内存内对应的地方。
+不过由于C&#43;&#43;的赋值机制，系统会先找到要赋值给的变量的指针，然后求出要赋的值，赋给以前找到的指针。（这一步是推测，可能不准确）
+所以就会导致把newnode()的值赋给了原本的v[x]，导致输出的时候访问的新v[x]值出错。
+解决方法也很简单，把newnode()用个临时变量t存储，并将v[x]赋值为t即可。">
+<meta name="author" content="">
+<link rel="canonical" href="/posts/aln/animportantgrammer/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.3b2e5c86d6776f1230a6cc3dbc6bde31467e6a5f6513337e196964b4e3693a57.css" integrity="sha256-Oy5chtZ3bxIwpsw9vGveMUZ&#43;al9lEzN&#43;GWlktONpOlc=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="/posts/aln/animportantgrammer/">
+<noscript>
     <style>
-        :root {
-            --accent-color: #FF4D4D;
-            --font-size: 17.5px;
+        #theme-toggle,
+        .top-link {
+            display: none;
         }
+
     </style>
-
-    
-    
-    
-    
-    
-    
-
-    
-    <title>一个非常重要的语法点</title>
-    <meta name="description" content="说一个非常重要的语法错误。
-如果你写这样一句话：
-v[x] = newnode(); 其中：
-v为一个vector。 x为不越界的非负整数，且不会变化。 newnode()函数内会向vector内push_back一个新元素，并返回加入元素（即最后一个元素）的下标。 那么，你会发现，v[x]的值并不是这样变化的： …">
-    <meta name="keywords" content='信息学竞赛, 算法学习笔记'>
-
-    <meta property="og:url" content="https://qjwh.github.io/posts/aln/animportantgrammer/">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="一个非常重要的语法点">
-    <meta property="og:description" content="说一个非常重要的语法错误。
-如果你写这样一句话：
-v[x] = newnode(); 其中：
-v为一个vector。 x为不越界的非负整数，且不会变化。 newnode()函数内会向vector内push_back一个新元素，并返回加入元素（即最后一个元素）的下标。 那么，你会发现，v[x]的值并不是这样变化的： …">
-    <meta property="og:image" content="https://qjwh.github.io/">
-    <meta property="og:image:secure_url" content="https://qjwh.github.io/">
-
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="一个非常重要的语法点">
-    <meta name="twitter:description" content="说一个非常重要的语法错误。
-如果你写这样一句话：
-v[x] = newnode(); 其中：
-v为一个vector。 x为不越界的非负整数，且不会变化。 newnode()函数内会向vector内push_back一个新元素，并返回加入元素（即最后一个元素）的下标。 那么，你会发现，v[x]的值并不是这样变化的： …">
-    <meta property="twitter:domain" content="https://qjwh.github.io/posts/aln/animportantgrammer/">
-    <meta property="twitter:url" content="https://qjwh.github.io/posts/aln/animportantgrammer/">
-    <meta name="twitter:image" content="https://qjwh.github.io/">
-
-    
-    <link rel="canonical" href="https://qjwh.github.io/posts/aln/animportantgrammer/">
-
-    
-    <link rel="stylesheet" type="text/css" href="/css/normalize.min.css" media="print">
-
-    
-    <link rel="stylesheet" type="text/css" href="/css/main.min.css">
-
-    
-    <link id="dark-theme" rel="stylesheet" href="/css/dark.min.css">
-
-    
-    <script src="/js/bundle.min.ad84dd09e60165f836ea08a26f86608c070e127d21ac6ab168c87da076554d87.js" integrity="sha256-rYTdCeYBZfg26giib4ZgjAcOEn0hrGqxaMh9oHZVTYc="></script>
-
-    
-    
-        <script src="https://unpkg.com/feather-icons"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function() {
-        renderMathInElement(document.body, {
-          // customised options
-          // ? auto-render specific keys, e.g.:
-          delimiters: [
-            {left: '$$', right: '$$', display: true},
-            {left: '$', right: '$', display: false},
-          ],
-          // ? rendering keys, e.g.:
-          throwOnError : false
-        });
-      });
-    </script>
-    
     <style>
-        @font-face { 
-            font-family: 'Ubuntu';
-            src: url('/UbuntuB.ttf');
-        }
-        body {
-            // font-family: 'Ubuntu', '仿宋';
-            font-family: 'Ubuntu';
-        }
-    </style>
-  
-    
-</head>
-<body>
-        <script>
-            
-            setThemeByUserPref();
-        </script><header class="header">
-    <nav class="header-nav">
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
 
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><script src="https://unpkg.com/feather-icons"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+      
+      
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '$', right: '$', display: false},
+      ],
+      
+      throwOnError : false
+    });
+  });
+</script>
+
+<style>
+    @font-face { 
+        font-family: 'Ubuntu';
+        src: url('/UbuntuB.ttf');
+    }
+    body {
         
+        font-family: 'Ubuntu';
+    }
+</style><meta property="og:url" content="/posts/aln/animportantgrammer/">
+  <meta property="og:site_name" content="CXBlog">
+  <meta property="og:title" content="一个非常重要的语法点">
+  <meta property="og:description" content="说一个非常重要的语法错误。
+如果你写这样一句话：
+v[x] = newnode(); 其中：
+v为一个vector。 x为不越界的非负整数，且不会变化。 newnode()函数内会向vector内push_back一个新元素，并返回加入元素（即最后一个元素）的下标。 那么，你会发现，v[x]的值并不是这样变化的：
+1,2,3,4,5,6,7,... 而是类似于这样的：（非真实输出结果，仅供参考）
+1,1,2,2,3,4,4,5,6,7,8,8,9,10,11,12,13,14,15,16,16,17,18,19,20,... 你会发现部分情况下，v[x]没有变化！
+这实际上是因为vector的内部机制。
+vector会有一个capacity，就是提供的内存大小。
+每次push_back的时候，如果说加入后，不超过当前的capacity，就会直接加入。
+否则，vector会新开辟一块等于当前capacity的两倍（这个在不同编辑器上是不一样的，有些可能是每次新增 $5$ 个）的新空间，并把原本的数据拷进这块新空间内。
+比如说现在的vector是：
+内存354~357位置：3 1 2 4 且capacity是 $4$，那么我们如果尝试push_back一个 $5$，则vector就会发现大于了capacity，便会新开一块等于当前capacity的两倍的空间：
+内存354~357位置：3 1 2 4内存382~389位置： 并把当前数据拷进去：
+内存354~357位置：3 1 2 4内存382~389位置：3 1 2 4 然后在新空间内加入 $5$：
+内存354~357位置：3 1 2 4内存382~389位置：3 1 2 4 5 并把所有v[x]指向的内存都改成382~389这块新内存内对应的地方。
+不过由于C&#43;&#43;的赋值机制，系统会先找到要赋值给的变量的指针，然后求出要赋的值，赋给以前找到的指针。（这一步是推测，可能不准确）
+所以就会导致把newnode()的值赋给了原本的v[x]，导致输出的时候访问的新v[x]值出错。
+解决方法也很简单，把newnode()用个临时变量t存储，并将v[x]赋值为t即可。">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-02-09T15:28:00+08:00">
+    <meta property="article:modified_time" content="2025-02-09T15:28:00+08:00">
+    <meta property="article:tag" content="信息学竞赛">
+    <meta property="article:tag" content="算法学习笔记">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="一个非常重要的语法点">
+<meta name="twitter:description" content="说一个非常重要的语法错误。
+如果你写这样一句话：
+v[x] = newnode();
+其中：
 
-        <div class="nav-title">
-            <a class="nav-brand" href="https://qjwh.github.io/">CXBlog</a>
+v为一个vector。
+x为不越界的非负整数，且不会变化。
+newnode()函数内会向vector内push_back一个新元素，并返回加入元素（即最后一个元素）的下标。
+
+那么，你会发现，v[x]的值并不是这样变化的：
+1,2,3,4,5,6,7,...
+而是类似于这样的：（非真实输出结果，仅供参考）
+1,1,2,2,3,4,4,5,6,7,8,8,9,10,11,12,13,14,15,16,16,17,18,19,20,...
+你会发现部分情况下，v[x]没有变化！
+这实际上是因为vector的内部机制。
+vector会有一个capacity，就是提供的内存大小。
+每次push_back的时候，如果说加入后，不超过当前的capacity，就会直接加入。
+否则，vector会新开辟一块等于当前capacity的两倍（这个在不同编辑器上是不一样的，有些可能是每次新增 $5$ 个）的新空间，并把原本的数据拷进这块新空间内。
+比如说现在的vector是：
+内存354~357位置：3 1 2 4
+且capacity是 $4$，那么我们如果尝试push_back一个 $5$，则vector就会发现大于了capacity，便会新开一块等于当前capacity的两倍的空间：
+内存354~357位置：3 1 2 4
+内存382~389位置：
+并把当前数据拷进去：
+内存354~357位置：3 1 2 4
+内存382~389位置：3 1 2 4
+然后在新空间内加入 $5$：
+内存354~357位置：3 1 2 4
+内存382~389位置：3 1 2 4 5
+并把所有v[x]指向的内存都改成382~389这块新内存内对应的地方。
+不过由于C&#43;&#43;的赋值机制，系统会先找到要赋值给的变量的指针，然后求出要赋的值，赋给以前找到的指针。（这一步是推测，可能不准确）
+所以就会导致把newnode()的值赋给了原本的v[x]，导致输出的时候访问的新v[x]值出错。
+解决方法也很简单，把newnode()用个临时变量t存储，并将v[x]赋值为t即可。">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "/posts/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "一个非常重要的语法点",
+      "item": "/posts/aln/animportantgrammer/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "一个非常重要的语法点",
+  "name": "一个非常重要的语法点",
+  "description": "说一个非常重要的语法错误。\n如果你写这样一句话：\nv[x] = newnode(); 其中：\nv为一个vector。 x为不越界的非负整数，且不会变化。 newnode()函数内会向vector内push_back一个新元素，并返回加入元素（即最后一个元素）的下标。 那么，你会发现，v[x]的值并不是这样变化的：\n1,2,3,4,5,6,7,... 而是类似于这样的：（非真实输出结果，仅供参考）\n1,1,2,2,3,4,4,5,6,7,8,8,9,10,11,12,13,14,15,16,16,17,18,19,20,... 你会发现部分情况下，v[x]没有变化！\n这实际上是因为vector的内部机制。\nvector会有一个capacity，就是提供的内存大小。\n每次push_back的时候，如果说加入后，不超过当前的capacity，就会直接加入。\n否则，vector会新开辟一块等于当前capacity的两倍（这个在不同编辑器上是不一样的，有些可能是每次新增 $5$ 个）的新空间，并把原本的数据拷进这块新空间内。\n比如说现在的vector是：\n内存354~357位置：3 1 2 4 且capacity是 $4$，那么我们如果尝试push_back一个 $5$，则vector就会发现大于了capacity，便会新开一块等于当前capacity的两倍的空间：\n内存354~357位置：3 1 2 4\r内存382~389位置： 并把当前数据拷进去：\n内存354~357位置：3 1 2 4\r内存382~389位置：3 1 2 4 然后在新空间内加入 $5$：\n内存354~357位置：3 1 2 4\r内存382~389位置：3 1 2 4 5 并把所有v[x]指向的内存都改成382~389这块新内存内对应的地方。\n不过由于C++的赋值机制，系统会先找到要赋值给的变量的指针，然后求出要赋的值，赋给以前找到的指针。（这一步是推测，可能不准确）\n所以就会导致把newnode()的值赋给了原本的v[x]，导致输出的时候访问的新v[x]值出错。\n解决方法也很简单，把newnode()用个临时变量t存储，并将v[x]赋值为t即可。\n",
+  "keywords": [
+    "信息学竞赛", "算法学习笔记"
+  ],
+  "articleBody": "说一个非常重要的语法错误。\n如果你写这样一句话：\nv[x] = newnode(); 其中：\nv为一个vector。 x为不越界的非负整数，且不会变化。 newnode()函数内会向vector内push_back一个新元素，并返回加入元素（即最后一个元素）的下标。 那么，你会发现，v[x]的值并不是这样变化的：\n1,2,3,4,5,6,7,... 而是类似于这样的：（非真实输出结果，仅供参考）\n1,1,2,2,3,4,4,5,6,7,8,8,9,10,11,12,13,14,15,16,16,17,18,19,20,... 你会发现部分情况下，v[x]没有变化！\n这实际上是因为vector的内部机制。\nvector会有一个capacity，就是提供的内存大小。\n每次push_back的时候，如果说加入后，不超过当前的capacity，就会直接加入。\n否则，vector会新开辟一块等于当前capacity的两倍（这个在不同编辑器上是不一样的，有些可能是每次新增 $5$ 个）的新空间，并把原本的数据拷进这块新空间内。\n比如说现在的vector是：\n内存354~357位置：3 1 2 4 且capacity是 $4$，那么我们如果尝试push_back一个 $5$，则vector就会发现大于了capacity，便会新开一块等于当前capacity的两倍的空间：\n内存354~357位置：3 1 2 4\r内存382~389位置： 并把当前数据拷进去：\n内存354~357位置：3 1 2 4\r内存382~389位置：3 1 2 4 然后在新空间内加入 $5$：\n内存354~357位置：3 1 2 4\r内存382~389位置：3 1 2 4 5 并把所有v[x]指向的内存都改成382~389这块新内存内对应的地方。\n不过由于C++的赋值机制，系统会先找到要赋值给的变量的指针，然后求出要赋的值，赋给以前找到的指针。（这一步是推测，可能不准确）\n所以就会导致把newnode()的值赋给了原本的v[x]，导致输出的时候访问的新v[x]值出错。\n解决方法也很简单，把newnode()用个临时变量t存储，并将v[x]赋值为t即可。\n",
+  "wordCount" : "57",
+  "inLanguage": "en",
+  "datePublished": "2025-02-09T15:28:00+08:00",
+  "dateModified": "2025-02-09T15:28:00+08:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/posts/aln/animportantgrammer/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "CXBlog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="CXBlog (Alt + H)">CXBlog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
         </div>
-
-        <div class="nav-links">
-            
-            <div class="nav-link">
-                <a href="https://qjwh.github.io/" aria-label="home" >      <i data-feather="home"></i>
-      <script>
-        feather.replace();
-      </script>
-       首页
-      </a>
-            </div>
-            
-            <div class="nav-link">
-                <a href="https://qjwh.github.io/posts" aria-label="posts" >      <i data-feather="book"></i>
-      <script>
-        feather.replace();
-      </script>
-       文章
-      </a>
-            </div>
-            
-            <div class="nav-link">
-                <a href="https://qjwh.github.io/tags" aria-label="tags" >      <i data-feather="tag"></i>
-      <script>
-        feather.replace();
-      </script>
-       标签
-      </a>
-            </div>
-            
-            <div class="nav-link">
-                <a href="https://qjwh.github.io/about" aria-label="about" >      <i data-feather="info"></i>
-      <script>
-        feather.replace();
-      </script>
-       关于
-      </a>
-            </div>
-            
-
-            <span class="nav-icons-divider"></span>
-            <div class="nav-link dark-theme-toggle">
-                <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
-                <a aria-hidden="true" role="switch">
-                    <span class="theme-toggle-icon" data-feather="moon"></span>
+        <ul id="menu">
+            <li>
+                <a href="/posts/" title="文章">
+                    <span>文章</span>
                 </a>
-            </div>
-
-            <div class="nav-link" id="hamburger-menu-toggle">
-                <span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
-                <a aria-checked="false" aria-labelledby="hamburger-menu-toggle" id="hamburger-menu-toggle-target" role="switch">
-                    <span data-feather="menu"></span>
+            </li>
+            <li>
+                <a href="/archives/" title="列表">
+                    <span>列表</span>
                 </a>
-            </div>
-
-            
-            <ul class="nav-hamburger-list visibility-hidden">
-                
-                <li class="nav-item">
-                    <a href="https://qjwh.github.io/" >      <i data-feather="home"></i>
-      <script>
-        feather.replace();
-      </script>
-       首页
-      </a>
-                </li>
-                
-                <li class="nav-item">
-                    <a href="https://qjwh.github.io/posts" >      <i data-feather="book"></i>
-      <script>
-        feather.replace();
-      </script>
-       文章
-      </a>
-                </li>
-                
-                <li class="nav-item">
-                    <a href="https://qjwh.github.io/tags" >      <i data-feather="tag"></i>
-      <script>
-        feather.replace();
-      </script>
-       标签
-      </a>
-                </li>
-                
-                <li class="nav-item">
-                    <a href="https://qjwh.github.io/about" >      <i data-feather="info"></i>
-      <script>
-        feather.replace();
-      </script>
-       关于
-      </a>
-                </li>
-                
-                <li class="nav-item dark-theme-toggle">
-                    <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
-                    <a role="switch">
-                        <span class="theme-toggle-icon" data-feather="moon"></span>
-                    </a>
-                </li>
-            </ul>
-
-        </div>
+            </li>
+            <li>
+                <a href="/tags/" title="标签">
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="搜索">
+                    <span>搜索</span>
+                </a>
+            </li>
+        </ul>
     </nav>
 </header>
-<main id="content">
-    <div class="post container">
-    <div class="post-header-section">
-        <h1>一个非常重要的语法点</h1>
+<main class="main">
 
-        
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      一个非常重要的语法点
+    </h1>
+    <div class="post-meta"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span>
 
-        
-	
-	
-	
-	
-        
-
-	
-
-	
-
-	
-          <small role="doc-subtitle"></small>
-	
-
-	
-          <p class="post-date">
-              
-
-              February 9, 2025
-
-              
-          </p>
-	
-
-        <ul class="post-tags">
-          
-           
-             <li class="post-tag"><a href="https://qjwh.github.io/tags/%E4%BF%A1%E6%81%AF%E5%AD%A6%E7%AB%9E%E8%B5%9B">信息学竞赛</a></li>
-           
-         
-           
-             <li class="post-tag"><a href="https://qjwh.github.io/tags/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0">算法学习笔记</a></li>
-           
-         
-        </ul>
-    </div>
-
-    <div class="post-content">
-        <p>说一个非常重要的语法错误。</p>
+</div>
+  </header> 
+  <div class="post-content"><p>说一个非常重要的语法错误。</p>
 <p>如果你写这样一句话：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>v[x] <span style="color:#f92672">=</span> newnode();
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">v</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">newnode</span><span class="p">();</span>
 </span></span></code></pre></div><p>其中：</p>
 <ul>
 <li><code>v</code>为一个<code>vector</code>。</li>
@@ -291,41 +340,87 @@ v为一个vector。 x为不越界的非负整数，且不会变化。 newnode()�
 <p>所以就会导致把<code>newnode()</code>的值赋给了原本的<code>v[x]</code>，导致输出的时候访问的新<code>v[x]</code>值出错。</p>
 <p>解决方法也很简单，把<code>newnode()</code>用个临时变量<code>t</code>存储，并将<code>v[x]</code>赋值为<code>t</code>即可。</p>
 
-        
-    </div>
 
-    <div class="prev-next">
-        
-    </div>
+  </div>
 
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/%E4%BF%A1%E6%81%AF%E5%AD%A6%E7%AB%9E%E8%B5%9B/">信息学竞赛</a></li>
+      <li><a href="/tags/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">算法学习笔记</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
     
-    
-    
-</div>
-
-<aside class="post-toc">
-    <nav id="toc">
-        <nav id="TableOfContents"></nav>
-    </nav>
-</aside>
-
-
-
-    
-
-        </main><footer class="footer">
-    
-    
-
-    
-
-    
-
-    
+<footer class="footer">
+        <span>&copy; 2025 <a href="/">CXBlog</a></span> · 
 
     <span>
-        Made with &#10084;&#65039; using <a target="_blank" href="https://github.com/gokarna-theme/gokarna-hugo">Gokarna</a>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
     </span>
 </footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
 </body>
+
 </html>
