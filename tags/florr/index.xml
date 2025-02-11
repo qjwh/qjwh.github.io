@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Florr on CXBlog</title>
     <link>https://qjwh.github.io/tags/florr/</link>
     <description>Recent content in Florr on CXBlog</description>
-    <generator>Hugo -- 0.143.1</generator>
+    <generator>Hugo</generator>
     <language>en</language>
     <lastBuildDate>Sun, 09 Feb 2025 17:05:00 +0800</lastBuildDate>
     <atom:link href="https://qjwh.github.io/tags/florr/index.xml" rel="self" type="application/rss+xml" />
@@ -13,63 +13,7 @@
       <link>https://qjwh.github.io/posts/play/florr_simple_name/</link>
       <pubDate>Sun, 09 Feb 2025 17:05:00 +0800</pubDate>
       <guid>https://qjwh.github.io/posts/play/florr_simple_name/</guid>
-      <description>&lt;p&gt;更新中……&lt;/p&gt;
-&lt;h2 id=&#34;稀有度&#34;&gt;稀有度&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;Common：绿&lt;/li&gt;
-&lt;li&gt;Unusual：un/黄&lt;/li&gt;
-&lt;li&gt;Rare：蓝&lt;/li&gt;
-&lt;li&gt;Epic：紫&lt;/li&gt;
-&lt;li&gt;Legendary：l/红&lt;/li&gt;
-&lt;li&gt;Mythic：m/青&lt;/li&gt;
-&lt;li&gt;Ultra：u/ul/粉&lt;/li&gt;
-&lt;li&gt;Super：s/书青&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;合成&#34;&gt;合成&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;合成Mythic：合青&lt;/li&gt;
-&lt;li&gt;合成Ultra：合粉/河粉&lt;/li&gt;
-&lt;li&gt;合成Super：合苏（su）&lt;/li&gt;
-&lt;li&gt;合成Ultra并失败：冒青烟&lt;/li&gt;
-&lt;li&gt;合成Super并失败：冒粉烟&lt;/li&gt;
-&lt;li&gt;用x个花瓣合成并成功：x=1（如5=1）&lt;/li&gt;
-&lt;li&gt;用x个花瓣合成并失败：-数字（如-2，但通常此处x=5）&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;花瓣&#34;&gt;花瓣&lt;/h2&gt;
-&lt;p&gt;默认可以叫花瓣的英文名和大家普遍公认的中文名。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Ant Egg：agg/egg&lt;/li&gt;
-&lt;li&gt;Antennae：ante/触&lt;/li&gt;
-&lt;li&gt;Basil：比勒（一般不叫它罗勒）&lt;/li&gt;
-&lt;li&gt;Beetle Egg：bgg&lt;/li&gt;
-&lt;li&gt;Bone：骨/装&lt;/li&gt;
-&lt;li&gt;Bubble：泡&lt;/li&gt;
-&lt;li&gt;Claw：头发（一般不叫他爪子/蟹爪）&lt;/li&gt;
-&lt;li&gt;Dandelion：dande&lt;/li&gt;
-&lt;li&gt;Dice：色（shǎi）&lt;/li&gt;
-&lt;li&gt;Faster：罚&lt;/li&gt;
-&lt;li&gt;Iris：毒药&lt;/li&gt;
-&lt;li&gt;Lightning：lāi&lt;/li&gt;
-&lt;li&gt;Magic Eye：me/魔眼&lt;/li&gt;
-&lt;li&gt;Magnet：mag&lt;/li&gt;
-&lt;li&gt;Mana Orb：orb（拼写式读法）&lt;/li&gt;
-&lt;li&gt;Pincer：品色/拼刺儿&lt;/li&gt;
-&lt;li&gt;Powder：pow&lt;/li&gt;
-&lt;li&gt;Rice：米&lt;/li&gt;
-&lt;li&gt;Shovel：铲&lt;/li&gt;
-&lt;li&gt;Sponge：海&lt;/li&gt;
-&lt;li&gt;Third Eye：te/三眼&lt;/li&gt;
-&lt;li&gt;Uranium：uran&lt;/li&gt;
-&lt;li&gt;Wing：羽毛&lt;/li&gt;
-&lt;li&gt;Yggdrasil：ygg（一般不叫它世界树）&lt;/li&gt;
-&lt;li&gt;Yucca：于夹（一般不叫它丝兰）&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;生物&#34;&gt;生物&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;Queen Ant：queen&lt;/li&gt;
-&lt;li&gt;Starfish：兴（xìng）禹（yú）&lt;/li&gt;
-&lt;li&gt;黄色瓢虫：shiny&lt;/li&gt;
-&lt;/ul&gt;</description>
+      <description>&lt;p&gt;更新中……&lt;/p&gt;&#xA;&lt;h2 id=&#34;稀有度&#34;&gt;稀有度&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Common：绿&lt;/li&gt;&#xA;&lt;li&gt;Unusual：un/黄&lt;/li&gt;&#xA;&lt;li&gt;Rare：蓝&lt;/li&gt;&#xA;&lt;li&gt;Epic：紫&lt;/li&gt;&#xA;&lt;li&gt;Legendary：l/红&lt;/li&gt;&#xA;&lt;li&gt;Mythic：m/青&lt;/li&gt;&#xA;&lt;li&gt;Ultra：u/ul/粉&lt;/li&gt;&#xA;&lt;li&gt;Super：s/书青&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;合成&#34;&gt;合成&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;合成Mythic：合青&lt;/li&gt;&#xA;&lt;li&gt;合成Ultra：合粉/河粉&lt;/li&gt;&#xA;&lt;li&gt;合成Super：合苏（su）&lt;/li&gt;&#xA;&lt;li&gt;合成Ultra并失败：冒青烟&lt;/li&gt;&#xA;&lt;li&gt;合成Super并失败：冒粉烟&lt;/li&gt;&#xA;&lt;li&gt;用x个花瓣合成并成功：x=1（如5=1）&lt;/li&gt;&#xA;&lt;li&gt;用x个花瓣合成并失败：-数字（如-2，但通常此处x=5）&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;花瓣&#34;&gt;花瓣&lt;/h2&gt;&#xA;&lt;p&gt;默认可以叫花瓣的英文名和大家普遍公认的中文名。&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Ant Egg：agg/egg&lt;/li&gt;&#xA;&lt;li&gt;Antennae：ante/触&lt;/li&gt;&#xA;&lt;li&gt;Basil：比勒（一般不叫它罗勒）&lt;/li&gt;&#xA;&lt;li&gt;Beetle Egg：bgg&lt;/li&gt;&#xA;&lt;li&gt;Bone：骨/装&lt;/li&gt;&#xA;&lt;li&gt;Bubble：泡&lt;/li&gt;&#xA;&lt;li&gt;Claw：头发（一般不叫他爪子/蟹爪）&lt;/li&gt;&#xA;&lt;li&gt;Dandelion：dande&lt;/li&gt;&#xA;&lt;li&gt;Dice：色（shǎi）&lt;/li&gt;&#xA;&lt;li&gt;Faster：罚&lt;/li&gt;&#xA;&lt;li&gt;Iris：毒药&lt;/li&gt;&#xA;&lt;li&gt;Lightning：lāi&lt;/li&gt;&#xA;&lt;li&gt;Magic Eye：me/魔眼&lt;/li&gt;&#xA;&lt;li&gt;Magnet：mag&lt;/li&gt;&#xA;&lt;li&gt;Mana Orb：orb（拼写式读法）&lt;/li&gt;&#xA;&lt;li&gt;Pincer：品色/拼刺儿&lt;/li&gt;&#xA;&lt;li&gt;Powder：pow&lt;/li&gt;&#xA;&lt;li&gt;Rice：米&lt;/li&gt;&#xA;&lt;li&gt;Shovel：铲&lt;/li&gt;&#xA;&lt;li&gt;Sponge：海&lt;/li&gt;&#xA;&lt;li&gt;Third Eye：te/三眼&lt;/li&gt;&#xA;&lt;li&gt;Uranium：uran&lt;/li&gt;&#xA;&lt;li&gt;Wing：羽毛&lt;/li&gt;&#xA;&lt;li&gt;Yggdrasil：ygg（一般不叫它世界树）&lt;/li&gt;&#xA;&lt;li&gt;Yucca：于夹（一般不叫它丝兰）&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;生物&#34;&gt;生物&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Queen Ant：queen&lt;/li&gt;&#xA;&lt;li&gt;Starfish：兴（xìng）禹（yú）&lt;/li&gt;&#xA;&lt;li&gt;黄色瓢虫：shiny&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
     </item>
   </channel>
 </rss>

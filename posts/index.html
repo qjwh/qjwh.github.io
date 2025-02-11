@@ -1,399 +1,835 @@
 <!DOCTYPE html>
-<html lang="en" dir="auto">
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<head><meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
-<title>Posts | CXBlog</title>
-<meta name="keywords" content="">
-<meta name="description" content="Posts - CXBlog">
-<meta name="author" content="">
-<link rel="canonical" href="https://qjwh.github.io/posts/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.3b2e5c86d6776f1230a6cc3dbc6bde31467e6a5f6513337e196964b4e3693a57.css" integrity="sha256-Oy5chtZ3bxIwpsw9vGveMUZ&#43;al9lEzN&#43;GWlktONpOlc=" rel="preload stylesheet" as="style">
-<link rel="icon" href="https://qjwh.github.io/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://qjwh.github.io/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://qjwh.github.io/favicon-32x32.png">
-<link rel="apple-touch-icon" href="https://qjwh.github.io/apple-touch-icon.png">
-<link rel="mask-icon" href="https://qjwh.github.io/safari-pinned-tab.svg">
-<meta name="theme-color" content="#2e2e33">
-<meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" type="application/rss+xml" href="https://qjwh.github.io/posts/index.xml">
-<link rel="alternate" hreflang="en" href="https://qjwh.github.io/posts/">
-<noscript>
     <style>
-        #theme-toggle,
-        .top-link {
-            display: none;
+        :root {
+            --accent-color: #FF4D4D;
+            --font-size: 17.5px;
         }
-
     </style>
+
+    
+    
+    
+    
+    
+    
+
+    
+    <title>Posts</title>
+    <meta name="description" content="">
+    <meta name="keywords" content=''>
+
+    <meta property="og:url" content="https://qjwh.github.io/posts/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Posts">
+    <meta property="og:description" content="">
+    <meta property="og:image" content="https://qjwh.github.io/">
+    <meta property="og:image:secure_url" content="https://qjwh.github.io/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Posts">
+    <meta name="twitter:description" content="">
+    <meta property="twitter:domain" content="https://qjwh.github.io/posts/">
+    <meta property="twitter:url" content="https://qjwh.github.io/posts/">
+    <meta name="twitter:image" content="https://qjwh.github.io/">
+
+    
+    <link rel="canonical" href="https://qjwh.github.io/posts/">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/normalize.min.css" media="print">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/main.min.css">
+
+    
+    <link id="dark-theme" rel="stylesheet" href="/css/dark.min.css">
+
+    
+    <script src="/js/bundle.min.ad84dd09e60165f836ea08a26f86608c070e127d21ac6ab168c87da076554d87.js" integrity="sha256-rYTdCeYBZfg26giib4ZgjAcOEn0hrGqxaMh9oHZVTYc="></script>
+
+    
+    
+        <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          // customised options
+          // ? auto-render specific keys, e.g.:
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false},
+          ],
+          // ? rendering keys, e.g.:
+          throwOnError : false
+        });
+      });
+    </script>
+    
     <style>
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --theme: rgb(29, 30, 32);
-                --entry: rgb(46, 46, 51);
-                --primary: rgb(218, 218, 219);
-                --secondary: rgb(155, 156, 157);
-                --tertiary: rgb(65, 66, 68);
-                --content: rgb(196, 196, 197);
-                --code-block-bg: rgb(46, 46, 51);
-                --code-bg: rgb(55, 56, 62);
-                --border: rgb(51, 51, 51);
-            }
-
-            .list {
-                background: var(--theme);
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-track {
-                background: 0 0;
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-thumb {
-                border-color: var(--theme);
-            }
+        @font-face { 
+            font-family: 'Ubuntu';
+            src: url('/UbuntuB.ttf');
         }
-
+        body {
+            // font-family: 'Ubuntu', '仿宋';
+            font-family: 'Ubuntu';
+        }
     </style>
-</noscript><script src="https://unpkg.com/feather-icons"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"></script>
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    renderMathInElement(document.body, {
-      
-      
-      delimiters: [
-        {left: '$$', right: '$$', display: true},
-        {left: '$', right: '$', display: false},
-      ],
-      
-      throwOnError : false
-    });
-  });
-</script>
-
-<style>
-    @font-face { 
-        font-family: 'Ubuntu';
-        src: url('/UbuntuB.ttf');
-    }
-    body {
-        
-        font-family: 'Ubuntu';
-    }
-</style><meta property="og:url" content="https://qjwh.github.io/posts/">
-  <meta property="og:site_name" content="CXBlog">
-  <meta property="og:title" content="Posts">
-  <meta property="og:locale" content="en">
-  <meta property="og:type" content="website">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Posts">
-<meta name="twitter:description" content="">
-
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position":  1 ,
-      "name": "Posts",
-      "item": "https://qjwh.github.io/posts/"
-    }
-  ]
-}
-</script>
+  
+    
 </head>
+<body>
+        <script>
+            
+            setThemeByUserPref();
+        </script><header class="header">
+    <nav class="header-nav">
 
-<body class="list" id="top">
-<script>
-    if (localStorage.getItem("pref-theme") === "dark") {
-        document.body.classList.add('dark');
-    } else if (localStorage.getItem("pref-theme") === "light") {
-        document.body.classList.remove('dark')
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.body.classList.add('dark');
-    }
+        
 
-</script>
-
-<header class="header">
-    <nav class="nav">
-        <div class="logo">
-            <a href="https://qjwh.github.io/" accesskey="h" title="CXBlog (Alt + H)">CXBlog</a>
-            <div class="logo-switches">
-                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
-                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
-                </button>
-            </div>
+        <div class="nav-title">
+            <a class="nav-brand" href="https://qjwh.github.io/">CXBlog</a>
         </div>
-        <ul id="menu">
-            <li>
-                <a href="https://qjwh.github.io/posts/" title="文章">
-                    <span class="active">文章</span>
+
+        <div class="nav-links">
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/" aria-label="home" >      <i data-feather="home"></i>
+      <script>
+        feather.replace();
+      </script>
+       首页
+      </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/posts" aria-label="posts" >      <i data-feather="book"></i>
+      <script>
+        feather.replace();
+      </script>
+       文章
+      </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/tags" aria-label="tags" >      <i data-feather="tag"></i>
+      <script>
+        feather.replace();
+      </script>
+       标签
+      </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/about" aria-label="about" >      <i data-feather="info"></i>
+      <script>
+        feather.replace();
+      </script>
+       关于
+      </a>
+            </div>
+            
+
+            <span class="nav-icons-divider"></span>
+            <div class="nav-link dark-theme-toggle">
+                <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                <a aria-hidden="true" role="switch">
+                    <span class="theme-toggle-icon" data-feather="moon"></span>
                 </a>
-            </li>
-            <li>
-                <a href="https://qjwh.github.io/archives/" title="列表">
-                    <span>列表</span>
+            </div>
+
+            <div class="nav-link" id="hamburger-menu-toggle">
+                <span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
+                <a aria-checked="false" aria-labelledby="hamburger-menu-toggle" id="hamburger-menu-toggle-target" role="switch">
+                    <span data-feather="menu"></span>
                 </a>
-            </li>
-            <li>
-                <a href="https://qjwh.github.io/tags/" title="标签">
-                    <span>标签</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://qjwh.github.io/search/" title="搜索">
-                    <span>搜索</span>
-                </a>
-            </li>
-        </ul>
+            </div>
+
+            
+            <ul class="nav-hamburger-list visibility-hidden">
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/" >      <i data-feather="home"></i>
+      <script>
+        feather.replace();
+      </script>
+       首页
+      </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/posts" >      <i data-feather="book"></i>
+      <script>
+        feather.replace();
+      </script>
+       文章
+      </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/tags" >      <i data-feather="tag"></i>
+      <script>
+        feather.replace();
+      </script>
+       标签
+      </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/about" >      <i data-feather="info"></i>
+      <script>
+        feather.replace();
+      </script>
+       关于
+      </a>
+                </li>
+                
+                <li class="nav-item dark-theme-toggle">
+                    <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                    <a role="switch">
+                        <span class="theme-toggle-icon" data-feather="moon"></span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
     </nav>
 </header>
-<main class="main"> 
-<header class="page-header">
-  <h1>
-    Posts
-  </h1>
-</header>
+<main id="content">
+    <div class="container list-posts">
 
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">【村新晚报】2025W03
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>重庆集训有感 主线：重庆集训 截止今天重庆的8天集训已经过去了6天了，是时候说说自己的感受了。
-只能说这次的集训内容很多。
-集训安排是每天上午（8:00~12:00）、下午（14:00~17:30）有安排，我还会跟同一学校的大佬们在晚上去上晚自习（19:30~22:30）。
-事实上这次集训压力挺大的，集训必须要有效果，而且还要做作业（显然做不完），等等的。
-副线：休息 所以我有时候会抽出时间来休息，这就是在集训期间还在微信上发消息的原因，不然这压力真的吃不消，这是自保护。
-比如说炒饭小测验就是这段时间知道的，每天都会登上去看看。
-另外在中午（12:00~14:00）、傍晚（17:30~19:30）、晚上（19:30~22:30）是无管理时间，所以这段时间发消息是正常的，其他时间发消息往往是在休息。
-副线：行程 只说去程，G2241。
-我们订的是第一排的位置，感觉第一排的桌子比其他的桌子更小（？）。
-这回终于是把去年去重庆的大行李箱带上了。
-本来计划在路上做作业的，结果没时间，全在调代码。
-到了八维空间（重庆）之后百度导航就崩了，为了找火车站附近的一个酒店百度导航甚至让我穿墙……
-副线：酒店 这次我们住的是全季酒店。
-这算是一个比较有名的酒店了。
-感觉总体设施还行，有用来送东西的机器人（还能远程操控电梯），在每个房间还有个AI（虽然没用过）。
-在桌上有个折叠式电源（就是默认是和桌子水平的，按一下才出来的那种），10A我能理解，标个250V就不能理解了。
-洗手、洗澡的时候热水来得很快，基本上2s到达。刷牙的时候用来刺开牙膏口覆盖物的东西的刺比很多酒店要锋利所以很容易刺开。
-如果让我说缺点，大概就是有些房间会有味（这是我妈说的），所以我们一连换了一堆房间：（按时间顺序）
-3202 3207 3239 3502（现在） 不要问为啥楼层这么高，酒店大堂在36F，客房32F~35F。
-其他的内容之后会补充。
-我们组为什么叫“珠江三角洲”？ 这个词是我在遍历全国江河的时候偶然发现的，这五个字分别对应我们组的一个人：
-珠：朱熠辰，不解释 江：我，不解释 三：高煜涵，因为铝是&#43;3价的（by 陈王喆） 角：陈王喆，吉吉玉足 洲：王若凡，不解释 这个称呼会用在我的很多文章中，若无特殊说明，“珠江三角洲”都是指的我们组。
-关于各种“标准评分公式” 标准距离公式（SDF，Standard Distance Formula） 该公式原创于2024年10月。
-本公式专门为了2024年11月18日（不含）以前的网格形座位而作。
-对于两个人，在按这个公式计算的时候，需要将两人的横向距离不变，纵向距离乘 $2$，之后按照欧几里得距离（即直线距离）公式计算。
-比如一个人A在 $2$ 排 $4$ 列，一个人B在 $4$ 排 $5$ 列，就是这样：
-1 2 3 4 51 2 A 3 4 B 那么他们的横向距离就是 $1$，纵向距离就是 $2$，但需要乘 $2$，所以就是 $4$。
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-02-10 22:30:00 +0800 CST'>February 10, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 【村新晚报】2025W03" href="https://qjwh.github.io/posts/cxep/2025w03/"></a>
-</article>
+    <h1 class="list-title">Posts</h1>
 
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">【村新晚报】2025W02
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>CBS 12.2版本即将于下学期发布！看看有哪些更新 在下个学期将会正式上线对于女生的玩梗保护（男生在之前的版本中就已经有了），目前已经验证了刘思源能够启用玩梗保护，对周馨姌的玩梗保护则正在启用中。
-同时将会对活跃好友的数据库进行重点维护，以防遗忘或混淆等问题。
-从12.2版本起，将会正式执行 $10 \sim 30$ 分钟检查言论的程序，每过一段时间我将会对所有与活跃好友的交流记录进行审查以防出现不合理言论。
-下学期将会表演音乐课节目？BPO：目前未定具体歌曲 在下学期的第二节音乐课我将会表演节目，但截至目前，我对于演唱歌曲仍然在决定中。
-该问题的结果可能需要等到开学后才能决定，请耐心等待之后的村新晚报给您回答。
-翻译服务关停？BPO：属实，没有受益者了 在wfb也装了插件后，我已经确认的没有任何人会看我的翻译了。
-所以在2025年2月9日，我正式决定关停翻译服务。
-从此之后，无论是什么比赛，翻译图片都不会发到QQ群内，若有需要请@我后我才会发。
-</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-02-09 22:30:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 【村新晚报】2025W02" href="https://qjwh.github.io/posts/cxep/2025w02/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">【娱乐】炒饭每日小测验食用指南
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>网址
-每天北京时间0点整会更新所有测验。
-这里只说部分，其他的自行摸索。
-猜城/猜城3D/猜国/猜旗/天眼/乡音/城景 线索 会给你关于这个行政区/国家的信息（如果是猜旗则随着你的猜测会逐步揭开）。
-你有 $6$ 次机会去猜，输入方式是类似于查找然后点击的方式（可以自己试试就知道是啥意思了）。
-判题 每次猜完后会告诉你答案在你猜的答案的（大致）哪个方位（八方向），以及距离是多少。
-天眼不会告诉你方位，只会告诉你距离，所以非常难猜，没有足够实力不要去挑战。
-不用管后面的百分比，这个是接近程度，按照距离除以一个很大的数去计算。
-一旦猜对则游戏结束。
-填省/填国/填歌 线索 给你一个表格，表头有限制条件。
-判题 需要在表格内每一个方格填入数据库内同时满足行、列表头上的条件的元素。
-尝试机会有限，看最上面的生命值。
-填完则游戏结束。
-猜Word 线索 跟Wordle一模一样。
-判题 跟阴阳小游戏很像，但不同的是可以告诉你每个位置是匹配还是错位。
-匹配显示为绿色，错位则是黄色，没有则是灰色。
-歌词/诗文 线索 一开始所有格子都是黑色的状态。
-你有无限次机会，每次可以输入一个字，然后这个字在这首歌（包括歌名、歌手、歌词）或诗（包括诗名、作者、内容）内出现的所有位置都会揭开。
-判题 如果猜的字没有出现，则会提示“未出现”并将该字以红色背景显示在最底下。
-如果猜过，则会提示“猜过”并不执行任何操作。
-将歌名或诗名完全揭开即可。
-连句 规则 给你一个表格，你要在里面找到固定数量（可以看最底下）的诗句或者歌词。
-可以通过八方向的一条链表示该诗句，连接的时候可以交叉，可以自己玩一下。
-每个字只能使用一次。
-判题 尝试机会有限，看最上面的生命值。
-如果连句成功则会标记为绿色，并不能再选。
-全部为绿色则游戏结束。
-</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-02-09 19:38:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 【娱乐】炒饭每日小测验食用指南" href="https://qjwh.github.io/posts/play/xiaoce_fun_daily/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">【娱乐】交流必备 florr中那些特殊的简写或别称
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>更新中……
-稀有度 Common：绿 Unusual：un/黄 Rare：蓝 Epic：紫 Legendary：l/红 Mythic：m/青 Ultra：u/ul/粉 Super：s/书青 合成 合成Mythic：合青 合成Ultra：合粉/河粉 合成Super：合苏（su） 合成Ultra并失败：冒青烟 合成Super并失败：冒粉烟 用x个花瓣合成并成功：x=1（如5=1） 用x个花瓣合成并失败：-数字（如-2，但通常此处x=5） 花瓣 默认可以叫花瓣的英文名和大家普遍公认的中文名。
-Ant Egg：agg/egg Antennae：ante/触 Basil：比勒（一般不叫它罗勒） Beetle Egg：bgg Bone：骨/装 Bubble：泡 Claw：头发（一般不叫他爪子/蟹爪） Dandelion：dande Dice：色（shǎi） Faster：罚 Iris：毒药 Lightning：lāi Magic Eye：me/魔眼 Magnet：mag Mana Orb：orb（拼写式读法） Pincer：品色/拼刺儿 Powder：pow Rice：米 Shovel：铲 Sponge：海 Third Eye：te/三眼 Uranium：uran Wing：羽毛 Yggdrasil：ygg（一般不叫它世界树） Yucca：于夹（一般不叫它丝兰） 生物 Queen Ant：queen Starfish：兴（xìng）禹（yú） 黄色瓢虫：shiny </p>
-  </div>
-  <footer class="entry-footer"><span title='2025-02-09 17:05:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 【娱乐】交流必备 florr中那些特殊的简写或别称" href="https://qjwh.github.io/posts/play/florr_simple_name/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">2-SAT算法
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>前言 2-SAT中的SAT是适定性（Satisfiability）问题的简称，一般形式为 $k$ - 适定性问题，简称 $k$ - SAT，但由于 $k&gt;2$ 时问题为NP完全问题（只有指数级别复杂度的解法，或者多项式级别复杂度的相似解法），而 $k=1$ 时都不用解了 （废话） ，所以下面全部考虑 $k=2$ 的情况。
-定义 2-SAT问题简单来说就是，有 $n$ 个集合，每个集合包含两个元素（集合 $i$ 包含元素 $2i-1$ 和 $2i$，但其实编号是无关紧要的，任意都行），你必须要在每个集合里分别选择刚好一个元素，但某些元素之间可能有矛盾，即这两个元素不能在一种方案里被同时选择，问你是否有解，报告出来，如果有解，输出一种方案（可能不用输出）。
-题目 看上面的定义可能有点难懂，这里举个题目。
-有一场宴会，这场宴会只有 $n$ 对幸运夫妻可以参加，每对夫妻里只能选择刚好一个人去参加这场宴会。
-但部分人之间可能有矛盾，会给出所有有矛盾的两人编号。
-问你，是否可以构造一种合法方案，如果不行，报告无解，否则输出一种方案。
-解法 （下面统一默认要解决的是实际问题，不是定义里的问题）
-定义点、边 我们考虑把夫妻编个名字：
-第一对夫妻：A男、A女 第二对夫妻：B男、B女 第三对夫妻：C男、C女 以此类推 然后，我们考虑建图。
-但这个建图就要用到一点思维了。
-我们不以其他的定义定义点，我们就把一个点当做一个现实。
-比如：
-$1$ 号点代表第一对夫妻是A男参与宴会，$2$ 号点代表A女参与宴会 $3$ 号点代表第二对夫妻是B男参与宴会，$4$ 号点代表B女参与宴会 $5$ 号点代表第三对夫妻是C男参与宴会，$6$ 号点代表C女参与宴会 以此类推 边的定义也很难思考出：
-一条有向边 $u \to v$，代表现实 $u$ 满足了，现实 $v$ 也要满足。 举个例子 所以，如果说A男和B女、C男和A女之间都有矛盾，那么就需要在：
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 2-SAT算法" href="https://qjwh.github.io/posts/aln/2sat/"></a>
-</article>
-<footer class="page-footer">
-  <nav class="pagination">
-    <a class="next" href="https://qjwh.github.io/posts/page/2/">Next&nbsp;&nbsp;»
-    </a>
-  </nav>
-</footer>
-    </main>
     
-<footer class="footer">
-        <span>&copy; 2025 <a href="https://qjwh.github.io/">CXBlog</a></span> · 
+
+    <h2 class="posts-year">2025</h2><div class="post-title">
+     <a href="https://qjwh.github.io/posts/cxep/2025w03/" class="post-link">【村新晚报】2025W03</a>
+     
+     
+     
+     
+
+     
+
+     
+      <div class="flex-break"></div>
+      <span class="post-date">February 10, 2025</span>
+     
+</div>
+<div class="post-title">
+     <a href="https://qjwh.github.io/posts/cxep/2025w02/" class="post-link">【村新晚报】2025W02</a>
+     
+     
+     
+     
+
+     
+
+     
+      <div class="flex-break"></div>
+      <span class="post-date">February 9, 2025</span>
+     
+</div>
+<div class="post-title">
+     <a href="https://qjwh.github.io/posts/play/xiaoce_fun_daily/" class="post-link">【娱乐】炒饭每日小测验食用指南</a>
+     
+     
+     
+     
+
+     
+
+     
+      <div class="flex-break"></div>
+      <span class="post-date">February 9, 2025</span>
+     
+</div>
+<div class="post-title">
+     <a href="https://qjwh.github.io/posts/play/florr_simple_name/" class="post-link">【娱乐】交流必备 florr中那些特殊的简写或别称</a>
+     
+     
+     
+     
+
+     
+
+     
+      <div class="flex-break"></div>
+      <span class="post-date">February 9, 2025</span>
+     
+</div>
+<div class="post-title">
+     <a href="https://qjwh.github.io/posts/aln/manacher/" class="post-link">马拉车算法</a>
+     
+     
+     
+     
+
+     
+
+     
+      <div class="flex-break"></div>
+      <span class="post-date">February 9, 2025</span>
+     
+</div>
+<div class="post-title">
+     <a href="https://qjwh.github.io/posts/aln/orderandpr/" class="post-link">阶和原根</a>
+     
+     
+     
+     
+
+     
+
+     
+      <div class="flex-break"></div>
+      <span class="post-date">February 9, 2025</span>
+     
+</div>
+<div class="post-title">
+     <a href="https://qjwh.github.io/posts/aln/hanglieshi/" class="post-link">行列式</a>
+     
+     
+     
+     
+
+     
+
+     
+      <div class="flex-break"></div>
+      <span class="post-date">February 9, 2025</span>
+     
+</div>
+<div class="post-title">
+     <a href="https://qjwh.github.io/posts/aln/modui/" class="post-link">莫队算法</a>
+     
+     
+     
+     
+
+     
+
+     
+      <div class="flex-break"></div>
+      <span class="post-date">February 9, 2025</span>
+     
+</div>
+<div class="post-title">
+     <a href="https://qjwh.github.io/posts/aln/flow/" class="post-link">网络流</a>
+     
+     
+     
+     
+
+     
+
+     
+      <div class="flex-break"></div>
+      <span class="post-date">February 9, 2025</span>
+     
+</div>
+<div class="post-title">
+     <a href="https://qjwh.github.io/posts/aln/c/" class="post-link">组合数学（待补充）</a>
+     
+     
+     
+     
+
+     
+
+     
+      <div class="flex-break"></div>
+      <span class="post-date">February 9, 2025</span>
+     
+</div>
+<div class="post-title">
+     <a href="https://qjwh.github.io/posts/aln/similargcd/" class="post-link">类欧几里得算法</a>
+     
+     
+     
+     
+
+     
+
+     
+      <div class="flex-break"></div>
+      <span class="post-date">February 9, 2025</span>
+     
+</div>
+<div class="post-title">
+     <a href="https://qjwh.github.io/posts/aln/genrandomnumber/" class="post-link">生成随机数（未完工）</a>
+     
+     
+     
+     
+
+     
+
+     
+      <div class="flex-break"></div>
+      <span class="post-date">February 9, 2025</span>
+     
+</div>
+<div class="post-title">
+     <a href="https://qjwh.github.io/posts/aln/dfz/" class="post-link">点分治</a>
+     
+     
+     
+     
+
+     
+
+     
+      <div class="flex-break"></div>
+      <span class="post-date">February 9, 2025</span>
+     
+</div>
+<div class="post-title">
+     <a href="https://qjwh.github.io/posts/aln/eulerfunc/" class="post-link">欧拉函数</a>
+     
+     
+     
+     
+
+     
+
+     
+      <div class="flex-break"></div>
+      <span class="post-date">February 9, 2025</span>
+     
+</div>
+<div class="post-title">
+     <a href="https://qjwh.github.io/posts/aln/treechaindivision/" class="post-link">树链剖分</a>
+     
+     
+     
+     
+
+     
+
+     
+      <div class="flex-break"></div>
+      <span class="post-date">February 9, 2025</span>
+     
+</div>
+<div class="post-title">
+     <a href="https://qjwh.github.io/posts/aln/slopeopm/" class="post-link">斜率优化</a>
+     
+     
+     
+     
+
+     
+
+     
+      <div class="flex-break"></div>
+      <span class="post-date">February 9, 2025</span>
+     
+</div>
+<div class="post-title">
+     <a href="https://qjwh.github.io/posts/aln/divisionblock/" class="post-link">整除分块</a>
+     
+     
+     
+     
+
+     
+
+     
+      <div class="flex-break"></div>
+      <span class="post-date">February 9, 2025</span>
+     
+</div>
+<div class="post-title">
+     <a href="https://qjwh.github.io/posts/aln/exbinarysearch/" class="post-link">整体二分</a>
+     
+     
+     
+     
+
+     
+
+     
+      <div class="flex-break"></div>
+      <span class="post-date">February 9, 2025</span>
+     
+</div>
+<div class="post-title">
+     <a href="https://qjwh.github.io/posts/aln/balancedtree/" class="post-link">平衡树</a>
+     
+     
+     
+     
+
+     
+
+     
+      <div class="flex-break"></div>
+      <span class="post-date">February 9, 2025</span>
+     
+</div>
+<div class="post-title">
+     <a href="https://qjwh.github.io/posts/aln/kirchhoffmatrix/" class="post-link">基尔霍夫矩阵</a>
+     
+     
+     
+     
+
+     
+
+     
+      <div class="flex-break"></div>
+      <span class="post-date">February 9, 2025</span>
+     
+</div>
+<div class="post-title">
+     <a href="https://qjwh.github.io/posts/aln/quadrangleinequality/" class="post-link">四边形不等式</a>
+     
+     
+     
+     
+
+     
+
+     
+      <div class="flex-break"></div>
+      <span class="post-date">February 9, 2025</span>
+     
+</div>
+<div class="post-title">
+     <a href="https://qjwh.github.io/posts/aln/modsp/" class="post-link">同余最短路</a>
+     
+     
+     
+     
+
+     
+
+     
+      <div class="flex-break"></div>
+      <span class="post-date">February 9, 2025</span>
+     
+</div>
+<div class="post-title">
+     <a href="https://qjwh.github.io/posts/aln/games/" class="post-link">博弈论三种扩展题型</a>
+     
+     
+     
+     
+
+     
+
+     
+      <div class="flex-break"></div>
+      <span class="post-date">February 9, 2025</span>
+     
+</div>
+<div class="post-title">
+     <a href="https://qjwh.github.io/posts/aln/judgetopounique/" class="post-link">判断拓扑序是否唯一</a>
+     
+     
+     
+     
+
+     
+
+     
+      <div class="flex-break"></div>
+      <span class="post-date">February 9, 2025</span>
+     
+</div>
+<div class="post-title">
+     <a href="https://qjwh.github.io/posts/aln/juecedandiaoxing/" class="post-link">决策单调性</a>
+     
+     
+     
+     
+
+     
+
+     
+      <div class="flex-break"></div>
+      <span class="post-date">February 9, 2025</span>
+     
+</div>
+<div class="post-title">
+     <a href="https://qjwh.github.io/posts/aln/crt/" class="post-link">中国剩余定理</a>
+     
+     
+     
+     
+
+     
+
+     
+      <div class="flex-break"></div>
+      <span class="post-date">February 9, 2025</span>
+     
+</div>
+<div class="post-title">
+     <a href="https://qjwh.github.io/posts/aln/quadraticequation/" class="post-link">一元二次方程解法（未完工）</a>
+     
+     
+     
+     
+
+     
+
+     
+      <div class="flex-break"></div>
+      <span class="post-date">February 9, 2025</span>
+     
+</div>
+<div class="post-title">
+     <a href="https://qjwh.github.io/posts/aln/animportantgrammer/" class="post-link">一个非常重要的语法点</a>
+     
+     
+     
+     
+
+     
+
+     
+      <div class="flex-break"></div>
+      <span class="post-date">February 9, 2025</span>
+     
+</div>
+<div class="post-title">
+     <a href="https://qjwh.github.io/posts/aln/wqs/" class="post-link">wqs二分</a>
+     
+     
+     
+     
+
+     
+
+     
+      <div class="flex-break"></div>
+      <span class="post-date">February 9, 2025</span>
+     
+</div>
+<div class="post-title">
+     <a href="https://qjwh.github.io/posts/aln/nthelement/" class="post-link">nth_element（未完工）</a>
+     
+     
+     
+     
+
+     
+
+     
+      <div class="flex-break"></div>
+      <span class="post-date">February 9, 2025</span>
+     
+</div>
+<div class="post-title">
+     <a href="https://qjwh.github.io/posts/aln/lucas/" class="post-link">Lucas定理</a>
+     
+     
+     
+     
+
+     
+
+     
+      <div class="flex-break"></div>
+      <span class="post-date">February 9, 2025</span>
+     
+</div>
+<div class="post-title">
+     <a href="https://qjwh.github.io/posts/aln/kruskalcgs/" class="post-link">Kruskal重构树</a>
+     
+     
+     
+     
+
+     
+
+     
+      <div class="flex-break"></div>
+      <span class="post-date">February 9, 2025</span>
+     
+</div>
+<div class="post-title">
+     <a href="https://qjwh.github.io/posts/aln/cdq/" class="post-link">CDQ分治</a>
+     
+     
+     
+     
+
+     
+
+     
+      <div class="flex-break"></div>
+      <span class="post-date">February 9, 2025</span>
+     
+</div>
+<div class="post-title">
+     <a href="https://qjwh.github.io/posts/aln/bsgs/" class="post-link">BSGS算法</a>
+     
+     
+     
+     
+
+     
+
+     
+      <div class="flex-break"></div>
+      <span class="post-date">February 9, 2025</span>
+     
+</div>
+<div class="post-title">
+     <a href="https://qjwh.github.io/posts/aln/2sat/" class="post-link">2-SAT算法</a>
+     
+     
+     
+     
+
+     
+
+     
+      <div class="flex-break"></div>
+      <span class="post-date">February 9, 2025</span>
+     
+</div>
+<div class="post-title">
+     <a href="https://qjwh.github.io/posts/plb/plb06/" class="post-link">【漂流本电子稿】06 - 友谊的旅途（未完工）</a>
+     
+     
+     
+     
+
+     
+
+     
+      <div class="flex-break"></div>
+      <span class="post-date">February 9, 2025</span>
+     
+</div>
+<div class="post-title">
+     <a href="https://qjwh.github.io/posts/plb/plb05/" class="post-link">【漂流本电子稿】05 - 个人自传（内容缺失）</a>
+     
+     
+     
+     
+
+     
+
+     
+      <div class="flex-break"></div>
+      <span class="post-date">February 9, 2025</span>
+     
+</div>
+<div class="post-title">
+     <a href="https://qjwh.github.io/posts/plb/plb04/" class="post-link">【漂流本电子稿】04 - 离别开出花</a>
+     
+     
+     
+     
+
+     
+
+     
+      <div class="flex-break"></div>
+      <span class="post-date">February 9, 2025</span>
+     
+</div>
+<div class="post-title">
+     <a href="https://qjwh.github.io/posts/plb/plb03/" class="post-link">【漂流本电子稿】03 - 一个组合的相遇与分离</a>
+     
+     
+     
+     
+
+     
+
+     
+      <div class="flex-break"></div>
+      <span class="post-date">February 9, 2025</span>
+     
+</div>
+<div class="post-title">
+     <a href="https://qjwh.github.io/posts/plb/plb02/" class="post-link">【漂流本电子稿】02 - 忆2023暑假</a>
+     
+     
+     
+     
+
+     
+
+     
+      <div class="flex-break"></div>
+      <span class="post-date">February 9, 2025</span>
+     
+</div>
+<div class="post-title">
+     <a href="https://qjwh.github.io/posts/plb/plb01/" class="post-link">【漂流本电子稿】01 - 独立生活之得（内容缺失）</a>
+     
+     
+     
+     
+
+     
+
+     
+      <div class="flex-break"></div>
+      <span class="post-date">February 9, 2025</span>
+     
+</div>
+<div class="post-title">
+     <a href="https://qjwh.github.io/posts/cxep/2025w01/" class="post-link">【村新晚报】2025W01</a>
+     
+     
+     
+     
+
+     
+
+     
+      <div class="flex-break"></div>
+      <span class="post-date">February 8, 2025</span>
+     
+</div>
+<div class="post-title">
+     <a href="https://qjwh.github.io/posts/test/" class="post-link">Hello, world!</a>
+     
+     
+     
+     
+
+     
+
+     
+      <div class="flex-break"></div>
+      <span class="post-date">February 8, 2025</span>
+     
+</div>
+
+    
+
+</div>
+
+
+        </main><footer class="footer">
+    
+    
+
+    
+
+    
+
+    
 
     <span>
-        Powered by
-        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
-        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+        Made with &#10084;&#65039; using <a target="_blank" href="https://github.com/gokarna-theme/gokarna-hugo">Gokarna</a>
     </span>
 </footer>
-<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
-        <path d="M12 6H0l6-6z" />
-    </svg>
-</a>
-
-<script>
-    let menu = document.getElementById('menu')
-    if (menu) {
-        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
-        menu.onscroll = function () {
-            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
-        }
-    }
-
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener("click", function (e) {
-            e.preventDefault();
-            var id = this.getAttribute("href").substr(1);
-            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
-                    behavior: "smooth"
-                });
-            } else {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
-            }
-            if (id === "top") {
-                history.replaceState(null, null, " ");
-            } else {
-                history.pushState(null, null, `#${id}`);
-            }
-        });
-    });
-
-</script>
-<script>
-    var mybutton = document.getElementById("top-link");
-    window.onscroll = function () {
-        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
-            mybutton.style.visibility = "visible";
-            mybutton.style.opacity = "1";
-        } else {
-            mybutton.style.visibility = "hidden";
-            mybutton.style.opacity = "0";
-        }
-    };
-
-</script>
-<script>
-    document.getElementById("theme-toggle").addEventListener("click", () => {
-        if (document.body.className.includes("dark")) {
-            document.body.classList.remove('dark');
-            localStorage.setItem("pref-theme", 'light');
-        } else {
-            document.body.classList.add('dark');
-            localStorage.setItem("pref-theme", 'dark');
-        }
-    })
-
-</script>
 </body>
-
 </html>

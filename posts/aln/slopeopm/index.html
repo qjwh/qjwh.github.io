@@ -1,312 +1,271 @@
 <!DOCTYPE html>
-<html lang="en" dir="auto">
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<head><meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
-<title>斜率优化 | CXBlog</title>
-<meta name="keywords" content="信息学竞赛, 算法学习笔记">
-<meta name="description" content="
-（说是斜率优化，其实和斜率几乎没有关系）
+    <style>
+        :root {
+            --accent-color: #FF4D4D;
+            --font-size: 17.5px;
+        }
+    </style>
+
+    
+    
+    
+    
+    
+    
+
+    
+    <title>斜率优化</title>
+    <meta name="description" content="（说是斜率优化，其实和斜率几乎没有关系）
 （e&hellip;更新后确实有关系）
-其实斜率优化和决策二分栈（队列）很像，下面分几种类型来讲。
-
- 一维斜率优化
-针对形如 $d_i=\min\limits_{j=0}^{i-1} \big( d_j&#43;w(j&#43;1,i) \big)$ 的方程，而且需要满足决策单调性。
-
-此处重新说一下，如果我们发现一个转移点 $x$ 在 $d_i$ 的时候已经比另外一个转移点 $y$ 要更优了（$x&gt;y$），那么转移点 $y$ 在后面（$d_{i&#43;1}$ 及以后）就不可能比转移点 $x$ 要更优了，那么这个DP一定满足决策单调性，而且反过来也一样（见&quot;决策单调性.md&quot;）。
-其实证明是否满足单调性只用看：如果一个决策点 $x$ 如果在 $d_i$ 的转移中已经比决策点 $y$ 要优了，那么 $d_{i&#43;1}$ 中是否仍然满足这个条件。
-证明了满足决策单调性后，就可以开始斜率优化了。
-我们首先要考虑推斜率式：
-
-其实斜率式就是把式子 $d_x&#43;w(x&#43;1,i)&lt;d_y&#43;w(y&#43;1,i)$（$x&gt;y$）不断移项、变化，直到式子左边只和 $x$、$y$ 有关，右边只和 $i$ 有关为止。
-此时的斜率式一般左边是个分数，而且这个分数还需要把分子和分母的下标对应：
-
-如果斜率式最后是像这样的：
-$\dfrac{d_x-d_y}{v_y-v_x}&gt;-a_i$
-那么就不是个合法的斜率式，需要变成：
-$\dfrac{d_x-d_y}{v_x-v_y}&lt;a_i$
-才是合法的。
-
-注意，这里说的是“合法的”，而不是“正确的”，其实最上方的斜率式也可以使用，就是不能叫“斜率式”了（斜率的公式是 $\dfrac{y_2-y_1}{x_2-x_1}$）。
-设此时的斜率式就是上面说的：
-$\dfrac{d_x-d_y}{v_x-v_y}&lt;a_i$
-那么，我们就定义 $\text{slope}(y,x)=\dfrac{d_x-d_y}{v_x-v_y}$。
-
-有了上面函数，显然如果存在两个转移点 $x$ 和 $y$（$x&gt;y$）在转移到 $d_i$ 的时候满足 $\text{slope}(x,y)&lt;a_i$，那么就说明转移点 $x$ 比转移点 $y$ 更优，转移点 $y$ 在后面就不需要了。
-下面默认推出来的斜率式就是上式，并默认 $a$ 数组单调不降。">
-<meta name="author" content="">
-<link rel="canonical" href="https://qjwh.github.io/posts/aln/slopeopm/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.3b2e5c86d6776f1230a6cc3dbc6bde31467e6a5f6513337e196964b4e3693a57.css" integrity="sha256-Oy5chtZ3bxIwpsw9vGveMUZ&#43;al9lEzN&#43;GWlktONpOlc=" rel="preload stylesheet" as="style">
-<link rel="icon" href="https://qjwh.github.io/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://qjwh.github.io/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://qjwh.github.io/favicon-32x32.png">
-<link rel="apple-touch-icon" href="https://qjwh.github.io/apple-touch-icon.png">
-<link rel="mask-icon" href="https://qjwh.github.io/safari-pinned-tab.svg">
-<meta name="theme-color" content="#2e2e33">
-<meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="https://qjwh.github.io/posts/aln/slopeopm/">
-<noscript>
-    <style>
-        #theme-toggle,
-        .top-link {
-            display: none;
-        }
-
-    </style>
-    <style>
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --theme: rgb(29, 30, 32);
-                --entry: rgb(46, 46, 51);
-                --primary: rgb(218, 218, 219);
-                --secondary: rgb(155, 156, 157);
-                --tertiary: rgb(65, 66, 68);
-                --content: rgb(196, 196, 197);
-                --code-block-bg: rgb(46, 46, 51);
-                --code-bg: rgb(55, 56, 62);
-                --border: rgb(51, 51, 51);
-            }
-
-            .list {
-                background: var(--theme);
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-track {
-                background: 0 0;
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-thumb {
-                border-color: var(--theme);
-            }
-        }
-
-    </style>
-</noscript><script src="https://unpkg.com/feather-icons"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"></script>
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    renderMathInElement(document.body, {
-      
-      
-      delimiters: [
-        {left: '$$', right: '$$', display: true},
-        {left: '$', right: '$', display: false},
-      ],
-      
-      throwOnError : false
-    });
-  });
-</script>
-
-<style>
-    @font-face { 
-        font-family: 'Ubuntu';
-        src: url('/UbuntuB.ttf');
-    }
-    body {
-        
-        font-family: 'Ubuntu';
-    }
-</style><meta property="og:url" content="https://qjwh.github.io/posts/aln/slopeopm/">
-  <meta property="og:site_name" content="CXBlog">
-  <meta property="og:title" content="斜率优化">
-  <meta property="og:description" content="（说是斜率优化，其实和斜率几乎没有关系）
-（e…更新后确实有关系）
 其实斜率优化和决策二分栈（队列）很像，下面分几种类型来讲。
 一维斜率优化 针对形如 $d_i=\min\limits_{j=0}^{i-1} \big( d_j&#43;w(j&#43;1,i) \big)$ 的方程，而且需要满足决策单调性。
-此处重新说一下，如果我们发现一个转移点 $x$ 在 $d_i$ 的时候已经比另外一个转移点 $y$ 要更优了（$x&gt;y$），那么转移点 $y$ 在后面（$d_{i&#43;1}$ 及以后）就不可能比转移点 $x$ 要更优了，那么这个DP一定满足决策单调性，而且反过来也一样（见&#34;决策单调性.md&#34;）。
-其实证明是否满足单调性只用看：如果一个决策点 $x$ 如果在 $d_i$ 的转移中已经比决策点 $y$ 要优了，那么 $d_{i&#43;1}$ 中是否仍然满足这个条件。
-证明了满足决策单调性后，就可以开始斜率优化了。
-我们首先要考虑推斜率式：
-其实斜率式就是把式子 $d_x&#43;w(x&#43;1,i)&lt;d_y&#43;w(y&#43;1,i)$（$x&gt;y$）不断移项、变化，直到式子左边只和 $x$、$y$ 有关，右边只和 $i$ 有关为止。
-此时的斜率式一般左边是个分数，而且这个分数还需要把分子和分母的下标对应：
-如果斜率式最后是像这样的：
-$\dfrac{d_x-d_y}{v_y-v_x}&gt;-a_i$
-那么就不是个合法的斜率式，需要变成：
-$\dfrac{d_x-d_y}{v_x-v_y}&lt;a_i$
-才是合法的。
-注意，这里说的是“合法的”，而不是“正确的”，其实最上方的斜率式也可以使用，就是不能叫“斜率式”了（斜率的公式是 $\dfrac{y_2-y_1}{x_2-x_1}$）。
-设此时的斜率式就是上面说的：
-$\dfrac{d_x-d_y}{v_x-v_y}&lt;a_i$
-那么，我们就定义 $\text{slope}(y,x)=\dfrac{d_x-d_y}{v_x-v_y}$。
-有了上面函数，显然如果存在两个转移点 $x$ 和 $y$（$x&gt;y$）在转移到 $d_i$ 的时候满足 $\text{slope}(x,y)&lt;a_i$，那么就说明转移点 $x$ 比转移点 $y$ 更优，转移点 $y$ 在后面就不需要了。
-下面默认推出来的斜率式就是上式，并默认 $a$ 数组单调不降。">
-  <meta property="og:locale" content="en">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="posts">
-    <meta property="article:published_time" content="2025-02-09T15:28:00+08:00">
-    <meta property="article:modified_time" content="2025-02-09T15:28:00+08:00">
-    <meta property="article:tag" content="信息学竞赛">
-    <meta property="article:tag" content="算法学习笔记">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="斜率优化">
-<meta name="twitter:description" content="
-（说是斜率优化，其实和斜率几乎没有关系）
+此处重新 …">
+    <meta name="keywords" content='信息学竞赛, 算法学习笔记'>
+
+    <meta property="og:url" content="https://qjwh.github.io/posts/aln/slopeopm/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="斜率优化">
+    <meta property="og:description" content="（说是斜率优化，其实和斜率几乎没有关系）
 （e&hellip;更新后确实有关系）
 其实斜率优化和决策二分栈（队列）很像，下面分几种类型来讲。
+一维斜率优化 针对形如 $d_i=\min\limits_{j=0}^{i-1} \big( d_j&#43;w(j&#43;1,i) \big)$ 的方程，而且需要满足决策单调性。
+此处重新 …">
+    <meta property="og:image" content="https://qjwh.github.io/">
+    <meta property="og:image:secure_url" content="https://qjwh.github.io/">
 
- 一维斜率优化
-针对形如 $d_i=\min\limits_{j=0}^{i-1} \big( d_j&#43;w(j&#43;1,i) \big)$ 的方程，而且需要满足决策单调性。
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="斜率优化">
+    <meta name="twitter:description" content="（说是斜率优化，其实和斜率几乎没有关系）
+（e&hellip;更新后确实有关系）
+其实斜率优化和决策二分栈（队列）很像，下面分几种类型来讲。
+一维斜率优化 针对形如 $d_i=\min\limits_{j=0}^{i-1} \big( d_j&#43;w(j&#43;1,i) \big)$ 的方程，而且需要满足决策单调性。
+此处重新 …">
+    <meta property="twitter:domain" content="https://qjwh.github.io/posts/aln/slopeopm/">
+    <meta property="twitter:url" content="https://qjwh.github.io/posts/aln/slopeopm/">
+    <meta name="twitter:image" content="https://qjwh.github.io/">
 
-此处重新说一下，如果我们发现一个转移点 $x$ 在 $d_i$ 的时候已经比另外一个转移点 $y$ 要更优了（$x&gt;y$），那么转移点 $y$ 在后面（$d_{i&#43;1}$ 及以后）就不可能比转移点 $x$ 要更优了，那么这个DP一定满足决策单调性，而且反过来也一样（见&quot;决策单调性.md&quot;）。
-其实证明是否满足单调性只用看：如果一个决策点 $x$ 如果在 $d_i$ 的转移中已经比决策点 $y$ 要优了，那么 $d_{i&#43;1}$ 中是否仍然满足这个条件。
-证明了满足决策单调性后，就可以开始斜率优化了。
-我们首先要考虑推斜率式：
+    
+    <link rel="canonical" href="https://qjwh.github.io/posts/aln/slopeopm/">
 
-其实斜率式就是把式子 $d_x&#43;w(x&#43;1,i)&lt;d_y&#43;w(y&#43;1,i)$（$x&gt;y$）不断移项、变化，直到式子左边只和 $x$、$y$ 有关，右边只和 $i$ 有关为止。
-此时的斜率式一般左边是个分数，而且这个分数还需要把分子和分母的下标对应：
+    
+    <link rel="stylesheet" type="text/css" href="/css/normalize.min.css" media="print">
 
-如果斜率式最后是像这样的：
-$\dfrac{d_x-d_y}{v_y-v_x}&gt;-a_i$
-那么就不是个合法的斜率式，需要变成：
-$\dfrac{d_x-d_y}{v_x-v_y}&lt;a_i$
-才是合法的。
+    
+    <link rel="stylesheet" type="text/css" href="/css/main.min.css">
 
-注意，这里说的是“合法的”，而不是“正确的”，其实最上方的斜率式也可以使用，就是不能叫“斜率式”了（斜率的公式是 $\dfrac{y_2-y_1}{x_2-x_1}$）。
-设此时的斜率式就是上面说的：
-$\dfrac{d_x-d_y}{v_x-v_y}&lt;a_i$
-那么，我们就定义 $\text{slope}(y,x)=\dfrac{d_x-d_y}{v_x-v_y}$。
+    
+    <link id="dark-theme" rel="stylesheet" href="/css/dark.min.css">
 
-有了上面函数，显然如果存在两个转移点 $x$ 和 $y$（$x&gt;y$）在转移到 $d_i$ 的时候满足 $\text{slope}(x,y)&lt;a_i$，那么就说明转移点 $x$ 比转移点 $y$ 更优，转移点 $y$ 在后面就不需要了。
-下面默认推出来的斜率式就是上式，并默认 $a$ 数组单调不降。">
+    
+    <script src="/js/bundle.min.ad84dd09e60165f836ea08a26f86608c070e127d21ac6ab168c87da076554d87.js" integrity="sha256-rYTdCeYBZfg26giib4ZgjAcOEn0hrGqxaMh9oHZVTYc="></script>
 
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position":  1 ,
-      "name": "Posts",
-      "item": "https://qjwh.github.io/posts/"
-    }, 
-    {
-      "@type": "ListItem",
-      "position":  2 ,
-      "name": "斜率优化",
-      "item": "https://qjwh.github.io/posts/aln/slopeopm/"
-    }
-  ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "斜率优化",
-  "name": "斜率优化",
-  "description": "\r（说是斜率优化，其实和斜率几乎没有关系）\n（e\u0026hellip;更新后确实有关系）\n其实斜率优化和决策二分栈（队列）很像，下面分几种类型来讲。\n一维斜率优化 针对形如 $d_i=\\min\\limits_{j=0}^{i-1} \\big( d_j+w(j+1,i) \\big)$ 的方程，而且需要满足决策单调性。\n此处重新说一下，如果我们发现一个转移点 $x$ 在 $d_i$ 的时候已经比另外一个转移点 $y$ 要更优了（$x\u0026gt;y$），那么转移点 $y$ 在后面（$d_{i+1}$ 及以后）就不可能比转移点 $x$ 要更优了，那么这个DP一定满足决策单调性，而且反过来也一样（见\u0026quot;决策单调性.md\u0026quot;）。\n其实证明是否满足单调性只用看：如果一个决策点 $x$ 如果在 $d_i$ 的转移中已经比决策点 $y$ 要优了，那么 $d_{i+1}$ 中是否仍然满足这个条件。\n证明了满足决策单调性后，就可以开始斜率优化了。\n我们首先要考虑推斜率式：\n其实斜率式就是把式子 $d_x+w(x+1,i)\u0026lt;d_y+w(y+1,i)$（$x\u0026gt;y$）不断移项、变化，直到式子左边只和 $x$、$y$ 有关，右边只和 $i$ 有关为止。\n此时的斜率式一般左边是个分数，而且这个分数还需要把分子和分母的下标对应：\n如果斜率式最后是像这样的：\n$\\dfrac{d_x-d_y}{v_y-v_x}\u0026gt;-a_i$\n那么就不是个合法的斜率式，需要变成：\n$\\dfrac{d_x-d_y}{v_x-v_y}\u0026lt;a_i$\n才是合法的。\n注意，这里说的是“合法的”，而不是“正确的”，其实最上方的斜率式也可以使用，就是不能叫“斜率式”了（斜率的公式是 $\\dfrac{y_2-y_1}{x_2-x_1}$）。\n设此时的斜率式就是上面说的：\n$\\dfrac{d_x-d_y}{v_x-v_y}\u0026lt;a_i$\n那么，我们就定义 $\\text{slope}(y,x)=\\dfrac{d_x-d_y}{v_x-v_y}$。\n有了上面函数，显然如果存在两个转移点 $x$ 和 $y$（$x\u0026gt;y$）在转移到 $d_i$ 的时候满足 $\\text{slope}(x,y)\u0026lt;a_i$，那么就说明转移点 $x$ 比转移点 $y$ 更优，转移点 $y$ 在后面就不需要了。\n下面默认推出来的斜率式就是上式，并默认 $a$ 数组单调不降。\n",
-  "keywords": [
-    "信息学竞赛", "算法学习笔记"
-  ],
-  "articleBody": "\r（说是斜率优化，其实和斜率几乎没有关系）\n（e…更新后确实有关系）\n其实斜率优化和决策二分栈（队列）很像，下面分几种类型来讲。\n一维斜率优化 针对形如 $d_i=\\min\\limits_{j=0}^{i-1} \\big( d_j+w(j+1,i) \\big)$ 的方程，而且需要满足决策单调性。\n此处重新说一下，如果我们发现一个转移点 $x$ 在 $d_i$ 的时候已经比另外一个转移点 $y$ 要更优了（$x\u003ey$），那么转移点 $y$ 在后面（$d_{i+1}$ 及以后）就不可能比转移点 $x$ 要更优了，那么这个DP一定满足决策单调性，而且反过来也一样（见\"决策单调性.md\"）。\n其实证明是否满足单调性只用看：如果一个决策点 $x$ 如果在 $d_i$ 的转移中已经比决策点 $y$ 要优了，那么 $d_{i+1}$ 中是否仍然满足这个条件。\n证明了满足决策单调性后，就可以开始斜率优化了。\n我们首先要考虑推斜率式：\n其实斜率式就是把式子 $d_x+w(x+1,i)y$）不断移项、变化，直到式子左边只和 $x$、$y$ 有关，右边只和 $i$ 有关为止。\n此时的斜率式一般左边是个分数，而且这个分数还需要把分子和分母的下标对应：\n如果斜率式最后是像这样的：\n$\\dfrac{d_x-d_y}{v_y-v_x}\u003e-a_i$\n那么就不是个合法的斜率式，需要变成：\n$\\dfrac{d_x-d_y}{v_x-v_y}",
-  "wordCount" : "340",
-  "inLanguage": "en",
-  "datePublished": "2025-02-09T15:28:00+08:00",
-  "dateModified": "2025-02-09T15:28:00+08:00",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://qjwh.github.io/posts/aln/slopeopm/"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "CXBlog",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://qjwh.github.io/favicon.ico"
-    }
-  }
-}
-</script>
+    
+    
+        <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          // customised options
+          // ? auto-render specific keys, e.g.:
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false},
+          ],
+          // ? rendering keys, e.g.:
+          throwOnError : false
+        });
+      });
+    </script>
+    
+    <style>
+        @font-face { 
+            font-family: 'Ubuntu';
+            src: url('/UbuntuB.ttf');
+        }
+        body {
+            // font-family: 'Ubuntu', '仿宋';
+            font-family: 'Ubuntu';
+        }
+    </style>
+  
+    
 </head>
+<body>
+        <script>
+            
+            setThemeByUserPref();
+        </script><header class="header">
+    <nav class="header-nav">
 
-<body class="" id="top">
-<script>
-    if (localStorage.getItem("pref-theme") === "dark") {
-        document.body.classList.add('dark');
-    } else if (localStorage.getItem("pref-theme") === "light") {
-        document.body.classList.remove('dark')
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.body.classList.add('dark');
-    }
+        
 
-</script>
-
-<header class="header">
-    <nav class="nav">
-        <div class="logo">
-            <a href="https://qjwh.github.io/" accesskey="h" title="CXBlog (Alt + H)">CXBlog</a>
-            <div class="logo-switches">
-                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
-                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
-                </button>
-            </div>
+        <div class="nav-title">
+            <a class="nav-brand" href="https://qjwh.github.io/">CXBlog</a>
         </div>
-        <ul id="menu">
-            <li>
-                <a href="https://qjwh.github.io/posts/" title="文章">
-                    <span>文章</span>
+
+        <div class="nav-links">
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/" aria-label="home" >      <i data-feather="home"></i>
+      <script>
+        feather.replace();
+      </script>
+       首页
+      </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/posts" aria-label="posts" >      <i data-feather="book"></i>
+      <script>
+        feather.replace();
+      </script>
+       文章
+      </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/tags" aria-label="tags" >      <i data-feather="tag"></i>
+      <script>
+        feather.replace();
+      </script>
+       标签
+      </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://qjwh.github.io/about" aria-label="about" >      <i data-feather="info"></i>
+      <script>
+        feather.replace();
+      </script>
+       关于
+      </a>
+            </div>
+            
+
+            <span class="nav-icons-divider"></span>
+            <div class="nav-link dark-theme-toggle">
+                <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                <a aria-hidden="true" role="switch">
+                    <span class="theme-toggle-icon" data-feather="moon"></span>
                 </a>
-            </li>
-            <li>
-                <a href="https://qjwh.github.io/archives/" title="列表">
-                    <span>列表</span>
+            </div>
+
+            <div class="nav-link" id="hamburger-menu-toggle">
+                <span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
+                <a aria-checked="false" aria-labelledby="hamburger-menu-toggle" id="hamburger-menu-toggle-target" role="switch">
+                    <span data-feather="menu"></span>
                 </a>
-            </li>
-            <li>
-                <a href="https://qjwh.github.io/tags/" title="标签">
-                    <span>标签</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://qjwh.github.io/search/" title="搜索">
-                    <span>搜索</span>
-                </a>
-            </li>
-        </ul>
+            </div>
+
+            
+            <ul class="nav-hamburger-list visibility-hidden">
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/" >      <i data-feather="home"></i>
+      <script>
+        feather.replace();
+      </script>
+       首页
+      </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/posts" >      <i data-feather="book"></i>
+      <script>
+        feather.replace();
+      </script>
+       文章
+      </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/tags" >      <i data-feather="tag"></i>
+      <script>
+        feather.replace();
+      </script>
+       标签
+      </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://qjwh.github.io/about" >      <i data-feather="info"></i>
+      <script>
+        feather.replace();
+      </script>
+       关于
+      </a>
+                </li>
+                
+                <li class="nav-item dark-theme-toggle">
+                    <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                    <a role="switch">
+                        <span class="theme-toggle-icon" data-feather="moon"></span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
     </nav>
 </header>
-<main class="main">
+<main id="content">
+    <div class="post container">
+    <div class="post-header-section">
+        <h1>斜率优化</h1>
 
-<article class="post-single">
-  <header class="post-header">
-    
-    <h1 class="post-title entry-hint-parent">
-      斜率优化
-    </h1>
-    <div class="post-meta"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span>
+        
 
-</div>
-  </header> 
-  <div class="post-content"><text style="font-family:Noto Sans SC">
+        
+	
+	
+	
+	
+        
+
+	
+
+	
+
+	
+          <small role="doc-subtitle"></small>
+	
+
+	
+          <p class="post-date">
+              
+
+              February 9, 2025
+
+              
+          </p>
+	
+
+        <ul class="post-tags">
+          
+           
+             <li class="post-tag"><a href="https://qjwh.github.io/tags/%E4%BF%A1%E6%81%AF%E5%AD%A6%E7%AB%9E%E8%B5%9B">信息学竞赛</a></li>
+           
+         
+           
+             <li class="post-tag"><a href="https://qjwh.github.io/tags/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0">算法学习笔记</a></li>
+           
+         
+        </ul>
+    </div>
+
+    <div class="post-content">
+        <text style="font-family:Noto Sans SC">
 <p><del>（说是斜率优化，其实和斜率几乎没有关系）</del></p>
 <p><del>（e&hellip;更新后确实有关系）</del></p>
 <p>其实斜率优化和决策二分栈（队列）很像，下面分几种类型来讲。</p>
 <hr>
-<h2 id="text-stylecolorrgb0150136-一维斜率优化"><text style="color:rgb(0,150,136)"> 一维斜率优化<a hidden class="anchor" aria-hidden="true" href="#text-stylecolorrgb0150136-一维斜率优化">#</a></h2>
+<h2 id="text-stylecolorrgb0150136-一维斜率优化"><text style="color:rgb(0,150,136)"> 一维斜率优化</h2>
 <p>针对形如 $d_i=\min\limits_{j=0}^{i-1} \big( d_j+w(j+1,i) \big)$ 的方程，而且需要满足决策单调性。</p>
 <blockquote>
 <p>此处重新说一下，如果我们发现一个转移点 $x$ 在 $d_i$ 的时候已经比另外一个转移点 $y$ 要更优了（$x&gt;y$），那么转移点 $y$ 在后面（$d_{i+1}$ 及以后）就不可能比转移点 $x$ 要更优了，那么这个DP一定满足决策单调性，而且反过来也一样（见&quot;决策单调性.md&quot;）。</p>
@@ -351,12 +310,12 @@ $\dfrac{d_x-d_y}{v_x-v_y}&lt;a_i$
 <li>最后，在队尾加入 $i$。</li>
 </ul>
 <p>（参考代码：<a href="https://actiku.com/record/63b26cc8d369ced64117abc2">M2500</a>、<a href="https://actiku.com/record/63b26df9d369ced64117abf7">M2506</a>）</p>
-<h2 id="text-stylecolorrgb0150136-二维斜率优化"><text style="color:rgb(0,150,136)"> 二维斜率优化<a hidden class="anchor" aria-hidden="true" href="#text-stylecolorrgb0150136-二维斜率优化">#</a></h2>
+<h2 id="text-stylecolorrgb0150136-二维斜率优化"><text style="color:rgb(0,150,136)"> 二维斜率优化</h2>
 <p>其实也差不多，它针对的是形如 $d_{i,j}=\min\limits_{k=0}^{i-1} \big( d_{k,j-1}+w(k+1,i) \big)$ 的转移方程，且满足决策单调性（记 $d_{i,j}$ 的最优转移点为 $f_{i,j}$，那么此处的“决策单调性”就是指的对于所有的 $i$、$j$ 都满足 $f_{i,j} \leq f_{i+1,j}$）。</p>
 <p>实现也差不多，我们直接从小到大枚举 $j$，然后对于所有 $i$ 分别用上述做法转移即可，就是需要改一些细节，但也不多。</p>
 <p>（参考题目：<a href="https://actiku.com/record/63b2a87bd369ced64117b422">M2515</a>）</p>
 <hr>
-<h2 id="text-stylecolorrgb0150136-没有决策单调性的斜率优化upd-on-2316"><text style="color:rgb(0,150,136)"> 没有决策单调性的斜率优化（upd on 23.1.6）<a hidden class="anchor" aria-hidden="true" href="#text-stylecolorrgb0150136-没有决策单调性的斜率优化upd-on-2316">#</a></h2>
+<h2 id="text-stylecolorrgb0150136-没有决策单调性的斜率优化upd-on-2316"><text style="color:rgb(0,150,136)"> 没有决策单调性的斜率优化（upd on 23.1.6）</h2>
 <p>针对形如 $d_i=\max\limits_{j=0}^{i-1} \big( d_j+w(j+1,i) \big)$ 的方程，但不满足决策单调性。</p>
 <p>还是老规矩，我们推导一下斜率式，设推导结果为 $\dfrac{y_j-y_k}{x_j-x_k}&gt;s_i$，并且<strong>要求 $x$ 数组单调不降</strong>，但 $s$ 数组不一定，可能是非常不规则的数组。</p>
 <p>此处可以发现我们变换了一下变量名，其实没有决策单调性的斜率优化我就是用「把一个转移点 $j$ 想成一个二维平面上的坐标 $(x_j,y_j)$」的方法理解的。</p>
@@ -368,18 +327,18 @@ $\dfrac{d_x-d_y}{v_x-v_y}&lt;a_i$
 <blockquote>
 <p>有人对这个过程有疑问，此处解释一下。</p>
 <p>其实这个单调队列里维护的是一个<strong>斜率单调递减的凸包</strong>（不要和数学知识里的“凸包”搞混了，和那个“凸包”没有任何关系；下面的“凸壳”也是指的“凸包”），如下图所示：</p>
-<p><img loading="lazy" src="https://cdn.luogu.com.cn/upload/image_hosting/4o2mun5y.png"></p>
+<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/4o2mun5y.png" alt=""></p>
 <p>在这里，“凸包”其实就是指的如上图的一个“包”住所有点的“拼合线段”（多个线段“拼”起来后的东西在这里称为“拼合线段”）。</p>
 <p>我们考虑新加一个点：（最右上角）</p>
-<p><img loading="lazy" src="https://cdn.luogu.com.cn/upload/image_hosting/c5aj7534.png"></p>
+<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/c5aj7534.png" alt=""></p>
 <p>比较此时队列后两个元素：</p>
-<p><img loading="lazy" src="https://cdn.luogu.com.cn/upload/image_hosting/gjtksma8.png"></p>
+<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/gjtksma8.png" alt=""></p>
 <p>显然两个绿色虚线相比，前者斜率小于后者，所以弹出队尾，继续比较：</p>
-<p><img loading="lazy" src="https://cdn.luogu.com.cn/upload/image_hosting/5gho8xmp.png"></p>
+<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/5gho8xmp.png" alt=""></p>
 <p>还是前者（斜率）小于后者，弹出队尾，继续比较：</p>
-<p><img loading="lazy" src="https://cdn.luogu.com.cn/upload/image_hosting/b2cscdnr.png"></p>
+<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/b2cscdnr.png" alt=""></p>
 <p>终于满足条件了，所以队列最后只剩下这些元素了：</p>
-<p><img loading="lazy" src="https://cdn.luogu.com.cn/upload/image_hosting/d3e6tjo2.png"></p>
+<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/d3e6tjo2.png" alt=""></p>
 <p>自己推一下式子就知道了，其实上面那个斜率式原本的形式是 $y_j-s_i \times x_j&gt;y_k-s_i \times x_k$（即 $w(j+1,i)=y_j-s_i \times x_j$），回顾整个删除过程，显然所有删除的点都不可能比最后留下的三个转移点要更优。</p>
 <p>其他情况可以自己讨论一下，很容易证明。</p></blockquote>
 </li>
@@ -387,14 +346,14 @@ $\dfrac{d_x-d_y}{v_x-v_y}&lt;a_i$
 </ul>
 <p>（参考代码：<a href="https://actiku.com/record/63ba71729c9538ff8927edc7">M2484</a>）</p>
 <hr>
-<h2 id="text-stylecolorrgb0150136-x坐标不满足递增的斜率优化upd-on-23226"><text style="color:rgb(0,150,136)"> X坐标不满足递增的斜率优化（upd on 23.2.26）<a hidden class="anchor" aria-hidden="true" href="#text-stylecolorrgb0150136-x坐标不满足递增的斜率优化upd-on-23226">#</a></h2>
+<h2 id="text-stylecolorrgb0150136-x坐标不满足递增的斜率优化upd-on-23226"><text style="color:rgb(0,150,136)"> X坐标不满足递增的斜率优化（upd on 23.2.26）</h2>
 <p>针对形如 $d_i=\max\limits_{j=0}^{i-1} \big( d_j+w(j+1,i) \big)$ 的方程，但推导后的斜率式中X坐标不满足决策单调性。</p>
 <p>还是老规矩，我们推导一下斜率式，设推导结果为 $\dfrac{y_j-y_k}{x_j-x_k}&gt;s_i$，并且<strong>假设 $x$ 数组（X坐标）并不单调</strong>，但 $s$ 数组不一定，可能是非常不规则的数组。</p>
 <p>（注意，X、Y坐标不一定是一开始就能知道的，可能需要在求出DP值后才可以求出的，但 $s$ 数组必须在一开头就能求出）</p>
-<h3 id="text-stylecolorrgb0150136-初始化"><text style="color:rgb(0,150,136)"> 初始化<a hidden class="anchor" aria-hidden="true" href="#text-stylecolorrgb0150136-初始化">#</a></h3>
+<h3 id="text-stylecolorrgb0150136-初始化"><text style="color:rgb(0,150,136)"> 初始化</h3>
 <p>在这种情况下，我们就要用到CDQ分治了。</p>
 <p>我们直接给 $d$ 数组赋初值，并记录初始每个点的X坐标和Y坐标（还有下标），赋值到一个数组 $q$ 里去，然后把 $q$ 数组按 $s_i$ 从大到小排序。</p>
-<h3 id="text-stylecolorrgb0150136-设计cdq函数"><text style="color:rgb(0,150,136)"> 设计CDQ函数<a hidden class="anchor" aria-hidden="true" href="#text-stylecolorrgb0150136-设计cdq函数">#</a></h3>
+<h3 id="text-stylecolorrgb0150136-设计cdq函数"><text style="color:rgb(0,150,136)"> 设计CDQ函数</h3>
 <p>然后我们考虑设计 $\text{cdq}(l,r)$ 函数。</p>
 <p>首先，如果 $l=r$，那么此时 $d_l$ 的值就知道了，所以我们就用新的 $d_l$ 值重新更新 $q_l$ 的X、Y坐标。</p>
 <p>否则，我们求出 $[l,r]$ 区间的中点 $\text{mid}$。</p>
@@ -412,87 +371,57 @@ $\dfrac{d_x-d_y}{v_x-v_y}&lt;a_i$
 <p>补充：</p>
 <p>名不副实的意思是：<strong>空有虚名，名声和实际不一致</strong>。也说名不符实。</p></blockquote>
 
+        
+    </div>
 
-  </div>
+    <div class="prev-next">
+        
+    </div>
 
-  <footer class="post-footer">
-    <ul class="post-tags">
-      <li><a href="https://qjwh.github.io/tags/%E4%BF%A1%E6%81%AF%E5%AD%A6%E7%AB%9E%E8%B5%9B/">信息学竞赛</a></li>
-      <li><a href="https://qjwh.github.io/tags/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">算法学习笔记</a></li>
-    </ul>
-  </footer>
-</article>
-    </main>
     
-<footer class="footer">
-        <span>&copy; 2025 <a href="https://qjwh.github.io/">CXBlog</a></span> · 
+    
+    
+</div>
+
+<aside class="post-toc">
+    <nav id="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#text-stylecolorrgb0150136-一维斜率优化"><text style="color:rgb(0,150,136)"> 一维斜率优化</a></li>
+        <li><a href="#text-stylecolorrgb0150136-二维斜率优化"><text style="color:rgb(0,150,136)"> 二维斜率优化</a></li>
+        <li><a href="#text-stylecolorrgb0150136-没有决策单调性的斜率优化upd-on-2316"><text style="color:rgb(0,150,136)"> 没有决策单调性的斜率优化（upd on 23.1.6）</a></li>
+        <li><a href="#text-stylecolorrgb0150136-x坐标不满足递增的斜率优化upd-on-23226"><text style="color:rgb(0,150,136)"> X坐标不满足递增的斜率优化（upd on 23.2.26）</a>
+          <ul>
+            <li><a href="#text-stylecolorrgb0150136-初始化"><text style="color:rgb(0,150,136)"> 初始化</a></li>
+            <li><a href="#text-stylecolorrgb0150136-设计cdq函数"><text style="color:rgb(0,150,136)"> 设计CDQ函数</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </nav>
+</aside>
+
+
+
+    
+
+        </main><footer class="footer">
+    
+    
+
+    
+
+    
+
+    
 
     <span>
-        Powered by
-        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
-        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+        Made with &#10084;&#65039; using <a target="_blank" href="https://github.com/gokarna-theme/gokarna-hugo">Gokarna</a>
     </span>
 </footer>
-<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
-        <path d="M12 6H0l6-6z" />
-    </svg>
-</a>
-
-<script>
-    let menu = document.getElementById('menu')
-    if (menu) {
-        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
-        menu.onscroll = function () {
-            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
-        }
-    }
-
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener("click", function (e) {
-            e.preventDefault();
-            var id = this.getAttribute("href").substr(1);
-            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
-                    behavior: "smooth"
-                });
-            } else {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
-            }
-            if (id === "top") {
-                history.replaceState(null, null, " ");
-            } else {
-                history.pushState(null, null, `#${id}`);
-            }
-        });
-    });
-
-</script>
-<script>
-    var mybutton = document.getElementById("top-link");
-    window.onscroll = function () {
-        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
-            mybutton.style.visibility = "visible";
-            mybutton.style.opacity = "1";
-        } else {
-            mybutton.style.visibility = "hidden";
-            mybutton.style.opacity = "0";
-        }
-    };
-
-</script>
-<script>
-    document.getElementById("theme-toggle").addEventListener("click", () => {
-        if (document.body.className.includes("dark")) {
-            document.body.classList.remove('dark');
-            localStorage.setItem("pref-theme", 'light');
-        } else {
-            document.body.classList.add('dark');
-            localStorage.setItem("pref-theme", 'dark');
-        }
-    })
-
-</script>
 </body>
-
 </html>

@@ -1,3 +1,0 @@
-User-agent: *
-Disallow:
-Sitemap: https://qjwh.github.io/sitemap.xml
