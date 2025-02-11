@@ -167,6 +167,41 @@
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">Kruskal重构树
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>参考：
+老师讲解 Fighting_Peter 的文章 其实Kruskal重构树并不难。
+概览 首先，Kruskal重构树，顾名思义就是把整棵树重构。
+并且其是基于Kruskal算法的。
+它能解决很多问题，并且变种很多。
+但我们先从基础的实现说起。
+实现过程 我们考虑，在Kruskal算法里，我们每次会合并两个并查集集合。
+准确来说是在两个点 $u$、$v$ 之间加一个边权为 $w$ 的无向边。
+那么，我们就考虑，在重构树里，我们找到 $u$ 和 $v$ 分别所在的子树，把这两个子树的根拎出来，设为 $u’$ 和 $v’$。
+然后，我们就新建一个点 $w$，然后把 $u’$ 和 $v’$ 的父亲设为 $w$。
+此时我们就得到了另外一棵树。
+比如说这个例子：
+而在代码中，我们需要给这些方点一个别的编号，而不是以 $w$ 作为编号，否则会重，并且会炸。
+特性 我们讲一些Kruskal重构树的特性：
+这棵树一定是二叉树。
+原树中的点放到重构树上一定是叶子，重构树上其他点都是原树中的边权。
+节点个数一定是 $2n-1$，且 $2n-1$ 一定是根。
+如果是最小生成树，那么这棵重构树一定是大根堆1，否则是小根堆。
+原图中两个点 $u$、$v$ 之间所有路径上的边权最大值的最小值，就是该图的最小生成树重构树上，$u$ 和 $v$​ 的LCA的权值。
+尚未想到证明方式
+对于一个最小生成树上的点 $x$，其只通过（边权）不超过 $v$ 的边，能到的点集；和 $x$ 在重构树上深度最浅的、权值 $\leq v$ 的点 $y$ 的子树内（叶子）节点集合，是一样的。
+这里稍微证明一下。
+就是我们根据上面的性质，可以发现，设后者对应集合为 $S$，那么显然 $S$ 内的点，和 $x$ 点，的LCA的权值一定不超过 $v$，显然。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to Kruskal重构树" href="https://qjwh.github.io/posts/oi/aln/kruskalcgs/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">Lucas定理
     </h2>
   </header>
@@ -258,45 +293,6 @@ vector会有一个capacity，就是提供的内存大小。
   </div>
   <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
   <a class="entry-link" aria-label="post link to 一个非常重要的语法点" href="https://qjwh.github.io/posts/oi/aln/animportantgrammer/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">一元二次方程解法（未完工）
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>在数学、编程界里，可能会经常遇到方程，而且有时候还会遇到一种特殊方程——一元二次方程。
-除此之外，还有含参一元二次方程，这里也会一起讲。（待补充）
-其实还有如二元一次方程、一元三次方程等的特殊方程，但在这里不讲。
-一元二次方程 有人看到“一元二次方程”就不知道是啥意思，这里先说一下定义
-定义 首先，方程相信大家都见过，所以这里不写对方程的定义解释。（废话
-而 $x$ 元 $y$ 次方程就是这么定义的：
-这个方程经过化简后，共有 $x$ 个未知数，且未知数上的最大指数为 $y$ 的方程。 如：
-$3(x&#43;1)=6x$：一元一次方程，也是最常见的方程。 $3(x&#43;1)^2=2(x&#43;1)$：一元一次方程，因为两边可以同时除以 $x&#43;1$ 以让指数减少 $1$。 $x^2-4x&#43;1=0$：一元二次方程，也是下面要讲的方程类型。 $x^3&#43;2x^2-1=16x$：一元三次方程，也是一种不常见的方程类型。 讲完定义，接下来说怎么解
-解法 推导 我们把方程一般化，变成：
-$ax^2&#43;bx&#43;c=0$
-其中 $a$、$b$、$c$ 均为常量。
-然后，我们不断对方程做一些推导。
-移项
-$ax^2&#43;bx=-c$
-同时除以 $a$ 常量
-$x^2&#43;\dfrac{b}{a}x=-\dfrac{c}{a}$
-这个式子很多人看了就不知道怎么继续推导了。
-但还是可以继续转化的。
-我们考虑配方，即把式子的左/右项同时加/减/乘/除一个相同的数，然后让这个等式的左/右项变成一个数的平方的形式。
-这一步比较考验数感，一个结论就是，我们同时加上 $\left( \dfrac{b}{2a} \right)^2$ 常量 即可。
-$x^2&#43;\dfrac{b}{a}x&#43;\left( \dfrac{b}{2a} \right)^2=-\dfrac{c}{a}&#43;\left( \dfrac{b}{2a} \right)^2$
-化简
-$\left( x&#43;\dfrac{b}{2a} \right)^2=\dfrac{-c}{a}&#43;\dfrac{b^2}{4a^2}$
-二次化简
-$\left( x&#43;\dfrac{b}{2a} \right)^2=\dfrac{b^2-4ac}{4a^2}$
-同时开根号
-$x&#43;\dfrac{b}{2a}=\sqrt{\dfrac{b^2-4ac}{4a^2}}$
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 一元二次方程解法（未完工）" href="https://qjwh.github.io/posts/oi/aln/quadraticequation/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

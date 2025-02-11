@@ -167,6 +167,45 @@
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">一元二次方程解法（未完工）
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>在数学、编程界里，可能会经常遇到方程，而且有时候还会遇到一种特殊方程——一元二次方程。
+除此之外，还有含参一元二次方程，这里也会一起讲。（待补充）
+其实还有如二元一次方程、一元三次方程等的特殊方程，但在这里不讲。
+一元二次方程 有人看到“一元二次方程”就不知道是啥意思，这里先说一下定义
+定义 首先，方程相信大家都见过，所以这里不写对方程的定义解释。（废话
+而 $x$ 元 $y$ 次方程就是这么定义的：
+这个方程经过化简后，共有 $x$ 个未知数，且未知数上的最大指数为 $y$ 的方程。 如：
+$3(x&#43;1)=6x$：一元一次方程，也是最常见的方程。 $3(x&#43;1)^2=2(x&#43;1)$：一元一次方程，因为两边可以同时除以 $x&#43;1$ 以让指数减少 $1$。 $x^2-4x&#43;1=0$：一元二次方程，也是下面要讲的方程类型。 $x^3&#43;2x^2-1=16x$：一元三次方程，也是一种不常见的方程类型。 讲完定义，接下来说怎么解
+解法 推导 我们把方程一般化，变成：
+$ax^2&#43;bx&#43;c=0$
+其中 $a$、$b$、$c$ 均为常量。
+然后，我们不断对方程做一些推导。
+移项
+$ax^2&#43;bx=-c$
+同时除以 $a$ 常量
+$x^2&#43;\dfrac{b}{a}x=-\dfrac{c}{a}$
+这个式子很多人看了就不知道怎么继续推导了。
+但还是可以继续转化的。
+我们考虑配方，即把式子的左/右项同时加/减/乘/除一个相同的数，然后让这个等式的左/右项变成一个数的平方的形式。
+这一步比较考验数感，一个结论就是，我们同时加上 $\left( \dfrac{b}{2a} \right)^2$ 常量 即可。
+$x^2&#43;\dfrac{b}{a}x&#43;\left( \dfrac{b}{2a} \right)^2=-\dfrac{c}{a}&#43;\left( \dfrac{b}{2a} \right)^2$
+化简
+$\left( x&#43;\dfrac{b}{2a} \right)^2=\dfrac{-c}{a}&#43;\dfrac{b^2}{4a^2}$
+二次化简
+$\left( x&#43;\dfrac{b}{2a} \right)^2=\dfrac{b^2-4ac}{4a^2}$
+同时开根号
+$x&#43;\dfrac{b}{2a}=\sqrt{\dfrac{b^2-4ac}{4a^2}}$
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to 一元二次方程解法（未完工）" href="https://qjwh.github.io/posts/oi/aln/quadraticequation/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">中国剩余定理
     </h2>
   </header>
@@ -263,30 +302,6 @@ $x \equiv r_3 \times 70&#43;r_5 \times 21&#43;r_7 \times 15 \pmod{105}$
   </div>
   <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
   <a class="entry-link" aria-label="post link to 博弈论三种扩展题型" href="https://qjwh.github.io/posts/oi/aln/games/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">同余最短路
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>同余最短路看名字感觉很难，但其实非常简单，也好理解，先说一道题：
-题目 原型：洛谷P3403 跳楼机
-有一栋 $h$ 层的大楼（层数编号从 $1$ 到 $h$），有 $n&#43;1$ 种移动方式：
-回到 $1$ 层 向上走 $x_1 \sim x_n$ 层 楼层不是循环的，你无论如何都无法到达 $h&#43;1$ 层或以上。
-最初你可以在任意一层（但也无关紧要），问你能到达多少个不同的楼层。
-题解 分类 我们按楼层模 $x_1$ 的余数分类，把楼层 $i$ 分到 $i \bmod x_1$ 类。
-这样分类有什么用呢？见下。
-定义状态 有了这个分类，我们可以定义状态 $d_i$（$i \in [0,x_1)$）代表不用「向上走 $x_1$ 层」操作能到达的、最小的第 $i$ 类楼层是多少。
-那么，由于有「向上走 $x_1$ 层」操作，所以 $d_i,d_i&#43;x_1,d_i&#43;2x_1,\dots$（比 $d_i$ 大或相等的第 $i$ 类楼层）都是可达的。
-接下来考虑转移这个状态。
-转移 其实也很好想，比如用一次「向上走 $x_2$ 层」操作，那么 $d_i$ 可以转移到 $d_{(i&#43;x_2) \bmod x_1}$，转移代价为 $x_2$，所以：
-$d_{(i&#43;x_2) \bmod x_1}=\min(d_{(i&#43;x_2) \bmod x_1},d_i&#43;x_2)$
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 同余最短路" href="https://qjwh.github.io/posts/oi/aln/modsp/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

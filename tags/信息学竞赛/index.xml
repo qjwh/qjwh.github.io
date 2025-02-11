@@ -6,8 +6,44 @@
     <description>Recent content in 信息学竞赛 on CXBlog</description>
     <generator>Hugo -- 0.143.1</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 10 Feb 2025 17:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 11 Feb 2025 21:49:00 +0800</lastBuildDate>
     <atom:link href="https://qjwh.github.io/tags/%E4%BF%A1%E6%81%AF%E5%AD%A6%E7%AB%9E%E8%B5%9B/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>20250211代码源比赛</title>
+      <link>https://qjwh.github.io/posts/oi/competition/20250211%E4%BB%A3%E7%A0%81%E6%BA%90%E6%AF%94%E8%B5%9B/</link>
+      <pubDate>Tue, 11 Feb 2025 21:49:00 +0800</pubDate>
+      <guid>https://qjwh.github.io/posts/oi/competition/20250211%E4%BB%A3%E7%A0%81%E6%BA%90%E6%AF%94%E8%B5%9B/</guid>
+      <description>&lt;h2 id=&#34;text-stylecolorrgb0150136-赛时记录&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 赛时记录&lt;/h2&gt;
+&lt;p&gt;比赛一开始（$11$ 分钟）就过了A。&lt;/p&gt;
+&lt;p&gt;后来一直在B题思考正解。&lt;/p&gt;
+&lt;p&gt;在比赛达到 $2h$ 之后，我发现正解已经没希望了，结论假了。&lt;/p&gt;
+&lt;p&gt;所以改成了暴力。&lt;/p&gt;
+&lt;p&gt;事实上我先写的C，因为感觉B不太有希望，C一眼 $20$ 分。&lt;/p&gt;
+&lt;p&gt;之后回头看B，干了最低档。&lt;/p&gt;
+&lt;p&gt;最后是D，思考了一下可以做 $45$ 分，搞了。&lt;/p&gt;
+&lt;p&gt;此时里比赛结束还有 $27$ 分钟，所以回头看了一下，发现C题的暴力很多。&lt;/p&gt;
+&lt;p&gt;先后搞了子任务 $1 \sim 3$，总共 $70$ 分。&lt;/p&gt;
+&lt;p&gt;然后比赛就结束了。&lt;/p&gt;
+&lt;h2 id=&#34;text-stylecolorrgb0150136-估分-vs-结果&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 估分 VS 结果&lt;/h2&gt;
+&lt;p&gt;估分：$100+10+70+45=225$&lt;/p&gt;
+&lt;p&gt;结果：$100+25+0+30=155$&lt;/p&gt;
+&lt;h3 id=&#34;text-stylecolorrgb0150136-挂分原因&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 挂分原因&lt;/h3&gt;
+&lt;p&gt;关于B为啥多了 $15$ 分，我也不知道。&lt;/p&gt;
+&lt;p&gt;C很复杂：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;子任务1 $T \leq 100,n \leq 10$ 挂了：赋值消耗时间复杂度太多，在&lt;code&gt;swap&lt;/code&gt;的时候回溯写挂了。&lt;/li&gt;
+&lt;li&gt;子任务2 $k=0$ 挂了：赋值消耗时间复杂度太多。&lt;/li&gt;
+&lt;li&gt;子任务3 $k=1$ 挂了：做法假了&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;D：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;子任务3 $T=1,k \leq 15$ 挂了：实现的时候没有预处理 $s$、$e$ 的答案，导致询问次数太多TLE。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;text-stylecolorrgb0150136-策略&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 策略&lt;/h2&gt;
+&lt;p&gt;感觉还是卡B太久。&lt;/p&gt;
+&lt;p&gt;事实上这次A非常确信做法正确，事实就是正确的，但后面的题没有对拍，导致总共挂了 $85$ 分。&lt;/p&gt;
+&lt;p&gt;之后无论对于正解还是暴力都得对拍，如果认为有挂的概率的那种。&lt;/p&gt;</description>
+    </item>
     <item>
       <title>策略更改</title>
       <link>https://qjwh.github.io/posts/oi/competition/%E7%AD%96%E7%95%A5%E6%9B%B4%E6%94%B9/</link>

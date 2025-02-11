@@ -167,6 +167,36 @@
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">20250211代码源比赛
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p> 赛时记录 比赛一开始（$11$ 分钟）就过了A。
+后来一直在B题思考正解。
+在比赛达到 $2h$ 之后，我发现正解已经没希望了，结论假了。
+所以改成了暴力。
+事实上我先写的C，因为感觉B不太有希望，C一眼 $20$ 分。
+之后回头看B，干了最低档。
+最后是D，思考了一下可以做 $45$ 分，搞了。
+此时里比赛结束还有 $27$ 分钟，所以回头看了一下，发现C题的暴力很多。
+先后搞了子任务 $1 \sim 3$，总共 $70$ 分。
+然后比赛就结束了。
+估分 VS 结果 估分：$100&#43;10&#43;70&#43;45=225$
+结果：$100&#43;25&#43;0&#43;30=155$
+挂分原因 关于B为啥多了 $15$ 分，我也不知道。
+C很复杂：
+子任务1 $T \leq 100,n \leq 10$ 挂了：赋值消耗时间复杂度太多，在swap的时候回溯写挂了。 子任务2 $k=0$ 挂了：赋值消耗时间复杂度太多。 子任务3 $k=1$ 挂了：做法假了 D：
+子任务3 $T=1,k \leq 15$ 挂了：实现的时候没有预处理 $s$、$e$ 的答案，导致询问次数太多TLE。 策略 感觉还是卡B太久。
+事实上这次A非常确信做法正确，事实就是正确的，但后面的题没有对拍，导致总共挂了 $85$ 分。
+之后无论对于正解还是暴力都得对拍，如果认为有挂的概率的那种。
+</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-11 21:49:00 +0800 CST'>February 11, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to 20250211代码源比赛" href="https://qjwh.github.io/posts/oi/competition/20250211%E4%BB%A3%E7%A0%81%E6%BA%90%E6%AF%94%E8%B5%9B/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">策略更改
     </h2>
   </header>
@@ -251,41 +281,6 @@ rep(x, 0, p - 1) if(ksm(a, x, p) == b) YES optimization algorithm 2 (BSGS)
   </div>
   <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
   <a class="entry-link" aria-label="post link to CDQ分治" href="https://qjwh.github.io/posts/oi/aln/cdq/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Kruskal重构树
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>参考：
-老师讲解 Fighting_Peter 的文章 其实Kruskal重构树并不难。
-概览 首先，Kruskal重构树，顾名思义就是把整棵树重构。
-并且其是基于Kruskal算法的。
-它能解决很多问题，并且变种很多。
-但我们先从基础的实现说起。
-实现过程 我们考虑，在Kruskal算法里，我们每次会合并两个并查集集合。
-准确来说是在两个点 $u$、$v$ 之间加一个边权为 $w$ 的无向边。
-那么，我们就考虑，在重构树里，我们找到 $u$ 和 $v$ 分别所在的子树，把这两个子树的根拎出来，设为 $u’$ 和 $v’$。
-然后，我们就新建一个点 $w$，然后把 $u’$ 和 $v’$ 的父亲设为 $w$。
-此时我们就得到了另外一棵树。
-比如说这个例子：
-而在代码中，我们需要给这些方点一个别的编号，而不是以 $w$ 作为编号，否则会重，并且会炸。
-特性 我们讲一些Kruskal重构树的特性：
-这棵树一定是二叉树。
-原树中的点放到重构树上一定是叶子，重构树上其他点都是原树中的边权。
-节点个数一定是 $2n-1$，且 $2n-1$ 一定是根。
-如果是最小生成树，那么这棵重构树一定是大根堆1，否则是小根堆。
-原图中两个点 $u$、$v$ 之间所有路径上的边权最大值的最小值，就是该图的最小生成树重构树上，$u$ 和 $v$​ 的LCA的权值。
-尚未想到证明方式
-对于一个最小生成树上的点 $x$，其只通过（边权）不超过 $v$ 的边，能到的点集；和 $x$ 在重构树上深度最浅的、权值 $\leq v$ 的点 $y$ 的子树内（叶子）节点集合，是一样的。
-这里稍微证明一下。
-就是我们根据上面的性质，可以发现，设后者对应集合为 $S$，那么显然 $S$ 内的点，和 $x$ 点，的LCA的权值一定不超过 $v$，显然。
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to Kruskal重构树" href="https://qjwh.github.io/posts/oi/aln/kruskalcgs/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">
