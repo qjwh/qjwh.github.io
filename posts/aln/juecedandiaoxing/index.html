@@ -255,7 +255,23 @@
     <div class="post-meta"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span>
 
 </div>
-  </header> 
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e4%ba%8c%e7%bb%b4%e5%86%b3%e7%ad%96%e5%8d%95%e8%b0%83%e6%80%a7" aria-label="二维决策单调性">二维决策单调性</a></li>
+                <li>
+                    <a href="#%e4%b8%80%e7%bb%b4%e5%86%b3%e7%ad%96%e5%8d%95%e8%b0%83%e6%80%a7" aria-label="一维决策单调性">一维决策单调性</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
   <div class="post-content"><h2 id="二维决策单调性">二维决策单调性<a hidden class="anchor" aria-hidden="true" href="#二维决策单调性">#</a></h2>
 <p>对于形如 $d_{i,j}=\min\limits_{k=0}^{i-1} \Big( d_{k,j-1}+w(k+1,i) \Big)$ 的方程，我们尝试记录 $f_{i,j}$ 代表 $d_{i,j}$ 的最优转移点（$k$ 变量），如果有 $f_{i,j-1} \leq f_{i,j} \leq f_{i+1,j}$，那么就是经典的四边形不等式优化，复杂度为 $O(n^2)$，证明此处略（在&quot;四边形不等式相关.md&quot;里有）。</p>
 <p>但是，如果只有 $f_{i,j} \leq f_{i+1,j}$，那么就不能用四边形不等式优化了，需要用分治的方式优化。</p>
