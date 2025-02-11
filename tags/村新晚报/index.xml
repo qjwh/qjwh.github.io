@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>村新晚报 on CXBlog</title>
     <link>https://qjwh.github.io/tags/%E6%9D%91%E6%96%B0%E6%99%9A%E6%8A%A5/</link>
     <description>Recent content in 村新晚报 on CXBlog</description>
-    <generator>Hugo</generator>
+    <generator>Hugo -- 0.143.1</generator>
     <language>en</language>
     <lastBuildDate>Mon, 10 Feb 2025 22:30:00 +0800</lastBuildDate>
     <atom:link href="https://qjwh.github.io/tags/%E6%9D%91%E6%96%B0%E6%99%9A%E6%8A%A5/index.xml" rel="self" type="application/rss+xml" />
@@ -13,21 +13,21 @@
       <link>https://qjwh.github.io/posts/cxep/2025w03/</link>
       <pubDate>Mon, 10 Feb 2025 22:30:00 +0800</pubDate>
       <guid>https://qjwh.github.io/posts/cxep/2025w03/</guid>
-      <description>&lt;h2 id=&#34;重庆集训有感&#34;&gt;重庆集训有感&lt;/h2&gt;&#xA;&lt;h3 id=&#34;主线重庆集训&#34;&gt;主线：重庆集训&lt;/h3&gt;&#xA;&lt;p&gt;截止今天重庆的8天集训已经过去了6天了，是时候说说自己的感受了。&lt;/p&gt;&#xA;&lt;p&gt;只能说这次的集训内容很多。&lt;/p&gt;&#xA;&lt;p&gt;集训安排是每天上午（8:00~12:00）、下午（14:00~17:30）有安排，我还会跟同一学校的大佬们在晚上去上晚自习（19:30~22:30）。&lt;/p&gt;&#xA;&lt;p&gt;事实上这次集训压力挺大的，集训必须要有效果，而且还要做作业（显然做不完），等等的。&lt;/p&gt;&#xA;&lt;h3 id=&#34;副线休息&#34;&gt;副线：休息&lt;/h3&gt;&#xA;&lt;p&gt;所以我有时候会抽出时间来休息，这就是在集训期间还在微信上发消息的原因，不然这压力真的吃不消，这是自保护。&lt;/p&gt;&#xA;&lt;p&gt;比如说&lt;a href=&#34;https://xiaoce.fun/daily&#34;&gt;炒饭小测验&lt;/a&gt;就是这段时间知道的，每天都会登上去看看。&lt;/p&gt;&#xA;&lt;p&gt;另外在中午（12:00~14:00）、傍晚（17:30~19:30）、晚上（19:30~22:30）是无管理时间，所以这段时间发消息是正常的，其他时间发消息往往是在休息。&lt;/p&gt;&#xA;&lt;h3 id=&#34;副线行程&#34;&gt;副线：行程&lt;/h3&gt;&#xA;&lt;p&gt;只说去程，G2241。&lt;/p&gt;&#xA;&lt;p&gt;我们订的是第一排的位置，感觉第一排的桌子比其他的桌子更小（？）。&lt;/p&gt;&#xA;&lt;p&gt;这回终于是把去年去重庆的大行李箱带上了。&lt;/p&gt;&#xA;&lt;p&gt;本来计划在路上做作业的，结果没时间，全在调代码。&lt;/p&gt;&#xA;&lt;p&gt;到了八维空间（重庆）之后百度导航就崩了，为了找火车站附近的一个酒店百度导航甚至让我穿墙……&lt;/p&gt;&#xA;&lt;h3 id=&#34;副线酒店&#34;&gt;副线：酒店&lt;/h3&gt;&#xA;&lt;p&gt;这次我们住的是全季酒店。&lt;/p&gt;&#xA;&lt;p&gt;这算是一个比较有名的酒店了。&lt;/p&gt;&#xA;&lt;p&gt;感觉总体设施还行，有用来送东西的机器人（还能远程操控电梯），在每个房间还有个AI（虽然没用过）。&lt;/p&gt;&#xA;&lt;p&gt;在桌上有个折叠式电源（就是默认是和桌子水平的，按一下才出来的那种），10A我能理解，标个250V就不能理解了。&lt;/p&gt;&#xA;&lt;p&gt;洗手、洗澡的时候热水来得很快，基本上2s到达。刷牙的时候用来刺开牙膏口覆盖物的东西的刺比很多酒店要锋利所以很容易刺开。&lt;/p&gt;&#xA;&lt;p&gt;如果让我说缺点，大概就是有些房间会有味（这是我妈说的），所以我们一连换了一堆房间：（按时间顺序）&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;3202&lt;/li&gt;&#xA;&lt;li&gt;3207&lt;/li&gt;&#xA;&lt;li&gt;3239&lt;/li&gt;&#xA;&lt;li&gt;3502（现在）&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;不要问为啥楼层这么高，酒店大堂在36F，客房32F~35F。&lt;/p&gt;&#xA;&lt;p&gt;其他的内容之后会补充。&lt;/p&gt;&#xA;&lt;h2 id=&#34;我们组为什么叫珠江三角洲&#34;&gt;我们组为什么叫“珠江三角洲”？&lt;/h2&gt;&#xA;&lt;p&gt;这个词是我在遍历全国江河的时候偶然发现的，这五个字分别对应我们组的一个人：&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;珠：朱熠辰，不解释&lt;/li&gt;&#xA;&lt;li&gt;江：我，不解释&lt;/li&gt;&#xA;&lt;li&gt;三：高煜涵，因为铝是+3价的（by 陈王喆）&lt;/li&gt;&#xA;&lt;li&gt;角：陈王喆，吉吉玉足&lt;/li&gt;&#xA;&lt;li&gt;洲：王若凡，不解释&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;这个称呼会用在我的很多文章中，若无特殊说明，“珠江三角洲”都是指的我们组。&lt;/p&gt;&#xA;&lt;h2 id=&#34;关于各种标准评分公式&#34;&gt;关于各种“标准评分公式”&lt;/h2&gt;&#xA;&lt;h3 id=&#34;标准距离公式sdfstandard-distance-formula&#34;&gt;标准距离公式（SDF，Standard Distance Formula）&lt;/h3&gt;&#xA;&lt;p&gt;该公式原创于2024年10月。&lt;/p&gt;&#xA;&lt;p&gt;本公式专门为了2024年11月18日（不含）以前的网格形座位而作。&lt;/p&gt;&#xA;&lt;p&gt;对于两个人，在按这个公式计算的时候，需要将两人的横向距离不变，纵向距离乘 $2$，之后按照欧几里得距离（即直线距离）公式计算。&lt;/p&gt;&#xA;&lt;p&gt;比如一个人A在 $2$ 排 $4$ 列，一个人B在 $4$ 排 $5$ 列，就是这样：&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;  1 2 3 4 5&#xD;&#xA;1          &#xD;&#xA;2       A  &#xD;&#xA;3          &#xD;&#xA;4         B&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;那么他们的横向距离就是 $1$，纵向距离就是 $2$，但需要乘 $2$，所以就是 $4$。&lt;/p&gt;</description>
+      <description>每晚十点半不见不散</description>
     </item>
     <item>
       <title>【村新晚报】2025W02</title>
       <link>https://qjwh.github.io/posts/cxep/2025w02/</link>
       <pubDate>Sun, 09 Feb 2025 22:30:00 +0800</pubDate>
       <guid>https://qjwh.github.io/posts/cxep/2025w02/</guid>
-      <description>&lt;h2 id=&#34;cbs-122版本即将于下学期发布看看有哪些更新&#34;&gt;CBS 12.2版本即将于下学期发布！看看有哪些更新&lt;/h2&gt;&#xA;&lt;p&gt;在下个学期将会正式上线对于女生的玩梗保护（男生在之前的版本中就已经有了），目前已经验证了刘思源能够启用玩梗保护，对周馨姌的玩梗保护则正在启用中。&lt;/p&gt;&#xA;&lt;p&gt;同时将会对活跃好友的数据库进行重点维护，以防遗忘或混淆等问题。&lt;/p&gt;&#xA;&lt;p&gt;从12.2版本起，将会正式执行 $10 \sim 30$ 分钟检查言论的程序，每过一段时间我将会对所有与活跃好友的交流记录进行审查以防出现不合理言论。&lt;/p&gt;&#xA;&lt;h2 id=&#34;下学期将会表演音乐课节目bpo目前未定具体歌曲&#34;&gt;下学期将会表演音乐课节目？BPO：目前未定具体歌曲&lt;/h2&gt;&#xA;&lt;p&gt;在下学期的第二节音乐课我将会表演节目，但截至目前，我对于演唱歌曲仍然在决定中。&lt;/p&gt;&#xA;&lt;p&gt;该问题的结果可能需要等到开学后才能决定，请耐心等待之后的村新晚报给您回答。&lt;/p&gt;&#xA;&lt;h2 id=&#34;翻译服务关停bpo属实没有受益者了&#34;&gt;翻译服务关停？BPO：属实，没有受益者了&lt;/h2&gt;&#xA;&lt;p&gt;在wfb也装了插件后，我已经确认的没有任何人会看我的翻译了。&lt;/p&gt;&#xA;&lt;p&gt;所以在2025年2月9日，我正式决定关停翻译服务。&lt;/p&gt;&#xA;&lt;p&gt;从此之后，无论是什么比赛，翻译图片都不会发到QQ群内，若有需要请@我后我才会发。&lt;/p&gt;</description>
+      <description>每晚十点半不见不散</description>
     </item>
     <item>
       <title>【村新晚报】2025W01</title>
       <link>https://qjwh.github.io/posts/cxep/2025w01/</link>
       <pubDate>Sat, 08 Feb 2025 22:30:00 +0800</pubDate>
       <guid>https://qjwh.github.io/posts/cxep/2025w01/</guid>
-      <description>&lt;h2 id=&#34;关于此工程&#34;&gt;关于此工程&lt;/h2&gt;&#xA;&lt;p&gt;此工程立项与2025年2月7日，原名「“朝花夕拾”每日杂记」，用于发布这一天内发生的重要事情或者一些杂记。&lt;/p&gt;&#xA;&lt;p&gt;目前定于每晚22:30左右进行发布，标签为「村新晚报」，进入本站即可查看。&lt;/p&gt;&#xA;&lt;p&gt;每篇文章内大约有3~4个话题，若有未展示完的会留到后面展示。&lt;/p&gt;&#xA;&lt;h2 id=&#34;关于漂流本同步&#34;&gt;关于漂流本同步&lt;/h2&gt;&#xA;&lt;p&gt;在之后我会逐渐把之前漂流本的电子稿尽量恢复并递交到这里，标签为「漂流本电子稿」。&lt;/p&gt;&#xA;&lt;p&gt;由于数据同步问题，可能需要等到寒假之后才能开始。&lt;/p&gt;&#xA;&lt;h2 id=&#34;文章编号命名&#34;&gt;文章编号命名&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;寒假：[当前年份]+W+[两位数]，如2024W15&lt;/li&gt;&#xA;&lt;li&gt;暑假：[当前年份]+S+[两位数]，如2023S63&lt;/li&gt;&#xA;&lt;li&gt;上半学期：[当前年份]+G+[当前年级]+A+[三位数]，如2024G8A009&lt;/li&gt;&#xA;&lt;li&gt;下半学期：[当前年份]+G+[当前年级]+B+[三位数]，如2025G8B018&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;农历新年目标公示&#34;&gt;农历新年目标公示&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;生理：身高175cm+，体重50kg+，调节作息&lt;/li&gt;&#xA;&lt;li&gt;florr：获得更多的U，达到Lv90+&lt;/li&gt;&#xA;&lt;li&gt;信竞：进E队，突破当前阶段进入省选，CF状态恢复&lt;/li&gt;&#xA;&lt;li&gt;友谊：发展有必要发展的发展中友谊（如王若凡、朱熠辰、刘奕杰、周馨姌等），继续保持当前活跃友谊（如陈翊焓、姜皓天、刘思源等）。&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;后续还在更新……&lt;/p&gt;</description>
+      <description>每晚十点半不见不散</description>
     </item>
   </channel>
 </rss>

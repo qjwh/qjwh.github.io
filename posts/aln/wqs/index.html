@@ -1,266 +1,314 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="en" dir="auto">
 
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>wqs二分 | CXBlog</title>
+<meta name="keywords" content="信息学竞赛, 算法学习笔记">
+<meta name="description" content="感谢这篇文章的作者。
+
+wqs二分一般解决这类问题：
+
+有 $n$ 个物品，你要选出恰好 $m$ 个（下称“选择物品个数限制”），可能有限制（下称“其他限制”），你要最大/小化某个权值。
+但除此之外，还有一些限制：
+
+如果我们设 $g_i$ 为选出恰好 $i$ 个时的最大/小权值，那么 $g$ 函数就应该是上凸（求最大权值）/下凹（求最小权值）的，即斜率单调递减（上凸）/递增（下凹）。
+一般来说，如果没有任何限制（包括选择物品个数限制和其他限制），那么答案是很好求的。
+一般来说，如果没有其他限制，那么选择物品数量越多，最小权值就越大/小。
+
+
+以下是P5633的题解，顺带着讲了wqs二分的原理和应用。
+在原题中，我们可以以标号为 $s$ 点在最小生成树上的出度为横坐标，以这个出度对应的答案为纵坐标，画出图像：（网上粘的图，只画了部分横坐标的情况）
+
+显然D和E点就是最小值点。
+
+接下来就是wqs二分的重点了
+wqs二分也是二分，那它二分什么值呢，它二分的是斜率 $mid$。
+具体而言，一个斜率就对应若干条平行的边，而总有一条边是完全切这个凸包的，如 $mid=-1$ 的时候，上图中被且的那个点就刚好是C点：
+
+如果我们设题目要求 $s$ 的度数要恰好为 $6$，那么 $mid=-1$ 的时候被切的那个点C的纵坐标就是答案了。
+但此时我们就有两个问题了：
+
+如何求出被切的那个点的下标？
+就算求出了下标，那这个点的纵坐标又如何计算？
+
+接下来我们来解决这两个问题。
+首先，这个切线肯定是所有经过某个点且斜率等于 $mid$ 的直线中截距最小的点：
+
+具体地，根据切线的性质，在上述例子中，经过C点的斜率等于 $mid$ 的直线（即切线），与经过D点的斜率等于 $mid$ 的直线、经过E点的斜率等于 $mid$ 的直线相比，切线的截距肯定最小，后两者的截距肯定更大。
+其次，显然，经过点 $(x,y)$ 且斜率等于 $k$ 的直线（肯定唯一），其截距一定等于 $y-kx$（$y=kx&#43;b$，$b=y-kx$）。
+而在二分的calc函数（此处不是check函数了，calc函数的返回值、返回值含义以及应用见下）中，我们已经知道了上述公式中的 $k$ 了（$k=mid$），所以我们只要让 $y-kx$ 最小、斜率为 $k$ 且经过了某个图上的点即可。
+考虑到上述公式中的 $x$ 未知，所以我们可以干脆把所有 $s$ 的出边的边权都减 $mid$。（关于是加、减还是都彳亍的问题存疑）">
+<meta name="author" content="">
+<link rel="canonical" href="https://qjwh.github.io/posts/aln/wqs/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.3b2e5c86d6776f1230a6cc3dbc6bde31467e6a5f6513337e196964b4e3693a57.css" integrity="sha256-Oy5chtZ3bxIwpsw9vGveMUZ&#43;al9lEzN&#43;GWlktONpOlc=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://qjwh.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://qjwh.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://qjwh.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://qjwh.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://qjwh.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://qjwh.github.io/posts/aln/wqs/">
+<noscript>
     <style>
-        :root {
-            --accent-color: #FF4D4D;
-            --font-size: 17.5px;
+        #theme-toggle,
+        .top-link {
+            display: none;
         }
+
     </style>
-
-    
-    
-    
-    
-    
-    
-
-    
-    <title>wqs二分</title>
-    <meta name="description" content="感谢这篇文章的作者。
-wqs二分一般解决这类问题：
-有 $n$ 个物品，你要选出恰好 $m$ 个（下称“选择物品个数限制”），可能有限制（下称“其他限制”），你要最大/小化某个权值。
-但除此之外，还有一些限制：
-如果我们设 $g_i$ 为选出恰好 $i$ 个时的最大/小权值，那么 $g$ 函数就应该是上凸（求最大权 …">
-    <meta name="keywords" content='信息学竞赛, 算法学习笔记'>
-
-    <meta property="og:url" content="https://qjwh.github.io/posts/aln/wqs/">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="wqs二分">
-    <meta property="og:description" content="感谢这篇文章的作者。
-wqs二分一般解决这类问题：
-有 $n$ 个物品，你要选出恰好 $m$ 个（下称“选择物品个数限制”），可能有限制（下称“其他限制”），你要最大/小化某个权值。
-但除此之外，还有一些限制：
-如果我们设 $g_i$ 为选出恰好 $i$ 个时的最大/小权值，那么 $g$ 函数就应该是上凸（求最大权 …">
-    <meta property="og:image" content="https://qjwh.github.io/">
-    <meta property="og:image:secure_url" content="https://qjwh.github.io/">
-
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="wqs二分">
-    <meta name="twitter:description" content="感谢这篇文章的作者。
-wqs二分一般解决这类问题：
-有 $n$ 个物品，你要选出恰好 $m$ 个（下称“选择物品个数限制”），可能有限制（下称“其他限制”），你要最大/小化某个权值。
-但除此之外，还有一些限制：
-如果我们设 $g_i$ 为选出恰好 $i$ 个时的最大/小权值，那么 $g$ 函数就应该是上凸（求最大权 …">
-    <meta property="twitter:domain" content="https://qjwh.github.io/posts/aln/wqs/">
-    <meta property="twitter:url" content="https://qjwh.github.io/posts/aln/wqs/">
-    <meta name="twitter:image" content="https://qjwh.github.io/">
-
-    
-    <link rel="canonical" href="https://qjwh.github.io/posts/aln/wqs/">
-
-    
-    <link rel="stylesheet" type="text/css" href="/css/normalize.min.css" media="print">
-
-    
-    <link rel="stylesheet" type="text/css" href="/css/main.min.css">
-
-    
-    <link id="dark-theme" rel="stylesheet" href="/css/dark.min.css">
-
-    
-    <script src="/js/bundle.min.ad84dd09e60165f836ea08a26f86608c070e127d21ac6ab168c87da076554d87.js" integrity="sha256-rYTdCeYBZfg26giib4ZgjAcOEn0hrGqxaMh9oHZVTYc="></script>
-
-    
-    
-        <script src="https://unpkg.com/feather-icons"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function() {
-        renderMathInElement(document.body, {
-          // customised options
-          // ? auto-render specific keys, e.g.:
-          delimiters: [
-            {left: '$$', right: '$$', display: true},
-            {left: '$', right: '$', display: false},
-          ],
-          // ? rendering keys, e.g.:
-          throwOnError : false
-        });
-      });
-    </script>
-    
     <style>
-        @font-face { 
-            font-family: 'Ubuntu';
-            src: url('/UbuntuB.ttf');
-        }
-        body {
-            // font-family: 'Ubuntu', '仿宋';
-            font-family: 'Ubuntu';
-        }
-    </style>
-  
-    
-</head>
-<body>
-        <script>
-            
-            setThemeByUserPref();
-        </script><header class="header">
-    <nav class="header-nav">
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
 
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><script src="https://unpkg.com/feather-icons"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+      
+      
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '$', right: '$', display: false},
+      ],
+      
+      throwOnError : false
+    });
+  });
+</script>
+
+<style>
+    @font-face { 
+        font-family: 'Ubuntu';
+        src: url('/UbuntuB.ttf');
+    }
+    body {
         
+        font-family: 'Ubuntu';
+    }
+</style><meta property="og:url" content="https://qjwh.github.io/posts/aln/wqs/">
+  <meta property="og:site_name" content="CXBlog">
+  <meta property="og:title" content="wqs二分">
+  <meta property="og:description" content="感谢这篇文章的作者。
+wqs二分一般解决这类问题：
+有 $n$ 个物品，你要选出恰好 $m$ 个（下称“选择物品个数限制”），可能有限制（下称“其他限制”），你要最大/小化某个权值。
+但除此之外，还有一些限制：
+如果我们设 $g_i$ 为选出恰好 $i$ 个时的最大/小权值，那么 $g$ 函数就应该是上凸（求最大权值）/下凹（求最小权值）的，即斜率单调递减（上凸）/递增（下凹）。 一般来说，如果没有任何限制（包括选择物品个数限制和其他限制），那么答案是很好求的。 一般来说，如果没有其他限制，那么选择物品数量越多，最小权值就越大/小。 以下是P5633的题解，顺带着讲了wqs二分的原理和应用。
+在原题中，我们可以以标号为 $s$ 点在最小生成树上的出度为横坐标，以这个出度对应的答案为纵坐标，画出图像：（网上粘的图，只画了部分横坐标的情况）
+显然D和E点就是最小值点。
+接下来就是wqs二分的重点了
+wqs二分也是二分，那它二分什么值呢，它二分的是斜率 $mid$。
+具体而言，一个斜率就对应若干条平行的边，而总有一条边是完全切这个凸包的，如 $mid=-1$ 的时候，上图中被且的那个点就刚好是C点：
+如果我们设题目要求 $s$ 的度数要恰好为 $6$，那么 $mid=-1$ 的时候被切的那个点C的纵坐标就是答案了。
+但此时我们就有两个问题了：
+如何求出被切的那个点的下标？ 就算求出了下标，那这个点的纵坐标又如何计算？ 接下来我们来解决这两个问题。
+首先，这个切线肯定是所有经过某个点且斜率等于 $mid$ 的直线中截距最小的点：
+具体地，根据切线的性质，在上述例子中，经过C点的斜率等于 $mid$ 的直线（即切线），与经过D点的斜率等于 $mid$ 的直线、经过E点的斜率等于 $mid$ 的直线相比，切线的截距肯定最小，后两者的截距肯定更大。
+其次，显然，经过点 $(x,y)$ 且斜率等于 $k$ 的直线（肯定唯一），其截距一定等于 $y-kx$（$y=kx&#43;b$，$b=y-kx$）。
+而在二分的calc函数（此处不是check函数了，calc函数的返回值、返回值含义以及应用见下）中，我们已经知道了上述公式中的 $k$ 了（$k=mid$），所以我们只要让 $y-kx$ 最小、斜率为 $k$ 且经过了某个图上的点即可。
+考虑到上述公式中的 $x$ 未知，所以我们可以干脆把所有 $s$ 的出边的边权都减 $mid$。（关于是加、减还是都彳亍的问题存疑）">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-02-09T15:28:00+08:00">
+    <meta property="article:modified_time" content="2025-02-09T15:28:00+08:00">
+    <meta property="article:tag" content="信息学竞赛">
+    <meta property="article:tag" content="算法学习笔记">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="wqs二分">
+<meta name="twitter:description" content="感谢这篇文章的作者。
 
-        <div class="nav-title">
-            <a class="nav-brand" href="https://qjwh.github.io/">CXBlog</a>
+wqs二分一般解决这类问题：
+
+有 $n$ 个物品，你要选出恰好 $m$ 个（下称“选择物品个数限制”），可能有限制（下称“其他限制”），你要最大/小化某个权值。
+但除此之外，还有一些限制：
+
+如果我们设 $g_i$ 为选出恰好 $i$ 个时的最大/小权值，那么 $g$ 函数就应该是上凸（求最大权值）/下凹（求最小权值）的，即斜率单调递减（上凸）/递增（下凹）。
+一般来说，如果没有任何限制（包括选择物品个数限制和其他限制），那么答案是很好求的。
+一般来说，如果没有其他限制，那么选择物品数量越多，最小权值就越大/小。
+
+
+以下是P5633的题解，顺带着讲了wqs二分的原理和应用。
+在原题中，我们可以以标号为 $s$ 点在最小生成树上的出度为横坐标，以这个出度对应的答案为纵坐标，画出图像：（网上粘的图，只画了部分横坐标的情况）
+
+显然D和E点就是最小值点。
+
+接下来就是wqs二分的重点了
+wqs二分也是二分，那它二分什么值呢，它二分的是斜率 $mid$。
+具体而言，一个斜率就对应若干条平行的边，而总有一条边是完全切这个凸包的，如 $mid=-1$ 的时候，上图中被且的那个点就刚好是C点：
+
+如果我们设题目要求 $s$ 的度数要恰好为 $6$，那么 $mid=-1$ 的时候被切的那个点C的纵坐标就是答案了。
+但此时我们就有两个问题了：
+
+如何求出被切的那个点的下标？
+就算求出了下标，那这个点的纵坐标又如何计算？
+
+接下来我们来解决这两个问题。
+首先，这个切线肯定是所有经过某个点且斜率等于 $mid$ 的直线中截距最小的点：
+
+具体地，根据切线的性质，在上述例子中，经过C点的斜率等于 $mid$ 的直线（即切线），与经过D点的斜率等于 $mid$ 的直线、经过E点的斜率等于 $mid$ 的直线相比，切线的截距肯定最小，后两者的截距肯定更大。
+其次，显然，经过点 $(x,y)$ 且斜率等于 $k$ 的直线（肯定唯一），其截距一定等于 $y-kx$（$y=kx&#43;b$，$b=y-kx$）。
+而在二分的calc函数（此处不是check函数了，calc函数的返回值、返回值含义以及应用见下）中，我们已经知道了上述公式中的 $k$ 了（$k=mid$），所以我们只要让 $y-kx$ 最小、斜率为 $k$ 且经过了某个图上的点即可。
+考虑到上述公式中的 $x$ 未知，所以我们可以干脆把所有 $s$ 的出边的边权都减 $mid$。（关于是加、减还是都彳亍的问题存疑）">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://qjwh.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "wqs二分",
+      "item": "https://qjwh.github.io/posts/aln/wqs/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "wqs二分",
+  "name": "wqs二分",
+  "description": "感谢这篇文章的作者。\nwqs二分一般解决这类问题：\n有 $n$ 个物品，你要选出恰好 $m$ 个（下称“选择物品个数限制”），可能有限制（下称“其他限制”），你要最大/小化某个权值。\n但除此之外，还有一些限制：\n如果我们设 $g_i$ 为选出恰好 $i$ 个时的最大/小权值，那么 $g$ 函数就应该是上凸（求最大权值）/下凹（求最小权值）的，即斜率单调递减（上凸）/递增（下凹）。 一般来说，如果没有任何限制（包括选择物品个数限制和其他限制），那么答案是很好求的。 一般来说，如果没有其他限制，那么选择物品数量越多，最小权值就越大/小。 以下是P5633的题解，顺带着讲了wqs二分的原理和应用。\n在原题中，我们可以以标号为 $s$ 点在最小生成树上的出度为横坐标，以这个出度对应的答案为纵坐标，画出图像：（网上粘的图，只画了部分横坐标的情况）\n显然D和E点就是最小值点。\n接下来就是wqs二分的重点了\nwqs二分也是二分，那它二分什么值呢，它二分的是斜率 $mid$。\n具体而言，一个斜率就对应若干条平行的边，而总有一条边是完全切这个凸包的，如 $mid=-1$ 的时候，上图中被且的那个点就刚好是C点：\n如果我们设题目要求 $s$ 的度数要恰好为 $6$，那么 $mid=-1$ 的时候被切的那个点C的纵坐标就是答案了。\n但此时我们就有两个问题了：\n如何求出被切的那个点的下标？ 就算求出了下标，那这个点的纵坐标又如何计算？ 接下来我们来解决这两个问题。\n首先，这个切线肯定是所有经过某个点且斜率等于 $mid$ 的直线中截距最小的点：\n具体地，根据切线的性质，在上述例子中，经过C点的斜率等于 $mid$ 的直线（即切线），与经过D点的斜率等于 $mid$ 的直线、经过E点的斜率等于 $mid$ 的直线相比，切线的截距肯定最小，后两者的截距肯定更大。\n其次，显然，经过点 $(x,y)$ 且斜率等于 $k$ 的直线（肯定唯一），其截距一定等于 $y-kx$（$y=kx+b$，$b=y-kx$）。\n而在二分的calc函数（此处不是check函数了，calc函数的返回值、返回值含义以及应用见下）中，我们已经知道了上述公式中的 $k$ 了（$k=mid$），所以我们只要让 $y-kx$ 最小、斜率为 $k$ 且经过了某个图上的点即可。\n考虑到上述公式中的 $x$ 未知，所以我们可以干脆把所有 $s$ 的出边的边权都减 $mid$。（关于是加、减还是都彳亍的问题存疑）\n",
+  "keywords": [
+    "信息学竞赛", "算法学习笔记"
+  ],
+  "articleBody": "感谢这篇文章的作者。\nwqs二分一般解决这类问题：\n有 $n$ 个物品，你要选出恰好 $m$ 个（下称“选择物品个数限制”），可能有限制（下称“其他限制”），你要最大/小化某个权值。\n但除此之外，还有一些限制：\n如果我们设 $g_i$ 为选出恰好 $i$ 个时的最大/小权值，那么 $g$ 函数就应该是上凸（求最大权值）/下凹（求最小权值）的，即斜率单调递减（上凸）/递增（下凹）。 一般来说，如果没有任何限制（包括选择物品个数限制和其他限制），那么答案是很好求的。 一般来说，如果没有其他限制，那么选择物品数量越多，最小权值就越大/小。 以下是P5633的题解，顺带着讲了wqs二分的原理和应用。\n在原题中，我们可以以标号为 $s$ 点在最小生成树上的出度为横坐标，以这个出度对应的答案为纵坐标，画出图像：（网上粘的图，只画了部分横坐标的情况）\n显然D和E点就是最小值点。\n接下来就是wqs二分的重点了\nwqs二分也是二分，那它二分什么值呢，它二分的是斜率 $mid$。\n具体而言，一个斜率就对应若干条平行的边，而总有一条边是完全切这个凸包的，如 $mid=-1$ 的时候，上图中被且的那个点就刚好是C点：\n如果我们设题目要求 $s$ 的度数要恰好为 $6$，那么 $mid=-1$ 的时候被切的那个点C的纵坐标就是答案了。\n但此时我们就有两个问题了：\n如何求出被切的那个点的下标？ 就算求出了下标，那这个点的纵坐标又如何计算？ 接下来我们来解决这两个问题。\n首先，这个切线肯定是所有经过某个点且斜率等于 $mid$ 的直线中截距最小的点：\n具体地，根据切线的性质，在上述例子中，经过C点的斜率等于 $mid$ 的直线（即切线），与经过D点的斜率等于 $mid$ 的直线、经过E点的斜率等于 $mid$ 的直线相比，切线的截距肯定最小，后两者的截距肯定更大。\n其次，显然，经过点 $(x,y)$ 且斜率等于 $k$ 的直线（肯定唯一），其截距一定等于 $y-kx$（$y=kx+b$，$b=y-kx$）。\n而在二分的calc函数（此处不是check函数了，calc函数的返回值、返回值含义以及应用见下）中，我们已经知道了上述公式中的 $k$ 了（$k=mid$），所以我们只要让 $y-kx$ 最小、斜率为 $k$ 且经过了某个图上的点即可。\n考虑到上述公式中的 $x$ 未知，所以我们可以干脆把所有 $s$ 的出边的边权都减 $mid$。（关于是加、减还是都彳亍的问题存疑）\n然后我们对新图跑一个最小生成树，看这个最小生成树中 $s$ 的出度是多少，那么被切点的X坐标就是多少；并且这颗最小生成树的边权和就是这个切线的截距，显然。\n有了这个切线的斜率、截距，也有了切点的X坐标，不就可以计算切点的Y坐标了吗？很简单，此处略。\n接下来就是主函数部分了，可以发现，斜率越小，那么切点的X坐标就越靠后。\n所以，我们就可以考虑用LL calc(LL mid)函数代表用斜率为 $mid$ 的某条直线去切那个 $g$ 函数的图像，那么切点的X坐标是多少。\n由于传参越小，返回值就越大，所以我们就可以二分了，二分找到第一个返回值小于等于 $need$ 的传参 $mid$（要保证 $\\text{calc}(mid)=need$），然后计算如果调用calc(mid)，那么这颗最小生成树的边权和是多少（设为 $sum$），最后输出 $sum+mid \\times need$ 即可，显然。\n上面说“要保证 $\\text{calc}(mid)=need$”，但如果整数的 $mid$ 始终无法满足这个条件，就需要用到小数二分，但小数二分很可能会TLE，所以我们考虑修改。\n（下述做法为假）\n我觉得解决方法也很简单，我们直接找到最后一个 $\\text{calc}(mid) \\leq need$ 的 $mid$，然后答案就不输出 $sum+mid \\times need$ 了，而是输出 $sum+mid \\times \\text{calc}(mid)$ 即可。\n其实解决方法也很简单，我们还是输出 $sum+mid \\times need$ 即可，证明见M2434的代码。\n其实也不是所有题目都要用到上述方法，如果图像像上面说的那样：\n除了底部（即那些全局最小值点）可能会是平的，其他地方都不可能有三点共线，如这样的图像就需要用上述做法：\n（因为红色的三个点共线了）\n",
+  "wordCount" : "116",
+  "inLanguage": "en",
+  "datePublished": "2025-02-09T15:28:00+08:00",
+  "dateModified": "2025-02-09T15:28:00+08:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://qjwh.github.io/posts/aln/wqs/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "CXBlog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://qjwh.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://qjwh.github.io/" accesskey="h" title="CXBlog (Alt + H)">CXBlog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
         </div>
-
-        <div class="nav-links">
-            
-            <div class="nav-link">
-                <a href="https://qjwh.github.io/" aria-label="home" >      <i data-feather="home"></i>
-      <script>
-        feather.replace();
-      </script>
-       首页
-      </a>
-            </div>
-            
-            <div class="nav-link">
-                <a href="https://qjwh.github.io/posts" aria-label="posts" >      <i data-feather="book"></i>
-      <script>
-        feather.replace();
-      </script>
-       文章
-      </a>
-            </div>
-            
-            <div class="nav-link">
-                <a href="https://qjwh.github.io/tags" aria-label="tags" >      <i data-feather="tag"></i>
-      <script>
-        feather.replace();
-      </script>
-       标签
-      </a>
-            </div>
-            
-            <div class="nav-link">
-                <a href="https://qjwh.github.io/about" aria-label="about" >      <i data-feather="info"></i>
-      <script>
-        feather.replace();
-      </script>
-       关于
-      </a>
-            </div>
-            
-
-            <span class="nav-icons-divider"></span>
-            <div class="nav-link dark-theme-toggle">
-                <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
-                <a aria-hidden="true" role="switch">
-                    <span class="theme-toggle-icon" data-feather="moon"></span>
+        <ul id="menu">
+            <li>
+                <a href="https://qjwh.github.io/posts/" title="文章">
+                    <span>文章</span>
                 </a>
-            </div>
-
-            <div class="nav-link" id="hamburger-menu-toggle">
-                <span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
-                <a aria-checked="false" aria-labelledby="hamburger-menu-toggle" id="hamburger-menu-toggle-target" role="switch">
-                    <span data-feather="menu"></span>
+            </li>
+            <li>
+                <a href="https://qjwh.github.io/archives/" title="列表">
+                    <span>列表</span>
                 </a>
-            </div>
-
-            
-            <ul class="nav-hamburger-list visibility-hidden">
-                
-                <li class="nav-item">
-                    <a href="https://qjwh.github.io/" >      <i data-feather="home"></i>
-      <script>
-        feather.replace();
-      </script>
-       首页
-      </a>
-                </li>
-                
-                <li class="nav-item">
-                    <a href="https://qjwh.github.io/posts" >      <i data-feather="book"></i>
-      <script>
-        feather.replace();
-      </script>
-       文章
-      </a>
-                </li>
-                
-                <li class="nav-item">
-                    <a href="https://qjwh.github.io/tags" >      <i data-feather="tag"></i>
-      <script>
-        feather.replace();
-      </script>
-       标签
-      </a>
-                </li>
-                
-                <li class="nav-item">
-                    <a href="https://qjwh.github.io/about" >      <i data-feather="info"></i>
-      <script>
-        feather.replace();
-      </script>
-       关于
-      </a>
-                </li>
-                
-                <li class="nav-item dark-theme-toggle">
-                    <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
-                    <a role="switch">
-                        <span class="theme-toggle-icon" data-feather="moon"></span>
-                    </a>
-                </li>
-            </ul>
-
-        </div>
+            </li>
+            <li>
+                <a href="https://qjwh.github.io/tags/" title="标签">
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://qjwh.github.io/search/" title="搜索">
+                    <span>搜索</span>
+                </a>
+            </li>
+        </ul>
     </nav>
 </header>
-<main id="content">
-    <div class="post container">
-    <div class="post-header-section">
-        <h1>wqs二分</h1>
+<main class="main">
 
-        
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      wqs二分
+    </h1>
+    <div class="post-meta"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span>
 
-        
-	
-	
-	
-	
-        
-
-	
-
-	
-
-	
-          <small role="doc-subtitle"></small>
-	
-
-	
-          <p class="post-date">
-              
-
-              February 9, 2025
-
-              
-          </p>
-	
-
-        <ul class="post-tags">
-          
-           
-             <li class="post-tag"><a href="https://qjwh.github.io/tags/%E4%BF%A1%E6%81%AF%E5%AD%A6%E7%AB%9E%E8%B5%9B">信息学竞赛</a></li>
-           
-         
-           
-             <li class="post-tag"><a href="https://qjwh.github.io/tags/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0">算法学习笔记</a></li>
-           
-         
-        </ul>
-    </div>
-
-    <div class="post-content">
-        <p>感谢<a href="https://www.acwing.com/file_system/file/content/whole/index/content/5873556/">这篇文章</a>的作者。</p>
+</div>
+  </header> 
+  <div class="post-content"><p>感谢<a href="https://www.acwing.com/file_system/file/content/whole/index/content/5873556/">这篇文章</a>的作者。</p>
 <hr>
 <p>wqs二分一般解决这类问题：</p>
 <blockquote>
@@ -274,13 +322,13 @@ wqs二分一般解决这类问题：
 <hr>
 <p>以下是<a href="https://www.luogu.com.cn/problem/P5633">P5633</a>的题解，顺带着讲了wqs二分的原理和应用。</p>
 <p>在原题中，我们可以以标号为 $s$ 点在最小生成树上的出度为横坐标，以这个出度对应的答案为纵坐标，画出图像：（网上粘的图，只画了部分横坐标的情况）</p>
-<p><img src="https://cdn.acwing.com/media/article/image/2022/06/21/58579_3af7039bf1-%E4%B8%8B%E5%87%B8%E5%A3%B3.png" alt=""></p>
+<p><img loading="lazy" src="https://cdn.acwing.com/media/article/image/2022/06/21/58579_3af7039bf1-%E4%B8%8B%E5%87%B8%E5%A3%B3.png"></p>
 <p>显然D和E点就是最小值点。</p>
 <hr>
 <p><strong>接下来就是wqs二分的重点了</strong></p>
 <p>wqs二分也是二分，那它二分什么值呢，它二分的是斜率 $mid$。</p>
 <p>具体而言，一个斜率就对应若干条平行的边，而总有一条边是完全切这个凸包的，如 $mid=-1$ 的时候，上图中被且的那个点就刚好是C点：</p>
-<p><img src="https://cdn.acwing.com/media/article/image/2022/06/21/58579_3213b178f1-%E5%88%87%E7%BA%BF.png" alt=""></p>
+<p><img loading="lazy" src="https://cdn.acwing.com/media/article/image/2022/06/21/58579_3213b178f1-%E5%88%87%E7%BA%BF.png"></p>
 <p>如果我们设题目要求 $s$ 的度数要恰好为 $6$，那么 $mid=-1$ 的时候被切的那个点C的纵坐标就是答案了。</p>
 <p>但此时我们就有两个问题了：</p>
 <ol>
@@ -308,46 +356,92 @@ wqs二分一般解决这类问题：
 <p>其实解决方法也很简单，我们还是输出 $sum+mid \times need$ 即可，证明见M2434的代码。</p>
 <hr>
 <p>其实也不是所有题目都要用到上述方法，如果图像像上面说的那样：</p>
-<p><img src="https://cdn.acwing.com/media/article/image/2022/06/21/58579_3af7039bf1-%E4%B8%8B%E5%87%B8%E5%A3%B3.png" alt=""></p>
+<p><img loading="lazy" src="https://cdn.acwing.com/media/article/image/2022/06/21/58579_3af7039bf1-%E4%B8%8B%E5%87%B8%E5%A3%B3.png"></p>
 <p>除了底部（即那些全局最小值点）可能会是平的，其他地方都不可能有三点共线，如这样的图像就需要用上述做法：</p>
-<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/6qa5yykl.png" alt=""></p>
+<p><img loading="lazy" src="https://cdn.luogu.com.cn/upload/image_hosting/6qa5yykl.png"></p>
 <p>（因为红色的三个点共线了）</p>
 
-        
-    </div>
 
-    <div class="prev-next">
-        
-    </div>
+  </div>
 
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://qjwh.github.io/tags/%E4%BF%A1%E6%81%AF%E5%AD%A6%E7%AB%9E%E8%B5%9B/">信息学竞赛</a></li>
+      <li><a href="https://qjwh.github.io/tags/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">算法学习笔记</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
     
-    
-    
-</div>
-
-<aside class="post-toc">
-    <nav id="toc">
-        <nav id="TableOfContents"></nav>
-    </nav>
-</aside>
-
-
-
-    
-
-        </main><footer class="footer">
-    
-    
-
-    
-
-    
-
-    
+<footer class="footer">
+        <span>&copy; 2025 <a href="https://qjwh.github.io/">CXBlog</a></span> · 
 
     <span>
-        Made with &#10084;&#65039; using <a target="_blank" href="https://github.com/gokarna-theme/gokarna-hugo">Gokarna</a>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
     </span>
 </footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
 </body>
+
 </html>
