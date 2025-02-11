@@ -182,6 +182,34 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">基尔霍夫矩阵
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>基尔霍夫矩阵是用来求解生成树计数、求（权值）和相关题目的利器。
+0. 求完全图的生成树数量（Prufer序列） 要说基尔霍夫矩阵，就要从一道题目说起：
+给你 $n$，问 $n$ 个节点组成的无向无根树有多少种。
+这道题可以用Prufer序列去做。
+这里简单说一下Prufer序列的求法：
+对于一张无向无根树，重复执行以下操作直到只剩 $2$ 个或更少的点，最后得到的那个序列 $a$ 就是这棵树的Prufer序列：
+我们找到此时度为 $1$ 的节点，若有多个，找编号最小的，设找到的节点编号为 $x$。 在 $a$ 的末尾添加：与 $x$ 有连边的那个唯一节点。 删除 $x$。 Prufer序列别看求法非常简单，也没啥容易发现的性质，其实用处很大。
+Prufer序列满足一个性质，就是，所有无向无根树，都可以唯一地对应一个Prufer序列；所有Prufer序列都可以唯一地对应一棵树。
+所以，这道题就有解了，答案其实就是长为 $n-2$ 的Prufer序列有多少种。
+由于Prufer序列的每个元素的值都是从 $1$ 到 $n$ 的，所以答案就是 $n^{n-2}$，显然。
+1.1. 求任意无向图的生成树数量（基尔霍夫矩阵） 但如果把题目变化一下，就不能用Prufer序列去求了：
+给你一张 $n$ 个节点 $m$ 条边的无向图，问这张图的生成树有多少个。
+这题要用基尔霍夫矩阵。
+具体地，我们定义 $D$ 矩阵，求法：
+$ D_{i,j}= \begin{cases} 0 &amp; i \not= j \ \text{deg}(i) &amp; i=j \end{cases} $
+其中，$\text{deg}(i)$ 代表这张图上 $i$ 的度是多少。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to 基尔霍夫矩阵" href="https://qjwh.github.io/posts/oi/aln/kirchhoffmatrix/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">平衡树
     </h2>
   </header>
@@ -217,7 +245,7 @@ Splay（本意为“张开”但这里不是这个意思） 这个算法对上�
 ...</p>
   </div>
   <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 平衡树" href="https://qjwh.github.io/posts/aln/balancedtree/"></a>
+  <a class="entry-link" aria-label="post link to 平衡树" href="https://qjwh.github.io/posts/oi/aln/balancedtree/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -239,7 +267,7 @@ Splay（本意为“张开”但这里不是这个意思） 这个算法对上�
 ...</p>
   </div>
   <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 整体二分" href="https://qjwh.github.io/posts/aln/exbinarysearch/"></a>
+  <a class="entry-link" aria-label="post link to 整体二分" href="https://qjwh.github.io/posts/oi/aln/exbinarysearch/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -263,7 +291,7 @@ $\lfloor \frac{n}{i} \rfloor$ 的总取值种数最多只有第一、二部分�
 ...</p>
   </div>
   <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 整除分块" href="https://qjwh.github.io/posts/aln/divisionblock/"></a>
+  <a class="entry-link" aria-label="post link to 整除分块" href="https://qjwh.github.io/posts/oi/aln/divisionblock/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -296,41 +324,7 @@ $\dfrac{d_x-d_y}{v_x-v_y}&lt;a_i$
 ...</p>
   </div>
   <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 斜率优化" href="https://qjwh.github.io/posts/aln/slopeopm/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">树链剖分
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>第一次看到树链剖分（简称树剖）可能觉得它非常的深奥，但其实树剖的原理非常简单，下面先说树剖大概的实现思路和解决题型。
-概览 其实树剖就是把一棵树分成若干条链，使得每个点都出现在了刚好一条链上。
-并且，我们称在某条链上的边为“重（zhòng）边”，不在任何一条链上的边为“轻边”。
-然后，我们按某种规则去DFS，求出新的DFS序，然后解决对树上路径询问的问题。
-而且，通过合理的设计每条边的轻重，可以把复杂度控制在 $O(\log n)$ 级别。
-解决题型 上面也提到了，树剖就是用来解决对树上路径进行询问的问题的算法，当然也可以解决对子树询问的问题，不过属于大材小用了。
-此外，树剖属于工具类算法，所以往往会配合树状数组、线段树、分块等算法出现。
-我把算法分为了两类，“材料类算法”和“工具类算法”，其中：
-材料类算法可以单独考，比如： 数论 推公式 DP 树状数组 线段树 … 工具类算法里面必须要套材料类算法才能考出来，比如： 二分 01分数规划（二分的一个分支） CDQ分治（需要配合树状数组） 整体二分（需要配合树状数组） 树剖（这里讲的） … 往往一些较难的题目，都是要用较难的材料类算法（比如DP），或者工具类算法配合材料类算法才能解决的题目。
-而对于后者，难度会更大一些，因为后者的关键在于转化后使用工具类算法解决。
-算法实现 下面说一下树剖的实现。
-两遍DFS 我们考虑DFS，当递归到点 $x$ 的时候，找到 $x$ 的儿子中，子树大小最大的那个儿子 $to$。
-然后，我们把 $x \to to$ 这条边设为重边，其他边设为轻边。
-得到每条边的轻重后，我们再做一遍DFS。
-而这一遍DFS是为了找到DFS序。
-而且，DFS序有一个要求，我们要先遍历有重边连接的儿子。
-这样的话，对于任意一条树上的链，链上所有点的DFS序连续，而且是由深度从浅到深依次递增。
-同时，我们还要求出，从一个点开始，不经过任何轻边，最多到哪个点。
-解决询问 而对于一次路径上某值的询问，我们可以把这个路径拆成若干条链。
-可以证明链数不超过 $O(\log n)$，这一点会在下面“复杂度证明”中证明。
-而这些拆出的链，都是原树中的链的“子集”（一条链 $L_1$ 是另外一条链 $L_2$ 的子集，有且仅当 $L_1$ 中的点，$L_2$ 中也有，边同理）。
-所以，可以把一条路径，拆成最多 $O(\log n)$ 个DFS序区间。
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 树链剖分" href="https://qjwh.github.io/posts/aln/treechaindivision/"></a>
+  <a class="entry-link" aria-label="post link to 斜率优化" href="https://qjwh.github.io/posts/oi/aln/slopeopm/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

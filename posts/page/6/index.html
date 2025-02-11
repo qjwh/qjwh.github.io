@@ -182,6 +182,40 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">树链剖分
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>第一次看到树链剖分（简称树剖）可能觉得它非常的深奥，但其实树剖的原理非常简单，下面先说树剖大概的实现思路和解决题型。
+概览 其实树剖就是把一棵树分成若干条链，使得每个点都出现在了刚好一条链上。
+并且，我们称在某条链上的边为“重（zhòng）边”，不在任何一条链上的边为“轻边”。
+然后，我们按某种规则去DFS，求出新的DFS序，然后解决对树上路径询问的问题。
+而且，通过合理的设计每条边的轻重，可以把复杂度控制在 $O(\log n)$ 级别。
+解决题型 上面也提到了，树剖就是用来解决对树上路径进行询问的问题的算法，当然也可以解决对子树询问的问题，不过属于大材小用了。
+此外，树剖属于工具类算法，所以往往会配合树状数组、线段树、分块等算法出现。
+我把算法分为了两类，“材料类算法”和“工具类算法”，其中：
+材料类算法可以单独考，比如： 数论 推公式 DP 树状数组 线段树 … 工具类算法里面必须要套材料类算法才能考出来，比如： 二分 01分数规划（二分的一个分支） CDQ分治（需要配合树状数组） 整体二分（需要配合树状数组） 树剖（这里讲的） … 往往一些较难的题目，都是要用较难的材料类算法（比如DP），或者工具类算法配合材料类算法才能解决的题目。
+而对于后者，难度会更大一些，因为后者的关键在于转化后使用工具类算法解决。
+算法实现 下面说一下树剖的实现。
+两遍DFS 我们考虑DFS，当递归到点 $x$ 的时候，找到 $x$ 的儿子中，子树大小最大的那个儿子 $to$。
+然后，我们把 $x \to to$ 这条边设为重边，其他边设为轻边。
+得到每条边的轻重后，我们再做一遍DFS。
+而这一遍DFS是为了找到DFS序。
+而且，DFS序有一个要求，我们要先遍历有重边连接的儿子。
+这样的话，对于任意一条树上的链，链上所有点的DFS序连续，而且是由深度从浅到深依次递增。
+同时，我们还要求出，从一个点开始，不经过任何轻边，最多到哪个点。
+解决询问 而对于一次路径上某值的询问，我们可以把这个路径拆成若干条链。
+可以证明链数不超过 $O(\log n)$，这一点会在下面“复杂度证明”中证明。
+而这些拆出的链，都是原树中的链的“子集”（一条链 $L_1$ 是另外一条链 $L_2$ 的子集，有且仅当 $L_1$ 中的点，$L_2$ 中也有，边同理）。
+所以，可以把一条路径，拆成最多 $O(\log n)$ 个DFS序区间。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to 树链剖分" href="https://qjwh.github.io/posts/oi/aln/treechaindivision/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">欧拉函数
     </h2>
   </header>
@@ -198,7 +232,7 @@ void shai(LL n){ f[0] = f[1] = true; rep(i, 2, n){ if(!f[i]) p[&#43;&#43;ind] = 
 ...</p>
   </div>
   <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 欧拉函数" href="https://qjwh.github.io/posts/aln/eulerfunc/"></a>
+  <a class="entry-link" aria-label="post link to 欧拉函数" href="https://qjwh.github.io/posts/oi/aln/eulerfunc/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -229,7 +263,7 @@ void shai(LL n){ f[0] = f[1] = true; rep(i, 2, n){ if(!f[i]) p[&#43;&#43;ind] = 
 ...</p>
   </div>
   <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 点分治" href="https://qjwh.github.io/posts/aln/dfz/"></a>
+  <a class="entry-link" aria-label="post link to 点分治" href="https://qjwh.github.io/posts/oi/aln/dfz/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -248,7 +282,7 @@ LL ma = 0; for(LL i = 1;i &lt;= 200;i&#43;&#43;){ srand(time(0) ^ clock()); LL t
 ...</p>
   </div>
   <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 生成随机数（未完工）" href="https://qjwh.github.io/posts/aln/genrandomnumber/"></a>
+  <a class="entry-link" aria-label="post link to 生成随机数（未完工）" href="https://qjwh.github.io/posts/oi/aln/genrandomnumber/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -272,39 +306,7 @@ $$ \begin{aligned} f(a,b,c,n)&amp;=\sum\limits_{i=0}^n \left\lfloor \dfrac{\colo
 ...</p>
   </div>
   <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 类欧几里得算法" href="https://qjwh.github.io/posts/aln/similargcd/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">组合数学（待补充）
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>有人问，组合数学不是就一些简单的公式吗？不是的，其实组合数学是数学中的一个非常庞大的分支，接下来就举一些例子。（更新中）
-本文主要讲各种数据范围下，求组合数的方式；以及球盒模型各种情况下的公式；最后是一些球盒模型的扩展情况。
-转到：球盒模型公式
-转到：球盒模型扩展公式
-（下面部分标题里的LaTeX公式更新后炸了，就凑合着看吧）
-求组合数 以下所有范围都可以当成是以下题目的某个Subtask：
-给你 $p$，代表模数。
-之后会给你一个 $q$，代表询问次数。
-每次询问给定 $n$ 和 $m$，问 $C_n^m \bmod p$ 的值。
-下面不给定 $q$ 的范围，因为不重要。
-以下全部默认 $n \geq m$。
-范围1：$n,m \leq 2000,p \leq 10^9&#43;7$ 先递推预处理，然后直接回答询问即可。
-递推式：$C_n^m=C_{n-1}^m&#43;C_{n-1}^{m-1}$。
-预处理复杂度：$O(n^2)$ 查询复杂度：$O(1)$ 范围2：$n,m \leq 10^6,p \leq 10^9&#43;7,p\text{ is prime}$ 1 先预处理阶乘，然后直接回答询问即可。
-回答询问式：$C_n^m=\dfrac{n!}{m!(n-m)!}$。
-为了节省时间复杂度，此处还可以预处理一下阶乘的逆元。
-2 预处理复杂度：$O(n)$ 查询复杂度：$O(1)$ 范围3：$n,m \leq 10^6,p \leq 10^9&#43;7$ 1 可以发现，范围2与范围3唯一的不同就是，范围3把质数的条件去掉了。
-而把质数的条件后，就没法求逆元了，因为逆元可能不存在。
-所以我们考虑换做法。
-2 我们考虑把模数做个质因数分解，变成 ${p_1}^{a_1} \times {p_2}^{a_2} \times {p_3}^{a_3} \times \dots \times {p_k}^{a_k}$。
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 组合数学（待补充）" href="https://qjwh.github.io/posts/aln/c/"></a>
+  <a class="entry-link" aria-label="post link to 类欧几里得算法" href="https://qjwh.github.io/posts/oi/aln/similargcd/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

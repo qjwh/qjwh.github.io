@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>比赛 on CXBlog</title>
+    <link>https://qjwh.github.io/tags/%E6%AF%94%E8%B5%9B/</link>
+    <description>Recent content in 比赛 on CXBlog</description>
+    <generator>Hugo -- 0.143.1</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 10 Feb 2025 17:30:00 +0800</lastBuildDate>
+    <atom:link href="https://qjwh.github.io/tags/%E6%AF%94%E8%B5%9B/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>策略更改</title>
+      <link>https://qjwh.github.io/posts/oi/competition/%E7%AD%96%E7%95%A5%E6%9B%B4%E6%94%B9/</link>
+      <pubDate>Mon, 10 Feb 2025 17:30:00 +0800</pubDate>
+      <guid>https://qjwh.github.io/posts/oi/competition/%E7%AD%96%E7%95%A5%E6%9B%B4%E6%94%B9/</guid>
+      <description>&lt;p&gt;跳题&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;如果一道题认为难写，先看后面的题，也许有好写的部分分甚至是正解&lt;/li&gt;
+&lt;li&gt;如果一道题写完了挂了，认为很对：
+&lt;ul&gt;
+&lt;li&gt;找不到错误数据，就规定一段时间（一般为5~10分钟，或者直接执行），然后立刻跳题&lt;/li&gt;
+&lt;li&gt;找到了错误数据，就可以调时间长一些&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;如果要在开场把所有题读完（OI赛制专用），遇到难读的题目可以先不读&lt;/li&gt;
+&lt;li&gt;如果要把剩下的时间全部用在一道题上，先去吃其他题的保底，再开始写这道题&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;对拍（OI赛制专用）&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;如果说一道题强数据好造、暴力好写，那么一定要对拍&lt;/li&gt;
+&lt;li&gt;即使是模拟赛也要对拍，不止是正式比赛，把模拟赛当做正式比赛认真对待&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;总结&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;比赛后写一下总结，包括以下内容：
+&lt;ul&gt;
+&lt;li&gt;赛时记录，什么时候在干什么&lt;/li&gt;
+&lt;li&gt;估分 VS 得分&lt;/li&gt;
+&lt;li&gt;挂分原因（BBE）&lt;/li&gt;
+&lt;li&gt;赛后想一下赛时没有想到的部分分/满分/更优做法&lt;/li&gt;
+&lt;li&gt;策略总结+调整&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+  </channel>
+</rss>

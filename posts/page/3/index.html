@@ -182,6 +182,18 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">nth_element（未完工）
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p></p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to nth_element（未完工）" href="https://qjwh.github.io/posts/oi/aln/nthelement/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">wqs二分
     </h2>
   </header>
@@ -207,7 +219,7 @@ wqs二分也是二分，那它二分什么值呢，它二分的是斜率 $mid$�
 ...</p>
   </div>
   <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to wqs二分" href="https://qjwh.github.io/posts/aln/wqs/"></a>
+  <a class="entry-link" aria-label="post link to wqs二分" href="https://qjwh.github.io/posts/oi/aln/wqs/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -237,7 +249,7 @@ vector会有一个capacity，就是提供的内存大小。
 </p>
   </div>
   <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 一个非常重要的语法点" href="https://qjwh.github.io/posts/aln/animportantgrammer/"></a>
+  <a class="entry-link" aria-label="post link to 一个非常重要的语法点" href="https://qjwh.github.io/posts/oi/aln/animportantgrammer/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -276,7 +288,7 @@ $x&#43;\dfrac{b}{2a}=\sqrt{\dfrac{b^2-4ac}{4a^2}}$
 ...</p>
   </div>
   <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 一元二次方程解法（未完工）" href="https://qjwh.github.io/posts/aln/quadraticequation/"></a>
+  <a class="entry-link" aria-label="post link to 一元二次方程解法（未完工）" href="https://qjwh.github.io/posts/oi/aln/quadraticequation/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -301,29 +313,7 @@ $x \equiv r_3 \times 70&#43;r_5 \times 21&#43;r_7 \times 15 \pmod{105}$
 ...</p>
   </div>
   <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 中国剩余定理" href="https://qjwh.github.io/posts/aln/crt/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">决策单调性
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>二维决策单调性 对于形如 $d_{i,j}=\min\limits_{k=0}^{i-1} \Big( d_{k,j-1}&#43;w(k&#43;1,i) \Big)$ 的方程，我们尝试记录 $f_{i,j}$ 代表 $d_{i,j}$ 的最优转移点（$k$ 变量），如果有 $f_{i,j-1} \leq f_{i,j} \leq f_{i&#43;1,j}$，那么就是经典的四边形不等式优化，复杂度为 $O(n^2)$，证明此处略（在&#34;四边形不等式相关.md&#34;里有）。
-但是，如果只有 $f_{i,j} \leq f_{i&#43;1,j}$，那么就不能用四边形不等式优化了，需要用分治的方式优化。
-具体地，我们从小到大枚举 $j$，然后转移所有的 $d_{i,j}$。
-定义分治函数dp(l,r,jl,jr)代表我们要转移所有的 $d_{i,j}$（$l \leq i \leq r$），并且保证所有在本次分治转移范围内的 $d_{i,j}$ 的转移点 $f_{i,j}$ 都在 $[jl,jr]$ 内。
-我们可以先求出 $[l,r]$ 的中点 $mid$，然后转移 $d_{mid,j}$：暴力枚举转移点 $k$（当然，要在 $[jl,jr]$ 内）进行转移，并递归dp(l,mid-1,jl,最终转移点)和dp(mid&#43;1,r,最终转移点,jr)。
-该算法复杂度为 $O(n^2 \log n)$，证明：
-首先，枚举 $j$ 的复杂度 $O(n)$。
-其次，只看 $[jl,jr]$，$[jl,jr]$ 在递归的过程中就形成了个线段树的类似结构，只不过单层内可能有部分重叠位置，而且划分点（上面说的“最终转移点”）可能不是中点，不过无关紧要。
-然后，再看 $[l,r]$，$[l,r]$ 在递归过程中也形成了类似于线段树的结构，并且易证这个递归树深度是不会超过 $\log n$ 的。
-有了深度的保证，而且一层内的 $[jl,jr]$ 区间长度和最多只有 $O(n)$ 级别，所以一次分治的复杂度就是 $O(n \log n)$。
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 决策单调性" href="https://qjwh.github.io/posts/aln/juecedandiaoxing/"></a>
+  <a class="entry-link" aria-label="post link to 中国剩余定理" href="https://qjwh.github.io/posts/oi/aln/crt/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

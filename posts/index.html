@@ -221,6 +221,21 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">策略更改
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>跳题
+如果一道题认为难写，先看后面的题，也许有好写的部分分甚至是正解 如果一道题写完了挂了，认为很对： 找不到错误数据，就规定一段时间（一般为5~10分钟，或者直接执行），然后立刻跳题 找到了错误数据，就可以调时间长一些 如果要在开场把所有题读完（OI赛制专用），遇到难读的题目可以先不读 如果要把剩下的时间全部用在一道题上，先去吃其他题的保底，再开始写这道题 对拍（OI赛制专用）
+如果说一道题强数据好造、暴力好写，那么一定要对拍 即使是模拟赛也要对拍，不止是正式比赛，把模拟赛当做正式比赛认真对待 总结
+比赛后写一下总结，包括以下内容： 赛时记录，什么时候在干什么 估分 VS 得分 挂分原因（BBE） 赛后想一下赛时没有想到的部分分/满分/更优做法 策略总结&#43;调整 </p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-10 17:30:00 +0800 CST'>February 10, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to 策略更改" href="https://qjwh.github.io/posts/oi/competition/%E7%AD%96%E7%95%A5%E6%9B%B4%E6%94%B9/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">【村新晚报】2025W02
     </h2>
   </header>
@@ -290,32 +305,6 @@ Ant Egg：agg/egg Antennae：ante/触 Basil：比勒（一般不叫它罗勒） 
   </div>
   <footer class="entry-footer"><span title='2025-02-09 17:05:00 +0800 CST'>February 9, 2025</span></footer>
   <a class="entry-link" aria-label="post link to 【娱乐】交流必备 florr中那些特殊的简写或别称" href="https://qjwh.github.io/posts/play/florr_simple_name/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">2-SAT算法
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>前言 2-SAT中的SAT是适定性（Satisfiability）问题的简称，一般形式为 $k$ - 适定性问题，简称 $k$ - SAT，但由于 $k&gt;2$ 时问题为NP完全问题（只有指数级别复杂度的解法，或者多项式级别复杂度的相似解法），而 $k=1$ 时都不用解了 （废话） ，所以下面全部考虑 $k=2$ 的情况。
-定义 2-SAT问题简单来说就是，有 $n$ 个集合，每个集合包含两个元素（集合 $i$ 包含元素 $2i-1$ 和 $2i$，但其实编号是无关紧要的，任意都行），你必须要在每个集合里分别选择刚好一个元素，但某些元素之间可能有矛盾，即这两个元素不能在一种方案里被同时选择，问你是否有解，报告出来，如果有解，输出一种方案（可能不用输出）。
-题目 看上面的定义可能有点难懂，这里举个题目。
-有一场宴会，这场宴会只有 $n$ 对幸运夫妻可以参加，每对夫妻里只能选择刚好一个人去参加这场宴会。
-但部分人之间可能有矛盾，会给出所有有矛盾的两人编号。
-问你，是否可以构造一种合法方案，如果不行，报告无解，否则输出一种方案。
-解法 （下面统一默认要解决的是实际问题，不是定义里的问题）
-定义点、边 我们考虑把夫妻编个名字：
-第一对夫妻：A男、A女 第二对夫妻：B男、B女 第三对夫妻：C男、C女 以此类推 然后，我们考虑建图。
-但这个建图就要用到一点思维了。
-我们不以其他的定义定义点，我们就把一个点当做一个现实。
-比如：
-$1$ 号点代表第一对夫妻是A男参与宴会，$2$ 号点代表A女参与宴会 $3$ 号点代表第二对夫妻是B男参与宴会，$4$ 号点代表B女参与宴会 $5$ 号点代表第三对夫妻是C男参与宴会，$6$ 号点代表C女参与宴会 以此类推 边的定义也很难思考出：
-一条有向边 $u \to v$，代表现实 $u$ 满足了，现实 $v$ 也要满足。 举个例子 所以，如果说A男和B女、C男和A女之间都有矛盾，那么就需要在：
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 2-SAT算法" href="https://qjwh.github.io/posts/aln/2sat/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

@@ -167,6 +167,21 @@
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">策略更改
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>跳题
+如果一道题认为难写，先看后面的题，也许有好写的部分分甚至是正解 如果一道题写完了挂了，认为很对： 找不到错误数据，就规定一段时间（一般为5~10分钟，或者直接执行），然后立刻跳题 找到了错误数据，就可以调时间长一些 如果要在开场把所有题读完（OI赛制专用），遇到难读的题目可以先不读 如果要把剩下的时间全部用在一道题上，先去吃其他题的保底，再开始写这道题 对拍（OI赛制专用）
+如果说一道题强数据好造、暴力好写，那么一定要对拍 即使是模拟赛也要对拍，不止是正式比赛，把模拟赛当做正式比赛认真对待 总结
+比赛后写一下总结，包括以下内容： 赛时记录，什么时候在干什么 估分 VS 得分 挂分原因（BBE） 赛后想一下赛时没有想到的部分分/满分/更优做法 策略总结&#43;调整 </p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-10 17:30:00 +0800 CST'>February 10, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to 策略更改" href="https://qjwh.github.io/posts/oi/competition/%E7%AD%96%E7%95%A5%E6%9B%B4%E6%94%B9/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">2-SAT算法
     </h2>
   </header>
@@ -188,7 +203,7 @@ $1$ 号点代表第一对夫妻是A男参与宴会，$2$ 号点代表A女参与�
 ...</p>
   </div>
   <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 2-SAT算法" href="https://qjwh.github.io/posts/aln/2sat/"></a>
+  <a class="entry-link" aria-label="post link to 2-SAT算法" href="https://qjwh.github.io/posts/oi/aln/2sat/"></a>
 </article>
 
 <article class="post-entry tag-entry"> 
@@ -215,7 +230,7 @@ rep(x, 0, p - 1) if(ksm(a, x, p) == b) YES optimization algorithm 2 (BSGS)
 ...</p>
   </div>
   <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to BSGS算法" href="https://qjwh.github.io/posts/aln/bsgs/"></a>
+  <a class="entry-link" aria-label="post link to BSGS算法" href="https://qjwh.github.io/posts/oi/aln/bsgs/"></a>
 </article>
 
 <article class="post-entry tag-entry"> 
@@ -235,7 +250,7 @@ rep(x, 0, p - 1) if(ksm(a, x, p) == b) YES optimization algorithm 2 (BSGS)
 ...</p>
   </div>
   <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to CDQ分治" href="https://qjwh.github.io/posts/aln/cdq/"></a>
+  <a class="entry-link" aria-label="post link to CDQ分治" href="https://qjwh.github.io/posts/oi/aln/cdq/"></a>
 </article>
 
 <article class="post-entry tag-entry"> 
@@ -270,30 +285,7 @@ rep(x, 0, p - 1) if(ksm(a, x, p) == b) YES optimization algorithm 2 (BSGS)
 ...</p>
   </div>
   <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to Kruskal重构树" href="https://qjwh.github.io/posts/aln/kruskalcgs/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Lucas定理
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>（以下全部假设 $C_n^m$ 中的 $n$ 和 $m$ 都很大，最大能达到 $10^{18}$）
-Lucas定理 Lucas定理往往用于求组合数的结果且模数较小的题目。
-其实定理很简单，也很好记，$\Large C_n^m=C_{\lfloor \frac{n}{p} \rfloor}^{\lfloor \frac{m}{p} \rfloor} \times \color{orange} C_{n \bmod p}^{m \bmod p}$，在 $p$ 为质数的条件成立。
-上面之所以强调模数较小，是因为我们需要通过预处理阶乘的方式去求橙色项的值。
-代码实现很简单，此处略。
-但有个注意点，在我的代码模板里，由于求facny数组是递推求出的，而不是每个分别去用getny求出的，所以调用init函数时，传参应该是MOD-1而不是MOD。
-exLucas定理 （前方高能）
-这个定理还是解决求 $C_n^m \bmod p$ 的值的问题，$p$ 仍然很小，但不保证是质数。
-根据M2579的做法，我们可以考虑对 $p$ 做一个唯一分解，分解成 ${p_1}^{a_1} \times {p_2}^{a_2} \times {p_3}^{a_3} \times \dots \times {p_k}^{a_k}$。
-然后，分别求出 $C_n^m \bmod {p_1}^{a_1}$ 的值、$C_n^m \bmod {p_2}^{a_2}$ 的值、$C_n^m \bmod {p_3}^{a_3}$ 的值、…、$C_n^m \bmod {p_k}^{a_k}$ 的值，然后就可以用CRT求出 $C_n^m \bmod p$ 的值了。
-在M2579内，$p$ 唯一分解后，每个 $a_i$ 都等于 $1$，所以直接用Lucas定理就可以求，但在一般的题目中，指数不一定都等于 $1$，所以才要用到exLucas定理。
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to Lucas定理" href="https://qjwh.github.io/posts/aln/lucas/"></a>
+  <a class="entry-link" aria-label="post link to Kruskal重构树" href="https://qjwh.github.io/posts/oi/aln/kruskalcgs/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

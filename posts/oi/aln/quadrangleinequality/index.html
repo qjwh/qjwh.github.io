@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>四边形不等式 | CXBlog</title>
+<meta name="keywords" content="信息学竞赛, 算法学习笔记">
+<meta name="description" content="（四边形不等式看标题可能觉得很难，其实比较简单）
+四边形不等式是一种DP优化的技巧，一般针对二维DP进行优化。
+在DP中，往往会有多个决策点，而其中就有一个是最优的，设 $d_{i,j}$ 的最优决策点为 $f_{i,j}$。
+（以下假设DP枚举决策点的复杂度为 $O(n)$，DP状态数为 $O(n^2)$）
+而四边形不等式就是说，如果满足 $f_{i,j-1} \leq f_{i,j} \leq f_{i&#43;1,j}$，那么可以把DP枚举决策点的范围降至 $[f_{i,j-1},f_{i&#43;1,j}]$，然后DP的复杂度就从 $O(n^3)$ 降到了 $O(n^2)$。
+
+而这个（复杂度）怎么证明呢？我们画一下 $f$ 数组的表：
+
+（此处，我们以 $i$ 为行号，以 $j$ 为列号，行、列号都从 $1$ 开始编号）
+然后，画几个标记：
+
+这些标记指的是，在转移 $d_{1,2}$ 的时候，转移点枚举的左右端点分别就是红箭头指向的两个数。
+同时，为了方便观察，此处还画了个蓝色的虚线。
+同理，还可以画出 $d_{2,3}$ 对应的标记：
+
+以此类推：
+
+可以发现，其实这时候所有蓝线的长度（蓝线连接的两个数字的差值定义为这个蓝线的长度）之和，最多只有 $n$。
+而对于 $d_{1,3}$ 一“类”的标记：
+
+可以发现，其实那些蓝线的长度之和也是最多只有 $n$。
+在画出所有蓝线之后：
+
+可以发现，一共就有 $n$ “类”蓝线，一“类”蓝线的长度之和最多 $n$，至此，可以证明复杂度（所有蓝线的长度之和）为 $O(n^2)$。
+
+接下来讲几类四边形不等式解决的经典题型：
+
+第一类：$d_{l,r}=\min { d_{l,k}&#43;d_{k&#43;1,r} | l \leq k \leq r }&#43;w_{l,r}$，合并石子类。
+第二类：$d_{i,j}=\min { d_{k,j-1}&#43;w_{k&#43;1,i} | 0 \leq k \leq i }$，区间分割类。
+
+（这两类对应的公式里的 $\min$ 也可以替换成 $\max$）">
+<meta name="author" content="">
+<link rel="canonical" href="https://qjwh.github.io/posts/oi/aln/quadrangleinequality/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.3b2e5c86d6776f1230a6cc3dbc6bde31467e6a5f6513337e196964b4e3693a57.css" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://qjwh.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://qjwh.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://qjwh.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://qjwh.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://qjwh.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://qjwh.github.io/posts/oi/aln/quadrangleinequality/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><script src="https://unpkg.com/feather-icons"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+      
+      
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '$', right: '$', display: false},
+      ],
+      
+      throwOnError : false
+    });
+  });
+</script>
+
+<style>
+    @font-face { 
+        font-family: 'Ubuntu';
+        src: url('/UbuntuB.ttf');
+    }
+    body {
+        
+        font-family: 'Ubuntu';
+    }
+</style><meta property="og:url" content="https://qjwh.github.io/posts/oi/aln/quadrangleinequality/">
+  <meta property="og:site_name" content="CXBlog">
+  <meta property="og:title" content="四边形不等式">
+  <meta property="og:description" content="（四边形不等式看标题可能觉得很难，其实比较简单）
+四边形不等式是一种DP优化的技巧，一般针对二维DP进行优化。
+在DP中，往往会有多个决策点，而其中就有一个是最优的，设 $d_{i,j}$ 的最优决策点为 $f_{i,j}$。
+（以下假设DP枚举决策点的复杂度为 $O(n)$，DP状态数为 $O(n^2)$）
+而四边形不等式就是说，如果满足 $f_{i,j-1} \leq f_{i,j} \leq f_{i&#43;1,j}$，那么可以把DP枚举决策点的范围降至 $[f_{i,j-1},f_{i&#43;1,j}]$，然后DP的复杂度就从 $O(n^3)$ 降到了 $O(n^2)$。
+而这个（复杂度）怎么证明呢？我们画一下 $f$ 数组的表：
+（此处，我们以 $i$ 为行号，以 $j$ 为列号，行、列号都从 $1$ 开始编号）
+然后，画几个标记：
+这些标记指的是，在转移 $d_{1,2}$ 的时候，转移点枚举的左右端点分别就是红箭头指向的两个数。
+同时，为了方便观察，此处还画了个蓝色的虚线。
+同理，还可以画出 $d_{2,3}$ 对应的标记：
+以此类推：
+可以发现，其实这时候所有蓝线的长度（蓝线连接的两个数字的差值定义为这个蓝线的长度）之和，最多只有 $n$。
+而对于 $d_{1,3}$ 一“类”的标记：
+可以发现，其实那些蓝线的长度之和也是最多只有 $n$。
+在画出所有蓝线之后：
+可以发现，一共就有 $n$ “类”蓝线，一“类”蓝线的长度之和最多 $n$，至此，可以证明复杂度（所有蓝线的长度之和）为 $O(n^2)$。
+接下来讲几类四边形不等式解决的经典题型：
+第一类：$d_{l,r}=\min { d_{l,k}&#43;d_{k&#43;1,r} | l \leq k \leq r }&#43;w_{l,r}$，合并石子类。 第二类：$d_{i,j}=\min { d_{k,j-1}&#43;w_{k&#43;1,i} | 0 \leq k \leq i }$，区间分割类。 （这两类对应的公式里的 $\min$ 也可以替换成 $\max$）">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-02-09T15:28:00+08:00">
+    <meta property="article:modified_time" content="2025-02-09T15:28:00+08:00">
+    <meta property="article:tag" content="信息学竞赛">
+    <meta property="article:tag" content="算法学习笔记">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="四边形不等式">
+<meta name="twitter:description" content="（四边形不等式看标题可能觉得很难，其实比较简单）
+四边形不等式是一种DP优化的技巧，一般针对二维DP进行优化。
+在DP中，往往会有多个决策点，而其中就有一个是最优的，设 $d_{i,j}$ 的最优决策点为 $f_{i,j}$。
+（以下假设DP枚举决策点的复杂度为 $O(n)$，DP状态数为 $O(n^2)$）
+而四边形不等式就是说，如果满足 $f_{i,j-1} \leq f_{i,j} \leq f_{i&#43;1,j}$，那么可以把DP枚举决策点的范围降至 $[f_{i,j-1},f_{i&#43;1,j}]$，然后DP的复杂度就从 $O(n^3)$ 降到了 $O(n^2)$。
+
+而这个（复杂度）怎么证明呢？我们画一下 $f$ 数组的表：
+
+（此处，我们以 $i$ 为行号，以 $j$ 为列号，行、列号都从 $1$ 开始编号）
+然后，画几个标记：
+
+这些标记指的是，在转移 $d_{1,2}$ 的时候，转移点枚举的左右端点分别就是红箭头指向的两个数。
+同时，为了方便观察，此处还画了个蓝色的虚线。
+同理，还可以画出 $d_{2,3}$ 对应的标记：
+
+以此类推：
+
+可以发现，其实这时候所有蓝线的长度（蓝线连接的两个数字的差值定义为这个蓝线的长度）之和，最多只有 $n$。
+而对于 $d_{1,3}$ 一“类”的标记：
+
+可以发现，其实那些蓝线的长度之和也是最多只有 $n$。
+在画出所有蓝线之后：
+
+可以发现，一共就有 $n$ “类”蓝线，一“类”蓝线的长度之和最多 $n$，至此，可以证明复杂度（所有蓝线的长度之和）为 $O(n^2)$。
+
+接下来讲几类四边形不等式解决的经典题型：
+
+第一类：$d_{l,r}=\min { d_{l,k}&#43;d_{k&#43;1,r} | l \leq k \leq r }&#43;w_{l,r}$，合并石子类。
+第二类：$d_{i,j}=\min { d_{k,j-1}&#43;w_{k&#43;1,i} | 0 \leq k \leq i }$，区间分割类。
+
+（这两类对应的公式里的 $\min$ 也可以替换成 $\max$）">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://qjwh.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "四边形不等式",
+      "item": "https://qjwh.github.io/posts/oi/aln/quadrangleinequality/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "四边形不等式",
+  "name": "四边形不等式",
+  "description": "（四边形不等式看标题可能觉得很难，其实比较简单）\n四边形不等式是一种DP优化的技巧，一般针对二维DP进行优化。\n在DP中，往往会有多个决策点，而其中就有一个是最优的，设 $d_{i,j}$ 的最优决策点为 $f_{i,j}$。\n（以下假设DP枚举决策点的复杂度为 $O(n)$，DP状态数为 $O(n^2)$）\n而四边形不等式就是说，如果满足 $f_{i,j-1} \\leq f_{i,j} \\leq f_{i+1,j}$，那么可以把DP枚举决策点的范围降至 $[f_{i,j-1},f_{i+1,j}]$，然后DP的复杂度就从 $O(n^3)$ 降到了 $O(n^2)$。\n而这个（复杂度）怎么证明呢？我们画一下 $f$ 数组的表：\n（此处，我们以 $i$ 为行号，以 $j$ 为列号，行、列号都从 $1$ 开始编号）\n然后，画几个标记：\n这些标记指的是，在转移 $d_{1,2}$ 的时候，转移点枚举的左右端点分别就是红箭头指向的两个数。\n同时，为了方便观察，此处还画了个蓝色的虚线。\n同理，还可以画出 $d_{2,3}$ 对应的标记：\n以此类推：\n可以发现，其实这时候所有蓝线的长度（蓝线连接的两个数字的差值定义为这个蓝线的长度）之和，最多只有 $n$。\n而对于 $d_{1,3}$ 一“类”的标记：\n可以发现，其实那些蓝线的长度之和也是最多只有 $n$。\n在画出所有蓝线之后：\n可以发现，一共就有 $n$ “类”蓝线，一“类”蓝线的长度之和最多 $n$，至此，可以证明复杂度（所有蓝线的长度之和）为 $O(n^2)$。\n接下来讲几类四边形不等式解决的经典题型：\n第一类：$d_{l,r}=\\min { d_{l,k}+d_{k+1,r} | l \\leq k \\leq r }+w_{l,r}$，合并石子类。 第二类：$d_{i,j}=\\min { d_{k,j-1}+w_{k+1,i} | 0 \\leq k \\leq i }$，区间分割类。 （这两类对应的公式里的 $\\min$ 也可以替换成 $\\max$）\n",
+  "keywords": [
+    "信息学竞赛", "算法学习笔记"
+  ],
+  "articleBody": "（四边形不等式看标题可能觉得很难，其实比较简单）\n四边形不等式是一种DP优化的技巧，一般针对二维DP进行优化。\n在DP中，往往会有多个决策点，而其中就有一个是最优的，设 $d_{i,j}$ 的最优决策点为 $f_{i,j}$。\n（以下假设DP枚举决策点的复杂度为 $O(n)$，DP状态数为 $O(n^2)$）\n而四边形不等式就是说，如果满足 $f_{i,j-1} \\leq f_{i,j} \\leq f_{i+1,j}$，那么可以把DP枚举决策点的范围降至 $[f_{i,j-1},f_{i+1,j}]$，然后DP的复杂度就从 $O(n^3)$ 降到了 $O(n^2)$。\n而这个（复杂度）怎么证明呢？我们画一下 $f$ 数组的表：\n（此处，我们以 $i$ 为行号，以 $j$ 为列号，行、列号都从 $1$ 开始编号）\n然后，画几个标记：\n这些标记指的是，在转移 $d_{1,2}$ 的时候，转移点枚举的左右端点分别就是红箭头指向的两个数。\n同时，为了方便观察，此处还画了个蓝色的虚线。\n同理，还可以画出 $d_{2,3}$ 对应的标记：\n以此类推：\n可以发现，其实这时候所有蓝线的长度（蓝线连接的两个数字的差值定义为这个蓝线的长度）之和，最多只有 $n$。\n而对于 $d_{1,3}$ 一“类”的标记：\n可以发现，其实那些蓝线的长度之和也是最多只有 $n$。\n在画出所有蓝线之后：\n可以发现，一共就有 $n$ “类”蓝线，一“类”蓝线的长度之和最多 $n$，至此，可以证明复杂度（所有蓝线的长度之和）为 $O(n^2)$。\n接下来讲几类四边形不等式解决的经典题型：\n第一类：$d_{l,r}=\\min { d_{l,k}+d_{k+1,r} | l \\leq k \\leq r }+w_{l,r}$，合并石子类。 第二类：$d_{i,j}=\\min { d_{k,j-1}+w_{k+1,i} | 0 \\leq k \\leq i }$，区间分割类。 （这两类对应的公式里的 $\\min$ 也可以替换成 $\\max$）\n而一个结论就是，如果说 $w$ 同时满足以下两个条件，那么就可以直接用四边形不等式优化：\n区间包含单调性：如果对于所有 $l \\leq l’ \\leq r’ \\leq r$，都满足 $w_{l’,r’} \\leq w_{l,r}$ 交叉小于等于包含（四边形不等式）：如果对于所有 $l \\leq l’ \\leq r \\leq r’$，都满足 $w_{l,r}+w_{l’,r’} \\leq w_{l,r’}+w_{l’,r}$ 这个是可以证明的，但此处略。\n",
+  "wordCount" : "102",
+  "inLanguage": "en",
+  "datePublished": "2025-02-09T15:28:00+08:00",
+  "dateModified": "2025-02-09T15:28:00+08:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://qjwh.github.io/posts/oi/aln/quadrangleinequality/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "CXBlog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://qjwh.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://qjwh.github.io/" accesskey="h" title="CXBlog (Alt + H)">CXBlog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://qjwh.github.io/posts/" title="文章">
+                    <span>文章</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://qjwh.github.io/archives/" title="列表">
+                    <span>列表</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://qjwh.github.io/tags/" title="标签">
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://qjwh.github.io/search/" title="搜索">
+                    <span>搜索</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      四边形不等式
+    </h1>
+    <div class="post-meta"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span>
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>（四边形不等式看标题可能觉得很难，其实比较简单）</p>
+<p>四边形不等式是一种DP优化的技巧，一般针对二维DP进行优化。</p>
+<p>在DP中，往往会有多个决策点，而其中就有一个是最优的，设 $d_{i,j}$ 的最优决策点为 $f_{i,j}$。</p>
+<p>（以下假设DP枚举决策点的复杂度为 $O(n)$，DP状态数为 $O(n^2)$）</p>
+<p>而四边形不等式就是说，如果满足 $f_{i,j-1} \leq f_{i,j} \leq f_{i+1,j}$，那么可以把DP枚举决策点的范围降至 $[f_{i,j-1},f_{i+1,j}]$，然后DP的复杂度就从 $O(n^3)$ 降到了 $O(n^2)$。</p>
+<hr>
+<p>而这个（复杂度）怎么证明呢？我们画一下 $f$ 数组的表：</p>
+<p><img loading="lazy" src="https://cdn.luogu.com.cn/upload/image_hosting/10dvj9bx.png"></p>
+<p>（此处，我们以 $i$ 为行号，以 $j$ 为列号，行、列号都从 $1$ 开始编号）</p>
+<p>然后，画几个标记：</p>
+<p><img loading="lazy" src="https://cdn.luogu.com.cn/upload/image_hosting/by8vj7bj.png"></p>
+<p>这些标记指的是，在转移 $d_{1,2}$ 的时候，转移点枚举的左右端点分别就是红箭头指向的两个数。</p>
+<p>同时，为了方便观察，此处还画了个蓝色的虚线。</p>
+<p>同理，还可以画出 $d_{2,3}$ 对应的标记：</p>
+<p><img loading="lazy" src="https://cdn.luogu.com.cn/upload/image_hosting/3kxqh955.png"></p>
+<p>以此类推：</p>
+<p><img loading="lazy" src="https://cdn.luogu.com.cn/upload/image_hosting/71kjzpi4.png"></p>
+<p>可以发现，其实这时候所有蓝线的长度（蓝线连接的两个数字的差值定义为这个蓝线的长度）之和，最多只有 $n$。</p>
+<p>而对于 $d_{1,3}$ 一“类”的标记：</p>
+<p><img loading="lazy" src="https://cdn.luogu.com.cn/upload/image_hosting/ia0bvgy6.png"></p>
+<p>可以发现，其实那些蓝线的长度之和也是最多只有 $n$。</p>
+<p>在画出所有蓝线之后：</p>
+<p><img loading="lazy" src="https://cdn.luogu.com.cn/upload/image_hosting/d9jiw70y.png"></p>
+<p>可以发现，一共就有 $n$ “类”蓝线，一“类”蓝线的长度之和最多 $n$，至此，可以证明复杂度（所有蓝线的长度之和）为 $O(n^2)$。</p>
+<hr>
+<p>接下来讲几类四边形不等式解决的经典题型：</p>
+<ul>
+<li>第一类：$d_{l,r}=\min { d_{l,k}+d_{k+1,r} <del>|</del> l \leq k \leq r }+w_{l,r}$，合并石子类。</li>
+<li>第二类：$d_{i,j}=\min { d_{k,j-1}+w_{k+1,i} <del>|</del> 0 \leq k \leq i }$，区间分割类。</li>
+</ul>
+<p>（这两类对应的公式里的 $\min$ 也可以替换成 $\max$）</p>
+<p>而一个结论就是，如果说 $w$ 同时满足以下两个条件，那么就可以直接用四边形不等式优化：</p>
+<ul>
+<li>区间包含单调性：如果对于所有 $l \leq l&rsquo; \leq r&rsquo; \leq r$，都满足 $w_{l&rsquo;,r&rsquo;} \leq w_{l,r}$</li>
+<li>交叉小于等于包含（四边形不等式）：如果对于所有 $l \leq l&rsquo; \leq r \leq r&rsquo;$，都满足 $w_{l,r}+w_{l&rsquo;,r&rsquo;} \leq w_{l,r&rsquo;}+w_{l&rsquo;,r}$</li>
+</ul>
+<p>这个是可以证明的，但此处略。</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://qjwh.github.io/tags/%E4%BF%A1%E6%81%AF%E5%AD%A6%E7%AB%9E%E8%B5%9B/">信息学竞赛</a></li>
+      <li><a href="https://qjwh.github.io/tags/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">算法学习笔记</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="https://qjwh.github.io/">CXBlog</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

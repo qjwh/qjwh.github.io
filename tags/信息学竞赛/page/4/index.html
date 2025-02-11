@@ -167,6 +167,37 @@
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">四边形不等式
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>（四边形不等式看标题可能觉得很难，其实比较简单）
+四边形不等式是一种DP优化的技巧，一般针对二维DP进行优化。
+在DP中，往往会有多个决策点，而其中就有一个是最优的，设 $d_{i,j}$ 的最优决策点为 $f_{i,j}$。
+（以下假设DP枚举决策点的复杂度为 $O(n)$，DP状态数为 $O(n^2)$）
+而四边形不等式就是说，如果满足 $f_{i,j-1} \leq f_{i,j} \leq f_{i&#43;1,j}$，那么可以把DP枚举决策点的范围降至 $[f_{i,j-1},f_{i&#43;1,j}]$，然后DP的复杂度就从 $O(n^3)$ 降到了 $O(n^2)$。
+而这个（复杂度）怎么证明呢？我们画一下 $f$ 数组的表：
+（此处，我们以 $i$ 为行号，以 $j$ 为列号，行、列号都从 $1$ 开始编号）
+然后，画几个标记：
+这些标记指的是，在转移 $d_{1,2}$ 的时候，转移点枚举的左右端点分别就是红箭头指向的两个数。
+同时，为了方便观察，此处还画了个蓝色的虚线。
+同理，还可以画出 $d_{2,3}$ 对应的标记：
+以此类推：
+可以发现，其实这时候所有蓝线的长度（蓝线连接的两个数字的差值定义为这个蓝线的长度）之和，最多只有 $n$。
+而对于 $d_{1,3}$ 一“类”的标记：
+可以发现，其实那些蓝线的长度之和也是最多只有 $n$。
+在画出所有蓝线之后：
+可以发现，一共就有 $n$ “类”蓝线，一“类”蓝线的长度之和最多 $n$，至此，可以证明复杂度（所有蓝线的长度之和）为 $O(n^2)$。
+接下来讲几类四边形不等式解决的经典题型：
+第一类：$d_{l,r}=\min { d_{l,k}&#43;d_{k&#43;1,r} | l \leq k \leq r }&#43;w_{l,r}$，合并石子类。 第二类：$d_{i,j}=\min { d_{k,j-1}&#43;w_{k&#43;1,i} | 0 \leq k \leq i }$，区间分割类。 （这两类对应的公式里的 $\min$ 也可以替换成 $\max$）
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to 四边形不等式" href="https://qjwh.github.io/posts/oi/aln/quadrangleinequality/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">基尔霍夫矩阵
     </h2>
   </header>
@@ -190,7 +221,7 @@ $ D_{i,j}= \begin{cases} 0 &amp; i \not= j \ \text{deg}(i) &amp; i=j \end{cases}
 ...</p>
   </div>
   <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 基尔霍夫矩阵" href="https://qjwh.github.io/posts/aln/kirchhoffmatrix/"></a>
+  <a class="entry-link" aria-label="post link to 基尔霍夫矩阵" href="https://qjwh.github.io/posts/oi/aln/kirchhoffmatrix/"></a>
 </article>
 
 <article class="post-entry tag-entry"> 
@@ -230,7 +261,7 @@ Splay（本意为“张开”但这里不是这个意思） 这个算法对上�
 ...</p>
   </div>
   <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 平衡树" href="https://qjwh.github.io/posts/aln/balancedtree/"></a>
+  <a class="entry-link" aria-label="post link to 平衡树" href="https://qjwh.github.io/posts/oi/aln/balancedtree/"></a>
 </article>
 
 <article class="post-entry tag-entry"> 
@@ -252,7 +283,7 @@ Splay（本意为“张开”但这里不是这个意思） 这个算法对上�
 ...</p>
   </div>
   <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 整体二分" href="https://qjwh.github.io/posts/aln/exbinarysearch/"></a>
+  <a class="entry-link" aria-label="post link to 整体二分" href="https://qjwh.github.io/posts/oi/aln/exbinarysearch/"></a>
 </article>
 
 <article class="post-entry tag-entry"> 
@@ -276,40 +307,7 @@ $\lfloor \frac{n}{i} \rfloor$ 的总取值种数最多只有第一、二部分�
 ...</p>
   </div>
   <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 整除分块" href="https://qjwh.github.io/posts/aln/divisionblock/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">斜率优化
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>（说是斜率优化，其实和斜率几乎没有关系）
-（e…更新后确实有关系）
-其实斜率优化和决策二分栈（队列）很像，下面分几种类型来讲。
-一维斜率优化 针对形如 $d_i=\min\limits_{j=0}^{i-1} \big( d_j&#43;w(j&#43;1,i) \big)$ 的方程，而且需要满足决策单调性。
-此处重新说一下，如果我们发现一个转移点 $x$ 在 $d_i$ 的时候已经比另外一个转移点 $y$ 要更优了（$x&gt;y$），那么转移点 $y$ 在后面（$d_{i&#43;1}$ 及以后）就不可能比转移点 $x$ 要更优了，那么这个DP一定满足决策单调性，而且反过来也一样（见&#34;决策单调性.md&#34;）。
-其实证明是否满足单调性只用看：如果一个决策点 $x$ 如果在 $d_i$ 的转移中已经比决策点 $y$ 要优了，那么 $d_{i&#43;1}$ 中是否仍然满足这个条件。
-证明了满足决策单调性后，就可以开始斜率优化了。
-我们首先要考虑推斜率式：
-其实斜率式就是把式子 $d_x&#43;w(x&#43;1,i)&lt;d_y&#43;w(y&#43;1,i)$（$x&gt;y$）不断移项、变化，直到式子左边只和 $x$、$y$ 有关，右边只和 $i$ 有关为止。
-此时的斜率式一般左边是个分数，而且这个分数还需要把分子和分母的下标对应：
-如果斜率式最后是像这样的：
-$\dfrac{d_x-d_y}{v_y-v_x}&gt;-a_i$
-那么就不是个合法的斜率式，需要变成：
-$\dfrac{d_x-d_y}{v_x-v_y}&lt;a_i$
-才是合法的。
-注意，这里说的是“合法的”，而不是“正确的”，其实最上方的斜率式也可以使用，就是不能叫“斜率式”了（斜率的公式是 $\dfrac{y_2-y_1}{x_2-x_1}$）。
-设此时的斜率式就是上面说的：
-$\dfrac{d_x-d_y}{v_x-v_y}&lt;a_i$
-那么，我们就定义 $\text{slope}(y,x)=\dfrac{d_x-d_y}{v_x-v_y}$。
-有了上面函数，显然如果存在两个转移点 $x$ 和 $y$（$x&gt;y$）在转移到 $d_i$ 的时候满足 $\text{slope}(x,y)&lt;a_i$，那么就说明转移点 $x$ 比转移点 $y$ 更优，转移点 $y$ 在后面就不需要了。
-下面默认推出来的斜率式就是上式，并默认 $a$ 数组单调不降。
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 斜率优化" href="https://qjwh.github.io/posts/aln/slopeopm/"></a>
+  <a class="entry-link" aria-label="post link to 整除分块" href="https://qjwh.github.io/posts/oi/aln/divisionblock/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">
