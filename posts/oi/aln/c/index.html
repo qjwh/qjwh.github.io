@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="auto">
+<html lang="zh" dir="auto">
 
 <head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -56,7 +56,7 @@
 <link rel="mask-icon" href="https://qjwh.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="https://qjwh.github.io/posts/oi/aln/c/">
+<link rel="alternate" hreflang="zh" href="https://qjwh.github.io/posts/oi/aln/c/">
 <noscript>
     <style>
         #theme-toggle,
@@ -144,7 +144,7 @@
 而把质数的条件后，就没法求逆元了，因为逆元可能不存在。
 所以我们考虑换做法。
 2 我们考虑把模数做个质因数分解，变成 ${p_1}^{a_1} \times {p_2}^{a_2} \times {p_3}^{a_3} \times \dots \times {p_k}^{a_k}$。">
-  <meta property="og:locale" content="en">
+  <meta property="og:locale" content="zh">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2025-02-09T15:28:00+08:00">
@@ -226,7 +226,7 @@
   ],
   "articleBody": "\r有人问，组合数学不是就一些简单的公式吗？不是的，其实组合数学是数学中的一个非常庞大的分支，接下来就举一些例子。（更新中）\n本文主要讲各种数据范围下，求组合数的方式；以及球盒模型各种情况下的公式；最后是一些球盒模型的扩展情况。\n转到：球盒模型公式\n转到：球盒模型扩展公式\n（下面部分标题里的LaTeX公式更新后炸了，就凑合着看吧）\n求组合数 以下所有范围都可以当成是以下题目的某个Subtask：\n给你 $p$，代表模数。\n之后会给你一个 $q$，代表询问次数。\n每次询问给定 $n$ 和 $m$，问 $C_n^m \\bmod p$ 的值。\n下面不给定 $q$ 的范围，因为不重要。\n以下全部默认 $n \\geq m$。\n范围1：$n,m \\leq 2000,p \\leq 10^9+7$ 先递推预处理，然后直接回答询问即可。\n递推式：$C_n^m=C_{n-1}^m+C_{n-1}^{m-1}$。\n预处理复杂度：$O(n^2)$ 查询复杂度：$O(1)$ 范围2：$n,m \\leq 10^6,p \\leq 10^9+7,p\\text{ is prime}$ 1 先预处理阶乘，然后直接回答询问即可。\n回答询问式：$C_n^m=\\dfrac{n!}{m!(n-m)!}$。\n为了节省时间复杂度，此处还可以预处理一下阶乘的逆元。\n2 预处理复杂度：$O(n)$ 查询复杂度：$O(1)$ 范围3：$n,m \\leq 10^6,p \\leq 10^9+7$ 1 可以发现，范围2与范围3唯一的不同就是，范围3把质数的条件去掉了。\n而把质数的条件后，就没法求逆元了，因为逆元可能不存在。\n所以我们考虑换做法。\n2 我们考虑把模数做个质因数分解，变成 ${p_1}^{a_1} \\times {p_2}^{a_2} \\times {p_3}^{a_3} \\times \\dots \\times {p_k}^{a_k}$。\n然后，我们求出 $c$ 数组，$c_i=C_n^m \\bmod {p_i}^{a_i}$，然后就可以列出以下方程：\n$ \\begin{cases} x \\equiv c_1 \\pmod{{p_1}^{a_1}} \\ x \\equiv c_2 \\pmod{{p_2}^{a_2}} \\ x \\equiv c_3 \\pmod{{p_3}^{a_3}} \\ \\dots \\ x \\equiv c_k \\pmod{{p_k}^{a_k}} \\end{cases} $\n用中国剩余定理即可求出上述方程的最小正整数解 $x$，输出这个 $x$ 即可。\n3 接下来考虑一下如何求 $c$ 数组。\n我们设当前要求 $C_n^m \\bmod q^a$。\n那么，我们把 $C_n^m$ 展开为阶乘形式，变成 $\\dfrac{n!}{m!(n-m)!}$。\n然后，我们想，$C_n^m \\bmod p$ 不能直接求的原因其实就是因为上述式子可能不会与 $p$ 互质。\n进而，$C_n^m \\bmod q^a$ 不能直接求的原因也是因为上述式子可能不会与 $q^a$（其实也是 $q$）互质。\n所以，我们就把上述式子里（那个分数的分子和分母内）所有的 $q$ 都去掉，变成 $\\Large \\dfrac{\\frac{n!}{q^x}}{\\frac{m!}{q^y}\\frac{(n-m)!}{q^z}} \\times q^{x-y-z}$，其中 $x$、$y$、$z$ 就是 $n!$、$m!$、$(n-m)!$ 中含有的 $q$ 质因子数量。\n这个式子中的 $\\dfrac{n!}{q^x}$ 是可以直接预处理的，此处略。\n由于分母中的两项都没有 $q$ 质因子，所以就有在模 $q^a$ 意义下的逆元，前项的分数可求；后项就是一个快速幂，可求。\n4 这里再说最后一点细节，就是我们设 $f_n=\\dfrac{n!}{q^x}$，那么 $f_i=f_{i-1} \\times i \\div q^c$（虽说这个式子中有除号，但显然不需要逆元），其中 $c$ 是 $i$ 含有的 $q$ 质因子个数。\n这个公式中存在一个 $i \\div q^c$，这可以暴力计算，但需要多带一个 $\\log$。\n但这其实不用带这个 $\\log$，我们可以先处理出来一个 $g$ 数组，$g_i=i \\div q^c$，这个 $g$ 数组很好递推：\n$i \\bmod q=0$：$g_i=g_{i \\div q}$ $i \\bmod q \\not= 0$：$g_i=i$ 有了这个 $g$ 数组，$f$ 数组的递推方程就变成了 $f_i=f_{i-1} \\times g_i$，递推复杂度也变成了 $O(n)$。\n5 预处理复杂度：$O(\\sqrt{n}+n \\log p)$，其中，$\\sqrt{p}$ 为求出 $p$ 的唯一分解复杂度，$\\log p$ 为枚举 $p$ 的所有唯一分解项复杂度，以下所有复杂度内的 $\\sqrt{p}$、$\\log p$ 都默认是这个意思。 查询复杂度：$O(\\log^2 p)$，其中一个 $\\log p$ 是枚举 $p$ 的所有唯一分解项复杂度，另外一个则是求逆元的复杂度。 范围4：$n,m \\leq 10^6,p \\leq 10^9+7$ 1 这里提供范围3的另外一种做法。\n其实很简单，我们只用把 $C_n^m$ 表示为 $2^? \\times 3^? \\times 5^? \\times \\dots$ 的形式即可。\n有人问，这个质数要枚举到多少呢？其实显然最多只用枚举到 $n$。\n实现这个做法可以借助一个函数ci(n,p)代表 $n!$ 的唯一分解中，$p$ 的指数是多少，这个函数可以用奥数知识，在 $\\log_p n$ 的复杂度内求出。\n细节不用多说。\n2 预处理复杂度：$O(n)$ 查询复杂度：$O(\\text{prime}(n) \\times \\log n)$，其中 $\\text{prime}(n)$ 代表 $n$ 及以内的质数个数，约为 $n \\div \\ln(n)$，以下所有 $\\text{prime}$ 函数都是这个意思；$\\log n$ 为ci函数的上界复杂度。 范围5：$n \\leq 10^{18},m \\leq 10^6,p \\leq 10^9+7,p\\text{ is prime}$ 1 注意到 $m \\leq 10^6$，所以我们就直接用公式 $C_n^m=\\dfrac{n \\times (n-1) \\times (n-2) \\times \\dots \\times (n-m+1)}{1 \\times 2 \\times 3 \\times \\dots \\times m}$，配合逆元求解即可。\n2 预处理复杂度：无 查询复杂度：$O(m \\log p)$，其中 $\\log p$ 为算逆元的时间复杂度。 范围6：$n \\leq 10^{18},m \\leq 10^6,p \\leq 10^9+7$ 1 注意到 $p$ 没有保证是质数，所以分母内的那些项没有逆元。\n但我们还可以用与范围3的做法1相似的做法去做。\n具体地，我们先分解 $p$，然后对于唯一分解内的每一项 $q^a$，先求出 $n \\times (n-1) \\times (n-2) \\times \\dots \\times (n-m+1) \\bmod q^a$。\n然后循环每个 $i \\in [1,m]$，把 $i$ 中的 $q$ 都除尽，此时就可以求 $i$ 在模 $q^a$ 意义下的逆元了，直接更新答案即可。\n2 预处理复杂度：$O(m \\log p)$ 查询复杂度：$O(\\log^2 p)$，该复杂度解释见范围3的做法1的同地（同一个地方）。 范围7：$n,m \\leq 10^{18},p \\leq 10^6+3,p\\text{ is prime}$ 1 直接Lucas定理即可。\n2 预处理复杂度：$O(p)$ 查询复杂度：$O(\\log m)$ 范围8：$n,m \\leq 10^{18},p \\leq 10^6+3$ 1 直接exLucas定理即可。\n2 预处理复杂度：$O(\\sqrt{p})$ 查询复杂度：$O(\\log p \\log n+\\log^2 p)$，其中第一个 $\\log p$ 为枚举 $p$ 的所有唯一分解项复杂度，$\\log n$ 为ci函数/f函数复杂度，第二个 $\\log p$ 为CRT内枚举方程复杂度，第三个 $\\log p$ 为CRT内求逆元的复杂度。 范围9：$n,m \\leq 10^{18},p \\leq 10^9+7$ 1 这个数据范围需要利用高阶多项式的知识，参考这里\n2 预处理复杂度：未知 查询复杂度：未知 组合数模型：球盒模型 参考：\nhttps://zhuanlan.zhihu.com/p/602410836 统一设 $n$ 为球的个数，$m$ 为盒子的个数。\n在情况 $i$ 内，$f_i(n,m)$ 为这种情况下，如果球数为 $n$、盒子数为 $m$，方案数是多少。\n转到：球盒模型公式\n情况1：球相同，盒相同，允许为空 这种情况下无法直接求，需要递推。\n接下来考虑转移 $f_1(n,m)$：\n$n=0$：$f_1(n,m)=1$ $m=0$：$f_1(n,m)=0$ $n $n \\geq m$： 如果所有盒子都不为空：我们可以先在每个格子里拿出一个球，即 $f_1(n,m) \\text{+=} f_1(n-m,m)$ 否则：我们就随便指定一个格子，设这个格子为空，即 $f_1(n,m) \\text{+=} f_1(n,m-1)$ 情况2：球相同，盒相同，不允许为空 这种情况下可以直接求。\n具体地，设要求 $f_2(n,m)$。\n那么我们考虑，其实情况1和情况2就一个区别，情况1允许为空，情况2不允许。\n所以我们就可以先在所有盒子内都拿出一个球，保证都非空后，就转化为了情况1，即 $f_2(n,m)=f_1(n-m,m)$。\n但注意，当 $n",
   "wordCount" : "829",
-  "inLanguage": "en",
+  "inLanguage": "zh",
   "datePublished": "2025-02-09T15:28:00+08:00",
   "dateModified": "2025-02-09T15:28:00+08:00",
   "mainEntityOfPage": {
@@ -316,13 +316,13 @@
     <h1 class="post-title entry-hint-parent">
       组合数学（待补充）
     </h1>
-    <div class="post-meta"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span>
+    <div class="post-meta"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span>&nbsp;·&nbsp;4 分钟&nbsp;·&nbsp;829 字
 
 </div>
   </header> <div class="toc">
-    <details >
+    <details  open>
         <summary accesskey="c" title="(Alt + C)">
-            <span class="details">Table of Contents</span>
+            <span class="details">目录</span>
         </summary>
 
         <div class="inner"><ul>
@@ -875,6 +875,53 @@ $</p>
         }
     })
 
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = '复制';
+
+        function copyingDone() {
+            copybutton.innerHTML = '已复制！';
+            setTimeout(() => {
+                copybutton.innerHTML = '复制';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
 </script>
 </body>
 

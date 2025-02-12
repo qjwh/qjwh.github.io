@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="auto">
+<html lang="zh" dir="auto">
 
 <head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -51,7 +51,7 @@ wqs二分也是二分，那它二分什么值呢，它二分的是斜率 $mid$�
 <link rel="mask-icon" href="https://qjwh.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="https://qjwh.github.io/posts/oi/aln/wqs/">
+<link rel="alternate" hreflang="zh" href="https://qjwh.github.io/posts/oi/aln/wqs/">
 <noscript>
     <style>
         #theme-toggle,
@@ -137,7 +137,7 @@ wqs二分也是二分，那它二分什么值呢，它二分的是斜率 $mid$�
 其次，显然，经过点 $(x,y)$ 且斜率等于 $k$ 的直线（肯定唯一），其截距一定等于 $y-kx$（$y=kx&#43;b$，$b=y-kx$）。
 而在二分的calc函数（此处不是check函数了，calc函数的返回值、返回值含义以及应用见下）中，我们已经知道了上述公式中的 $k$ 了（$k=mid$），所以我们只要让 $y-kx$ 最小、斜率为 $k$ 且经过了某个图上的点即可。
 考虑到上述公式中的 $x$ 未知，所以我们可以干脆把所有 $s$ 的出边的边权都减 $mid$。（关于是加、减还是都彳亍的问题存疑）">
-  <meta property="og:locale" content="en">
+  <meta property="og:locale" content="zh">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2025-02-09T15:28:00+08:00">
@@ -214,7 +214,7 @@ wqs二分也是二分，那它二分什么值呢，它二分的是斜率 $mid$�
   ],
   "articleBody": "感谢这篇文章的作者。\nwqs二分一般解决这类问题：\n有 $n$ 个物品，你要选出恰好 $m$ 个（下称“选择物品个数限制”），可能有限制（下称“其他限制”），你要最大/小化某个权值。\n但除此之外，还有一些限制：\n如果我们设 $g_i$ 为选出恰好 $i$ 个时的最大/小权值，那么 $g$ 函数就应该是上凸（求最大权值）/下凹（求最小权值）的，即斜率单调递减（上凸）/递增（下凹）。 一般来说，如果没有任何限制（包括选择物品个数限制和其他限制），那么答案是很好求的。 一般来说，如果没有其他限制，那么选择物品数量越多，最小权值就越大/小。 以下是P5633的题解，顺带着讲了wqs二分的原理和应用。\n在原题中，我们可以以标号为 $s$ 点在最小生成树上的出度为横坐标，以这个出度对应的答案为纵坐标，画出图像：（网上粘的图，只画了部分横坐标的情况）\n显然D和E点就是最小值点。\n接下来就是wqs二分的重点了\nwqs二分也是二分，那它二分什么值呢，它二分的是斜率 $mid$。\n具体而言，一个斜率就对应若干条平行的边，而总有一条边是完全切这个凸包的，如 $mid=-1$ 的时候，上图中被且的那个点就刚好是C点：\n如果我们设题目要求 $s$ 的度数要恰好为 $6$，那么 $mid=-1$ 的时候被切的那个点C的纵坐标就是答案了。\n但此时我们就有两个问题了：\n如何求出被切的那个点的下标？ 就算求出了下标，那这个点的纵坐标又如何计算？ 接下来我们来解决这两个问题。\n首先，这个切线肯定是所有经过某个点且斜率等于 $mid$ 的直线中截距最小的点：\n具体地，根据切线的性质，在上述例子中，经过C点的斜率等于 $mid$ 的直线（即切线），与经过D点的斜率等于 $mid$ 的直线、经过E点的斜率等于 $mid$ 的直线相比，切线的截距肯定最小，后两者的截距肯定更大。\n其次，显然，经过点 $(x,y)$ 且斜率等于 $k$ 的直线（肯定唯一），其截距一定等于 $y-kx$（$y=kx+b$，$b=y-kx$）。\n而在二分的calc函数（此处不是check函数了，calc函数的返回值、返回值含义以及应用见下）中，我们已经知道了上述公式中的 $k$ 了（$k=mid$），所以我们只要让 $y-kx$ 最小、斜率为 $k$ 且经过了某个图上的点即可。\n考虑到上述公式中的 $x$ 未知，所以我们可以干脆把所有 $s$ 的出边的边权都减 $mid$。（关于是加、减还是都彳亍的问题存疑）\n然后我们对新图跑一个最小生成树，看这个最小生成树中 $s$ 的出度是多少，那么被切点的X坐标就是多少；并且这颗最小生成树的边权和就是这个切线的截距，显然。\n有了这个切线的斜率、截距，也有了切点的X坐标，不就可以计算切点的Y坐标了吗？很简单，此处略。\n接下来就是主函数部分了，可以发现，斜率越小，那么切点的X坐标就越靠后。\n所以，我们就可以考虑用LL calc(LL mid)函数代表用斜率为 $mid$ 的某条直线去切那个 $g$ 函数的图像，那么切点的X坐标是多少。\n由于传参越小，返回值就越大，所以我们就可以二分了，二分找到第一个返回值小于等于 $need$ 的传参 $mid$（要保证 $\\text{calc}(mid)=need$），然后计算如果调用calc(mid)，那么这颗最小生成树的边权和是多少（设为 $sum$），最后输出 $sum+mid \\times need$ 即可，显然。\n上面说“要保证 $\\text{calc}(mid)=need$”，但如果整数的 $mid$ 始终无法满足这个条件，就需要用到小数二分，但小数二分很可能会TLE，所以我们考虑修改。\n（下述做法为假）\n我觉得解决方法也很简单，我们直接找到最后一个 $\\text{calc}(mid) \\leq need$ 的 $mid$，然后答案就不输出 $sum+mid \\times need$ 了，而是输出 $sum+mid \\times \\text{calc}(mid)$ 即可。\n其实解决方法也很简单，我们还是输出 $sum+mid \\times need$ 即可，证明见M2434的代码。\n其实也不是所有题目都要用到上述方法，如果图像像上面说的那样：\n除了底部（即那些全局最小值点）可能会是平的，其他地方都不可能有三点共线，如这样的图像就需要用上述做法：\n（因为红色的三个点共线了）\n",
   "wordCount" : "116",
-  "inLanguage": "en",
+  "inLanguage": "zh",
   "datePublished": "2025-02-09T15:28:00+08:00",
   "dateModified": "2025-02-09T15:28:00+08:00",
   "mainEntityOfPage": {
@@ -304,7 +304,7 @@ wqs二分也是二分，那它二分什么值呢，它二分的是斜率 $mid$�
     <h1 class="post-title entry-hint-parent">
       wqs二分
     </h1>
-    <div class="post-meta"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span>
+    <div class="post-meta"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span>&nbsp;·&nbsp;1 分钟&nbsp;·&nbsp;116 字
 
 </div>
   </header> 
@@ -442,6 +442,53 @@ wqs二分也是二分，那它二分什么值呢，它二分的是斜率 $mid$�
         }
     })
 
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = '复制';
+
+        function copyingDone() {
+            copybutton.innerHTML = '已复制！';
+            setTimeout(() => {
+                copybutton.innerHTML = '复制';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
 </script>
 </body>
 

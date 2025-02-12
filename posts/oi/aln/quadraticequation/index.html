@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="auto">
+<html lang="zh" dir="auto">
 
 <head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -58,7 +58,7 @@ $x&#43;\dfrac{b}{2a}=\sqrt{\dfrac{b^2-4ac}{4a^2}}$">
 <link rel="mask-icon" href="https://qjwh.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="https://qjwh.github.io/posts/oi/aln/quadraticequation/">
+<link rel="alternate" hreflang="zh" href="https://qjwh.github.io/posts/oi/aln/quadraticequation/">
 <noscript>
     <style>
         #theme-toggle,
@@ -153,7 +153,7 @@ $\left( x&#43;\dfrac{b}{2a} \right)^2=\dfrac{-c}{a}&#43;\dfrac{b^2}{4a^2}$
 $\left( x&#43;\dfrac{b}{2a} \right)^2=\dfrac{b^2-4ac}{4a^2}$
 同时开根号
 $x&#43;\dfrac{b}{2a}=\sqrt{\dfrac{b^2-4ac}{4a^2}}$">
-  <meta property="og:locale" content="en">
+  <meta property="og:locale" content="zh">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2025-02-09T15:28:00+08:00">
@@ -237,7 +237,7 @@ $x&#43;\dfrac{b}{2a}=\sqrt{\dfrac{b^2-4ac}{4a^2}}$">
   ],
   "articleBody": "\r在数学、编程界里，可能会经常遇到方程，而且有时候还会遇到一种特殊方程——一元二次方程。\n除此之外，还有含参一元二次方程，这里也会一起讲。（待补充）\n其实还有如二元一次方程、一元三次方程等的特殊方程，但在这里不讲。\n一元二次方程 有人看到“一元二次方程”就不知道是啥意思，这里先说一下定义\n定义 首先，方程相信大家都见过，所以这里不写对方程的定义解释。（废话\n而 $x$ 元 $y$ 次方程就是这么定义的：\n这个方程经过化简后，共有 $x$ 个未知数，且未知数上的最大指数为 $y$ 的方程。 如：\n$3(x+1)=6x$：一元一次方程，也是最常见的方程。 $3(x+1)^2=2(x+1)$：一元一次方程，因为两边可以同时除以 $x+1$ 以让指数减少 $1$。 $x^2-4x+1=0$：一元二次方程，也是下面要讲的方程类型。 $x^3+2x^2-1=16x$：一元三次方程，也是一种不常见的方程类型。 讲完定义，接下来说怎么解\n解法 推导 我们把方程一般化，变成：\n$ax^2+bx+c=0$\n其中 $a$、$b$、$c$ 均为常量。\n然后，我们不断对方程做一些推导。\n移项\n$ax^2+bx=-c$\n同时除以 $a$ 常量\n$x^2+\\dfrac{b}{a}x=-\\dfrac{c}{a}$\n这个式子很多人看了就不知道怎么继续推导了。\n但还是可以继续转化的。\n我们考虑配方，即把式子的左/右项同时加/减/乘/除一个相同的数，然后让这个等式的左/右项变成一个数的平方的形式。\n这一步比较考验数感，一个结论就是，我们同时加上 $\\left( \\dfrac{b}{2a} \\right)^2$ 常量 即可。\n$x^2+\\dfrac{b}{a}x+\\left( \\dfrac{b}{2a} \\right)^2=-\\dfrac{c}{a}+\\left( \\dfrac{b}{2a} \\right)^2$\n化简\n$\\left( x+\\dfrac{b}{2a} \\right)^2=\\dfrac{-c}{a}+\\dfrac{b^2}{4a^2}$\n二次化简\n$\\left( x+\\dfrac{b}{2a} \\right)^2=\\dfrac{b^2-4ac}{4a^2}$\n同时开根号\n$x+\\dfrac{b}{2a}=\\sqrt{\\dfrac{b^2-4ac}{4a^2}}$\n移项\n$x=\\sqrt{\\dfrac{b^2-4ac}{4a^2}}-\\dfrac{b}{2a}$\n提出分母\n$x=\\dfrac{\\sqrt{b^2-4ac}}{2a}-\\dfrac{b}{2a}$\n化简\n$x=\\dfrac{-b+\\sqrt{b^2-4ac}}{2a}$\n但 $\\sqrt{b^2-4ac}$ 是可以正也可以负的，所以变化符号一下。\n$x=\\dfrac{-b \\pm \\sqrt{b^2-4ac}}{2a}$\n于是一元二次方程得解。\n定义与总结 在一元二次方程里，还有一个名词——根，你可以当“方程的解”理解。\n而且，一元二次方程里，最多只有两个根。\n我们把两个根分别表示为 $x_1$ 和 $x_2$，那么：\n$x_1=\\dfrac{-b+\\sqrt{b^2-4ac}}{2a}$\n$x_2=\\dfrac{-b-\\sqrt{b^2-4ac}}{2a}$\n同时，我们定义 $\\Delta$（读作 $\\text{delta}$，音标/'deltə/），即“根的判别式”，为 $b^2-4ac$，就是这个地方的式子：\n$x_{1,2}=\\dfrac{-b \\pm \\sqrt{\\color{red} b^2-4ac}}{2a}$ 而根据 $\\sqrt{~~}$ 内不能为负数的限制，如果 $\\Delta\u003c0$，则无实根（注意，不是无解）。\n关于为啥不是无解，这里解释一下，因为有一种数叫虚数，可以被表示为 $ai+b$（$a \\not= 0$），其中 $i=\\sqrt{-1}$ 的数都被称作虚数。\n而 $\\Delta\u003c0$ 时根就是虚数。\n而如果 $\\Delta=0$，则两个根相同，均为 $\\dfrac{-b}{2a}$。\n否则，$\\Delta\u003e0$，两个根分别为 $\\dfrac{-b+\\sqrt{\\Delta}}{2a}$ 和 $\\dfrac{-b-\\sqrt{\\Delta}}{2a}$。\n含参一元二次方程 （待补充）\n",
   "wordCount" : "116",
-  "inLanguage": "en",
+  "inLanguage": "zh",
   "datePublished": "2025-02-09T15:28:00+08:00",
   "dateModified": "2025-02-09T15:28:00+08:00",
   "mainEntityOfPage": {
@@ -327,13 +327,13 @@ $x&#43;\dfrac{b}{2a}=\sqrt{\dfrac{b^2-4ac}{4a^2}}$">
     <h1 class="post-title entry-hint-parent">
       一元二次方程解法（未完工）
     </h1>
-    <div class="post-meta"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span>
+    <div class="post-meta"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span>&nbsp;·&nbsp;1 分钟&nbsp;·&nbsp;116 字
 
 </div>
   </header> <div class="toc">
-    <details >
+    <details  open>
         <summary accesskey="c" title="(Alt + C)">
-            <span class="details">Table of Contents</span>
+            <span class="details">目录</span>
         </summary>
 
         <div class="inner"><ul>
@@ -513,6 +513,53 @@ $x&#43;\dfrac{b}{2a}=\sqrt{\dfrac{b^2-4ac}{4a^2}}$">
         }
     })
 
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = '复制';
+
+        function copyingDone() {
+            copybutton.innerHTML = '已复制！';
+            setTimeout(() => {
+                copybutton.innerHTML = '复制';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
 </script>
 </body>
 

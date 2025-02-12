@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="auto">
+<html lang="zh" dir="auto">
 
 <head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -36,7 +36,7 @@ $\lfloor \frac{n}{i} \rfloor$ 的总取值种数最多只有第一、二部分�
 <link rel="mask-icon" href="https://qjwh.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="https://qjwh.github.io/posts/oi/aln/divisionblock/">
+<link rel="alternate" hreflang="zh" href="https://qjwh.github.io/posts/oi/aln/divisionblock/">
 <noscript>
     <style>
         #theme-toggle,
@@ -116,7 +116,7 @@ $\lfloor \frac{n}{i} \rfloor$ 的值随着 $i$ 的增长而非单调递减 $\lfl
 在第一部分内，$i$ 也就只有 $\sqrt{n}$ 种取值，$\lfloor \frac{n}{i} \rfloor$ 最多只有约 $\sqrt{n}$ 种取值。
 在第二部分内，$\lfloor \frac{n}{i} \rfloor$ 在 $i$ 最小时（$i=\sqrt{n}&#43;1$）会达到最大值，约 $\sqrt{n}$；而上面说“$\lfloor \frac{n}{i} \rfloor$ 的值随着 $i$ 的增长而非单调递减”，所以易得 $\lfloor \frac{n}{i} \rfloor$ 最多也只有约 $\sqrt{n}$ 种取值。
 $\lfloor \frac{n}{i} \rfloor$ 的总取值种数最多只有第一、二部分的取值个数和，即 $2 \times \sqrt{n}$，证毕。">
-  <meta property="og:locale" content="en">
+  <meta property="og:locale" content="zh">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2025-02-09T15:28:00+08:00">
@@ -178,7 +178,7 @@ $\lfloor \frac{n}{i} \rfloor$ 的总取值种数最多只有第一、二部分�
   ],
   "articleBody": "\r感谢这篇文章的作者\n整除分块主要解决求解 $\\sum\\limits_{i=1}^n \\lfloor \\frac{n}{i} \\rfloor$ 的值。\n一看这个公式，可能毫无头绪，但画张图你就有点思路了：（$n=11$）\n（灰色线：$y=\\frac{11}{x}$，绿色点：$y=\\lfloor \\frac{11}{x} \\rfloor$，橙色线：仅为辅助）\n这张图其实就是在提示我们：\n$\\lfloor \\frac{n}{i} \\rfloor$ 的值随着 $i$ 的增长而非单调递减 $\\lfloor \\frac{n}{i} \\rfloor$ 的值往往会在一段区间内相等 所以，我们就有一个思路了，就是求出所有值（下面的“值”都代指的是 $\\lfloor \\frac{n}{i} \\rfloor$）相等的极大区间集，然后就可以快速统计了。\n有人问，这不就是个常数级别的优化吗，怎么能叫“快速”呢？其实区间个数总是 $O(\\sqrt{n})$ 级别，最多约 $2 \\times \\sqrt{n}$。\n证明：\n我们把 $i$ 分成两部分去考虑，一部分是 $i \\leq \\sqrt{n}$，另一部分是 $i\u003e\\sqrt{n}$。\n在第一部分内，$i$ 也就只有 $\\sqrt{n}$ 种取值，$\\lfloor \\frac{n}{i} \\rfloor$ 最多只有约 $\\sqrt{n}$ 种取值。\n在第二部分内，$\\lfloor \\frac{n}{i} \\rfloor$ 在 $i$ 最小时（$i=\\sqrt{n}+1$）会达到最大值，约 $\\sqrt{n}$；而上面说“$\\lfloor \\frac{n}{i} \\rfloor$ 的值随着 $i$ 的增长而非单调递减”，所以易得 $\\lfloor \\frac{n}{i} \\rfloor$ 最多也只有约 $\\sqrt{n}$ 种取值。\n$\\lfloor \\frac{n}{i} \\rfloor$ 的总取值种数最多只有第一、二部分的取值个数和，即 $2 \\times \\sqrt{n}$，证毕。\n然后，我们就考虑求区间集了，以下设 $l$ 为这个区间的左端点，$r$ 为这个区间的右端点，且 $l$ 已知。\n设 $v=\\lfloor \\frac{n}{l} \\rfloor$，其实 $r$ 就是最大的 $i$ 满足 $v=\\lfloor \\frac{n}{i} \\rfloor$，显然（条件）等价于 $i=\\lfloor \\frac{n}{v} \\rfloor$，带入 $v$ 后即可求出 $r=\\left\\lfloor \\dfrac{n}{\\lfloor \\frac{n}{l} \\rfloor} \\right\\rfloor$。\n于是乎，最上面那个问题就可以求解了，答案就是 $\\sum (r-l+1) \\times v$。\n",
   "wordCount" : "106",
-  "inLanguage": "en",
+  "inLanguage": "zh",
   "datePublished": "2025-02-09T15:28:00+08:00",
   "dateModified": "2025-02-09T15:28:00+08:00",
   "mainEntityOfPage": {
@@ -268,7 +268,7 @@ $\lfloor \frac{n}{i} \rfloor$ 的总取值种数最多只有第一、二部分�
     <h1 class="post-title entry-hint-parent">
       整除分块
     </h1>
-    <div class="post-meta"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span>
+    <div class="post-meta"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span>&nbsp;·&nbsp;1 分钟&nbsp;·&nbsp;106 字
 
 </div>
   </header> 
@@ -376,6 +376,53 @@ $\lfloor \frac{n}{i} \rfloor$ 的总取值种数最多只有第一、二部分�
         }
     })
 
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = '复制';
+
+        function copyingDone() {
+            copybutton.innerHTML = '已复制！';
+            setTimeout(() => {
+                copybutton.innerHTML = '复制';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
 </script>
 </body>
 

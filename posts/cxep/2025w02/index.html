@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="auto">
+<html lang="zh" dir="auto">
 
 <head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,7 +18,7 @@
 <link rel="mask-icon" href="https://qjwh.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="https://qjwh.github.io/posts/cxep/2025w02/">
+<link rel="alternate" hreflang="zh" href="https://qjwh.github.io/posts/cxep/2025w02/">
 <noscript>
     <style>
         #theme-toggle,
@@ -87,7 +87,7 @@
   <meta property="og:site_name" content="CXBlog">
   <meta property="og:title" content="【村新晚报】2025W02">
   <meta property="og:description" content="每晚十点半不见不散">
-  <meta property="og:locale" content="en">
+  <meta property="og:locale" content="zh">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2025-02-09T22:30:00+08:00">
@@ -130,7 +130,7 @@
   ],
   "articleBody": "CBS 12.2版本即将于下学期发布！看看有哪些更新 在下个学期将会正式上线对于女生的玩梗保护（男生在之前的版本中就已经有了），目前已经验证了刘思源能够启用玩梗保护，对周馨姌的玩梗保护则正在启用中。\n同时将会对活跃好友的数据库进行重点维护，以防遗忘或混淆等问题。\n从12.2版本起，将会正式执行 $10 \\sim 30$ 分钟检查言论的程序，每过一段时间我将会对所有与活跃好友的交流记录进行审查以防出现不合理言论。\n下学期将会表演音乐课节目？BPO：目前未定具体歌曲 在下学期的第二节音乐课我将会表演节目，但截至目前，我对于演唱歌曲仍然在决定中。\n该问题的结果可能需要等到开学后才能决定，请耐心等待之后的村新晚报给您回答。\n翻译服务关停？BPO：属实，没有受益者了 在wfb也装了插件后，我已经确认的没有任何人会看我的翻译了。\n所以在2025年2月9日，我正式决定关停翻译服务。\n从此之后，无论是什么比赛，翻译图片都不会发到QQ群内，若有需要请@我后我才会发。\n",
   "wordCount" : "16",
-  "inLanguage": "en",
+  "inLanguage": "zh",
   "datePublished": "2025-02-09T22:30:00+08:00",
   "dateModified": "2025-02-09T22:30:00+08:00",
   "mainEntityOfPage": {
@@ -223,13 +223,13 @@
     <div class="post-description">
       每晚十点半不见不散
     </div>
-    <div class="post-meta"><span title='2025-02-09 22:30:00 +0800 CST'>February 9, 2025</span>
+    <div class="post-meta"><span title='2025-02-09 22:30:00 +0800 CST'>2025年2月9日</span>&nbsp;·&nbsp;1 分钟&nbsp;·&nbsp;16 字
 
 </div>
   </header> <div class="toc">
-    <details >
+    <details  open>
         <summary accesskey="c" title="(Alt + C)">
-            <span class="details">Table of Contents</span>
+            <span class="details">目录</span>
         </summary>
 
         <div class="inner"><ul>
@@ -336,6 +336,53 @@
         }
     })
 
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = '复制';
+
+        function copyingDone() {
+            copybutton.innerHTML = '已复制！';
+            setTimeout(() => {
+                copybutton.innerHTML = '复制';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
 </script>
 </body>
 

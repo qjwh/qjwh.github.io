@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="auto">
+<html lang="zh" dir="auto">
 
 <head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -39,7 +39,7 @@ $d_{(i&#43;x_2) \bmod x_1}=\min(d_{(i&#43;x_2) \bmod x_1},d_i&#43;x_2)$">
 <link rel="mask-icon" href="https://qjwh.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="https://qjwh.github.io/posts/oi/aln/modsp/">
+<link rel="alternate" hreflang="zh" href="https://qjwh.github.io/posts/oi/aln/modsp/">
 <noscript>
     <style>
         #theme-toggle,
@@ -119,7 +119,7 @@ $d_{(i&#43;x_2) \bmod x_1}=\min(d_{(i&#43;x_2) \bmod x_1},d_i&#43;x_2)$">
 接下来考虑转移这个状态。
 转移 其实也很好想，比如用一次「向上走 $x_2$ 层」操作，那么 $d_i$ 可以转移到 $d_{(i&#43;x_2) \bmod x_1}$，转移代价为 $x_2$，所以：
 $d_{(i&#43;x_2) \bmod x_1}=\min(d_{(i&#43;x_2) \bmod x_1},d_i&#43;x_2)$">
-  <meta property="og:locale" content="en">
+  <meta property="og:locale" content="zh">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2025-02-09T15:28:00+08:00">
@@ -184,7 +184,7 @@ $d_{(i&#43;x_2) \bmod x_1}=\min(d_{(i&#43;x_2) \bmod x_1},d_i&#43;x_2)$">
   ],
   "articleBody": "\r同余最短路看名字感觉很难，但其实非常简单，也好理解，先说一道题：\n题目 原型：洛谷P3403 跳楼机\n有一栋 $h$ 层的大楼（层数编号从 $1$ 到 $h$），有 $n+1$ 种移动方式：\n回到 $1$ 层 向上走 $x_1 \\sim x_n$ 层 楼层不是循环的，你无论如何都无法到达 $h+1$ 层或以上。\n最初你可以在任意一层（但也无关紧要），问你能到达多少个不同的楼层。\n题解 分类 我们按楼层模 $x_1$ 的余数分类，把楼层 $i$ 分到 $i \\bmod x_1$ 类。\n这样分类有什么用呢？见下。\n定义状态 有了这个分类，我们可以定义状态 $d_i$（$i \\in [0,x_1)$）代表不用「向上走 $x_1$ 层」操作能到达的、最小的第 $i$ 类楼层是多少。\n那么，由于有「向上走 $x_1$ 层」操作，所以 $d_i,d_i+x_1,d_i+2x_1,\\dots$（比 $d_i$ 大或相等的第 $i$ 类楼层）都是可达的。\n接下来考虑转移这个状态。\n转移 其实也很好想，比如用一次「向上走 $x_2$ 层」操作，那么 $d_i$ 可以转移到 $d_{(i+x_2) \\bmod x_1}$，转移代价为 $x_2$，所以：\n$d_{(i+x_2) \\bmod x_1}=\\min(d_{(i+x_2) \\bmod x_1},d_i+x_2)$\n修改 但很快就能发现，这个DP不拥有拓扑序，所以必须要用最短路去解决，建图伪代码：\n枚举 $i \\in [0,x_1)$ 枚举 $j \\in [2,n]$ DP转移形如：$d_{(i+x_j) \\bmod x_1}=\\min(d_{(i+x_j) \\bmod x_1},d_i+x_j)$ 于是就建从 $i$ 到 $(i+x_j) \\bmod x_1$ 的有向边，边权为 $x_j$ 易得点数为 $O(x_1)$，边数为 $O(x_1 \\times n)$，以Dijkstra复杂度 $O((n+m) \\log (n+m))$，总复杂度为 $O((x_1 \\times n) \\log (x_1 \\times n))$，在 $n \\leq 2 \\times 10^3,x_1 \\leq 2 \\times 10^3$ 左右是完全稳过的。\n",
   "wordCount" : "117",
-  "inLanguage": "en",
+  "inLanguage": "zh",
   "datePublished": "2025-02-09T15:28:00+08:00",
   "dateModified": "2025-02-09T15:28:00+08:00",
   "mainEntityOfPage": {
@@ -274,13 +274,13 @@ $d_{(i&#43;x_2) \bmod x_1}=\min(d_{(i&#43;x_2) \bmod x_1},d_i&#43;x_2)$">
     <h1 class="post-title entry-hint-parent">
       同余最短路
     </h1>
-    <div class="post-meta"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span>
+    <div class="post-meta"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span>&nbsp;·&nbsp;1 分钟&nbsp;·&nbsp;117 字
 
 </div>
   </header> <div class="toc">
-    <details >
+    <details  open>
         <summary accesskey="c" title="(Alt + C)">
-            <span class="details">Table of Contents</span>
+            <span class="details">目录</span>
         </summary>
 
         <div class="inner"><ul>
@@ -423,6 +423,53 @@ $d_{(i&#43;x_2) \bmod x_1}=\min(d_{(i&#43;x_2) \bmod x_1},d_i&#43;x_2)$">
         }
     })
 
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = '复制';
+
+        function copyingDone() {
+            copybutton.innerHTML = '已复制！';
+            setTimeout(() => {
+                copybutton.innerHTML = '复制';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
 </script>
 </body>
 

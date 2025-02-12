@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="auto">
+<html lang="zh" dir="auto">
 
 <head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -51,7 +51,7 @@ $
 <link rel="mask-icon" href="https://qjwh.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="https://qjwh.github.io/posts/oi/aln/kirchhoffmatrix/">
+<link rel="alternate" hreflang="zh" href="https://qjwh.github.io/posts/oi/aln/kirchhoffmatrix/">
 <noscript>
     <style>
         #theme-toggle,
@@ -135,7 +135,7 @@ Prufer序列满足一个性质，就是，所有无向无根树，都可以唯�
 具体地，我们定义 $D$ 矩阵，求法：
 $ D_{i,j}= \begin{cases} 0 &amp; i \not= j \ \text{deg}(i) &amp; i=j \end{cases} $
 其中，$\text{deg}(i)$ 代表这张图上 $i$ 的度是多少。">
-  <meta property="og:locale" content="en">
+  <meta property="og:locale" content="zh">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2025-02-09T15:28:00+08:00">
@@ -212,7 +212,7 @@ $
   ],
   "articleBody": "基尔霍夫矩阵是用来求解生成树计数、求（权值）和相关题目的利器。\n0. 求完全图的生成树数量（Prufer序列） 要说基尔霍夫矩阵，就要从一道题目说起：\n给你 $n$，问 $n$ 个节点组成的无向无根树有多少种。\n这道题可以用Prufer序列去做。\n这里简单说一下Prufer序列的求法：\n对于一张无向无根树，重复执行以下操作直到只剩 $2$ 个或更少的点，最后得到的那个序列 $a$ 就是这棵树的Prufer序列：\n我们找到此时度为 $1$ 的节点，若有多个，找编号最小的，设找到的节点编号为 $x$。 在 $a$ 的末尾添加：与 $x$ 有连边的那个唯一节点。 删除 $x$。 Prufer序列别看求法非常简单，也没啥容易发现的性质，其实用处很大。\nPrufer序列满足一个性质，就是，所有无向无根树，都可以唯一地对应一个Prufer序列；所有Prufer序列都可以唯一地对应一棵树。\n所以，这道题就有解了，答案其实就是长为 $n-2$ 的Prufer序列有多少种。\n由于Prufer序列的每个元素的值都是从 $1$ 到 $n$ 的，所以答案就是 $n^{n-2}$，显然。\n1.1. 求任意无向图的生成树数量（基尔霍夫矩阵） 但如果把题目变化一下，就不能用Prufer序列去求了：\n给你一张 $n$ 个节点 $m$ 条边的无向图，问这张图的生成树有多少个。\n这题要用基尔霍夫矩阵。\n具体地，我们定义 $D$ 矩阵，求法：\n$ D_{i,j}= \\begin{cases} 0 \u0026 i \\not= j \\ \\text{deg}(i) \u0026 i=j \\end{cases} $\n其中，$\\text{deg}(i)$ 代表这张图上 $i$ 的度是多少。\n我们再定义 $A$ 矩阵，求法：\n$ A_{i,j}= \\begin{cases} \\text{ecnt}(i,j) \u0026 i \\not= j \\ 0 \u0026 i=j \\end{cases} $\n其中，$\\text{ecnt}(i,j)$ 代表这张图上点 $i$ 和点 $j$ 之间的边数。\n然后，我们再定义基尔霍夫矩阵 $K=D-A$，即：\n$ K_{i,j}= \\begin{cases} -\\text{ecnt}(i,j) \u0026 i \\not= j \\ \\text{deg}(i) \u0026 i=j \\end{cases} $\n最后，我们同时删掉 $K$ 中的一行和一列（一般是删掉最后一行和最后一列，但删掉哪一行、哪一列答案都不变），此时 $K$ 的行列式即为本题答案。\n（以下所有 $D$、$A$、$K$ 的求法都是一样的，答案求法也是一样的，所以只说 $\\text{deg}$ 函数和 $\\text{ecnt}$ 函数的求法）\n*注：\n如果是有向图生成树相关题目，且题目指定了根，那么删除的那一行和那一列的编号，必须是根节点的编号。\n如，题目要求 $1$ 节点为根，那么删除的必须要是第一行和第一列，否则会WA。\n此外，以下所有题里，在求 $\\text{deg}$ 函数和 $\\text{ecnt}$ 函数时，都要忽略自环。\n并且，如果说下面构造的方阵没有行列式，那么就说明没有生成树，要输出 $0$。\n1.2. 求任意无向带权图的生成树权值之和（基尔霍夫矩阵） 这题还有变种：\n给你一张 $n$ 个节点 $m$ 条边的无向带权图，问这张图所有生成树的权值之和。\n一棵生成树的权值定义为这棵生成树内所有边权之和。\n$\\text{deg}(i)$ 代表这张图上 $i$ 的所有出边的边权之和，$\\text{ecnt}(i,j)$ 代表这张图上点 $i$ 和点 $j$ 之间所有边的边权和。\n2.1.1. 求任意有向图的生成外向树数量（基尔霍夫矩阵） 但还没完，还有题目：\n给你一张 $n$ 个节点 $m$ 条边的有向图，问这张图的生成树有多少个。\n此处，生成树要求是外向树。\n所谓外向树，就是一棵有向树，满足每条边都是从父亲指向儿子的。\n$\\text{deg}(i)$ 代表这张图上 $i$ 的入度，$\\text{ecnt}(i,j)$ 代表这张图上从点 $i$ 连向点 $j$ 的边的数量。\n2.1.2. 求任意有向带权图的生成外向树权值之和（基尔霍夫矩阵） 但还没完，还有题目：\n给你一张 $n$ 个节点 $m$ 条边的有向带权图，问这张图的生成树的权值之和。\n此处，生成树要求是外向树。\n$\\text{deg}(i)$ 代表这张图内连向 $i$ 的边权之和，$\\text{ecnt}(i,j)$ 代表这张图上从点 $i$ 连向点 $j$ 的边权之和。\n2.2.1. 求任意有向图的生成内向树数量（基尔霍夫矩阵） 但还没完，还有题目：\n给你一张 $n$ 个节点 $m$ 条边的有向图，问这张图的生成树有多少个。\n此处，生成树要求是内向树。\n所谓内向树，就是一棵有向树，满足每条边都是从儿子指向父亲的。\n$\\text{deg}(i)$ 代表这张图上 $i$ 的出度，$\\text{ecnt}(i,j)$ 代表这张图上从点 $i$ 连向点 $j$ 的边的数量。\n2.2.2. 求任意有向带权图的生成内向树权值之和（基尔霍夫矩阵） 但还没完，还有题目：\n给你一张 $n$ 个节点 $m$ 条边的有向带权图，问这张图的生成树的权值之和。\n此处，生成树要求是内向树。\n$\\text{deg}(i)$ 代表这张图内 $i$ 的出边边权之和，$\\text{ecnt}(i,j)$ 代表这张图上从点 $i$ 连向点 $j$ 的边权之和。\n3. 求完全二分图的生成树个数（基尔霍夫矩阵拓展） 但还没完，还有题目：\n给你两个数 $n$、$m$，问左边 $n$ 个点，右边 $m$ 个点的完全二分图的生成树个数。\n这个问题可以被转化为问题1.1，所以我们就可以得到基尔霍夫矩阵：\n$ \\begin{bmatrix} m \u0026 0 \u0026 \\cdots \u0026 0 \u0026 -1 \u0026 -1 \u0026 \\cdots \u0026 -1 \\ 0 \u0026 m \u0026 \\cdots \u0026 0 \u0026 -1 \u0026 -1 \u0026 \\cdots \u0026 -1 \\ \\vdots \u0026 \\vdots \u0026 \\ddots \u0026 \\vdots \u0026 \\vdots \u0026 \\vdots \u0026 \\ddots \u0026 \\vdots \\ 0 \u0026 0 \u0026 \\cdots \u0026 m \u0026 -1 \u0026 -1 \u0026 \\cdots \u0026 -1 \\ -1 \u0026 -1 \u0026 \\cdots \u0026 -1 \u0026 n \u0026 0 \u0026 \\cdots \u0026 0 \\ -1 \u0026 -1 \u0026 \\cdots \u0026 -1 \u0026 0 \u0026 n \u0026 \\cdots \u0026 0 \\ \\vdots \u0026 \\vdots \u0026 \\ddots \u0026 \\vdots \u0026 \\vdots \u0026 \\vdots \u0026 \\ddots \u0026 \\vdots \\ -1 \u0026 -1 \u0026 \\cdots \u0026 -1 \u0026 0 \u0026 0 \u0026 \\cdots \u0026 n \\ \\end{bmatrix} $\n标一些参数：\n（图1）\n然后，可以发现，在上面的划分方案中，左上部分和右下部分其实都是方阵，所以我们只要让左下部分全部变为 $0$ 就可以用行列式性质转化问题了。\n进而，既然求这个矩阵的行列式，我们就先把最后一行和最后一列去掉，即把图1的参数内的两个 $m$ 改成 $m-1$。\n我们既然要把左下部分变成 $0$，我们就要变化矩阵。\n我们首先把矩阵前 $n$ 行全部除以 $m$，得到：\n$ \\large \\begin{bmatrix} 1 \u0026 0 \u0026 \\cdots \u0026 0 \u0026 \\frac{-1}{m} \u0026 \\frac{-1}{m} \u0026 \\cdots \u0026 \\frac{-1}{m} \\ 0 \u0026 1 \u0026 \\cdots \u0026 0 \u0026 \\frac{-1}{m} \u0026 \\frac{-1}{m} \u0026 \\cdots \u0026 \\frac{-1}{m} \\ \\vdots \u0026 \\vdots \u0026 \\ddots \u0026 \\vdots \u0026 \\vdots \u0026 \\vdots \u0026 \\ddots \u0026 \\vdots \\ 0 \u0026 0 \u0026 \\cdots \u0026 1 \u0026 \\frac{-1}{m} \u0026 \\frac{-1}{m} \u0026 \\cdots \u0026 \\frac{-1}{m} \\ -1 \u0026 -1 \u0026 \\cdots \u0026 -1 \u0026 n \u0026 0 \u0026 \\cdots \u0026 0 \\ -1 \u0026 -1 \u0026 \\cdots \u0026 -1 \u0026 0 \u0026 n \u0026 \\cdots \u0026 0 \\ \\vdots \u0026 \\vdots \u0026 \\ddots \u0026 \\vdots \u0026 \\vdots \u0026 \\vdots \u0026 \\ddots \u0026 \\vdots \\ -1 \u0026 -1 \u0026 \\cdots \u0026 -1 \u0026 0 \u0026 0 \u0026 \\cdots \u0026 n \\ \\end{bmatrix} $\n其次，算出前 $n$ 行矩阵之和：\n$ \\large \\begin{bmatrix} 1 \u0026 1 \u0026 \\cdots \u0026 1 \u0026 \\frac{-n}{m} \u0026 \\frac{-n}{m} \u0026 \\cdots \u0026 \\frac{-n}{m} \\end{bmatrix} $\n然后，对于后 $m-1$ 行，每一行都加上前 $n$ 行之和：\n$ \\large \\begin{bmatrix} 1 \u0026 0 \u0026 \\cdots \u0026 0 \u0026 \\frac{-1}{m} \u0026 \\frac{-1}{m} \u0026 \\cdots \u0026 \\frac{-1}{m} \\ 0 \u0026 1 \u0026 \\cdots \u0026 0 \u0026 \\frac{-1}{m} \u0026 \\frac{-1}{m} \u0026 \\cdots \u0026 \\frac{-1}{m} \\ \\vdots \u0026 \\vdots \u0026 \\ddots \u0026 \\vdots \u0026 \\vdots \u0026 \\vdots \u0026 \\ddots \u0026 \\vdots \\ 0 \u0026 0 \u0026 \\cdots \u0026 1 \u0026 \\frac{-1}{m} \u0026 \\frac{-1}{m} \u0026 \\cdots \u0026 \\frac{-1}{m} \\ 0 \u0026 0 \u0026 \\cdots \u0026 0 \u0026 n-\\frac{n}{m} \u0026 -\\frac{n}{m} \u0026 \\cdots \u0026 -\\frac{n}{m} \\ 0 \u0026 0 \u0026 \\cdots \u0026 0 \u0026 -\\frac{n}{m} \u0026 n-\\frac{n}{m} \u0026 \\cdots \u0026 -\\frac{n}{m} \\ \\vdots \u0026 \\vdots \u0026 \\ddots \u0026 \\vdots \u0026 \\vdots \u0026 \\vdots \u0026 \\ddots \u0026 \\vdots \\ 0 \u0026 0 \u0026 \\cdots \u0026 0 \u0026 -\\frac{n}{m} \u0026 -\\frac{n}{m} \u0026 \\cdots \u0026 n-\\frac{n}{m} \\ \\end{bmatrix} $\n最后，把前 $n$ 行重新都乘上 $m$：\n$ \\large \\begin{bmatrix} m \u0026 0 \u0026 \\cdots \u0026 0 \u0026 -1 \u0026 -1 \u0026 \\cdots \u0026 -1 \\ 0 \u0026 m \u0026 \\cdots \u0026 0 \u0026 -1 \u0026 -1 \u0026 \\cdots \u0026 -1 \\ \\vdots \u0026 \\vdots \u0026 \\ddots \u0026 \\vdots \u0026 \\vdots \u0026 \\vdots \u0026 \\ddots \u0026 \\vdots \\ 0 \u0026 0 \u0026 \\cdots \u0026 m \u0026 -1 \u0026 -1 \u0026 \\cdots \u0026 -1 \\ 0 \u0026 0 \u0026 \\cdots \u0026 0 \u0026 n-\\frac{n}{m} \u0026 -\\frac{n}{m} \u0026 \\cdots \u0026 -\\frac{n}{m} \\ 0 \u0026 0 \u0026 \\cdots \u0026 0 \u0026 -\\frac{n}{m} \u0026 n-\\frac{n}{m} \u0026 \\cdots \u0026 -\\frac{n}{m} \\ \\vdots \u0026 \\vdots \u0026 \\ddots \u0026 \\vdots \u0026 \\vdots \u0026 \\vdots \u0026 \\ddots \u0026 \\vdots \\ 0 \u0026 0 \u0026 \\cdots \u0026 0 \u0026 -\\frac{n}{m} \u0026 -\\frac{n}{m} \u0026 \\cdots \u0026 n-\\frac{n}{m} \\ \\end{bmatrix} $\n此时左下角都是 $0$ 了。\n于是乎，问题就转化为了以下两个矩阵的行列式之积：\n$ D_1= \\large \\begin{bmatrix} m \u0026 0 \u0026 \\cdots \u0026 0 \\ 0 \u0026 m \u0026 \\cdots \u0026 0 \\ \\vdots \u0026 \\vdots \u0026 \\ddots \u0026 \\vdots \\ 0 \u0026 0 \u0026 \\cdots \u0026 m \\end{bmatrix} $\n$ D_2= \\large \\begin{bmatrix} n-\\frac{n}{m} \u0026 -\\frac{n}{m} \u0026 \\cdots \u0026 -\\frac{n}{m} \\\\ -\\frac{n}{m} \u0026 n-\\frac{n}{m} \u0026 \\cdots \u0026 -\\frac{n}{m} \\\\ \\vdots \u0026 \\vdots \u0026 \\ddots \u0026 \\vdots \\\\ -\\frac{n}{m} \u0026 -\\frac{n}{m} \u0026 \\cdots \u0026 n-\\frac{n}{m} \\end{bmatrix} $\n（注意，$D_2$ 是个 $(m-1) \\times (m-1)$ 的矩阵，而不是 $m \\times m$ 的）\n$D_1$ 由于本身就是上三角矩阵，根据行列式性质，$\\det D_1=m^n$。\n但 $D_2$ 并不是，所以还要转化。\n（以下都针对 $D_2$ 矩阵进行转化）\n我们首先求出这 $m-1$ 行的和：\n$ \\begin{bmatrix} n-(m-1) \\times \\frac{n}{m} \u0026 n-(m-1) \\times \\frac{n}{m} \u0026 \\cdots \u0026 n-(m-1) \\times \\frac{n}{m} \\end{bmatrix} $\n其次把上述矩阵直接替换到第一行：\n$ \\begin{bmatrix} n-(m-1) \\times \\frac{n}{m} \u0026 n-(m-1) \\times \\frac{n}{m} \u0026 \\cdots \u0026 n-(m-1) \\times \\frac{n}{m} \\\\ -\\frac{n}{m} \u0026 n-\\frac{n}{m} \u0026 \\cdots \u0026 -\\frac{n}{m} \\\\ \\vdots \u0026 \\vdots \u0026 \\ddots \u0026 \\vdots \\\\ -\\frac{n}{m} \u0026 -\\frac{n}{m} \u0026 \\cdots \u0026 n-\\frac{n}{m} \\end{bmatrix} $\n发现第一行都是一样的，所以我们就把第一行统一除以 $n-(m-1) \\times \\frac{n}{m}$，行列式也除以了 $n-(m-1) \\times \\frac{n}{m}$，所以 $D_2$ 的行列式其实是下述矩阵的行列式乘上 $n-(m-1) \\times \\frac{n}{m}$：\n$ T= \\begin{bmatrix} 1 \u0026 1 \u0026 \\cdots \u0026 1 \\\\ -\\frac{n}{m} \u0026 n-\\frac{n}{m} \u0026 \\cdots \u0026 -\\frac{n}{m} \\\\ \\vdots \u0026 \\vdots \u0026 \\ddots \u0026 \\vdots \\\\ -\\frac{n}{m} \u0026 -\\frac{n}{m} \u0026 \\cdots \u0026 n-\\frac{n}{m} \\end{bmatrix} $\n（以下暂时换为针对 $T$ 矩阵进行转化）\n我们把第一行全部乘上 $\\frac{m}{n}$，然后加到下面每一行：（即把下面每一行内的 $-\\frac{n}{m}$ 都删掉）\n$ \\begin{bmatrix} 1 \u0026 1 \u0026 \\cdots \u0026 1 \\ 0 \u0026 n \u0026 \\cdots \u0026 0 \\ \\vdots \u0026 \\vdots \u0026 \\ddots \u0026 \\vdots \\ 0 \u0026 0 \u0026 \\cdots \u0026 n \\end{bmatrix} $\n此时就是个上三角矩阵了，这个矩阵的行列式 $\\det T=n^{m-2}$，显然。\n但 $\\det D_2=(n-(m-1) \\times \\frac{n}{m}) \\times (\\det T)$，所以我们转化一下式子：\n（以下省略 $\\det D_2=$）\n带入 $\\det T$：\n$(n-(m-1) \\times \\frac{n}{m}) \\times n^{m-2}$\n拆括号：\n$n \\times n^{m-2}-(m-1) \\times \\frac{n}{m} \\times n^{m-2}$\n简化式子：\n$n^{m-1}-(m-1) \\times \\frac{n}{m} \\times n^{m-2}$\n拆开分数：\n$n^{m-1}-(m-1) \\times \\frac{1}{m} \\times n \\times n^{m-2}$\n即：\n$n^{m-1}-(m-1) \\times \\frac{1}{m} \\times n^{m-1}$\n拆括号：\n$n^{m-1}-(m \\times \\frac{1}{m}-\\frac{1}{m}) \\times n^{m-1}$\n即：\n$n^{m-1}-(1-\\frac{1}{m}) \\times n^{m-1}$\n拆括号：\n$n^{m-1}-(n^{m-1}-\\frac{1}{m} \\times n^{m-1})$\n拆括号：\n$n^{m-1}-n^{m-1}+\\frac{1}{m} \\times n^{m-1}$\n即：\n$\\frac{1}{m} \\times n^{m-1}$\n但还没完，答案是 $(\\det D_1) \\times (\\det D_2)$，所以需要推导一下：\n带入：\n$(m^n) \\times (\\frac{1}{m} \\times n^{m-1})$\n拆括号：\n$m^n \\times \\frac{1}{m} \\times n^{m-1}$\n即：\n$m^{n-1} \\times n^{m-1}$\n所以其实这题的代码很短，只用算 $m^{n-1} \\times n^{m-1}$ 的值即可。\n*注：这道题原题是M2733，另一种用Prufer序列证明这个答案的方法见本题写的题解，在题解文件夹内。\n",
   "wordCount" : "1159",
-  "inLanguage": "en",
+  "inLanguage": "zh",
   "datePublished": "2025-02-09T15:28:00+08:00",
   "dateModified": "2025-02-09T15:28:00+08:00",
   "mainEntityOfPage": {
@@ -302,13 +302,13 @@ $
     <h1 class="post-title entry-hint-parent">
       基尔霍夫矩阵
     </h1>
-    <div class="post-meta"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span>
+    <div class="post-meta"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span>&nbsp;·&nbsp;6 分钟&nbsp;·&nbsp;1159 字
 
 </div>
   </header> <div class="toc">
-    <details >
+    <details  open>
         <summary accesskey="c" title="(Alt + C)">
-            <span class="details">Table of Contents</span>
+            <span class="details">目录</span>
         </summary>
 
         <div class="inner"><ul>
@@ -684,6 +684,53 @@ $</p>
         }
     })
 
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = '复制';
+
+        function copyingDone() {
+            copybutton.innerHTML = '已复制！';
+            setTimeout(() => {
+                copybutton.innerHTML = '复制';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
 </script>
 </body>
 

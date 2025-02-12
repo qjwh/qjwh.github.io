@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="auto">
+<html lang="zh" dir="auto">
 
 <head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -47,7 +47,7 @@ D：
 <link rel="mask-icon" href="https://qjwh.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="https://qjwh.github.io/posts/oi/competition/20250211%E4%BB%A3%E7%A0%81%E6%BA%90%E6%AF%94%E8%B5%9B/">
+<link rel="alternate" hreflang="zh" href="https://qjwh.github.io/posts/oi/competition/20250211%E4%BB%A3%E7%A0%81%E6%BA%90%E6%AF%94%E8%B5%9B/">
 <noscript>
     <style>
         #theme-toggle,
@@ -133,7 +133,7 @@ C很复杂：
 子任务3 $T=1,k \leq 15$ 挂了：实现的时候没有预处理 $s$、$e$ 的答案，导致询问次数太多TLE。 策略 感觉还是卡B太久。
 事实上这次A非常确信做法正确，事实就是正确的，但后面的题没有对拍，导致总共挂了 $85$ 分。
 之后无论对于正解还是暴力都得对拍，如果认为有挂的概率的那种。">
-  <meta property="og:locale" content="en">
+  <meta property="og:locale" content="zh">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2025-02-11T21:49:00+08:00">
@@ -206,7 +206,7 @@ D：
   ],
   "articleBody": " 赛时记录 比赛一开始（$11$ 分钟）就过了A。\n后来一直在B题思考正解。\n在比赛达到 $2h$ 之后，我发现正解已经没希望了，结论假了。\n所以改成了暴力。\n事实上我先写的C，因为感觉B不太有希望，C一眼 $20$ 分。\n之后回头看B，干了最低档。\n最后是D，思考了一下可以做 $45$ 分，搞了。\n此时里比赛结束还有 $27$ 分钟，所以回头看了一下，发现C题的暴力很多。\n先后搞了子任务 $1 \\sim 3$，总共 $70$ 分。\n然后比赛就结束了。\n估分 VS 结果 估分：$100+10+70+45=225$\n结果：$100+25+0+30=155$\n挂分原因 关于B为啥多了 $15$ 分，我也不知道。\nC很复杂：\n子任务1 $T \\leq 100,n \\leq 10$ 挂了：赋值消耗时间复杂度太多，在swap的时候回溯写挂了。 子任务2 $k=0$ 挂了：赋值消耗时间复杂度太多。 子任务3 $k=1$ 挂了：做法假了 D：\n子任务3 $T=1,k \\leq 15$ 挂了：实现的时候没有预处理 $s$、$e$ 的答案，导致询问次数太多TLE。 策略 感觉还是卡B太久。\n事实上这次A非常确信做法正确，事实就是正确的，但后面的题没有对拍，导致总共挂了 $85$ 分。\n之后无论对于正解还是暴力都得对拍，如果认为有挂的概率的那种。\n",
   "wordCount" : "62",
-  "inLanguage": "en",
+  "inLanguage": "zh",
   "datePublished": "2025-02-11T21:49:00+08:00",
   "dateModified": "2025-02-11T21:49:00+08:00",
   "mainEntityOfPage": {
@@ -296,13 +296,13 @@ D：
     <h1 class="post-title entry-hint-parent">
       20250211代码源比赛
     </h1>
-    <div class="post-meta"><span title='2025-02-11 21:49:00 +0800 CST'>February 11, 2025</span>
+    <div class="post-meta"><span title='2025-02-11 21:49:00 +0800 CST'>2025年2月11日</span>&nbsp;·&nbsp;1 分钟&nbsp;·&nbsp;62 字
 
 </div>
   </header> <div class="toc">
-    <details >
+    <details  open>
         <summary accesskey="c" title="(Alt + C)">
-            <span class="details">Table of Contents</span>
+            <span class="details">目录</span>
         </summary>
 
         <div class="inner"><ul>
@@ -433,6 +433,53 @@ D：
         }
     })
 
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = '复制';
+
+        function copyingDone() {
+            copybutton.innerHTML = '已复制！';
+            setTimeout(() => {
+                copybutton.innerHTML = '复制';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
 </script>
 </body>
 

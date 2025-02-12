@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="auto">
+<html lang="zh" dir="auto">
 
 <head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,7 +19,7 @@
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
 <link rel="alternate" type="application/rss+xml" href="https://qjwh.github.io/posts/index.xml">
-<link rel="alternate" hreflang="en" href="https://qjwh.github.io/posts/">
+<link rel="alternate" hreflang="zh" href="https://qjwh.github.io/posts/">
 <noscript>
     <style>
         #theme-toggle,
@@ -87,7 +87,7 @@
 </style><meta property="og:url" content="https://qjwh.github.io/posts/">
   <meta property="og:site_name" content="CXBlog">
   <meta property="og:title" content="Posts">
-  <meta property="og:locale" content="en">
+  <meta property="og:locale" content="zh">
   <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Posts">
@@ -182,126 +182,6 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">类欧几里得算法
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>来源：ABC372G官方题解
-贡献：OI Wiki
-这个算法确实挺妙的，所以我就写个笔记。
-定义 这个算法需要用到一个函数：
-$$ f(a,b,c,n)=\sum\limits_{i=0}^n \left\lfloor \dfrac{\color{red}a\color{default}i&#43;\color{blue}b\color{default}}{\color{green}c\color{default}} \right\rfloor $$
-在下面参数 $a$、$b$、$c$ 都会用三种颜色标出，以便于区分。
-因为 $a$、$b$、$c$、$n$ 都很大，所以我们没法直接暴力求。
-数论分块显然也不彳亍。
-所以我们只能另辟蹊径了。
-求值 咱从简单到复杂走。
-1 首先，我们可以知道：
-$$ \begin{aligned} f(a,b,c,n)&amp;=\sum\limits_{i=0}^n \left\lfloor \dfrac{\color{red}a\color{default}i&#43;\color{blue}b\color{default}}{\color{green}c\color{default}} \right\rfloor \ &amp;=\sum\limits_{i=0}^n \left\lfloor \dfrac{(\lfloor \frac{a}{c} \rfloor c &#43; a \bmod c)i&#43;(\lfloor \frac{b}{c} \rfloor c &#43; b \bmod c)}{c} \right\rfloor \ &amp;=\sum\limits_{i=0}^n \left\lfloor \dfrac{\lfloor \frac{a}{c} \rfloor c \cdot i &#43; a \bmod c \cdot i&#43;\lfloor \frac{b}{c} \rfloor c &#43; b \bmod c}{c} \right\rfloor \ &amp;=\sum\limits_{i=0}^n \left( \left\lfloor \frac{a}{c} \right\rfloor i &#43; \left\lfloor \frac{b}{c} \right\rfloor &#43; \left\lfloor \dfrac{a \bmod c \cdot i&#43;b \bmod c}{c} \right\rfloor \right) \ &amp;=\dfrac{n(n&#43;1)}{2} \left\lfloor \frac{a}{c} \right\rfloor &#43; (n&#43;1) \left\lfloor \frac{b}{c} \right\rfloor &#43; \sum\limits_{i=0}^n \left\lfloor \dfrac{\color{red}a \bmod c\color{default} \cdot i&#43;\color{blue}b \bmod c\color{default}}{\color{green}c\color{default}} \right\rfloor \ &amp;=\dfrac{n(n&#43;1)}{2} \left\lfloor \frac{a}{c} \right\rfloor &#43; (n&#43;1) \left\lfloor \frac{b}{c} \right\rfloor &#43; f(a \bmod c,b \bmod c,c,n) \ \end{aligned} $$
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 类欧几里得算法" href="https://qjwh.github.io/posts/oi/aln/similargcd/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">组合数学（待补充）
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>有人问，组合数学不是就一些简单的公式吗？不是的，其实组合数学是数学中的一个非常庞大的分支，接下来就举一些例子。（更新中）
-本文主要讲各种数据范围下，求组合数的方式；以及球盒模型各种情况下的公式；最后是一些球盒模型的扩展情况。
-转到：球盒模型公式
-转到：球盒模型扩展公式
-（下面部分标题里的LaTeX公式更新后炸了，就凑合着看吧）
-求组合数 以下所有范围都可以当成是以下题目的某个Subtask：
-给你 $p$，代表模数。
-之后会给你一个 $q$，代表询问次数。
-每次询问给定 $n$ 和 $m$，问 $C_n^m \bmod p$ 的值。
-下面不给定 $q$ 的范围，因为不重要。
-以下全部默认 $n \geq m$。
-范围1：$n,m \leq 2000,p \leq 10^9&#43;7$ 先递推预处理，然后直接回答询问即可。
-递推式：$C_n^m=C_{n-1}^m&#43;C_{n-1}^{m-1}$。
-预处理复杂度：$O(n^2)$ 查询复杂度：$O(1)$ 范围2：$n,m \leq 10^6,p \leq 10^9&#43;7,p\text{ is prime}$ 1 先预处理阶乘，然后直接回答询问即可。
-回答询问式：$C_n^m=\dfrac{n!}{m!(n-m)!}$。
-为了节省时间复杂度，此处还可以预处理一下阶乘的逆元。
-2 预处理复杂度：$O(n)$ 查询复杂度：$O(1)$ 范围3：$n,m \leq 10^6,p \leq 10^9&#43;7$ 1 可以发现，范围2与范围3唯一的不同就是，范围3把质数的条件去掉了。
-而把质数的条件后，就没法求逆元了，因为逆元可能不存在。
-所以我们考虑换做法。
-2 我们考虑把模数做个质因数分解，变成 ${p_1}^{a_1} \times {p_2}^{a_2} \times {p_3}^{a_3} \times \dots \times {p_k}^{a_k}$。
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 组合数学（待补充）" href="https://qjwh.github.io/posts/oi/aln/c/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">网络流
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>前言 首先，网络流不是一个算法，而是一个整合包（玩MC玩的），说白了就是网络流是多个算法的统称：
-最大流 EK Dinic 最小割 费用流 … 而且，有些不常用的，可能就不会提，粘个OI Wiki的链接就不详细写了。
-接下来就按照这个目录挨个讲一下每个算法。
-最大流 如果有哪里没有说清楚，可以看这里，里面还有我没有说到的最大流类型。
-看到最大流这个名字很多人都很陌生，这里就先从定义说起。
-定义 还是拆词法，“网络流”就可以大致理解为“网络”上的“流”，接下来就挨个说一下这两个的定义。
-网络 先说网络的定义。（当然不是Internet）
-我们在理解的时候可以认为是管道，但实际上它是一张特殊的有向图。
-建设管道的必然知道，管道内流过的水，准确来说是单位时间内流过的水，必然是有上限限制的，否则管道就炸了。
-这里也一样，对于每条边 $x \to y$，都有一个函数 $c(x,y)$ 表示这条边的限制，又称容量。
-如果在图上没有这条边，则统一规定 $c(x,y)=0$。
-最后，还是跟最短路一样，它有一个起点和一个终点，又称源点 $S$ 和汇点 $T$（$S \not= T$）。
-流函数 再说流函数。
-流函数就是说，在真实操作中，一个单位时间内一条边 $x \to y$ 流过的水量 $f(x,y)$。
-这里默认保证每个单位时间内都得流过这么多。
-其实很好理解。
-流函数性质 顺便说一下流函数要满足的性质。
-首先，源点可以无限输出水，汇点可以无限输入水。
-接下来就是一堆性质：
-对于每个 $x,y$，显然 $f(x,y) \leq c(x,y)$（容量限制）。 对于每个 $x,y$，$f(x,y)=-f(y,x)$（斜对称）。 对于每个 $x$，满足不是源点也不是汇点，$\sum\limits_{u \to x} f(u,x)=\sum\limits_{x \to v} f(x,v)$（流量守恒）。 这里说一下最后一点性质。
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 网络流" href="https://qjwh.github.io/posts/oi/aln/flow/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">莫队算法
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>普通莫队算法 概览 莫队其实是分块的变化版，没有完全分块。
-但莫队的题目一般比分块的题目比较好看一些，其中的“好看”指的是很好看出这是个莫队/分块的题。
-接下来说一下莫队能解决的题型。
-解决题型 莫队一般解决以下问题：
-给你一些信息，和 $q$ 次询问，每次询问可以抽象为一个区间。
-而且这个问题还要满足一些条件：
-可以离线 不能有修改（当然带修莫队支持修改，不过普通莫队就不行了） 从 $[l,r]$ 的答案可以很快转移到 $[l-1,r]$、$[l&#43;1,r]$、$[l,r-1]$、$[l,r&#43;1]$ 的答案 解决方法 这种题型有个解决方法。
-还是先从暴力说起。
-暴力做法 看见这个问题的最后一个条件没？这个条件就启发我们从第一个问题的答案，暴力调整左、右端点，去得到第二个问题的答案，以此类推。
-这种暴力做法的复杂度一般为 $O($ 任意相邻两个问题的左、右端点差之和 $)$。
-而这个算法可以用一种数据卡掉：
-左、右端点的值的最大值 $n$ 调到最大，把询问次数 $q$ 也调到最大。 然后的 $q$ 次询问里，交替询问 $1 \sim n$ 和 $n \sim n$。 于是，复杂度被卡到 $O(qn)$。
-一次优化 这个做法的复杂度是无法接受的，所以我们考虑优化。
-我们不如把所有询问离线，然后考虑交换询问处理的顺序以减少复杂度。
-一种方式就是把左、右端点分别作为第一、二关键字，然后做排序。
-但这样就会被排序后所有询问的右端点一大一小的数据卡到 $O(qn)$ 的复杂度。
-二次优化 这样排序还是不好，还是会被卡掉，于是我们考虑变换比较函数。
-直接双关键字比较不好，那我们就分块后进行双关键字比较。
-具体地，遇到两个询问，先按左端点所属块编号从小到大排序，如果相同，则按右端点（不是所属块编号，是原本的下标）从小到大排序。
-这样的话，复杂度就是 $O(n \sqrt n&#43;q \sqrt n)$ 的复杂度了。
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 莫队算法" href="https://qjwh.github.io/posts/oi/aln/modui/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
     <h2 class="entry-hint-parent">行列式
     </h2>
   </header>
@@ -332,63 +212,180 @@ $ \begin{cases} -x_1&#43;2x_2&#43;5x_3=11 \ 2x_1=8 \ x_1&#43;2x_2&#43;5x_3=19 \e
 求法很好记，如果说当前方阵是个上三角矩阵（设方阵叫 $a$，那么 $a$ 是个上三角矩阵有且仅当对于所有的 $(i,j)$，如果满足 $i&gt;j$，那么 $a_{i,j}$ 一定要等于 $0$，当然其他方格不做要求），那么这个方阵的行列式就是这个方阵中正对角线上的元素的乘积。
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span>&nbsp;·&nbsp;2 分钟&nbsp;·&nbsp;226 字</footer>
   <a class="entry-link" aria-label="post link to 行列式" href="https://qjwh.github.io/posts/oi/aln/hanglieshi/"></a>
 </article>
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">阶和原根
+    <h2 class="entry-hint-parent">一个非常重要的语法点
     </h2>
   </header>
   <div class="entry-content">
-    <p>按照正常的思路我们都直接将算法，但这会先讲一道题，然后再讲它的定义和求法。
-参考：
-ABC335G题解 阶和原根 背景 是一场ABC335里的G题，当时在赛场上大概留了一个多小时的时间，但一直都在想用BSGS，但显然最后没想出来。
-而这题的瓶颈就在下面问题：
-对于两个数 $a,b$，是否存在一个 $x$ 使得同余方程 $a^x \equiv b \pmod p$ 有解。
-$a,b,p \leq 10^{13}$（原题数据范围）
-大家看到的第一眼显然可以用BSGS求。
-但这个算法是 $O(\sqrt p)$ 的（如果涉及到具体实现的话，可能还得乘个 $\log \sqrt p$，就是set、lower_bound查找的复杂度），比较适用于单组询问，很难推广应用。
-所以还有另外一种方式，比较适用于多组询问。
-是我们求出来 $a$ 和 $b$ 的阶，即 $\text{ord}_p a$ 和 $\text{ord}_p b$，看 $\text{ord}_p b$ 是否是 $\text{ord}_p a$ 的因子（$\text{ord}_p b \mid \text{ord}_p a$）即可。
-这里先不证这个结论是否正确，但相信大家第一次看到“阶”的时候定然是一头雾水的，下面我就来说一下它的定义和求法。
-定义 阶 阶的话，跟逆元相似，还是需要两个值，只不过这里叫做“$a$ 在模 $p$ 意义下的阶”而已，换汤不换料。
-这个表示方法就是 $\text{ord}_p a$。
-它的定义是：
-给你整数 $a$、$p$。 找到最小的 $x$，使得同余方程 $a^x \equiv 1 \pmod p$ 成立。 这个 $x$，就是$a$ 在模 $p$ 意义下的阶。 原根 但说到阶，我们定要讲一下它的孪生兄弟，原根了。
-...</p>
+    <p>说一个非常重要的语法错误。
+如果你写这样一句话：
+v[x] = newnode(); 其中：
+v为一个vector。 x为不越界的非负整数，且不会变化。 newnode()函数内会向vector内push_back一个新元素，并返回加入元素（即最后一个元素）的下标。 那么，你会发现，v[x]的值并不是这样变化的：
+1,2,3,4,5,6,7,... 而是类似于这样的：（非真实输出结果，仅供参考）
+1,1,2,2,3,4,4,5,6,7,8,8,9,10,11,12,13,14,15,16,16,17,18,19,20,... 你会发现部分情况下，v[x]没有变化！
+这实际上是因为vector的内部机制。
+vector会有一个capacity，就是提供的内存大小。
+每次push_back的时候，如果说加入后，不超过当前的capacity，就会直接加入。
+否则，vector会新开辟一块等于当前capacity的两倍（这个在不同编辑器上是不一样的，有些可能是每次新增 $5$ 个）的新空间，并把原本的数据拷进这块新空间内。
+比如说现在的vector是：
+内存354~357位置：3 1 2 4 且capacity是 $4$，那么我们如果尝试push_back一个 $5$，则vector就会发现大于了capacity，便会新开一块等于当前capacity的两倍的空间：
+内存354~357位置：3 1 2 4内存382~389位置： 并把当前数据拷进去：
+内存354~357位置：3 1 2 4内存382~389位置：3 1 2 4 然后在新空间内加入 $5$：
+内存354~357位置：3 1 2 4内存382~389位置：3 1 2 4 5 并把所有v[x]指向的内存都改成382~389这块新内存内对应的地方。
+不过由于C&#43;&#43;的赋值机制，系统会先找到要赋值给的变量的指针，然后求出要赋的值，赋给以前找到的指针。（这一步是推测，可能不准确）
+所以就会导致把newnode()的值赋给了原本的v[x]，导致输出的时候访问的新v[x]值出错。
+解决方法也很简单，把newnode()用个临时变量t存储，并将v[x]赋值为t即可。
+</p>
   </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 阶和原根" href="https://qjwh.github.io/posts/oi/aln/orderandpr/"></a>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span>&nbsp;·&nbsp;1 分钟&nbsp;·&nbsp;57 字</footer>
+  <a class="entry-link" aria-label="post link to 一个非常重要的语法点" href="https://qjwh.github.io/posts/oi/aln/animportantgrammer/"></a>
 </article>
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">马拉车算法
+    <h2 class="entry-hint-parent">一元二次方程解法（未完工）
     </h2>
   </header>
   <div class="entry-content">
-    <p>马拉车算法其实就是解决一个字符串中由某个位置为中心的最大回文串长度：（下图中蓝色部分为字符串，绿色框中的值就是以这个位置为中心的最大回文串长度）
-其次，我们发现最底下的一排绿色数字涉及到空隙，所以我们可以把字符串扩展一下：
-比如，原字符串是 $\texttt{abccabbc}$，那么扩展之后就是：
-（LaTeX炸了） $\texttt{\color{RoyalBlue}@\color{default}#\color{default}a\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{default}a\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{RoyalBlue}&amp;}$
-第一个和最后一个字符可以自己定，但是最好不要和原字符串中的字符、中间插入的字符冲突（相等）。
-注：其实还有第二种扩展方法：
-$\texttt{\color{RoyalBlue}#\color{default}a\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{default}a\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{default}}$
-还是，中间字符不能与原串字符相等。
-下面统一设「以下标 $i$ 为中心的最大回文串长度除以 $2$ 并下取整」后的答案为 $p_i$。
-然后，我们就开始求 $p$ 数组了，当我们求到 $p_i$ 的时候，我们看前面求出的 $p_j&#43;j$ 的最大值是多少（设为 $r$），即 $\max\limits_{j=1}^{i-1} { p_j&#43;j }$，同时求出最大的 $p_j&#43;j$ 对应的 $j$（设为 $c$）。
-并且，我们求出 $i$ 的对称点 $i’$，对称中心为 $c$，显然 $i’=2c-i$。
-然后，分类讨论：
-注：图中 $r$ 的意思与上面说的 $r$ 的意思有冲突，统一以上面说的定义为准。
-$i&gt;r$，那么暴力算 $p_i$。 $r-i \geq p_{i’}$，那么 $p_i=p_{i’}$。 $r-i&lt;p_{i’}$，那么让 $p_i=r-i$，继续暴力扩展。 最后就是时间复杂度问题了。
-关于时间复杂度的证明，我们可以分类讨论 $p_i$ 是用那种情况求值的：
-用情况1转移：$r$ 肯定会增加。 用情况2转移：复杂度忽略。 用情况3转移：$r$ 也肯定会增加。 由于每时每刻，$r$ 都小于等于 $n$，所以总复杂度就是 $O(n)$ 的。
+    <p>在数学、编程界里，可能会经常遇到方程，而且有时候还会遇到一种特殊方程——一元二次方程。
+除此之外，还有含参一元二次方程，这里也会一起讲。（待补充）
+其实还有如二元一次方程、一元三次方程等的特殊方程，但在这里不讲。
+一元二次方程 有人看到“一元二次方程”就不知道是啥意思，这里先说一下定义
+定义 首先，方程相信大家都见过，所以这里不写对方程的定义解释。（废话
+而 $x$ 元 $y$ 次方程就是这么定义的：
+这个方程经过化简后，共有 $x$ 个未知数，且未知数上的最大指数为 $y$ 的方程。 如：
+$3(x&#43;1)=6x$：一元一次方程，也是最常见的方程。 $3(x&#43;1)^2=2(x&#43;1)$：一元一次方程，因为两边可以同时除以 $x&#43;1$ 以让指数减少 $1$。 $x^2-4x&#43;1=0$：一元二次方程，也是下面要讲的方程类型。 $x^3&#43;2x^2-1=16x$：一元三次方程，也是一种不常见的方程类型。 讲完定义，接下来说怎么解
+解法 推导 我们把方程一般化，变成：
+$ax^2&#43;bx&#43;c=0$
+其中 $a$、$b$、$c$ 均为常量。
+然后，我们不断对方程做一些推导。
+移项
+$ax^2&#43;bx=-c$
+同时除以 $a$ 常量
+$x^2&#43;\dfrac{b}{a}x=-\dfrac{c}{a}$
+这个式子很多人看了就不知道怎么继续推导了。
+但还是可以继续转化的。
+我们考虑配方，即把式子的左/右项同时加/减/乘/除一个相同的数，然后让这个等式的左/右项变成一个数的平方的形式。
+这一步比较考验数感，一个结论就是，我们同时加上 $\left( \dfrac{b}{2a} \right)^2$ 常量 即可。
+$x^2&#43;\dfrac{b}{a}x&#43;\left( \dfrac{b}{2a} \right)^2=-\dfrac{c}{a}&#43;\left( \dfrac{b}{2a} \right)^2$
+化简
+$\left( x&#43;\dfrac{b}{2a} \right)^2=\dfrac{-c}{a}&#43;\dfrac{b^2}{4a^2}$
+二次化简
+$\left( x&#43;\dfrac{b}{2a} \right)^2=\dfrac{b^2-4ac}{4a^2}$
+同时开根号
+$x&#43;\dfrac{b}{2a}=\sqrt{\dfrac{b^2-4ac}{4a^2}}$
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 马拉车算法" href="https://qjwh.github.io/posts/oi/aln/manacher/"></a>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span>&nbsp;·&nbsp;1 分钟&nbsp;·&nbsp;116 字</footer>
+  <a class="entry-link" aria-label="post link to 一元二次方程解法（未完工）" href="https://qjwh.github.io/posts/oi/aln/quadraticequation/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">整除分块
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>感谢这篇文章的作者
+整除分块主要解决求解 $\sum\limits_{i=1}^n \lfloor \frac{n}{i} \rfloor$ 的值。
+一看这个公式，可能毫无头绪，但画张图你就有点思路了：（$n=11$）
+（灰色线：$y=\frac{11}{x}$，绿色点：$y=\lfloor \frac{11}{x} \rfloor$，橙色线：仅为辅助）
+这张图其实就是在提示我们：
+$\lfloor \frac{n}{i} \rfloor$ 的值随着 $i$ 的增长而非单调递减 $\lfloor \frac{n}{i} \rfloor$ 的值往往会在一段区间内相等 所以，我们就有一个思路了，就是求出所有值（下面的“值”都代指的是 $\lfloor \frac{n}{i} \rfloor$）相等的极大区间集，然后就可以快速统计了。
+有人问，这不就是个常数级别的优化吗，怎么能叫“快速”呢？其实区间个数总是 $O(\sqrt{n})$ 级别，最多约 $2 \times \sqrt{n}$。
+证明：
+我们把 $i$ 分成两部分去考虑，一部分是 $i \leq \sqrt{n}$，另一部分是 $i&gt;\sqrt{n}$。
+在第一部分内，$i$ 也就只有 $\sqrt{n}$ 种取值，$\lfloor \frac{n}{i} \rfloor$ 最多只有约 $\sqrt{n}$ 种取值。
+在第二部分内，$\lfloor \frac{n}{i} \rfloor$ 在 $i$ 最小时（$i=\sqrt{n}&#43;1$）会达到最大值，约 $\sqrt{n}$；而上面说“$\lfloor \frac{n}{i} \rfloor$ 的值随着 $i$ 的增长而非单调递减”，所以易得 $\lfloor \frac{n}{i} \rfloor$ 最多也只有约 $\sqrt{n}$ 种取值。
+$\lfloor \frac{n}{i} \rfloor$ 的总取值种数最多只有第一、二部分的取值个数和，即 $2 \times \sqrt{n}$，证毕。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span>&nbsp;·&nbsp;1 分钟&nbsp;·&nbsp;106 字</footer>
+  <a class="entry-link" aria-label="post link to 整除分块" href="https://qjwh.github.io/posts/oi/aln/divisionblock/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">整体二分
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>整体二分类似于线段树上二分，在讲这个算法前，先引入几个问题。
+解决题型 整体二分一般解决的是如下的问题：
+给你一个【集合/序列/矩阵/树】，要求【静态/动态】维护所有【元素/区间/子矩阵/链/子树】中的第 $k$【可能每次给定】大元素，【可能强制在线】。
+下面是一堆例题。
+例题1 动态查询集合第k大（可离线） 题意 让你维护一个初始为空的多重集合 $s$，并支持 $q$ 次操作，操作都是下面三种之一：
+添加一个数 $x$ 到集合 $s$ 中。 在集合 $s$ 中删除一个数 $x$（保证元素存在）。 查询集合第 $k$ 大（保证第 $k$ 大存在）。 数据范围 $1 \leq q \leq 2 \times 10^5$ $0 \leq x \leq 10^9$ 题解 维护一个权值线段树（权值线段树其实就是一个维护值域的线段树），维护一段值域里有多少个数，每次询问在线段树上二分即可。
+具体地，对于线段树上某个节点对应的区间 $[l,r]$，这个节点上的值为集合中，值在 $[l,r]$ 的数的个数有多少。
+在询问时，我们要记录当前节点编号 $x$，$x$ 维护区间 $[l,r]$，以及要查询值在 $[l,r]$ 内的所有数的第 $k$ 大。
+当递归到某个状态后，我们看这个节点的左子树 $\text{lc}$ 内有多少个值，如果大于等于 $k$，则递归到左子树；否则递归到右子树，且 $k$ 减去(左子树内数的个数)。
+由于值域较大，权值线段树可能会爆，所以要先把所有询问离线下来，做个离散化，然后就可以把 $x$ 控制到 $q$ 级别，就不会爆了。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span>&nbsp;·&nbsp;8 分钟&nbsp;·&nbsp;1557 字</footer>
+  <a class="entry-link" aria-label="post link to 整体二分" href="https://qjwh.github.io/posts/oi/aln/exbinarysearch/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">中国剩余定理
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>中国剩余定理，Chinese Remainder Theorem，又称CRT，我们接下来就讲一下这个算法的原理。
+要说原理，就得从古代说起。
+（你到底是在讲编程课还是在讲历史课）
+（真的是在将编程课）
+在古代，有一个问题，叫做“物不知数问题”，原文是这样的：
+有物不知其数 三三数之剩二 五五数之剩三 七七数之剩二 问物几何？ 这个问题翻译过来就是问以下方程的所有正整数解：
+$ \begin{cases} x \equiv 2 \pmod{3} \ x \equiv 3 \pmod{5} \ x \equiv 2 \pmod{7} \end{cases} $
+这个问题在后来有一个解了，解出来这个问题的人，编了一首诗，叫做“孙子歌诀”，原文：
+三人同行七十稀 五树梅花廿一支 七子团圆正半月 除百零五便得知 这个解翻译过来就是说，若设 $r_3$ 为方程中 $x$ 模 $3$ 的余数，$r_5$、$r_7$ 同理，那么所有解 $x$ 一定满足：
+$x \equiv r_3 \times 70&#43;r_5 \times 21&#43;r_7 \times 15 \pmod{105}$
+其中 $105$ 的实际来源是上面三个方程的模数的 $\text{lcm}$，即 $\text{lcm}(3,5,7)=3 \times 5 \times 7=105$。
+关于 $70$、$21$、$15$ 的来源下面再说，我们先证明一下这个解是正确的。
+由于 $105$ 是三个模数的 $\text{lcm}$，所以说如果 $x$ 是满足条件的，$x-105$、$x&#43;105$ 都是满足条件的（此处暂时忽略“正整数解”的限制），显然。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span>&nbsp;·&nbsp;2 分钟&nbsp;·&nbsp;370 字</footer>
+  <a class="entry-link" aria-label="post link to 中国剩余定理" href="https://qjwh.github.io/posts/oi/aln/crt/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">组合数学（待补充）
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>有人问，组合数学不是就一些简单的公式吗？不是的，其实组合数学是数学中的一个非常庞大的分支，接下来就举一些例子。（更新中）
+本文主要讲各种数据范围下，求组合数的方式；以及球盒模型各种情况下的公式；最后是一些球盒模型的扩展情况。
+转到：球盒模型公式
+转到：球盒模型扩展公式
+（下面部分标题里的LaTeX公式更新后炸了，就凑合着看吧）
+求组合数 以下所有范围都可以当成是以下题目的某个Subtask：
+给你 $p$，代表模数。
+之后会给你一个 $q$，代表询问次数。
+每次询问给定 $n$ 和 $m$，问 $C_n^m \bmod p$ 的值。
+下面不给定 $q$ 的范围，因为不重要。
+以下全部默认 $n \geq m$。
+范围1：$n,m \leq 2000,p \leq 10^9&#43;7$ 先递推预处理，然后直接回答询问即可。
+递推式：$C_n^m=C_{n-1}^m&#43;C_{n-1}^{m-1}$。
+预处理复杂度：$O(n^2)$ 查询复杂度：$O(1)$ 范围2：$n,m \leq 10^6,p \leq 10^9&#43;7,p\text{ is prime}$ 1 先预处理阶乘，然后直接回答询问即可。
+回答询问式：$C_n^m=\dfrac{n!}{m!(n-m)!}$。
+为了节省时间复杂度，此处还可以预处理一下阶乘的逆元。
+2 预处理复杂度：$O(n)$ 查询复杂度：$O(1)$ 范围3：$n,m \leq 10^6,p \leq 10^9&#43;7$ 1 可以发现，范围2与范围3唯一的不同就是，范围3把质数的条件去掉了。
+而把质数的条件后，就没法求逆元了，因为逆元可能不存在。
+所以我们考虑换做法。
+2 我们考虑把模数做个质因数分解，变成 ${p_1}^{a_1} \times {p_2}^{a_2} \times {p_3}^{a_3} \times \dots \times {p_k}^{a_k}$。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span>&nbsp;·&nbsp;4 分钟&nbsp;·&nbsp;829 字</footer>
+  <a class="entry-link" aria-label="post link to 组合数学（待补充）" href="https://qjwh.github.io/posts/oi/aln/c/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -399,7 +396,7 @@ $i&gt;r$，那么暴力算 $p_i$。 $r-i \geq p_{i’}$，那么 $p_i=p_{i’}$�
   <div class="entry-content">
     <p></p>
   </div>
-  <footer class="entry-footer"><span title='2025-02-09 09:30:00 +0800 CST'>February 9, 2025</span></footer>
+  <footer class="entry-footer"><span title='2025-02-09 09:30:00 +0800 CST'>2025年2月9日</span>&nbsp;·&nbsp;0 分钟&nbsp;·&nbsp;0 字</footer>
   <a class="entry-link" aria-label="post link to 【漂流本电子稿】06 - 友谊的旅途（未完工）" href="https://qjwh.github.io/posts/plb/plb06/"></a>
 </article>
 
@@ -411,7 +408,7 @@ $i&gt;r$，那么暴力算 $p_i$。 $r-i \geq p_{i’}$，那么 $p_i=p_{i’}$�
   <div class="entry-content">
     <p></p>
   </div>
-  <footer class="entry-footer"><span title='2025-02-09 09:29:00 +0800 CST'>February 9, 2025</span></footer>
+  <footer class="entry-footer"><span title='2025-02-09 09:29:00 +0800 CST'>2025年2月9日</span>&nbsp;·&nbsp;0 分钟&nbsp;·&nbsp;0 字</footer>
   <a class="entry-link" aria-label="post link to 【漂流本电子稿】05 - 个人自传（内容缺失）" href="https://qjwh.github.io/posts/plb/plb05/"></a>
 </article>
 
@@ -461,15 +458,15 @@ $^{12}$ 一稿：2024/9/30，二稿：2024/10/8，三稿：2024/10/10，四稿�
 感谢英语祁老师、朱熠辰对本作文创作的肯定与鼓励，感谢杜仔希、柳旻辰对本作文提供细节上的修改意见，最后也感谢赵老师的耐心地、不断地指导。
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2025-02-09 09:28:00 +0800 CST'>February 9, 2025</span></footer>
+  <footer class="entry-footer"><span title='2025-02-09 09:28:00 +0800 CST'>2025年2月9日</span>&nbsp;·&nbsp;1 分钟&nbsp;·&nbsp;71 字</footer>
   <a class="entry-link" aria-label="post link to 【漂流本电子稿】04 - 离别开出花" href="https://qjwh.github.io/posts/plb/plb04/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">
     <a class="prev" href="https://qjwh.github.io/posts/page/3/">
-      «&nbsp;Prev&nbsp;
+      «&nbsp;上一页&nbsp;
     </a>
-    <a class="next" href="https://qjwh.github.io/posts/page/5/">Next&nbsp;&nbsp;»
+    <a class="next" href="https://qjwh.github.io/posts/page/5/">下一页&nbsp;&nbsp;»
     </a>
   </nav>
 </footer>

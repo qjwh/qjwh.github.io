@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="auto">
+<html lang="zh" dir="auto">
 
 <head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,7 +18,7 @@
 <link rel="mask-icon" href="https://qjwh.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="https://qjwh.github.io/posts/cxep/2025w01/">
+<link rel="alternate" hreflang="zh" href="https://qjwh.github.io/posts/cxep/2025w01/">
 <noscript>
     <style>
         #theme-toggle,
@@ -87,7 +87,7 @@
   <meta property="og:site_name" content="CXBlog">
   <meta property="og:title" content="【村新晚报】2025W01">
   <meta property="og:description" content="每晚十点半不见不散">
-  <meta property="og:locale" content="en">
+  <meta property="og:locale" content="zh">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2025-02-08T22:30:00+08:00">
@@ -130,7 +130,7 @@
   ],
   "articleBody": "关于此工程 此工程立项与2025年2月7日，原名「“朝花夕拾”每日杂记」，用于发布这一天内发生的重要事情或者一些杂记。\n目前定于每晚22:30左右进行发布，标签为「村新晚报」，进入本站即可查看。\n每篇文章内大约有3~4个话题，若有未展示完的会留到后面展示。\n关于漂流本同步 在之后我会逐渐把之前漂流本的电子稿尽量恢复并递交到这里，标签为「漂流本电子稿」。\n由于数据同步问题，可能需要等到寒假之后才能开始。\n文章编号命名 寒假：[当前年份]+W+[两位数]，如2024W15 暑假：[当前年份]+S+[两位数]，如2023S63 上半学期：[当前年份]+G+[当前年级]+A+[三位数]，如2024G8A009 下半学期：[当前年份]+G+[当前年级]+B+[三位数]，如2025G8B018 农历新年目标公示 生理：身高175cm+，体重50kg+，调节作息 florr：获得更多的U，达到Lv90+ 信竞：进E队，突破当前阶段进入省选，CF状态恢复 友谊：发展有必要发展的发展中友谊（如王若凡、朱熠辰、刘奕杰、周馨姌等），继续保持当前活跃友谊（如陈翊焓、姜皓天、刘思源等）。 后续还在更新……\n",
   "wordCount" : "18",
-  "inLanguage": "en",
+  "inLanguage": "zh",
   "datePublished": "2025-02-08T22:30:00+08:00",
   "dateModified": "2025-02-08T22:30:00+08:00",
   "mainEntityOfPage": {
@@ -223,13 +223,13 @@
     <div class="post-description">
       每晚十点半不见不散
     </div>
-    <div class="post-meta"><span title='2025-02-08 22:30:00 +0800 CST'>February 8, 2025</span>
+    <div class="post-meta"><span title='2025-02-08 22:30:00 +0800 CST'>2025年2月8日</span>&nbsp;·&nbsp;1 分钟&nbsp;·&nbsp;18 字
 
 </div>
   </header> <div class="toc">
-    <details >
+    <details  open>
         <summary accesskey="c" title="(Alt + C)">
-            <span class="details">Table of Contents</span>
+            <span class="details">目录</span>
         </summary>
 
         <div class="inner"><ul>
@@ -349,6 +349,53 @@
         }
     })
 
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = '复制';
+
+        function copyingDone() {
+            copybutton.innerHTML = '已复制！';
+            setTimeout(() => {
+                copybutton.innerHTML = '复制';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
 </script>
 </body>
 

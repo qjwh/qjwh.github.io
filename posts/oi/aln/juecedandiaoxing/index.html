@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="auto">
+<html lang="zh" dir="auto">
 
 <head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -29,7 +29,7 @@
 <link rel="mask-icon" href="https://qjwh.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="https://qjwh.github.io/posts/oi/aln/juecedandiaoxing/">
+<link rel="alternate" hreflang="zh" href="https://qjwh.github.io/posts/oi/aln/juecedandiaoxing/">
 <noscript>
     <style>
         #theme-toggle,
@@ -107,7 +107,7 @@
 其次，只看 $[jl,jr]$，$[jl,jr]$ 在递归的过程中就形成了个线段树的类似结构，只不过单层内可能有部分重叠位置，而且划分点（上面说的“最终转移点”）可能不是中点，不过无关紧要。
 然后，再看 $[l,r]$，$[l,r]$ 在递归过程中也形成了类似于线段树的结构，并且易证这个递归树深度是不会超过 $\log n$ 的。
 有了深度的保证，而且一层内的 $[jl,jr]$ 区间长度和最多只有 $O(n)$ 级别，所以一次分治的复杂度就是 $O(n \log n)$。">
-  <meta property="og:locale" content="en">
+  <meta property="og:locale" content="zh">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2025-02-09T15:28:00+08:00">
@@ -162,7 +162,7 @@
   ],
   "articleBody": "二维决策单调性 对于形如 $d_{i,j}=\\min\\limits_{k=0}^{i-1} \\Big( d_{k,j-1}+w(k+1,i) \\Big)$ 的方程，我们尝试记录 $f_{i,j}$ 代表 $d_{i,j}$ 的最优转移点（$k$ 变量），如果有 $f_{i,j-1} \\leq f_{i,j} \\leq f_{i+1,j}$，那么就是经典的四边形不等式优化，复杂度为 $O(n^2)$，证明此处略（在\"四边形不等式相关.md\"里有）。\n但是，如果只有 $f_{i,j} \\leq f_{i+1,j}$，那么就不能用四边形不等式优化了，需要用分治的方式优化。\n具体地，我们从小到大枚举 $j$，然后转移所有的 $d_{i,j}$。\n定义分治函数dp(l,r,jl,jr)代表我们要转移所有的 $d_{i,j}$（$l \\leq i \\leq r$），并且保证所有在本次分治转移范围内的 $d_{i,j}$ 的转移点 $f_{i,j}$ 都在 $[jl,jr]$ 内。\n我们可以先求出 $[l,r]$ 的中点 $mid$，然后转移 $d_{mid,j}$：暴力枚举转移点 $k$（当然，要在 $[jl,jr]$ 内）进行转移，并递归dp(l,mid-1,jl,最终转移点)和dp(mid+1,r,最终转移点,jr)。\n该算法复杂度为 $O(n^2 \\log n)$，证明：\n首先，枚举 $j$ 的复杂度 $O(n)$。\n其次，只看 $[jl,jr]$，$[jl,jr]$ 在递归的过程中就形成了个线段树的类似结构，只不过单层内可能有部分重叠位置，而且划分点（上面说的“最终转移点”）可能不是中点，不过无关紧要。\n然后，再看 $[l,r]$，$[l,r]$ 在递归过程中也形成了类似于线段树的结构，并且易证这个递归树深度是不会超过 $\\log n$ 的。\n有了深度的保证，而且一层内的 $[jl,jr]$ 区间长度和最多只有 $O(n)$ 级别，所以一次分治的复杂度就是 $O(n \\log n)$。\n一共 $n$ 次分治，总复杂度为 $O(n^2 \\log n)$。\n一维决策单调性 如果是一维的转移方程 $d_i=\\min\\limits_{j=0}^{i-1} \\Big( d_j+w(j+1,i) \\Big)$，如果也满足决策单调性（记 $d_i$ 的最优转移点为 $f_i$，那么就是说满足 $f_i \\leq f_{i+1}$），那么如何优化呢，可以用决策二分栈（说是用栈，但我看其他人大多都写的是队列）。\n下面统一设 $g(j,i)=d_j+w(j+1,i)$，并设 $c(x,y)$ 代表 $g(x,\\dots)$ 大于等于 $g(y,\\dots)$ 的最小下标，即 $c(x,y)$ 是满足 $g(x,p) \\geq g(y,p)$ 的最小 $p$，满足单调性，可以二分实现。\n这里说一下 $c(x,y)$ 的二段性证明，就是决策单调性有一个显然的推论，就是如果 $g(x,\\dots)$ 在某一刻超过（大于等于）了另外一个 $g(y,\\dots)$，且 $x",
   "wordCount" : "175",
-  "inLanguage": "en",
+  "inLanguage": "zh",
   "datePublished": "2025-02-09T15:28:00+08:00",
   "dateModified": "2025-02-09T15:28:00+08:00",
   "mainEntityOfPage": {
@@ -252,13 +252,13 @@
     <h1 class="post-title entry-hint-parent">
       决策单调性
     </h1>
-    <div class="post-meta"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span>
+    <div class="post-meta"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span>&nbsp;·&nbsp;1 分钟&nbsp;·&nbsp;175 字
 
 </div>
   </header> <div class="toc">
-    <details >
+    <details  open>
         <summary accesskey="c" title="(Alt + C)">
-            <span class="details">Table of Contents</span>
+            <span class="details">目录</span>
         </summary>
 
         <div class="inner"><ul>
@@ -390,6 +390,53 @@
         }
     })
 
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = '复制';
+
+        function copyingDone() {
+            copybutton.innerHTML = '已复制！';
+            setTimeout(() => {
+                copybutton.innerHTML = '复制';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
 </script>
 </body>
 

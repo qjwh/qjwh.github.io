@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="auto">
+<html lang="zh" dir="auto">
 
 <head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -30,7 +30,7 @@ exLucas定理
 <link rel="mask-icon" href="https://qjwh.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="https://qjwh.github.io/posts/oi/aln/lucas/">
+<link rel="alternate" hreflang="zh" href="https://qjwh.github.io/posts/oi/aln/lucas/">
 <noscript>
     <style>
         #theme-toggle,
@@ -109,7 +109,7 @@ exLucas定理 （前方高能）
 根据M2579的做法，我们可以考虑对 $p$ 做一个唯一分解，分解成 ${p_1}^{a_1} \times {p_2}^{a_2} \times {p_3}^{a_3} \times \dots \times {p_k}^{a_k}$。
 然后，分别求出 $C_n^m \bmod {p_1}^{a_1}$ 的值、$C_n^m \bmod {p_2}^{a_2}$ 的值、$C_n^m \bmod {p_3}^{a_3}$ 的值、…、$C_n^m \bmod {p_k}^{a_k}$ 的值，然后就可以用CRT求出 $C_n^m \bmod p$ 的值了。
 在M2579内，$p$ 唯一分解后，每个 $a_i$ 都等于 $1$，所以直接用Lucas定理就可以求，但在一般的题目中，指数不一定都等于 $1$，所以才要用到exLucas定理。">
-  <meta property="og:locale" content="en">
+  <meta property="og:locale" content="zh">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2025-02-09T15:28:00+08:00">
@@ -165,7 +165,7 @@ exLucas定理
   ],
   "articleBody": "（以下全部假设 $C_n^m$ 中的 $n$ 和 $m$ 都很大，最大能达到 $10^{18}$）\nLucas定理 Lucas定理往往用于求组合数的结果且模数较小的题目。\n其实定理很简单，也很好记，$\\Large C_n^m=C_{\\lfloor \\frac{n}{p} \\rfloor}^{\\lfloor \\frac{m}{p} \\rfloor} \\times \\color{orange} C_{n \\bmod p}^{m \\bmod p}$，在 $p$ 为质数的条件成立。\n上面之所以强调模数较小，是因为我们需要通过预处理阶乘的方式去求橙色项的值。\n代码实现很简单，此处略。\n但有个注意点，在我的代码模板里，由于求facny数组是递推求出的，而不是每个分别去用getny求出的，所以调用init函数时，传参应该是MOD-1而不是MOD。\nexLucas定理 （前方高能）\n这个定理还是解决求 $C_n^m \\bmod p$ 的值的问题，$p$ 仍然很小，但不保证是质数。\n根据M2579的做法，我们可以考虑对 $p$ 做一个唯一分解，分解成 ${p_1}^{a_1} \\times {p_2}^{a_2} \\times {p_3}^{a_3} \\times \\dots \\times {p_k}^{a_k}$。\n然后，分别求出 $C_n^m \\bmod {p_1}^{a_1}$ 的值、$C_n^m \\bmod {p_2}^{a_2}$ 的值、$C_n^m \\bmod {p_3}^{a_3}$ 的值、…、$C_n^m \\bmod {p_k}^{a_k}$ 的值，然后就可以用CRT求出 $C_n^m \\bmod p$ 的值了。\n在M2579内，$p$ 唯一分解后，每个 $a_i$ 都等于 $1$，所以直接用Lucas定理就可以求，但在一般的题目中，指数不一定都等于 $1$，所以才要用到exLucas定理。\nLucas定理解决的是模数为质数的问题，exLucas定理在经过上述转化后，就转化为了模数是质数幂（几个质数乘起来）的问题。\n我们统一设模数为 $q^a$。\n根据组合数公式，$C_n^m=\\dfrac{n!}{m!(n-m)!}$，所以 $C_n^m \\bmod q^a=\\dfrac{n!}{m!(n-m)!} \\bmod q^a$。\n虽然说 $q$ 是质数，但 $q^a$ 不一定是质数，分母中的 $m!$ 和 $(n-m)!$ 也不一定有逆元，显然。\n所以，我们设三个变量 $x$、$y$、$z$，其中 $x$ 代表 $n!$ 唯一分解后，$q$ 的指数是多少，$y$ 代表 $m!$ 分解后 $q$ 的指数，$z$ 代表 $(n-m)!$ 分解后 $q$ 的指数。\n进而，我们就可以对公式做个转化，变成 $C_n^m \\bmod q^a=\\Large \\dfrac{\\frac{n!}{q^x}}{\\frac{m!}{q^y} \\times \\frac{(n-m)!}{q^z}} \\normalsize \\times q^{x-y-z} \\bmod q^a$。\n此处证明一下两个公式的等价性。\n其实也很简单，首先拆分一下外面 $q$ 的指数：\n$C_n^m \\bmod q^a=\\Large \\dfrac{\\frac{n!}{q^x}}{\\frac{m!}{q^y} \\times \\frac{(n-m)!}{q^z}} \\normalsize \\times q^x \\div q^y \\div q^z \\bmod q^a$\n变成分数：\n$C_n^m \\bmod q^a=\\Large \\dfrac{\\frac{n!}{q^x}}{\\frac{m!}{q^y} \\times \\frac{(n-m)!}{q^z}} \\normalsize \\times \\dfrac{q^x}{q^y \\times q^z} \\bmod q^a$\n分数乘法：\n$C_n^m \\bmod q^a=\\Large \\dfrac{\\frac{n!}{q^x} \\times \\color{orange} q^x}{\\frac{m!}{q^y} \\times \\frac{(n-m)!}{q^z} \\times \\color{orange} q^y \\times q^z} \\normalsize \\bmod q^a$\n（为了好看一些，我把新加进来的系数标成了橙色）\n化简：\n$C_n^m \\bmod q^a=\\dfrac{n!}{m!(n-m)!} \\bmod q^a$\n与原式相同，证毕。\n有人问，这个转化有啥用呢？用处很大，因为此时三项（$\\dfrac{n!}{q^x}$、$\\dfrac{m!}{q^y}$、$\\dfrac{(n-m)!}{q^z}$）的唯一分解中都没有 $q$ 了，也就意味着分母中的两个数都有在模 $q^a$ 意义下的逆元了，也就可以直接除了。\n所以，我们又把问题转化为了，求 $\\dfrac{n!}{q^x} \\bmod q^a$ 的值。\n这个值显然是没法直接求的，所以我们考虑递归求。\n我们首先求 $n! \\bmod q^a$ 的值，再变化公式。\n我们先把 $n!$ 展开：\n$1 \\times 2 \\times 3 \\times \\dots \\times n$\n然后把所有 $q$（不是 $q^a$）的倍数提取出来：\n$\\color{orange} (q \\times 2q \\times 3q \\times \\dots \\times \\lfloor \\frac{n}{q} \\rfloor ~ q) \\color{default} \\times \\color{green} \\big( 1 \\times 2 \\times 3 \\times \\dots \\times (q-1) \\big) \\times \\big( (q+1) \\times (q+2) \\times (q+3) \\times \\dots \\times (2q-1) \\big) \\times \\dots$\n（先转化橙色部分）\n由于都有 $q$，所以变化一下：\n$\\color{orange} \\Large q^{\\lfloor \\frac{n}{q} \\rfloor} \\normalsize \\times (1 \\times 2 \\times 3 \\times \\dots \\times \\lfloor \\frac{n}{q} \\rfloor) \\color{default} \\times \\color{green} \\big( 1 \\times 2 \\times 3 \\times \\dots \\times (q-1) \\big) \\times \\dots$\n也就是：\n$\\color{orange} \\Large q^{\\lfloor \\frac{n}{q} \\rfloor} \\normalsize \\times \\left( \\left\\lfloor \\dfrac{n}{q} \\right\\rfloor \\right) ! \\color{default} \\times \\color{green} \\big( 1 \\times 2 \\times 3 \\times \\dots \\times (q-1) \\big) \\times \\dots$\n（再转化绿色部分）\n其实绿色部分也可以转化为：\n（除非特殊注明，默认以下所有 $\\prod$ 中 $i$ 的起始值是 $1$）\n$\\color{orange} \\Large q^{\\lfloor \\frac{n}{q} \\rfloor} \\normalsize \\times \\left( \\left\\lfloor \\dfrac{n}{q} \\right\\rfloor \\right) ! \\color{default} \\times \\color{green} \\Large \\prod\\limits_{q \\nmid i}^n i \\normalsize$\n根据定理 $\\Large \\prod\\limits_{q \\nmid i}^{q^a} i \\equiv \\prod\\limits_{q \\nmid i}^{q^a} (i+cq^a) \\pmod{q^k}$ 对于每个 $c \\in \\mathbb{N^+}$，可转化为：\n$\\color{orange} \\Large q^{\\lfloor \\frac{n}{q} \\rfloor} \\normalsize \\times \\left( \\left\\lfloor \\dfrac{n}{q} \\right\\rfloor \\right) ! \\color{default} \\times \\color{green} \\left( \\Large \\prod\\limits_{q \\nmid i}^{q^a} i \\normalsize \\right)^{\\Large \\left\\lfloor \\frac{n}{q^a} \\right\\rfloor} \\times \\Large \\prod\\limits_{q \\nmid i}^n i$\n（注：最后一个 $\\prod$ 中，$i$ 的起始值是 $\\Large \\left\\lfloor \\frac{n}{q^a} \\right\\rfloor \\normalsize \\times q^a+1$）\n所以，我们就可以递归了。\n但这只是最初的公式，还没有把除以 $q^x$ 带入进去呢。\n由于 $x$ 保证刚好是 $n!$ 的唯一分解中 $q$ 的指数，所以我们直接把最后的那个公式中的所有 $q$ 都去掉就是最后的公式。\n在绿色部分中，显然是不存在 $q$ 的，所有的 $q$ 都在橙色部分。\n橙色部分的左项都是 $q$，直接去掉。\n右项是个递归的部分，所以会自动把所有 $q$ 都除掉，还是那样写即可。\n我们设 $f(n)=\\dfrac{n!}{q^x} \\bmod q^a$（$q$、$a$ 已知，$x$ 可以通过 $n$ 求出，所以不用再加参数了），那么上式就变成了：\n$f(n)=\\color{orange} f \\left( \\left\\lfloor \\dfrac{n}{q} \\right\\rfloor \\right) \\color{default} \\times \\color{green} \\left( \\Large \\prod\\limits_{q \\nmid i}^{q^a} i \\normalsize \\right)^{\\Large \\left\\lfloor \\frac{n}{q^a} \\right\\rfloor} \\times \\Large \\prod\\limits_{q \\nmid i}^n i$\n橙色部分直接递归，绿色部分中每一项只有 $O(q^a)$ 的计算量，由于模数很小，而 $q^a \\leq p$（$p$ 为模数），所以绿色部分的计算量可以当做是 $O(p)$。\n最后的总复杂度（查询复杂度）为 $O(p \\log n)$，显然。\n",
   "wordCount" : "478",
-  "inLanguage": "en",
+  "inLanguage": "zh",
   "datePublished": "2025-02-09T15:28:00+08:00",
   "dateModified": "2025-02-09T15:28:00+08:00",
   "mainEntityOfPage": {
@@ -255,13 +255,13 @@ exLucas定理
     <h1 class="post-title entry-hint-parent">
       Lucas定理
     </h1>
-    <div class="post-meta"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span>
+    <div class="post-meta"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span>&nbsp;·&nbsp;3 分钟&nbsp;·&nbsp;478 字
 
 </div>
   </header> <div class="toc">
-    <details >
+    <details  open>
         <summary accesskey="c" title="(Alt + C)">
-            <span class="details">Table of Contents</span>
+            <span class="details">目录</span>
         </summary>
 
         <div class="inner"><ul>
@@ -420,6 +420,53 @@ exLucas定理
         }
     })
 
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = '复制';
+
+        function copyingDone() {
+            copybutton.innerHTML = '已复制！';
+            setTimeout(() => {
+                copybutton.innerHTML = '复制';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
 </script>
 </body>
 

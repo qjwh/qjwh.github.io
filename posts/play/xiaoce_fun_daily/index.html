@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="auto">
+<html lang="zh" dir="auto">
 
 <head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -59,7 +59,7 @@
 <link rel="mask-icon" href="https://qjwh.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="https://qjwh.github.io/posts/play/xiaoce_fun_daily/">
+<link rel="alternate" hreflang="zh" href="https://qjwh.github.io/posts/play/xiaoce_fun_daily/">
 <noscript>
     <style>
         #theme-toggle,
@@ -154,7 +154,7 @@
 判题 尝试机会有限，看最上面的生命值。
 如果连句成功则会标记为绿色，并不能再选。
 全部为绿色则游戏结束。">
-  <meta property="og:locale" content="en">
+  <meta property="og:locale" content="zh">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2025-02-09T19:38:00+08:00">
@@ -239,7 +239,7 @@
   ],
   "articleBody": "网址\n每天北京时间0点整会更新所有测验。\n这里只说部分，其他的自行摸索。\n猜城/猜城3D/猜国/猜旗/天眼/乡音/城景 线索 会给你关于这个行政区/国家的信息（如果是猜旗则随着你的猜测会逐步揭开）。\n你有 $6$ 次机会去猜，输入方式是类似于查找然后点击的方式（可以自己试试就知道是啥意思了）。\n判题 每次猜完后会告诉你答案在你猜的答案的（大致）哪个方位（八方向），以及距离是多少。\n天眼不会告诉你方位，只会告诉你距离，所以非常难猜，没有足够实力不要去挑战。\n不用管后面的百分比，这个是接近程度，按照距离除以一个很大的数去计算。\n一旦猜对则游戏结束。\n填省/填国/填歌 线索 给你一个表格，表头有限制条件。\n判题 需要在表格内每一个方格填入数据库内同时满足行、列表头上的条件的元素。\n尝试机会有限，看最上面的生命值。\n填完则游戏结束。\n猜Word 线索 跟Wordle一模一样。\n判题 跟阴阳小游戏很像，但不同的是可以告诉你每个位置是匹配还是错位。\n匹配显示为绿色，错位则是黄色，没有则是灰色。\n歌词/诗文 线索 一开始所有格子都是黑色的状态。\n你有无限次机会，每次可以输入一个字，然后这个字在这首歌（包括歌名、歌手、歌词）或诗（包括诗名、作者、内容）内出现的所有位置都会揭开。\n判题 如果猜的字没有出现，则会提示“未出现”并将该字以红色背景显示在最底下。\n如果猜过，则会提示“猜过”并不执行任何操作。\n将歌名或诗名完全揭开即可。\n连句 规则 给你一个表格，你要在里面找到固定数量（可以看最底下）的诗句或者歌词。\n可以通过八方向的一条链表示该诗句，连接的时候可以交叉，可以自己玩一下。\n每个字只能使用一次。\n判题 尝试机会有限，看最上面的生命值。\n如果连句成功则会标记为绿色，并不能再选。\n全部为绿色则游戏结束。\n",
   "wordCount" : "44",
-  "inLanguage": "en",
+  "inLanguage": "zh",
   "datePublished": "2025-02-09T19:38:00+08:00",
   "dateModified": "2025-02-09T19:38:00+08:00",
   "mainEntityOfPage": {
@@ -329,13 +329,13 @@
     <h1 class="post-title entry-hint-parent">
       【娱乐】炒饭每日小测验食用指南
     </h1>
-    <div class="post-meta"><span title='2025-02-09 19:38:00 +0800 CST'>February 9, 2025</span>
+    <div class="post-meta"><span title='2025-02-09 19:38:00 +0800 CST'>2025年2月9日</span>&nbsp;·&nbsp;1 分钟&nbsp;·&nbsp;44 字
 
 </div>
   </header> <div class="toc">
-    <details >
+    <details  open>
         <summary accesskey="c" title="(Alt + C)">
-            <span class="details">Table of Contents</span>
+            <span class="details">目录</span>
         </summary>
 
         <div class="inner"><ul>
@@ -509,6 +509,53 @@
         }
     })
 
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = '复制';
+
+        function copyingDone() {
+            copybutton.innerHTML = '已复制！';
+            setTimeout(() => {
+                copybutton.innerHTML = '复制';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
 </script>
 </body>
 

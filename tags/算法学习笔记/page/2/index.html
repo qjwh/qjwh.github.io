@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="auto">
+<html lang="zh" dir="auto">
 
 <head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,7 +19,7 @@
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
 <link rel="alternate" type="application/rss+xml" href="https://qjwh.github.io/tags/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.xml">
-<link rel="alternate" hreflang="en" href="https://qjwh.github.io/tags/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+<link rel="alternate" hreflang="zh" href="https://qjwh.github.io/tags/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
 <noscript>
     <style>
         #theme-toggle,
@@ -87,7 +87,7 @@
 </style><meta property="og:url" content="https://qjwh.github.io/tags/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
   <meta property="og:site_name" content="CXBlog">
   <meta property="og:title" content="算法学习笔记">
-  <meta property="og:locale" content="en">
+  <meta property="og:locale" content="zh">
   <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="算法学习笔记">
@@ -167,6 +167,33 @@
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">阶和原根
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>按照正常的思路我们都直接将算法，但这会先讲一道题，然后再讲它的定义和求法。
+参考：
+ABC335G题解 阶和原根 背景 是一场ABC335里的G题，当时在赛场上大概留了一个多小时的时间，但一直都在想用BSGS，但显然最后没想出来。
+而这题的瓶颈就在下面问题：
+对于两个数 $a,b$，是否存在一个 $x$ 使得同余方程 $a^x \equiv b \pmod p$ 有解。
+$a,b,p \leq 10^{13}$（原题数据范围）
+大家看到的第一眼显然可以用BSGS求。
+但这个算法是 $O(\sqrt p)$ 的（如果涉及到具体实现的话，可能还得乘个 $\log \sqrt p$，就是set、lower_bound查找的复杂度），比较适用于单组询问，很难推广应用。
+所以还有另外一种方式，比较适用于多组询问。
+是我们求出来 $a$ 和 $b$ 的阶，即 $\text{ord}_p a$ 和 $\text{ord}_p b$，看 $\text{ord}_p b$ 是否是 $\text{ord}_p a$ 的因子（$\text{ord}_p b \mid \text{ord}_p a$）即可。
+这里先不证这个结论是否正确，但相信大家第一次看到“阶”的时候定然是一头雾水的，下面我就来说一下它的定义和求法。
+定义 阶 阶的话，跟逆元相似，还是需要两个值，只不过这里叫做“$a$ 在模 $p$ 意义下的阶”而已，换汤不换料。
+这个表示方法就是 $\text{ord}_p a$。
+它的定义是：
+给你整数 $a$、$p$。 找到最小的 $x$，使得同余方程 $a^x \equiv 1 \pmod p$ 成立。 这个 $x$，就是$a$ 在模 $p$ 意义下的阶。 原根 但说到阶，我们定要讲一下它的孪生兄弟，原根了。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span>&nbsp;·&nbsp;1 分钟&nbsp;·&nbsp;177 字</footer>
+  <a class="entry-link" aria-label="post link to 阶和原根" href="https://qjwh.github.io/posts/oi/aln/orderandpr/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">决策单调性
     </h2>
   </header>
@@ -183,8 +210,113 @@
 有了深度的保证，而且一层内的 $[jl,jr]$ 区间长度和最多只有 $O(n)$ 级别，所以一次分治的复杂度就是 $O(n \log n)$。
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span>&nbsp;·&nbsp;1 分钟&nbsp;·&nbsp;175 字</footer>
   <a class="entry-link" aria-label="post link to 决策单调性" href="https://qjwh.github.io/posts/oi/aln/juecedandiaoxing/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">类欧几里得算法
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>来源：ABC372G官方题解
+贡献：OI Wiki
+这个算法确实挺妙的，所以我就写个笔记。
+定义 这个算法需要用到一个函数：
+$$ f(a,b,c,n)=\sum\limits_{i=0}^n \left\lfloor \dfrac{\color{red}a\color{default}i&#43;\color{blue}b\color{default}}{\color{green}c\color{default}} \right\rfloor $$
+在下面参数 $a$、$b$、$c$ 都会用三种颜色标出，以便于区分。
+因为 $a$、$b$、$c$、$n$ 都很大，所以我们没法直接暴力求。
+数论分块显然也不彳亍。
+所以我们只能另辟蹊径了。
+求值 咱从简单到复杂走。
+1 首先，我们可以知道：
+$$ \begin{aligned} f(a,b,c,n)&amp;=\sum\limits_{i=0}^n \left\lfloor \dfrac{\color{red}a\color{default}i&#43;\color{blue}b\color{default}}{\color{green}c\color{default}} \right\rfloor \ &amp;=\sum\limits_{i=0}^n \left\lfloor \dfrac{(\lfloor \frac{a}{c} \rfloor c &#43; a \bmod c)i&#43;(\lfloor \frac{b}{c} \rfloor c &#43; b \bmod c)}{c} \right\rfloor \ &amp;=\sum\limits_{i=0}^n \left\lfloor \dfrac{\lfloor \frac{a}{c} \rfloor c \cdot i &#43; a \bmod c \cdot i&#43;\lfloor \frac{b}{c} \rfloor c &#43; b \bmod c}{c} \right\rfloor \ &amp;=\sum\limits_{i=0}^n \left( \left\lfloor \frac{a}{c} \right\rfloor i &#43; \left\lfloor \frac{b}{c} \right\rfloor &#43; \left\lfloor \dfrac{a \bmod c \cdot i&#43;b \bmod c}{c} \right\rfloor \right) \ &amp;=\dfrac{n(n&#43;1)}{2} \left\lfloor \frac{a}{c} \right\rfloor &#43; (n&#43;1) \left\lfloor \frac{b}{c} \right\rfloor &#43; \sum\limits_{i=0}^n \left\lfloor \dfrac{\color{red}a \bmod c\color{default} \cdot i&#43;\color{blue}b \bmod c\color{default}}{\color{green}c\color{default}} \right\rfloor \ &amp;=\dfrac{n(n&#43;1)}{2} \left\lfloor \frac{a}{c} \right\rfloor &#43; (n&#43;1) \left\lfloor \frac{b}{c} \right\rfloor &#43; f(a \bmod c,b \bmod c,c,n) \ \end{aligned} $$
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span>&nbsp;·&nbsp;2 分钟&nbsp;·&nbsp;408 字</footer>
+  <a class="entry-link" aria-label="post link to 类欧几里得算法" href="https://qjwh.github.io/posts/oi/aln/similargcd/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">马拉车算法
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>马拉车算法其实就是解决一个字符串中由某个位置为中心的最大回文串长度：（下图中蓝色部分为字符串，绿色框中的值就是以这个位置为中心的最大回文串长度）
+其次，我们发现最底下的一排绿色数字涉及到空隙，所以我们可以把字符串扩展一下：
+比如，原字符串是 $\texttt{abccabbc}$，那么扩展之后就是：
+（LaTeX炸了） $\texttt{\color{RoyalBlue}@\color{default}#\color{default}a\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{default}a\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{RoyalBlue}&amp;}$
+第一个和最后一个字符可以自己定，但是最好不要和原字符串中的字符、中间插入的字符冲突（相等）。
+注：其实还有第二种扩展方法：
+$\texttt{\color{RoyalBlue}#\color{default}a\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{default}a\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{default}}$
+还是，中间字符不能与原串字符相等。
+下面统一设「以下标 $i$ 为中心的最大回文串长度除以 $2$ 并下取整」后的答案为 $p_i$。
+然后，我们就开始求 $p$ 数组了，当我们求到 $p_i$ 的时候，我们看前面求出的 $p_j&#43;j$ 的最大值是多少（设为 $r$），即 $\max\limits_{j=1}^{i-1} { p_j&#43;j }$，同时求出最大的 $p_j&#43;j$ 对应的 $j$（设为 $c$）。
+并且，我们求出 $i$ 的对称点 $i’$，对称中心为 $c$，显然 $i’=2c-i$。
+然后，分类讨论：
+注：图中 $r$ 的意思与上面说的 $r$ 的意思有冲突，统一以上面说的定义为准。
+$i&gt;r$，那么暴力算 $p_i$。 $r-i \geq p_{i’}$，那么 $p_i=p_{i’}$。 $r-i&lt;p_{i’}$，那么让 $p_i=r-i$，继续暴力扩展。 最后就是时间复杂度问题了。
+关于时间复杂度的证明，我们可以分类讨论 $p_i$ 是用那种情况求值的：
+用情况1转移：$r$ 肯定会增加。 用情况2转移：复杂度忽略。 用情况3转移：$r$ 也肯定会增加。 由于每时每刻，$r$ 都小于等于 $n$，所以总复杂度就是 $O(n)$ 的。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span>&nbsp;·&nbsp;1 分钟&nbsp;·&nbsp;75 字</footer>
+  <a class="entry-link" aria-label="post link to 马拉车算法" href="https://qjwh.github.io/posts/oi/aln/manacher/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">莫队算法
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>普通莫队算法 概览 莫队其实是分块的变化版，没有完全分块。
+但莫队的题目一般比分块的题目比较好看一些，其中的“好看”指的是很好看出这是个莫队/分块的题。
+接下来说一下莫队能解决的题型。
+解决题型 莫队一般解决以下问题：
+给你一些信息，和 $q$ 次询问，每次询问可以抽象为一个区间。
+而且这个问题还要满足一些条件：
+可以离线 不能有修改（当然带修莫队支持修改，不过普通莫队就不行了） 从 $[l,r]$ 的答案可以很快转移到 $[l-1,r]$、$[l&#43;1,r]$、$[l,r-1]$、$[l,r&#43;1]$ 的答案 解决方法 这种题型有个解决方法。
+还是先从暴力说起。
+暴力做法 看见这个问题的最后一个条件没？这个条件就启发我们从第一个问题的答案，暴力调整左、右端点，去得到第二个问题的答案，以此类推。
+这种暴力做法的复杂度一般为 $O($ 任意相邻两个问题的左、右端点差之和 $)$。
+而这个算法可以用一种数据卡掉：
+左、右端点的值的最大值 $n$ 调到最大，把询问次数 $q$ 也调到最大。 然后的 $q$ 次询问里，交替询问 $1 \sim n$ 和 $n \sim n$。 于是，复杂度被卡到 $O(qn)$。
+一次优化 这个做法的复杂度是无法接受的，所以我们考虑优化。
+我们不如把所有询问离线，然后考虑交换询问处理的顺序以减少复杂度。
+一种方式就是把左、右端点分别作为第一、二关键字，然后做排序。
+但这样就会被排序后所有询问的右端点一大一小的数据卡到 $O(qn)$ 的复杂度。
+二次优化 这样排序还是不好，还是会被卡掉，于是我们考虑变换比较函数。
+直接双关键字比较不好，那我们就分块后进行双关键字比较。
+具体地，遇到两个询问，先按左端点所属块编号从小到大排序，如果相同，则按右端点（不是所属块编号，是原本的下标）从小到大排序。
+这样的话，复杂度就是 $O(n \sqrt n&#43;q \sqrt n)$ 的复杂度了。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span>&nbsp;·&nbsp;3 分钟&nbsp;·&nbsp;614 字</footer>
+  <a class="entry-link" aria-label="post link to 莫队算法" href="https://qjwh.github.io/posts/oi/aln/modui/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">欧拉函数
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>欧拉函数记为 $\varphi$，$\varphi(n)$ 代表 $1 \sim n$ 内与 $n$ 互质的数的个数。
+欧拉函数有两种求法，下面分别说：
+直接求 我们设 $p$ 为 $n$ 的质因子集合（非可重集），那么 $\varphi(n)=n \times \prod\limits_{x \in p} \left( \dfrac{x-1}{x} \right)$，原理：
+我们设 $s$ 为目前与 $n$ 互质的数的集合，初始为 ${ 1,2,\dots,n }$。
+每次遍历到一个 $p$ 中的数 $x$，就会筛掉这个集合中 $\dfrac{1}{x}$ 的数，即那些是 $x$ 的倍数的数，由于 $p$ 是去重后的质因子集合，所以当前集合的大小总是 $x$ 的倍数。
+所以这个做法就能证明了，每乘一次 $\dfrac{x-1}{x}$，都相当于筛掉当前集合内 $\dfrac{1}{x}$ 的数，集合大小动态维护。
+模板代码：（代码中的 $p$ 数组是提前筛出来的质数集合，$ind$ 为其大小）
+LL phi(LL n){ if(n == 0) return 0; LL ret = n; rep(i, 1, ind){ if(n % p[i] == 0) ret = ret * 1 - ret / p[i], n /= p[i]; while(n % p[i] == 0) n /= p[i]; } if(n &gt; 1) ret = ret * 1 - ret / n; return ret; } 通过线性筛预处理 线性筛模板：
+void shai(LL n){ f[0] = f[1] = true; rep(i, 2, n){ if(!f[i]) p[&#43;&#43;ind] = i; for(LL j = 1;i * p[j] &lt;= n;j&#43;&#43;){ f[i * p[j]] = true; if(i % p[j] == 0) break; } } } 线性筛有一个性质，就是在第二重循环里，每次都会筛掉数 $i \times p_j$，而 $p_j$ 正是这个数（$i \times p_j$）的最小质因子。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span>&nbsp;·&nbsp;2 分钟&nbsp;·&nbsp;237 字</footer>
+  <a class="entry-link" aria-label="post link to 欧拉函数" href="https://qjwh.github.io/posts/oi/aln/eulerfunc/"></a>
 </article>
 
 <article class="post-entry tag-entry"> 
@@ -209,118 +341,8 @@
 4 我们考虑求 $f(x)$，我们可以枚举拓扑序为 $x$ 的节点 $u$ 的所有出点 $v$（设其拓扑序为 $y$，且排除 $y \leq x$ 的所有点）。
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span>&nbsp;·&nbsp;1 分钟&nbsp;·&nbsp;114 字</footer>
   <a class="entry-link" aria-label="post link to 判断拓扑序是否唯一" href="https://qjwh.github.io/posts/oi/aln/judgetopounique/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">博弈论三种扩展题型
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>下面是三道与博弈论相关的题目及其做法。
-题目1：皮肤病 题面 （改编自《不可思议事件簿 第5册 魔法学院》，由艾教提供变体）
-（原题名称：加试难题）
-在一个学校内，共有 $100$ 个人，每个人都养了一只狗。
-但由于某些原因，校长确定了这 $100$ 条狗内，必然存在至少一条狗有皮肤病。
-现在那些学生要确定一下哪些狗有皮肤病。
-他们准备这样确定：
-每天上午的时候，所有人看一下除了自己的狗之外的所有狗。 如果确认自己的狗病了，就在晚上敲一下宠物房内的钟。 现在已知：
-无论谁，看那只狗，都能立刻确认它是否有皮肤病。 假设皮肤病不会对狗的寿命造成影响，即所有的狗都不会死亡。 皮肤病不能传染，并且忽略“人患病”造成的影响。 所有人都绝顶聪明（废话 并且：
-第 $1$ 天晚上，没有钟声响起。 第 $2$ 天晚上，没有钟声响起。 第 $3$ 天晚上，没有钟声响起。 … 直到第 $10$ 天晚上，终于有钟声响起了。 请问：
-那天晚上，共有多少人共同敲响了钟？ 在第 $10$ 天后，除了那些敲钟的人养的狗，是否会存在其他病了的狗？ 答案 $10$ 个人 不会 题解 我们考虑一下，如果说第 $1$ 天晚上有人敲钟，那么代表啥。
-我们从人的角度考虑，如果说一个人发现其他狗都是好狗（指没有皮肤病的狗），那么必然自己的狗有皮肤病 （除了自己的，还有谁的？难不成是他自己？）。
-这种情况下，他便会去敲钟。
-但第 $1$ 天晚上没有钟声，所以每个人都观察到了至少 $1$ 个病狗，也就是说至少有 $2$ 个病狗。
-随后第 $2$ 天，如果说一个人观察到其他的狗内，只有 $1$ 个病狗，那么显然自己的狗也得有皮肤病。
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 博弈论三种扩展题型" href="https://qjwh.github.io/posts/oi/aln/games/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">同余最短路
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>同余最短路看名字感觉很难，但其实非常简单，也好理解，先说一道题：
-题目 原型：洛谷P3403 跳楼机
-有一栋 $h$ 层的大楼（层数编号从 $1$ 到 $h$），有 $n&#43;1$ 种移动方式：
-回到 $1$ 层 向上走 $x_1 \sim x_n$ 层 楼层不是循环的，你无论如何都无法到达 $h&#43;1$ 层或以上。
-最初你可以在任意一层（但也无关紧要），问你能到达多少个不同的楼层。
-题解 分类 我们按楼层模 $x_1$ 的余数分类，把楼层 $i$ 分到 $i \bmod x_1$ 类。
-这样分类有什么用呢？见下。
-定义状态 有了这个分类，我们可以定义状态 $d_i$（$i \in [0,x_1)$）代表不用「向上走 $x_1$ 层」操作能到达的、最小的第 $i$ 类楼层是多少。
-那么，由于有「向上走 $x_1$ 层」操作，所以 $d_i,d_i&#43;x_1,d_i&#43;2x_1,\dots$（比 $d_i$ 大或相等的第 $i$ 类楼层）都是可达的。
-接下来考虑转移这个状态。
-转移 其实也很好想，比如用一次「向上走 $x_2$ 层」操作，那么 $d_i$ 可以转移到 $d_{(i&#43;x_2) \bmod x_1}$，转移代价为 $x_2$，所以：
-$d_{(i&#43;x_2) \bmod x_1}=\min(d_{(i&#43;x_2) \bmod x_1},d_i&#43;x_2)$
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 同余最短路" href="https://qjwh.github.io/posts/oi/aln/modsp/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">四边形不等式
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>（四边形不等式看标题可能觉得很难，其实比较简单）
-四边形不等式是一种DP优化的技巧，一般针对二维DP进行优化。
-在DP中，往往会有多个决策点，而其中就有一个是最优的，设 $d_{i,j}$ 的最优决策点为 $f_{i,j}$。
-（以下假设DP枚举决策点的复杂度为 $O(n)$，DP状态数为 $O(n^2)$）
-而四边形不等式就是说，如果满足 $f_{i,j-1} \leq f_{i,j} \leq f_{i&#43;1,j}$，那么可以把DP枚举决策点的范围降至 $[f_{i,j-1},f_{i&#43;1,j}]$，然后DP的复杂度就从 $O(n^3)$ 降到了 $O(n^2)$。
-而这个（复杂度）怎么证明呢？我们画一下 $f$ 数组的表：
-（此处，我们以 $i$ 为行号，以 $j$ 为列号，行、列号都从 $1$ 开始编号）
-然后，画几个标记：
-这些标记指的是，在转移 $d_{1,2}$ 的时候，转移点枚举的左右端点分别就是红箭头指向的两个数。
-同时，为了方便观察，此处还画了个蓝色的虚线。
-同理，还可以画出 $d_{2,3}$ 对应的标记：
-以此类推：
-可以发现，其实这时候所有蓝线的长度（蓝线连接的两个数字的差值定义为这个蓝线的长度）之和，最多只有 $n$。
-而对于 $d_{1,3}$ 一“类”的标记：
-可以发现，其实那些蓝线的长度之和也是最多只有 $n$。
-在画出所有蓝线之后：
-可以发现，一共就有 $n$ “类”蓝线，一“类”蓝线的长度之和最多 $n$，至此，可以证明复杂度（所有蓝线的长度之和）为 $O(n^2)$。
-接下来讲几类四边形不等式解决的经典题型：
-第一类：$d_{l,r}=\min { d_{l,k}&#43;d_{k&#43;1,r} | l \leq k \leq r }&#43;w_{l,r}$，合并石子类。 第二类：$d_{i,j}=\min { d_{k,j-1}&#43;w_{k&#43;1,i} | 0 \leq k \leq i }$，区间分割类。 （这两类对应的公式里的 $\min$ 也可以替换成 $\max$）
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 四边形不等式" href="https://qjwh.github.io/posts/oi/aln/quadrangleinequality/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">基尔霍夫矩阵
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>基尔霍夫矩阵是用来求解生成树计数、求（权值）和相关题目的利器。
-0. 求完全图的生成树数量（Prufer序列） 要说基尔霍夫矩阵，就要从一道题目说起：
-给你 $n$，问 $n$ 个节点组成的无向无根树有多少种。
-这道题可以用Prufer序列去做。
-这里简单说一下Prufer序列的求法：
-对于一张无向无根树，重复执行以下操作直到只剩 $2$ 个或更少的点，最后得到的那个序列 $a$ 就是这棵树的Prufer序列：
-我们找到此时度为 $1$ 的节点，若有多个，找编号最小的，设找到的节点编号为 $x$。 在 $a$ 的末尾添加：与 $x$ 有连边的那个唯一节点。 删除 $x$。 Prufer序列别看求法非常简单，也没啥容易发现的性质，其实用处很大。
-Prufer序列满足一个性质，就是，所有无向无根树，都可以唯一地对应一个Prufer序列；所有Prufer序列都可以唯一地对应一棵树。
-所以，这道题就有解了，答案其实就是长为 $n-2$ 的Prufer序列有多少种。
-由于Prufer序列的每个元素的值都是从 $1$ 到 $n$ 的，所以答案就是 $n^{n-2}$，显然。
-1.1. 求任意无向图的生成树数量（基尔霍夫矩阵） 但如果把题目变化一下，就不能用Prufer序列去求了：
-给你一张 $n$ 个节点 $m$ 条边的无向图，问这张图的生成树有多少个。
-这题要用基尔霍夫矩阵。
-具体地，我们定义 $D$ 矩阵，求法：
-$ D_{i,j}= \begin{cases} 0 &amp; i \not= j \ \text{deg}(i) &amp; i=j \end{cases} $
-其中，$\text{deg}(i)$ 代表这张图上 $i$ 的度是多少。
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 基尔霍夫矩阵" href="https://qjwh.github.io/posts/oi/aln/kirchhoffmatrix/"></a>
 </article>
 
 <article class="post-entry tag-entry"> 
@@ -359,94 +381,68 @@ Splay（本意为“张开”但这里不是这个意思） 这个算法对上�
 而且，由于它也会让整棵树尽量平衡，所以树高还是会稳定在 $O(\log n)$ 级别。
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span>&nbsp;·&nbsp;21 分钟&nbsp;·&nbsp;4440 字</footer>
   <a class="entry-link" aria-label="post link to 平衡树" href="https://qjwh.github.io/posts/oi/aln/balancedtree/"></a>
 </article>
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">整体二分
+    <h2 class="entry-hint-parent">生成随机数（未完工）
     </h2>
   </header>
   <div class="entry-content">
-    <p>整体二分类似于线段树上二分，在讲这个算法前，先引入几个问题。
-解决题型 整体二分一般解决的是如下的问题：
-给你一个【集合/序列/矩阵/树】，要求【静态/动态】维护所有【元素/区间/子矩阵/链/子树】中的第 $k$【可能每次给定】大元素，【可能强制在线】。
-下面是一堆例题。
-例题1 动态查询集合第k大（可离线） 题意 让你维护一个初始为空的多重集合 $s$，并支持 $q$ 次操作，操作都是下面三种之一：
-添加一个数 $x$ 到集合 $s$ 中。 在集合 $s$ 中删除一个数 $x$（保证元素存在）。 查询集合第 $k$ 大（保证第 $k$ 大存在）。 数据范围 $1 \leq q \leq 2 \times 10^5$ $0 \leq x \leq 10^9$ 题解 维护一个权值线段树（权值线段树其实就是一个维护值域的线段树），维护一段值域里有多少个数，每次询问在线段树上二分即可。
-具体地，对于线段树上某个节点对应的区间 $[l,r]$，这个节点上的值为集合中，值在 $[l,r]$ 的数的个数有多少。
-在询问时，我们要记录当前节点编号 $x$，$x$ 维护区间 $[l,r]$，以及要查询值在 $[l,r]$ 内的所有数的第 $k$ 大。
-当递归到某个状态后，我们看这个节点的左子树 $\text{lc}$ 内有多少个值，如果大于等于 $k$，则递归到左子树；否则递归到右子树，且 $k$ 减去(左子树内数的个数)。
-由于值域较大，权值线段树可能会爆，所以要先把所有询问离线下来，做个离散化，然后就可以把 $x$ 控制到 $q$ 级别，就不会爆了。
+    <p>参考
+引用头文件（常用） #include &lt;stdlib.h&gt; //生成随机数、设定随机数种子 #include &lt;ctime&gt; //生成随机数种子（1） #include &lt;time.h&gt; //生成随机数种子（2） #include &lt;unistd.h&gt; //等待（sleep(...)或usleep(...)），该头文件现在不常用 随机种子 srand(time(0) ^ clock()); 注：随机种子为time(0) ^ clock()，这个随机种子可以再毫秒级别内生成（大概率）不同的随机种子。
+取 $[l,r]$ 内的随机数 #define random(l, r) (rand() % ((LL)(r) - (LL)(l) &#43; 1) &#43; (LL)(l)) 注：rand函数只能生成 $[1,32767]$ 内的随机数（见宏RAND_MAX），大概只能生成位数 $\leq 5$ 的随机数；测试程序：
+LL ma = 0; for(LL i = 1;i &lt;= 200;i&#43;&#43;){ srand(time(0) ^ clock()); LL t = rand(); cout &lt;&lt; t &lt;&lt;endl; ma = max(ma, t); usleep(10000); } cout &lt;&lt; ma &lt;&lt;endl; 所以此处引用一个新方法：mt19937（2022/12/24：现在开始使用mt19937_64了，它可以生成 $[1,2^{64})$ 内的随机数，大一倍）。
+其实它的语法和rand的语法差不多 （才怪），是这样的：
+引用头文件（常用） #include &lt;random&gt; //生成随机数、设定随机数种子 #include &lt;ctime&gt; //生成随机数种子（1） #include &lt;time.h&gt; //生成随机数种子（2） #include &lt;unistd.h&gt; //等待（sleep(...)或usleep(...)），该头文件现在不常用 随机种子 mt19937 _rand(time(0) ^ clock()); 注：这个随机种子也可以再毫秒级别内生成（大概率）不同的随机种子
+取 $[l,r]$ 内的随机数 （就差一个字符_而已） #define random(l, r) (_rand() % ((LL)(r) - (LL)(l) &#43; 1) &#43; (LL)(l)) 据测试，这个函数可以生成在unsigned int范围内的随机数（即可以生成 $[1,2^{32})$ 内的随机数），测试程序：
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 整体二分" href="https://qjwh.github.io/posts/oi/aln/exbinarysearch/"></a>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span>&nbsp;·&nbsp;4 分钟&nbsp;·&nbsp;682 字</footer>
+  <a class="entry-link" aria-label="post link to 生成随机数（未完工）" href="https://qjwh.github.io/posts/oi/aln/genrandomnumber/"></a>
 </article>
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">整除分块
+    <h2 class="entry-hint-parent">树链剖分
     </h2>
   </header>
   <div class="entry-content">
-    <p>感谢这篇文章的作者
-整除分块主要解决求解 $\sum\limits_{i=1}^n \lfloor \frac{n}{i} \rfloor$ 的值。
-一看这个公式，可能毫无头绪，但画张图你就有点思路了：（$n=11$）
-（灰色线：$y=\frac{11}{x}$，绿色点：$y=\lfloor \frac{11}{x} \rfloor$，橙色线：仅为辅助）
-这张图其实就是在提示我们：
-$\lfloor \frac{n}{i} \rfloor$ 的值随着 $i$ 的增长而非单调递减 $\lfloor \frac{n}{i} \rfloor$ 的值往往会在一段区间内相等 所以，我们就有一个思路了，就是求出所有值（下面的“值”都代指的是 $\lfloor \frac{n}{i} \rfloor$）相等的极大区间集，然后就可以快速统计了。
-有人问，这不就是个常数级别的优化吗，怎么能叫“快速”呢？其实区间个数总是 $O(\sqrt{n})$ 级别，最多约 $2 \times \sqrt{n}$。
-证明：
-我们把 $i$ 分成两部分去考虑，一部分是 $i \leq \sqrt{n}$，另一部分是 $i&gt;\sqrt{n}$。
-在第一部分内，$i$ 也就只有 $\sqrt{n}$ 种取值，$\lfloor \frac{n}{i} \rfloor$ 最多只有约 $\sqrt{n}$ 种取值。
-在第二部分内，$\lfloor \frac{n}{i} \rfloor$ 在 $i$ 最小时（$i=\sqrt{n}&#43;1$）会达到最大值，约 $\sqrt{n}$；而上面说“$\lfloor \frac{n}{i} \rfloor$ 的值随着 $i$ 的增长而非单调递减”，所以易得 $\lfloor \frac{n}{i} \rfloor$ 最多也只有约 $\sqrt{n}$ 种取值。
-$\lfloor \frac{n}{i} \rfloor$ 的总取值种数最多只有第一、二部分的取值个数和，即 $2 \times \sqrt{n}$，证毕。
+    <p>第一次看到树链剖分（简称树剖）可能觉得它非常的深奥，但其实树剖的原理非常简单，下面先说树剖大概的实现思路和解决题型。
+概览 其实树剖就是把一棵树分成若干条链，使得每个点都出现在了刚好一条链上。
+并且，我们称在某条链上的边为“重（zhòng）边”，不在任何一条链上的边为“轻边”。
+然后，我们按某种规则去DFS，求出新的DFS序，然后解决对树上路径询问的问题。
+而且，通过合理的设计每条边的轻重，可以把复杂度控制在 $O(\log n)$ 级别。
+解决题型 上面也提到了，树剖就是用来解决对树上路径进行询问的问题的算法，当然也可以解决对子树询问的问题，不过属于大材小用了。
+此外，树剖属于工具类算法，所以往往会配合树状数组、线段树、分块等算法出现。
+我把算法分为了两类，“材料类算法”和“工具类算法”，其中：
+材料类算法可以单独考，比如： 数论 推公式 DP 树状数组 线段树 … 工具类算法里面必须要套材料类算法才能考出来，比如： 二分 01分数规划（二分的一个分支） CDQ分治（需要配合树状数组） 整体二分（需要配合树状数组） 树剖（这里讲的） … 往往一些较难的题目，都是要用较难的材料类算法（比如DP），或者工具类算法配合材料类算法才能解决的题目。
+而对于后者，难度会更大一些，因为后者的关键在于转化后使用工具类算法解决。
+算法实现 下面说一下树剖的实现。
+两遍DFS 我们考虑DFS，当递归到点 $x$ 的时候，找到 $x$ 的儿子中，子树大小最大的那个儿子 $to$。
+然后，我们把 $x \to to$ 这条边设为重边，其他边设为轻边。
+得到每条边的轻重后，我们再做一遍DFS。
+而这一遍DFS是为了找到DFS序。
+而且，DFS序有一个要求，我们要先遍历有重边连接的儿子。
+这样的话，对于任意一条树上的链，链上所有点的DFS序连续，而且是由深度从浅到深依次递增。
+同时，我们还要求出，从一个点开始，不经过任何轻边，最多到哪个点。
+解决询问 而对于一次路径上某值的询问，我们可以把这个路径拆成若干条链。
+可以证明链数不超过 $O(\log n)$，这一点会在下面“复杂度证明”中证明。
+而这些拆出的链，都是原树中的链的“子集”（一条链 $L_1$ 是另外一条链 $L_2$ 的子集，有且仅当 $L_1$ 中的点，$L_2$ 中也有，边同理）。
+所以，可以把一条路径，拆成最多 $O(\log n)$ 个DFS序区间。
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 整除分块" href="https://qjwh.github.io/posts/oi/aln/divisionblock/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">斜率优化
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>（说是斜率优化，其实和斜率几乎没有关系）
-（e…更新后确实有关系）
-其实斜率优化和决策二分栈（队列）很像，下面分几种类型来讲。
-一维斜率优化 针对形如 $d_i=\min\limits_{j=0}^{i-1} \big( d_j&#43;w(j&#43;1,i) \big)$ 的方程，而且需要满足决策单调性。
-此处重新说一下，如果我们发现一个转移点 $x$ 在 $d_i$ 的时候已经比另外一个转移点 $y$ 要更优了（$x&gt;y$），那么转移点 $y$ 在后面（$d_{i&#43;1}$ 及以后）就不可能比转移点 $x$ 要更优了，那么这个DP一定满足决策单调性，而且反过来也一样（见&#34;决策单调性.md&#34;）。
-其实证明是否满足单调性只用看：如果一个决策点 $x$ 如果在 $d_i$ 的转移中已经比决策点 $y$ 要优了，那么 $d_{i&#43;1}$ 中是否仍然满足这个条件。
-证明了满足决策单调性后，就可以开始斜率优化了。
-我们首先要考虑推斜率式：
-其实斜率式就是把式子 $d_x&#43;w(x&#43;1,i)&lt;d_y&#43;w(y&#43;1,i)$（$x&gt;y$）不断移项、变化，直到式子左边只和 $x$、$y$ 有关，右边只和 $i$ 有关为止。
-此时的斜率式一般左边是个分数，而且这个分数还需要把分子和分母的下标对应：
-如果斜率式最后是像这样的：
-$\dfrac{d_x-d_y}{v_y-v_x}&gt;-a_i$
-那么就不是个合法的斜率式，需要变成：
-$\dfrac{d_x-d_y}{v_x-v_y}&lt;a_i$
-才是合法的。
-注意，这里说的是“合法的”，而不是“正确的”，其实最上方的斜率式也可以使用，就是不能叫“斜率式”了（斜率的公式是 $\dfrac{y_2-y_1}{x_2-x_1}$）。
-设此时的斜率式就是上面说的：
-$\dfrac{d_x-d_y}{v_x-v_y}&lt;a_i$
-那么，我们就定义 $\text{slope}(y,x)=\dfrac{d_x-d_y}{v_x-v_y}$。
-有了上面函数，显然如果存在两个转移点 $x$ 和 $y$（$x&gt;y$）在转移到 $d_i$ 的时候满足 $\text{slope}(x,y)&lt;a_i$，那么就说明转移点 $x$ 比转移点 $y$ 更优，转移点 $y$ 在后面就不需要了。
-下面默认推出来的斜率式就是上式，并默认 $a$ 数组单调不降。
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 斜率优化" href="https://qjwh.github.io/posts/oi/aln/slopeopm/"></a>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span>&nbsp;·&nbsp;1 分钟&nbsp;·&nbsp;115 字</footer>
+  <a class="entry-link" aria-label="post link to 树链剖分" href="https://qjwh.github.io/posts/oi/aln/treechaindivision/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">
     <a class="prev" href="https://qjwh.github.io/tags/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-      «&nbsp;Prev&nbsp;
+      «&nbsp;上一页&nbsp;
     </a>
-    <a class="next" href="https://qjwh.github.io/tags/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/page/3/">Next&nbsp;&nbsp;»
+    <a class="next" href="https://qjwh.github.io/tags/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/page/3/">下一页&nbsp;&nbsp;»
     </a>
   </nav>
 </footer>

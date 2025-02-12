@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="auto">
+<html lang="zh" dir="auto">
 
 <head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -53,7 +53,7 @@ $r-i&lt;p_{i&rsquo;}$，那么让 $p_i=r-i$，继续暴力扩展。
 <link rel="mask-icon" href="https://qjwh.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="https://qjwh.github.io/posts/oi/aln/manacher/">
+<link rel="alternate" hreflang="zh" href="https://qjwh.github.io/posts/oi/aln/manacher/">
 <noscript>
     <style>
         #theme-toggle,
@@ -137,7 +137,7 @@ $\texttt{\color{RoyalBlue}#\color{default}a\color{RoyalBlue}#\color{default}b\co
 $i&gt;r$，那么暴力算 $p_i$。 $r-i \geq p_{i’}$，那么 $p_i=p_{i’}$。 $r-i&lt;p_{i’}$，那么让 $p_i=r-i$，继续暴力扩展。 最后就是时间复杂度问题了。
 关于时间复杂度的证明，我们可以分类讨论 $p_i$ 是用那种情况求值的：
 用情况1转移：$r$ 肯定会增加。 用情况2转移：复杂度忽略。 用情况3转移：$r$ 也肯定会增加。 由于每时每刻，$r$ 都小于等于 $n$，所以总复杂度就是 $O(n)$ 的。">
-  <meta property="og:locale" content="en">
+  <meta property="og:locale" content="zh">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2025-02-09T15:28:00+08:00">
@@ -216,7 +216,7 @@ $r-i&lt;p_{i&rsquo;}$，那么让 $p_i=r-i$，继续暴力扩展。
   ],
   "articleBody": "\r马拉车算法其实就是解决一个字符串中由某个位置为中心的最大回文串长度：（下图中蓝色部分为字符串，绿色框中的值就是以这个位置为中心的最大回文串长度）\n其次，我们发现最底下的一排绿色数字涉及到空隙，所以我们可以把字符串扩展一下：\n比如，原字符串是 $\\texttt{abccabbc}$，那么扩展之后就是：\n（LaTeX炸了） $\\texttt{\\color{RoyalBlue}@\\color{default}#\\color{default}a\\color{RoyalBlue}#\\color{default}b\\color{RoyalBlue}#\\color{default}c\\color{RoyalBlue}#\\color{default}c\\color{RoyalBlue}#\\color{default}a\\color{RoyalBlue}#\\color{default}b\\color{RoyalBlue}#\\color{default}b\\color{RoyalBlue}#\\color{default}c\\color{RoyalBlue}#\\color{RoyalBlue}\u0026}$\n第一个和最后一个字符可以自己定，但是最好不要和原字符串中的字符、中间插入的字符冲突（相等）。\n注：其实还有第二种扩展方法：\n$\\texttt{\\color{RoyalBlue}#\\color{default}a\\color{RoyalBlue}#\\color{default}b\\color{RoyalBlue}#\\color{default}c\\color{RoyalBlue}#\\color{default}c\\color{RoyalBlue}#\\color{default}a\\color{RoyalBlue}#\\color{default}b\\color{RoyalBlue}#\\color{default}b\\color{RoyalBlue}#\\color{default}c\\color{RoyalBlue}#\\color{default}}$\n还是，中间字符不能与原串字符相等。\n下面统一设「以下标 $i$ 为中心的最大回文串长度除以 $2$ 并下取整」后的答案为 $p_i$。\n然后，我们就开始求 $p$ 数组了，当我们求到 $p_i$ 的时候，我们看前面求出的 $p_j+j$ 的最大值是多少（设为 $r$），即 $\\max\\limits_{j=1}^{i-1} { p_j+j }$，同时求出最大的 $p_j+j$ 对应的 $j$（设为 $c$）。\n并且，我们求出 $i$ 的对称点 $i’$，对称中心为 $c$，显然 $i’=2c-i$。\n然后，分类讨论：\n注：图中 $r$ 的意思与上面说的 $r$ 的意思有冲突，统一以上面说的定义为准。\n$i\u003er$，那么暴力算 $p_i$。 $r-i \\geq p_{i’}$，那么 $p_i=p_{i’}$。 $r-i",
   "wordCount" : "75",
-  "inLanguage": "en",
+  "inLanguage": "zh",
   "datePublished": "2025-02-09T15:28:00+08:00",
   "dateModified": "2025-02-09T15:28:00+08:00",
   "mainEntityOfPage": {
@@ -306,7 +306,7 @@ $r-i&lt;p_{i&rsquo;}$，那么让 $p_i=r-i$，继续暴力扩展。
     <h1 class="post-title entry-hint-parent">
       马拉车算法
     </h1>
-    <div class="post-meta"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span>
+    <div class="post-meta"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span>&nbsp;·&nbsp;1 分钟&nbsp;·&nbsp;75 字
 
 </div>
   </header> 
@@ -429,6 +429,53 @@ $\texttt{\color{RoyalBlue}@\color{default}#\color{default}a\color{RoyalBlue}#\co
         }
     })
 
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = '复制';
+
+        function copyingDone() {
+            copybutton.innerHTML = '已复制！';
+            setTimeout(() => {
+                copybutton.innerHTML = '复制';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
 </script>
 </body>
 

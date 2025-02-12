@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="auto">
+<html lang="zh" dir="auto">
 
 <head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -50,7 +50,7 @@ vector会有一个capacity，就是提供的内存大小。
 <link rel="mask-icon" href="https://qjwh.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="https://qjwh.github.io/posts/oi/aln/animportantgrammer/">
+<link rel="alternate" hreflang="zh" href="https://qjwh.github.io/posts/oi/aln/animportantgrammer/">
 <noscript>
     <style>
         #theme-toggle,
@@ -136,7 +136,7 @@ vector会有一个capacity，就是提供的内存大小。
 不过由于C&#43;&#43;的赋值机制，系统会先找到要赋值给的变量的指针，然后求出要赋的值，赋给以前找到的指针。（这一步是推测，可能不准确）
 所以就会导致把newnode()的值赋给了原本的v[x]，导致输出的时候访问的新v[x]值出错。
 解决方法也很简单，把newnode()用个临时变量t存储，并将v[x]赋值为t即可。">
-  <meta property="og:locale" content="en">
+  <meta property="og:locale" content="zh">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2025-02-09T15:28:00+08:00">
@@ -212,7 +212,7 @@ vector会有一个capacity，就是提供的内存大小。
   ],
   "articleBody": "说一个非常重要的语法错误。\n如果你写这样一句话：\nv[x] = newnode(); 其中：\nv为一个vector。 x为不越界的非负整数，且不会变化。 newnode()函数内会向vector内push_back一个新元素，并返回加入元素（即最后一个元素）的下标。 那么，你会发现，v[x]的值并不是这样变化的：\n1,2,3,4,5,6,7,... 而是类似于这样的：（非真实输出结果，仅供参考）\n1,1,2,2,3,4,4,5,6,7,8,8,9,10,11,12,13,14,15,16,16,17,18,19,20,... 你会发现部分情况下，v[x]没有变化！\n这实际上是因为vector的内部机制。\nvector会有一个capacity，就是提供的内存大小。\n每次push_back的时候，如果说加入后，不超过当前的capacity，就会直接加入。\n否则，vector会新开辟一块等于当前capacity的两倍（这个在不同编辑器上是不一样的，有些可能是每次新增 $5$ 个）的新空间，并把原本的数据拷进这块新空间内。\n比如说现在的vector是：\n内存354~357位置：3 1 2 4 且capacity是 $4$，那么我们如果尝试push_back一个 $5$，则vector就会发现大于了capacity，便会新开一块等于当前capacity的两倍的空间：\n内存354~357位置：3 1 2 4\r内存382~389位置： 并把当前数据拷进去：\n内存354~357位置：3 1 2 4\r内存382~389位置：3 1 2 4 然后在新空间内加入 $5$：\n内存354~357位置：3 1 2 4\r内存382~389位置：3 1 2 4 5 并把所有v[x]指向的内存都改成382~389这块新内存内对应的地方。\n不过由于C++的赋值机制，系统会先找到要赋值给的变量的指针，然后求出要赋的值，赋给以前找到的指针。（这一步是推测，可能不准确）\n所以就会导致把newnode()的值赋给了原本的v[x]，导致输出的时候访问的新v[x]值出错。\n解决方法也很简单，把newnode()用个临时变量t存储，并将v[x]赋值为t即可。\n",
   "wordCount" : "57",
-  "inLanguage": "en",
+  "inLanguage": "zh",
   "datePublished": "2025-02-09T15:28:00+08:00",
   "dateModified": "2025-02-09T15:28:00+08:00",
   "mainEntityOfPage": {
@@ -302,7 +302,7 @@ vector会有一个capacity，就是提供的内存大小。
     <h1 class="post-title entry-hint-parent">
       一个非常重要的语法点
     </h1>
-    <div class="post-meta"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span>
+    <div class="post-meta"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span>&nbsp;·&nbsp;1 分钟&nbsp;·&nbsp;57 字
 
 </div>
   </header> 
@@ -421,6 +421,53 @@ vector会有一个capacity，就是提供的内存大小。
         }
     })
 
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = '复制';
+
+        function copyingDone() {
+            copybutton.innerHTML = '已复制！';
+            setTimeout(() => {
+                copybutton.innerHTML = '复制';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
 </script>
 </body>
 

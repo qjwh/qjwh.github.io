@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="auto">
+<html lang="zh" dir="auto">
 
 <head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,7 +19,7 @@
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
 <link rel="alternate" type="application/rss+xml" href="https://qjwh.github.io/tags/%E4%BF%A1%E6%81%AF%E5%AD%A6%E7%AB%9E%E8%B5%9B/index.xml">
-<link rel="alternate" hreflang="en" href="https://qjwh.github.io/tags/%E4%BF%A1%E6%81%AF%E5%AD%A6%E7%AB%9E%E8%B5%9B/">
+<link rel="alternate" hreflang="zh" href="https://qjwh.github.io/tags/%E4%BF%A1%E6%81%AF%E5%AD%A6%E7%AB%9E%E8%B5%9B/">
 <noscript>
     <style>
         #theme-toggle,
@@ -87,7 +87,7 @@
 </style><meta property="og:url" content="https://qjwh.github.io/tags/%E4%BF%A1%E6%81%AF%E5%AD%A6%E7%AB%9E%E8%B5%9B/">
   <meta property="og:site_name" content="CXBlog">
   <meta property="og:title" content="信息学竞赛">
-  <meta property="og:locale" content="en">
+  <meta property="og:locale" content="zh">
   <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="信息学竞赛">
@@ -167,98 +167,86 @@
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">行列式
+    <h2 class="entry-hint-parent">整体二分
     </h2>
   </header>
   <div class="entry-content">
-    <p>要说行列式，就得先说一下矩阵（其实是方阵）的秩的定义。
-对于一个方阵，其秩的定义就是矩阵里线性无关的极大值。
-听这个定义有点难懂，这里解释一下。
-其实一个方阵就可以被当做是一个没有右项的方程集。
-而一个方阵的秩就可以当做是，这个没有右项的方程集在经过高斯消元后，非 $0$ 行的数量。
-有了这个定义，矩阵的秩还可以被当做是，这个没有右项的方程集中，不会被其他方程替代掉的方程数量：
-解释一下，如果方程长这样：
-$ \begin{cases} -x_1&#43;2x_2&#43;5x_3=11 \ 2x_1=8 \ x_1&#43;2x_2&#43;5x_3=19 \end{cases} $
-那么，其实第三个方程式可以通过前两个方程式推出来，也就称作第三个方程式可以被前两个方程式替代掉。
-知道了“替代”的定义后，就知道了一件事，就是上面说的“会被其他方程替代掉的方程”，这些方程可以直接从方程组里去掉，而不影响最终的解。
-所以，我们就可以对奥数里的一个点做一个更简洁的解释：
-在奥数里，讲了解 $n$ 元一次方程（组）的方法。
-同时还说了，在这个 $n$ 元一次方程组内，如果“有用”的方程数量，刚好等于未知数的数量，或者大于未知数的数量，那么这个方程组就有唯一解。
-这一点可以被更简洁地解释为：
-这个 $n$ 元一次方程组，转化为“高斯矩阵”，并删除最后一列后（变成 $n \times n$ 的方阵），如果这个方阵的秩刚好为 $n$，那么这个方程组就有唯一解。
-然后，我们回归正题，说行列式。
-行列式是对于一个方阵来讲的，一个方阵有行列式有且仅当这个方程的秩刚好等于方阵的大小（行或者列）。
-行列式的定义此处不讲，因为：
-太复杂了 （几乎）没有用处 行列式的计算方法是用的高斯消元。
-在高斯消元的思路里，提到了三种“基本行变换”：（以下全部以高斯矩阵的角度去说）
-将一行全部乘上一个非 $0$ 实数 $x$，解不变。 将一行内的所有元素对应地加上/减去另一行对应的元素乘上一个非 $0$ 实数 $x$，解不变。 交换两行，解不变。 这三种基本行变换在执行前后，行列式并不是都不变的：
-将一行全部乘上一个非 $0$ 实数 $x$，行列式也会乘上 $x$。 将一行内的所有元素对应地加上/减去另一行对应的元素乘上一个非 $0$ 实数 $x$，行列式不变。 交换两行，行列式变号（负数变成正数，反之亦然）。 所以我们只用写一下高斯消元，然后处理一下对行列式的值的变化即可。
-但这儿还有一点问题，就是行列式怎么求。
-求法很好记，如果说当前方阵是个上三角矩阵（设方阵叫 $a$，那么 $a$ 是个上三角矩阵有且仅当对于所有的 $(i,j)$，如果满足 $i&gt;j$，那么 $a_{i,j}$ 一定要等于 $0$，当然其他方格不做要求），那么这个方阵的行列式就是这个方阵中正对角线上的元素的乘积。
+    <p>整体二分类似于线段树上二分，在讲这个算法前，先引入几个问题。
+解决题型 整体二分一般解决的是如下的问题：
+给你一个【集合/序列/矩阵/树】，要求【静态/动态】维护所有【元素/区间/子矩阵/链/子树】中的第 $k$【可能每次给定】大元素，【可能强制在线】。
+下面是一堆例题。
+例题1 动态查询集合第k大（可离线） 题意 让你维护一个初始为空的多重集合 $s$，并支持 $q$ 次操作，操作都是下面三种之一：
+添加一个数 $x$ 到集合 $s$ 中。 在集合 $s$ 中删除一个数 $x$（保证元素存在）。 查询集合第 $k$ 大（保证第 $k$ 大存在）。 数据范围 $1 \leq q \leq 2 \times 10^5$ $0 \leq x \leq 10^9$ 题解 维护一个权值线段树（权值线段树其实就是一个维护值域的线段树），维护一段值域里有多少个数，每次询问在线段树上二分即可。
+具体地，对于线段树上某个节点对应的区间 $[l,r]$，这个节点上的值为集合中，值在 $[l,r]$ 的数的个数有多少。
+在询问时，我们要记录当前节点编号 $x$，$x$ 维护区间 $[l,r]$，以及要查询值在 $[l,r]$ 内的所有数的第 $k$ 大。
+当递归到某个状态后，我们看这个节点的左子树 $\text{lc}$ 内有多少个值，如果大于等于 $k$，则递归到左子树；否则递归到右子树，且 $k$ 减去(左子树内数的个数)。
+由于值域较大，权值线段树可能会爆，所以要先把所有询问离线下来，做个离散化，然后就可以把 $x$ 控制到 $q$ 级别，就不会爆了。
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 行列式" href="https://qjwh.github.io/posts/oi/aln/hanglieshi/"></a>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span>&nbsp;·&nbsp;8 分钟&nbsp;·&nbsp;1557 字</footer>
+  <a class="entry-link" aria-label="post link to 整体二分" href="https://qjwh.github.io/posts/oi/aln/exbinarysearch/"></a>
 </article>
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">阶和原根
+    <h2 class="entry-hint-parent">中国剩余定理
     </h2>
   </header>
   <div class="entry-content">
-    <p>按照正常的思路我们都直接将算法，但这会先讲一道题，然后再讲它的定义和求法。
-参考：
-ABC335G题解 阶和原根 背景 是一场ABC335里的G题，当时在赛场上大概留了一个多小时的时间，但一直都在想用BSGS，但显然最后没想出来。
-而这题的瓶颈就在下面问题：
-对于两个数 $a,b$，是否存在一个 $x$ 使得同余方程 $a^x \equiv b \pmod p$ 有解。
-$a,b,p \leq 10^{13}$（原题数据范围）
-大家看到的第一眼显然可以用BSGS求。
-但这个算法是 $O(\sqrt p)$ 的（如果涉及到具体实现的话，可能还得乘个 $\log \sqrt p$，就是set、lower_bound查找的复杂度），比较适用于单组询问，很难推广应用。
-所以还有另外一种方式，比较适用于多组询问。
-是我们求出来 $a$ 和 $b$ 的阶，即 $\text{ord}_p a$ 和 $\text{ord}_p b$，看 $\text{ord}_p b$ 是否是 $\text{ord}_p a$ 的因子（$\text{ord}_p b \mid \text{ord}_p a$）即可。
-这里先不证这个结论是否正确，但相信大家第一次看到“阶”的时候定然是一头雾水的，下面我就来说一下它的定义和求法。
-定义 阶 阶的话，跟逆元相似，还是需要两个值，只不过这里叫做“$a$ 在模 $p$ 意义下的阶”而已，换汤不换料。
-这个表示方法就是 $\text{ord}_p a$。
-它的定义是：
-给你整数 $a$、$p$。 找到最小的 $x$，使得同余方程 $a^x \equiv 1 \pmod p$ 成立。 这个 $x$，就是$a$ 在模 $p$ 意义下的阶。 原根 但说到阶，我们定要讲一下它的孪生兄弟，原根了。
+    <p>中国剩余定理，Chinese Remainder Theorem，又称CRT，我们接下来就讲一下这个算法的原理。
+要说原理，就得从古代说起。
+（你到底是在讲编程课还是在讲历史课）
+（真的是在将编程课）
+在古代，有一个问题，叫做“物不知数问题”，原文是这样的：
+有物不知其数 三三数之剩二 五五数之剩三 七七数之剩二 问物几何？ 这个问题翻译过来就是问以下方程的所有正整数解：
+$ \begin{cases} x \equiv 2 \pmod{3} \ x \equiv 3 \pmod{5} \ x \equiv 2 \pmod{7} \end{cases} $
+这个问题在后来有一个解了，解出来这个问题的人，编了一首诗，叫做“孙子歌诀”，原文：
+三人同行七十稀 五树梅花廿一支 七子团圆正半月 除百零五便得知 这个解翻译过来就是说，若设 $r_3$ 为方程中 $x$ 模 $3$ 的余数，$r_5$、$r_7$ 同理，那么所有解 $x$ 一定满足：
+$x \equiv r_3 \times 70&#43;r_5 \times 21&#43;r_7 \times 15 \pmod{105}$
+其中 $105$ 的实际来源是上面三个方程的模数的 $\text{lcm}$，即 $\text{lcm}(3,5,7)=3 \times 5 \times 7=105$。
+关于 $70$、$21$、$15$ 的来源下面再说，我们先证明一下这个解是正确的。
+由于 $105$ 是三个模数的 $\text{lcm}$，所以说如果 $x$ 是满足条件的，$x-105$、$x&#43;105$ 都是满足条件的（此处暂时忽略“正整数解”的限制），显然。
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 阶和原根" href="https://qjwh.github.io/posts/oi/aln/orderandpr/"></a>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span>&nbsp;·&nbsp;2 分钟&nbsp;·&nbsp;370 字</footer>
+  <a class="entry-link" aria-label="post link to 中国剩余定理" href="https://qjwh.github.io/posts/oi/aln/crt/"></a>
 </article>
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">马拉车算法
+    <h2 class="entry-hint-parent">组合数学（待补充）
     </h2>
   </header>
   <div class="entry-content">
-    <p>马拉车算法其实就是解决一个字符串中由某个位置为中心的最大回文串长度：（下图中蓝色部分为字符串，绿色框中的值就是以这个位置为中心的最大回文串长度）
-其次，我们发现最底下的一排绿色数字涉及到空隙，所以我们可以把字符串扩展一下：
-比如，原字符串是 $\texttt{abccabbc}$，那么扩展之后就是：
-（LaTeX炸了） $\texttt{\color{RoyalBlue}@\color{default}#\color{default}a\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{default}a\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{RoyalBlue}&amp;}$
-第一个和最后一个字符可以自己定，但是最好不要和原字符串中的字符、中间插入的字符冲突（相等）。
-注：其实还有第二种扩展方法：
-$\texttt{\color{RoyalBlue}#\color{default}a\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{default}a\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{default}}$
-还是，中间字符不能与原串字符相等。
-下面统一设「以下标 $i$ 为中心的最大回文串长度除以 $2$ 并下取整」后的答案为 $p_i$。
-然后，我们就开始求 $p$ 数组了，当我们求到 $p_i$ 的时候，我们看前面求出的 $p_j&#43;j$ 的最大值是多少（设为 $r$），即 $\max\limits_{j=1}^{i-1} { p_j&#43;j }$，同时求出最大的 $p_j&#43;j$ 对应的 $j$（设为 $c$）。
-并且，我们求出 $i$ 的对称点 $i’$，对称中心为 $c$，显然 $i’=2c-i$。
-然后，分类讨论：
-注：图中 $r$ 的意思与上面说的 $r$ 的意思有冲突，统一以上面说的定义为准。
-$i&gt;r$，那么暴力算 $p_i$。 $r-i \geq p_{i’}$，那么 $p_i=p_{i’}$。 $r-i&lt;p_{i’}$，那么让 $p_i=r-i$，继续暴力扩展。 最后就是时间复杂度问题了。
-关于时间复杂度的证明，我们可以分类讨论 $p_i$ 是用那种情况求值的：
-用情况1转移：$r$ 肯定会增加。 用情况2转移：复杂度忽略。 用情况3转移：$r$ 也肯定会增加。 由于每时每刻，$r$ 都小于等于 $n$，所以总复杂度就是 $O(n)$ 的。
+    <p>有人问，组合数学不是就一些简单的公式吗？不是的，其实组合数学是数学中的一个非常庞大的分支，接下来就举一些例子。（更新中）
+本文主要讲各种数据范围下，求组合数的方式；以及球盒模型各种情况下的公式；最后是一些球盒模型的扩展情况。
+转到：球盒模型公式
+转到：球盒模型扩展公式
+（下面部分标题里的LaTeX公式更新后炸了，就凑合着看吧）
+求组合数 以下所有范围都可以当成是以下题目的某个Subtask：
+给你 $p$，代表模数。
+之后会给你一个 $q$，代表询问次数。
+每次询问给定 $n$ 和 $m$，问 $C_n^m \bmod p$ 的值。
+下面不给定 $q$ 的范围，因为不重要。
+以下全部默认 $n \geq m$。
+范围1：$n,m \leq 2000,p \leq 10^9&#43;7$ 先递推预处理，然后直接回答询问即可。
+递推式：$C_n^m=C_{n-1}^m&#43;C_{n-1}^{m-1}$。
+预处理复杂度：$O(n^2)$ 查询复杂度：$O(1)$ 范围2：$n,m \leq 10^6,p \leq 10^9&#43;7,p\text{ is prime}$ 1 先预处理阶乘，然后直接回答询问即可。
+回答询问式：$C_n^m=\dfrac{n!}{m!(n-m)!}$。
+为了节省时间复杂度，此处还可以预处理一下阶乘的逆元。
+2 预处理复杂度：$O(n)$ 查询复杂度：$O(1)$ 范围3：$n,m \leq 10^6,p \leq 10^9&#43;7$ 1 可以发现，范围2与范围3唯一的不同就是，范围3把质数的条件去掉了。
+而把质数的条件后，就没法求逆元了，因为逆元可能不存在。
+所以我们考虑换做法。
+2 我们考虑把模数做个质因数分解，变成 ${p_1}^{a_1} \times {p_2}^{a_2} \times {p_3}^{a_3} \times \dots \times {p_k}^{a_k}$。
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 马拉车算法" href="https://qjwh.github.io/posts/oi/aln/manacher/"></a>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span>&nbsp;·&nbsp;4 分钟&nbsp;·&nbsp;829 字</footer>
+  <a class="entry-link" aria-label="post link to 组合数学（待补充）" href="https://qjwh.github.io/posts/oi/aln/c/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">
     <a class="prev" href="https://qjwh.github.io/tags/%E4%BF%A1%E6%81%AF%E5%AD%A6%E7%AB%9E%E8%B5%9B/page/3/">
-      «&nbsp;Prev&nbsp;
+      «&nbsp;上一页&nbsp;
     </a>
   </nav>
 </footer>

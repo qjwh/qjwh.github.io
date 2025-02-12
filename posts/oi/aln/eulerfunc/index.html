@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="auto">
+<html lang="zh" dir="auto">
 
 <head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -49,7 +49,7 @@ void shai(LL n){
 <link rel="mask-icon" href="https://qjwh.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="https://qjwh.github.io/posts/oi/aln/eulerfunc/">
+<link rel="alternate" hreflang="zh" href="https://qjwh.github.io/posts/oi/aln/eulerfunc/">
 <noscript>
     <style>
         #theme-toggle,
@@ -126,7 +126,7 @@ void shai(LL n){
 模板代码：（代码中的 $p$ 数组是提前筛出来的质数集合，$ind$ 为其大小）
 LL phi(LL n){ if(n == 0) return 0; LL ret = n; rep(i, 1, ind){ if(n % p[i] == 0) ret = ret * 1 - ret / p[i], n /= p[i]; while(n % p[i] == 0) n /= p[i]; } if(n &gt; 1) ret = ret * 1 - ret / n; return ret; } 通过线性筛预处理 线性筛模板：
 void shai(LL n){ f[0] = f[1] = true; rep(i, 2, n){ if(!f[i]) p[&#43;&#43;ind] = i; for(LL j = 1;i * p[j] &lt;= n;j&#43;&#43;){ f[i * p[j]] = true; if(i % p[j] == 0) break; } } } 线性筛有一个性质，就是在第二重循环里，每次都会筛掉数 $i \times p_j$，而 $p_j$ 正是这个数（$i \times p_j$）的最小质因子。">
-  <meta property="og:locale" content="en">
+  <meta property="og:locale" content="zh">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2025-02-09T15:28:00+08:00">
@@ -201,7 +201,7 @@ void shai(LL n){
   ],
   "articleBody": "欧拉函数记为 $\\varphi$，$\\varphi(n)$ 代表 $1 \\sim n$ 内与 $n$ 互质的数的个数。\n欧拉函数有两种求法，下面分别说：\n直接求 我们设 $p$ 为 $n$ 的质因子集合（非可重集），那么 $\\varphi(n)=n \\times \\prod\\limits_{x \\in p} \\left( \\dfrac{x-1}{x} \\right)$，原理：\n我们设 $s$ 为目前与 $n$ 互质的数的集合，初始为 ${ 1,2,\\dots,n }$。\n每次遍历到一个 $p$ 中的数 $x$，就会筛掉这个集合中 $\\dfrac{1}{x}$ 的数，即那些是 $x$ 的倍数的数，由于 $p$ 是去重后的质因子集合，所以当前集合的大小总是 $x$ 的倍数。\n所以这个做法就能证明了，每乘一次 $\\dfrac{x-1}{x}$，都相当于筛掉当前集合内 $\\dfrac{1}{x}$ 的数，集合大小动态维护。\n模板代码：（代码中的 $p$ 数组是提前筛出来的质数集合，$ind$ 为其大小）\nLL phi(LL n){ if(n == 0) return 0; LL ret = n; rep(i, 1, ind){ if(n % p[i] == 0) ret = ret * 1 - ret / p[i], n /= p[i]; while(n % p[i] == 0) n /= p[i]; } if(n \u003e 1) ret = ret * 1 - ret / n; return ret; } 通过线性筛预处理 线性筛模板：\nvoid shai(LL n){ f[0] = f[1] = true; rep(i, 2, n){ if(!f[i]) p[++ind] = i; for(LL j = 1;i * p[j] \u003c= n;j++){ f[i * p[j]] = true; if(i % p[j] == 0) break; } } } 线性筛有一个性质，就是在第二重循环里，每次都会筛掉数 $i \\times p_j$，而 $p_j$ 正是这个数（$i \\times p_j$）的最小质因子。\n而欧拉函数是一个积性函数（定义一个函数 $f$ 是个积性函数有且仅当对于所有互质的对 $(i,j)$ 都满足 $f(i \\times j)=f(i) \\times f(j)$，而定义一个函数 $f$ 是个完全积性函数有且仅当对于所有的对 $(i,j)$ 都满足 $f(i \\times j)=f(i) \\times f(j)$，显然完全积性函数就是积性函数），所以我们就可以在线性筛模板的基础上改一下就是求欧拉函数的函数了：\nvoid shai(LL n){ f[0] = f[1] = true; rep(i, 2, n){ if(!f[i]){ p[++ind] = i; //显然 phi[i] = i - 1; } for(LL j = 1;i * p[j] \u003c= n;j++){ f[i * p[j]] = true; if(i % p[j] == 0){ //由于i%p[j]=0，所以i中也存在质因子p[j] //所以，i*p[j]和i的质因子集合并没有变化，只是值乘了p[j]而已 //简单想一下可以发现，其实phi[i*p[j]]就是phi[i]的p[j]倍 phi[i * p[j]] = phi[i] * p[j]; break; } //积性函数性质 phi[i * p[j]] = phi[i] * phi[p[j]]; } } } ",
   "wordCount" : "237",
-  "inLanguage": "en",
+  "inLanguage": "zh",
   "datePublished": "2025-02-09T15:28:00+08:00",
   "dateModified": "2025-02-09T15:28:00+08:00",
   "mainEntityOfPage": {
@@ -291,13 +291,13 @@ void shai(LL n){
     <h1 class="post-title entry-hint-parent">
       欧拉函数
     </h1>
-    <div class="post-meta"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span>
+    <div class="post-meta"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span>&nbsp;·&nbsp;2 分钟&nbsp;·&nbsp;237 字
 
 </div>
   </header> <div class="toc">
-    <details >
+    <details  open>
         <summary accesskey="c" title="(Alt + C)">
-            <span class="details">Table of Contents</span>
+            <span class="details">目录</span>
         </summary>
 
         <div class="inner"><ul>
@@ -447,6 +447,53 @@ void shai(LL n){
         }
     })
 
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = '复制';
+
+        function copyingDone() {
+            copybutton.innerHTML = '已复制！';
+            setTimeout(() => {
+                copybutton.innerHTML = '复制';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
 </script>
 </body>
 

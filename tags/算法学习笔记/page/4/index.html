@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="auto">
+<html lang="zh" dir="auto">
 
 <head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,7 +19,7 @@
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
 <link rel="alternate" type="application/rss+xml" href="https://qjwh.github.io/tags/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.xml">
-<link rel="alternate" hreflang="en" href="https://qjwh.github.io/tags/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+<link rel="alternate" hreflang="zh" href="https://qjwh.github.io/tags/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
 <noscript>
     <style>
         #theme-toggle,
@@ -87,7 +87,7 @@
 </style><meta property="og:url" content="https://qjwh.github.io/tags/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
   <meta property="og:site_name" content="CXBlog">
   <meta property="og:title" content="算法学习笔记">
-  <meta property="og:locale" content="en">
+  <meta property="og:locale" content="zh">
   <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="算法学习笔记">
@@ -167,35 +167,39 @@
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">马拉车算法
+    <h2 class="entry-hint-parent">组合数学（待补充）
     </h2>
   </header>
   <div class="entry-content">
-    <p>马拉车算法其实就是解决一个字符串中由某个位置为中心的最大回文串长度：（下图中蓝色部分为字符串，绿色框中的值就是以这个位置为中心的最大回文串长度）
-其次，我们发现最底下的一排绿色数字涉及到空隙，所以我们可以把字符串扩展一下：
-比如，原字符串是 $\texttt{abccabbc}$，那么扩展之后就是：
-（LaTeX炸了） $\texttt{\color{RoyalBlue}@\color{default}#\color{default}a\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{default}a\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{RoyalBlue}&amp;}$
-第一个和最后一个字符可以自己定，但是最好不要和原字符串中的字符、中间插入的字符冲突（相等）。
-注：其实还有第二种扩展方法：
-$\texttt{\color{RoyalBlue}#\color{default}a\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{default}a\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{default}}$
-还是，中间字符不能与原串字符相等。
-下面统一设「以下标 $i$ 为中心的最大回文串长度除以 $2$ 并下取整」后的答案为 $p_i$。
-然后，我们就开始求 $p$ 数组了，当我们求到 $p_i$ 的时候，我们看前面求出的 $p_j&#43;j$ 的最大值是多少（设为 $r$），即 $\max\limits_{j=1}^{i-1} { p_j&#43;j }$，同时求出最大的 $p_j&#43;j$ 对应的 $j$（设为 $c$）。
-并且，我们求出 $i$ 的对称点 $i’$，对称中心为 $c$，显然 $i’=2c-i$。
-然后，分类讨论：
-注：图中 $r$ 的意思与上面说的 $r$ 的意思有冲突，统一以上面说的定义为准。
-$i&gt;r$，那么暴力算 $p_i$。 $r-i \geq p_{i’}$，那么 $p_i=p_{i’}$。 $r-i&lt;p_{i’}$，那么让 $p_i=r-i$，继续暴力扩展。 最后就是时间复杂度问题了。
-关于时间复杂度的证明，我们可以分类讨论 $p_i$ 是用那种情况求值的：
-用情况1转移：$r$ 肯定会增加。 用情况2转移：复杂度忽略。 用情况3转移：$r$ 也肯定会增加。 由于每时每刻，$r$ 都小于等于 $n$，所以总复杂度就是 $O(n)$ 的。
+    <p>有人问，组合数学不是就一些简单的公式吗？不是的，其实组合数学是数学中的一个非常庞大的分支，接下来就举一些例子。（更新中）
+本文主要讲各种数据范围下，求组合数的方式；以及球盒模型各种情况下的公式；最后是一些球盒模型的扩展情况。
+转到：球盒模型公式
+转到：球盒模型扩展公式
+（下面部分标题里的LaTeX公式更新后炸了，就凑合着看吧）
+求组合数 以下所有范围都可以当成是以下题目的某个Subtask：
+给你 $p$，代表模数。
+之后会给你一个 $q$，代表询问次数。
+每次询问给定 $n$ 和 $m$，问 $C_n^m \bmod p$ 的值。
+下面不给定 $q$ 的范围，因为不重要。
+以下全部默认 $n \geq m$。
+范围1：$n,m \leq 2000,p \leq 10^9&#43;7$ 先递推预处理，然后直接回答询问即可。
+递推式：$C_n^m=C_{n-1}^m&#43;C_{n-1}^{m-1}$。
+预处理复杂度：$O(n^2)$ 查询复杂度：$O(1)$ 范围2：$n,m \leq 10^6,p \leq 10^9&#43;7,p\text{ is prime}$ 1 先预处理阶乘，然后直接回答询问即可。
+回答询问式：$C_n^m=\dfrac{n!}{m!(n-m)!}$。
+为了节省时间复杂度，此处还可以预处理一下阶乘的逆元。
+2 预处理复杂度：$O(n)$ 查询复杂度：$O(1)$ 范围3：$n,m \leq 10^6,p \leq 10^9&#43;7$ 1 可以发现，范围2与范围3唯一的不同就是，范围3把质数的条件去掉了。
+而把质数的条件后，就没法求逆元了，因为逆元可能不存在。
+所以我们考虑换做法。
+2 我们考虑把模数做个质因数分解，变成 ${p_1}^{a_1} \times {p_2}^{a_2} \times {p_3}^{a_3} \times \dots \times {p_k}^{a_k}$。
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 马拉车算法" href="https://qjwh.github.io/posts/oi/aln/manacher/"></a>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span>&nbsp;·&nbsp;4 分钟&nbsp;·&nbsp;829 字</footer>
+  <a class="entry-link" aria-label="post link to 组合数学（待补充）" href="https://qjwh.github.io/posts/oi/aln/c/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">
     <a class="prev" href="https://qjwh.github.io/tags/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/page/3/">
-      «&nbsp;Prev&nbsp;
+      «&nbsp;上一页&nbsp;
     </a>
   </nav>
 </footer>

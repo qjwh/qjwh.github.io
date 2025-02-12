@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="auto">
+<html lang="zh" dir="auto">
 
 <head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -44,7 +44,7 @@ $$">
 <link rel="mask-icon" href="https://qjwh.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="https://qjwh.github.io/posts/oi/aln/similargcd/">
+<link rel="alternate" hreflang="zh" href="https://qjwh.github.io/posts/oi/aln/similargcd/">
 <noscript>
     <style>
         #theme-toggle,
@@ -124,7 +124,7 @@ $$ f(a,b,c,n)=\sum\limits_{i=0}^n \left\lfloor \dfrac{\color{red}a\color{default
 求值 咱从简单到复杂走。
 1 首先，我们可以知道：
 $$ \begin{aligned} f(a,b,c,n)&amp;=\sum\limits_{i=0}^n \left\lfloor \dfrac{\color{red}a\color{default}i&#43;\color{blue}b\color{default}}{\color{green}c\color{default}} \right\rfloor \ &amp;=\sum\limits_{i=0}^n \left\lfloor \dfrac{(\lfloor \frac{a}{c} \rfloor c &#43; a \bmod c)i&#43;(\lfloor \frac{b}{c} \rfloor c &#43; b \bmod c)}{c} \right\rfloor \ &amp;=\sum\limits_{i=0}^n \left\lfloor \dfrac{\lfloor \frac{a}{c} \rfloor c \cdot i &#43; a \bmod c \cdot i&#43;\lfloor \frac{b}{c} \rfloor c &#43; b \bmod c}{c} \right\rfloor \ &amp;=\sum\limits_{i=0}^n \left( \left\lfloor \frac{a}{c} \right\rfloor i &#43; \left\lfloor \frac{b}{c} \right\rfloor &#43; \left\lfloor \dfrac{a \bmod c \cdot i&#43;b \bmod c}{c} \right\rfloor \right) \ &amp;=\dfrac{n(n&#43;1)}{2} \left\lfloor \frac{a}{c} \right\rfloor &#43; (n&#43;1) \left\lfloor \frac{b}{c} \right\rfloor &#43; \sum\limits_{i=0}^n \left\lfloor \dfrac{\color{red}a \bmod c\color{default} \cdot i&#43;\color{blue}b \bmod c\color{default}}{\color{green}c\color{default}} \right\rfloor \ &amp;=\dfrac{n(n&#43;1)}{2} \left\lfloor \frac{a}{c} \right\rfloor &#43; (n&#43;1) \left\lfloor \frac{b}{c} \right\rfloor &#43; f(a \bmod c,b \bmod c,c,n) \ \end{aligned} $$">
-  <meta property="og:locale" content="en">
+  <meta property="og:locale" content="zh">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2025-02-09T15:28:00+08:00">
@@ -194,7 +194,7 @@ $$">
   ],
   "articleBody": "\r来源：ABC372G官方题解\n贡献：OI Wiki\n这个算法确实挺妙的，所以我就写个笔记。\n定义 这个算法需要用到一个函数：\n$$ f(a,b,c,n)=\\sum\\limits_{i=0}^n \\left\\lfloor \\dfrac{\\color{red}a\\color{default}i+\\color{blue}b\\color{default}}{\\color{green}c\\color{default}} \\right\\rfloor $$\n在下面参数 $a$、$b$、$c$ 都会用三种颜色标出，以便于区分。\n因为 $a$、$b$、$c$、$n$ 都很大，所以我们没法直接暴力求。\n数论分块显然也不彳亍。\n所以我们只能另辟蹊径了。\n求值 咱从简单到复杂走。\n1 首先，我们可以知道：\n$$ \\begin{aligned} f(a,b,c,n)\u0026=\\sum\\limits_{i=0}^n \\left\\lfloor \\dfrac{\\color{red}a\\color{default}i+\\color{blue}b\\color{default}}{\\color{green}c\\color{default}} \\right\\rfloor \\ \u0026=\\sum\\limits_{i=0}^n \\left\\lfloor \\dfrac{(\\lfloor \\frac{a}{c} \\rfloor c + a \\bmod c)i+(\\lfloor \\frac{b}{c} \\rfloor c + b \\bmod c)}{c} \\right\\rfloor \\ \u0026=\\sum\\limits_{i=0}^n \\left\\lfloor \\dfrac{\\lfloor \\frac{a}{c} \\rfloor c \\cdot i + a \\bmod c \\cdot i+\\lfloor \\frac{b}{c} \\rfloor c + b \\bmod c}{c} \\right\\rfloor \\ \u0026=\\sum\\limits_{i=0}^n \\left( \\left\\lfloor \\frac{a}{c} \\right\\rfloor i + \\left\\lfloor \\frac{b}{c} \\right\\rfloor + \\left\\lfloor \\dfrac{a \\bmod c \\cdot i+b \\bmod c}{c} \\right\\rfloor \\right) \\ \u0026=\\dfrac{n(n+1)}{2} \\left\\lfloor \\frac{a}{c} \\right\\rfloor + (n+1) \\left\\lfloor \\frac{b}{c} \\right\\rfloor + \\sum\\limits_{i=0}^n \\left\\lfloor \\dfrac{\\color{red}a \\bmod c\\color{default} \\cdot i+\\color{blue}b \\bmod c\\color{default}}{\\color{green}c\\color{default}} \\right\\rfloor \\ \u0026=\\dfrac{n(n+1)}{2} \\left\\lfloor \\frac{a}{c} \\right\\rfloor + (n+1) \\left\\lfloor \\frac{b}{c} \\right\\rfloor + f(a \\bmod c,b \\bmod c,c,n) \\ \\end{aligned} $$\n所以经过一番推导，我们就可以把 $f(a,b,c,n)$ 转换到 $a,b",
   "wordCount" : "408",
-  "inLanguage": "en",
+  "inLanguage": "zh",
   "datePublished": "2025-02-09T15:28:00+08:00",
   "dateModified": "2025-02-09T15:28:00+08:00",
   "mainEntityOfPage": {
@@ -284,13 +284,13 @@ $$">
     <h1 class="post-title entry-hint-parent">
       类欧几里得算法
     </h1>
-    <div class="post-meta"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span>
+    <div class="post-meta"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span>&nbsp;·&nbsp;2 分钟&nbsp;·&nbsp;408 字
 
 </div>
   </header> <div class="toc">
-    <details >
+    <details  open>
         <summary accesskey="c" title="(Alt + C)">
-            <span class="details">Table of Contents</span>
+            <span class="details">目录</span>
         </summary>
 
         <div class="inner"><ul>
@@ -478,6 +478,53 @@ $$</p>
         }
     })
 
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = '复制';
+
+        function copyingDone() {
+            copybutton.innerHTML = '已复制！';
+            setTimeout(() => {
+                copybutton.innerHTML = '复制';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
 </script>
 </body>
 

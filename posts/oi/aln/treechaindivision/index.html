@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="auto">
+<html lang="zh" dir="auto">
 
 <head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -68,7 +68,7 @@ CDQ分治（需要配合树状数组）
 <link rel="mask-icon" href="https://qjwh.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="https://qjwh.github.io/posts/oi/aln/treechaindivision/">
+<link rel="alternate" hreflang="zh" href="https://qjwh.github.io/posts/oi/aln/treechaindivision/">
 <noscript>
     <style>
         #theme-toggle,
@@ -158,7 +158,7 @@ CDQ分治（需要配合树状数组）
 可以证明链数不超过 $O(\log n)$，这一点会在下面“复杂度证明”中证明。
 而这些拆出的链，都是原树中的链的“子集”（一条链 $L_1$ 是另外一条链 $L_2$ 的子集，有且仅当 $L_1$ 中的点，$L_2$ 中也有，边同理）。
 所以，可以把一条路径，拆成最多 $O(\log n)$ 个DFS序区间。">
-  <meta property="og:locale" content="en">
+  <meta property="og:locale" content="zh">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2025-02-09T15:28:00+08:00">
@@ -252,7 +252,7 @@ CDQ分治（需要配合树状数组）
   ],
   "articleBody": "\r第一次看到树链剖分（简称树剖）可能觉得它非常的深奥，但其实树剖的原理非常简单，下面先说树剖大概的实现思路和解决题型。\n概览 其实树剖就是把一棵树分成若干条链，使得每个点都出现在了刚好一条链上。\n并且，我们称在某条链上的边为“重（zhòng）边”，不在任何一条链上的边为“轻边”。\n然后，我们按某种规则去DFS，求出新的DFS序，然后解决对树上路径询问的问题。\n而且，通过合理的设计每条边的轻重，可以把复杂度控制在 $O(\\log n)$ 级别。\n解决题型 上面也提到了，树剖就是用来解决对树上路径进行询问的问题的算法，当然也可以解决对子树询问的问题，不过属于大材小用了。\n此外，树剖属于工具类算法，所以往往会配合树状数组、线段树、分块等算法出现。\n我把算法分为了两类，“材料类算法”和“工具类算法”，其中：\n材料类算法可以单独考，比如： 数论 推公式 DP 树状数组 线段树 … 工具类算法里面必须要套材料类算法才能考出来，比如： 二分 01分数规划（二分的一个分支） CDQ分治（需要配合树状数组） 整体二分（需要配合树状数组） 树剖（这里讲的） … 往往一些较难的题目，都是要用较难的材料类算法（比如DP），或者工具类算法配合材料类算法才能解决的题目。\n而对于后者，难度会更大一些，因为后者的关键在于转化后使用工具类算法解决。\n算法实现 下面说一下树剖的实现。\n两遍DFS 我们考虑DFS，当递归到点 $x$ 的时候，找到 $x$ 的儿子中，子树大小最大的那个儿子 $to$。\n然后，我们把 $x \\to to$ 这条边设为重边，其他边设为轻边。\n得到每条边的轻重后，我们再做一遍DFS。\n而这一遍DFS是为了找到DFS序。\n而且，DFS序有一个要求，我们要先遍历有重边连接的儿子。\n这样的话，对于任意一条树上的链，链上所有点的DFS序连续，而且是由深度从浅到深依次递增。\n同时，我们还要求出，从一个点开始，不经过任何轻边，最多到哪个点。\n解决询问 而对于一次路径上某值的询问，我们可以把这个路径拆成若干条链。\n可以证明链数不超过 $O(\\log n)$，这一点会在下面“复杂度证明”中证明。\n而这些拆出的链，都是原树中的链的“子集”（一条链 $L_1$ 是另外一条链 $L_2$ 的子集，有且仅当 $L_1$ 中的点，$L_2$ 中也有，边同理）。\n所以，可以把一条路径，拆成最多 $O(\\log n)$ 个DFS序区间。\n既然如此，我们就可以拿DFS序作为下标，用数据结构维护题目中的信息，询问就是区间查询。\n当然，很多时候都有修改，所以一般都是用线段树维护。\n复杂度证明 首先，对于任意一个点 $x$，它最多只有一个子节点 $to$（当然，也可能没有），满足 $sz_{to} \\geq sz_x \\div 2$。\n由于我们选择的是子树大小最大的子节点，让该子节点为“重子节点”。\n所以，其他“轻子节点”的大小一定不超过 $sz_x \\div 2$，显然。\n也就是说，如果一个点 $x$ 到其父亲 $fa$ 之间的边是轻边，那么 $sz_{fa} \\geq sz_x \\times 2$ 一定满足，显然。\n而由于 $sz$ 值最多为 $n$，所以从一条路径 $(x,y)$ 的某一端点，走到 $\\text{lca}$，最多只会经过 $\\log n$ 个重链。\n所以单次询问最多分成 $O(\\log n)$ 个重链。\n总复杂度在 $O(q \\log n) \\sim O(q \\log^3 n)$ 内不等，依据题目和实现决定。\n",
   "wordCount" : "115",
-  "inLanguage": "en",
+  "inLanguage": "zh",
   "datePublished": "2025-02-09T15:28:00+08:00",
   "dateModified": "2025-02-09T15:28:00+08:00",
   "mainEntityOfPage": {
@@ -342,13 +342,13 @@ CDQ分治（需要配合树状数组）
     <h1 class="post-title entry-hint-parent">
       树链剖分
     </h1>
-    <div class="post-meta"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span>
+    <div class="post-meta"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span>&nbsp;·&nbsp;1 分钟&nbsp;·&nbsp;115 字
 
 </div>
   </header> <div class="toc">
-    <details >
+    <details  open>
         <summary accesskey="c" title="(Alt + C)">
-            <span class="details">Table of Contents</span>
+            <span class="details">目录</span>
         </summary>
 
         <div class="inner"><ul>
@@ -514,6 +514,53 @@ CDQ分治（需要配合树状数组）
         }
     })
 
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = '复制';
+
+        function copyingDone() {
+            copybutton.innerHTML = '已复制！';
+            setTimeout(() => {
+                copybutton.innerHTML = '复制';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
 </script>
 </body>
 

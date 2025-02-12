@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="auto">
+<html lang="zh" dir="auto">
 
 <head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -41,7 +41,7 @@
 <link rel="mask-icon" href="https://qjwh.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="https://qjwh.github.io/posts/oi/aln/dfz/">
+<link rel="alternate" hreflang="zh" href="https://qjwh.github.io/posts/oi/aln/dfz/">
 <noscript>
     <style>
         #theme-toggle,
@@ -128,7 +128,7 @@
 由于只要两个点 $y$、$z$ 满足 $y$ 和 $z$ 分别在 $x$ 的两个不同儿子及其子树内，那么 $\text{lca}(y,z)=x$。
 并且所有满足条件 $\text{lca}(y,z)=x$ 的对 $(y,z)$ 只有满足上述条件的对。
 所以，我们可以通过（另一种）DFS（方式）求出 $to$ 到 ( 所有 $to$ 及其子树内的点 ) 之间的距离（加上 $x \to to$ 的边权）的集合 $T$。">
-  <meta property="og:locale" content="en">
+  <meta property="og:locale" content="zh">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2025-02-09T15:28:00+08:00">
@@ -195,7 +195,7 @@
   ],
   "articleBody": "\r点分治和树剖有一个相同点，就是算法都是从暴力经过一小步优化而来，但就是这一小步，让算法复杂度有了质的飞跃。\n下面来讲一下这个算法的原理。\n概览 其实“点分治”也是一个名不副实的算法，看完下面的讲述你就会发现这个算法根“分治”几乎无关。\n点分治是专门解决树上路径统计的一种算法（树剖则是解决对树上路径的判断的算法）。\n点分治的思想很朴素，就是DFS一下 $\\text{lca}$ 的节点编号 $x$，然后统计 $\\text{lca}$ 值刚好为 $x$ 的、满足题目条件的路径的数量，并累加到答案。\n但直接进行统计还是炸裂的，点分治则是对这种统计方式做了一步优化\n解决题型 上面说了，「点分治是专门解决树上路径统计的一种算法」，但并不是所有的树上路径统计都可以用点分治解决。\n其实看完下面的实现，你就能知道它解决什么类问题，不过这里还是说一下。\n就是首先，这个条件是形如“总和比某个值低”、“总和是某个值的倍数”等“可累加”的条件。\n其中“可累加”指的是，如果知道了 $A$ 部分的某个值，和 $B$ 部分的某个值，那么 $A$ 和 $B$ 部分合并后的部分是否合法也一定知道。\n但其他的条件目前还没有太明确，得自己去总结。\n算法实现 下面说一下点分治的实现。\n大体思路 我们拿“路径长度（路径上的边的边权之和）刚好为 $k$”问题举例。\n注：原题链接P3806\n就是我们考虑，当DFS到某个点 $x$ 的时候，就如上所说，设 $x$ 为 $\\text{lca}$ 值。\n然后，我们按顺序遍历所有子节点 $to$。\n由于只要两个点 $y$、$z$ 满足 $y$ 和 $z$ 分别在 $x$ 的两个不同儿子及其子树内，那么 $\\text{lca}(y,z)=x$。\n并且所有满足条件 $\\text{lca}(y,z)=x$ 的对 $(y,z)$ 只有满足上述条件的对。\n所以，我们可以通过（另一种）DFS（方式）求出 $to$ 到 ( 所有 $to$ 及其子树内的点 ) 之间的距离（加上 $x \\to to$ 的边权）的集合 $T$。\n并维护当前所有遍历过的儿子（不包含当前遍历的儿子）的 $T$ 集合的并集 $S$。\n接下来，只用看是否存在：\n一个在 $S$ 中出现过的元素 $x$。 一个在 $T$ 中出现过的元素 $y$。 满足 $x+y=k$（其中 $k$ 为询问的值）即可。\n这一点可以用标记数组解决。\n具体而言，我们维护一个标记数组，表示每个元素是否出现于 $S$ 内。\n但现在唯一的问题就在于，$T$ 集合只能暴力求出，但如果真的暴力，复杂度是炸裂的（可以被一条链的数据卡掉）。\n优化算法 我们考虑，不优化求出 $T$ 集合的暴力DFS算法，转而优化外层DFS（枚举 $\\text{lca}$ 值用的）。\n我们先对于每个 $to$，暴力做DFS，并更新答案。\n然后再枚举每个 $to$，此时 $to$ 及其子树无论以谁为根，都不会影响答案，显然。\n而由于我们对于每个点，都要遍历两遍子树，所以复杂度是和深度有关的，是一个 $O(2^\\text{dep})$ 的复杂度。\n所以，我们就尝试把深度降到 $\\log n$ 级别即可。\n一种思路就是每次只选择 $to$ 及其子树的重心作为根，因为重心有一个特点：\n如果以重心为根去重构整棵树，那么根节点（重心）的每个儿子及其子树的大小，都不会超过整棵树的大小的一半。 所以深度一定不超过 $\\log n$。\n扩展算法 不过无论如何，点分治只是一个工具类算法，得配合其他算法出现。\n比如，另外一道题P4178，就得把标记数组换成树状数组。\n还比如一些题，得在更新答案的时候用双指针，甚至还要配合优先队列等STL。\n复杂度证明 其实这个证明非常好想。\n上面其实已经说了一点了，就是复杂度是 $O(2^\\text{dep})$ 的，而每次选择重心就可以让这个复杂度达到 $O(n)$。\n对于其他的用点分治的题目的复杂度证明，可以采用以下思路：\n看每个点对复杂度有多少贡献。 那个复杂度 $O(2^\\text{dep})$ 就是这样求出的。\n",
   "wordCount" : "136",
-  "inLanguage": "en",
+  "inLanguage": "zh",
   "datePublished": "2025-02-09T15:28:00+08:00",
   "dateModified": "2025-02-09T15:28:00+08:00",
   "mainEntityOfPage": {
@@ -285,13 +285,13 @@
     <h1 class="post-title entry-hint-parent">
       点分治
     </h1>
-    <div class="post-meta"><span title='2025-02-09 15:28:00 +0800 CST'>February 9, 2025</span>
+    <div class="post-meta"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span>&nbsp;·&nbsp;1 分钟&nbsp;·&nbsp;136 字
 
 </div>
   </header> <div class="toc">
-    <details >
+    <details  open>
         <summary accesskey="c" title="(Alt + C)">
-            <span class="details">Table of Contents</span>
+            <span class="details">目录</span>
         </summary>
 
         <div class="inner"><ul>
@@ -455,6 +455,53 @@
         }
     })
 
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = '复制';
+
+        function copyingDone() {
+            copybutton.innerHTML = '已复制！';
+            setTimeout(() => {
+                copybutton.innerHTML = '复制';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
 </script>
 </body>
 
