@@ -182,87 +182,6 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">马拉车算法
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>马拉车算法其实就是解决一个字符串中由某个位置为中心的最大回文串长度：（下图中蓝色部分为字符串，绿色框中的值就是以这个位置为中心的最大回文串长度）
-其次，我们发现最底下的一排绿色数字涉及到空隙，所以我们可以把字符串扩展一下：
-比如，原字符串是 $\texttt{abccabbc}$，那么扩展之后就是：
-（LaTeX炸了） $\texttt{\color{RoyalBlue}@\color{default}#\color{default}a\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{default}a\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{RoyalBlue}&amp;}$
-第一个和最后一个字符可以自己定，但是最好不要和原字符串中的字符、中间插入的字符冲突（相等）。
-注：其实还有第二种扩展方法：
-$\texttt{\color{RoyalBlue}#\color{default}a\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{default}a\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{default}}$
-还是，中间字符不能与原串字符相等。
-下面统一设「以下标 $i$ 为中心的最大回文串长度除以 $2$ 并下取整」后的答案为 $p_i$。
-然后，我们就开始求 $p$ 数组了，当我们求到 $p_i$ 的时候，我们看前面求出的 $p_j&#43;j$ 的最大值是多少（设为 $r$），即 $\max\limits_{j=1}^{i-1} { p_j&#43;j }$，同时求出最大的 $p_j&#43;j$ 对应的 $j$（设为 $c$）。
-并且，我们求出 $i$ 的对称点 $i’$，对称中心为 $c$，显然 $i’=2c-i$。
-然后，分类讨论：
-注：图中 $r$ 的意思与上面说的 $r$ 的意思有冲突，统一以上面说的定义为准。
-$i&gt;r$，那么暴力算 $p_i$。 $r-i \geq p_{i’}$，那么 $p_i=p_{i’}$。 $r-i&lt;p_{i’}$，那么让 $p_i=r-i$，继续暴力扩展。 最后就是时间复杂度问题了。
-关于时间复杂度的证明，我们可以分类讨论 $p_i$ 是用那种情况求值的：
-用情况1转移：$r$ 肯定会增加。 用情况2转移：复杂度忽略。 用情况3转移：$r$ 也肯定会增加。 由于每时每刻，$r$ 都小于等于 $n$，所以总复杂度就是 $O(n)$ 的。
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span></footer>
-  <a class="entry-link" aria-label="post link to 马拉车算法" href="https://qjwh.github.io/posts/oi/aln/manacher/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">莫队算法
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>普通莫队算法 概览 莫队其实是分块的变化版，没有完全分块。
-但莫队的题目一般比分块的题目比较好看一些，其中的“好看”指的是很好看出这是个莫队/分块的题。
-接下来说一下莫队能解决的题型。
-解决题型 莫队一般解决以下问题：
-给你一些信息，和 $q$ 次询问，每次询问可以抽象为一个区间。
-而且这个问题还要满足一些条件：
-可以离线 不能有修改（当然带修莫队支持修改，不过普通莫队就不行了） 从 $[l,r]$ 的答案可以很快转移到 $[l-1,r]$、$[l&#43;1,r]$、$[l,r-1]$、$[l,r&#43;1]$ 的答案 解决方法 这种题型有个解决方法。
-还是先从暴力说起。
-暴力做法 看见这个问题的最后一个条件没？这个条件就启发我们从第一个问题的答案，暴力调整左、右端点，去得到第二个问题的答案，以此类推。
-这种暴力做法的复杂度一般为 $O($ 任意相邻两个问题的左、右端点差之和 $)$。
-而这个算法可以用一种数据卡掉：
-左、右端点的值的最大值 $n$ 调到最大，把询问次数 $q$ 也调到最大。 然后的 $q$ 次询问里，交替询问 $1 \sim n$ 和 $n \sim n$。 于是，复杂度被卡到 $O(qn)$。
-一次优化 这个做法的复杂度是无法接受的，所以我们考虑优化。
-我们不如把所有询问离线，然后考虑交换询问处理的顺序以减少复杂度。
-一种方式就是把左、右端点分别作为第一、二关键字，然后做排序。
-但这样就会被排序后所有询问的右端点一大一小的数据卡到 $O(qn)$ 的复杂度。
-二次优化 这样排序还是不好，还是会被卡掉，于是我们考虑变换比较函数。
-直接双关键字比较不好，那我们就分块后进行双关键字比较。
-具体地，遇到两个询问，先按左端点所属块编号从小到大排序，如果相同，则按右端点（不是所属块编号，是原本的下标）从小到大排序。
-这样的话，复杂度就是 $O(n \sqrt n&#43;q \sqrt n)$ 的复杂度了。
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span></footer>
-  <a class="entry-link" aria-label="post link to 莫队算法" href="https://qjwh.github.io/posts/oi/aln/modui/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">欧拉函数
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>欧拉函数记为 $\varphi$，$\varphi(n)$ 代表 $1 \sim n$ 内与 $n$ 互质的数的个数。
-欧拉函数有两种求法，下面分别说：
-直接求 我们设 $p$ 为 $n$ 的质因子集合（非可重集），那么 $\varphi(n)=n \times \prod\limits_{x \in p} \left( \dfrac{x-1}{x} \right)$，原理：
-我们设 $s$ 为目前与 $n$ 互质的数的集合，初始为 ${ 1,2,\dots,n }$。
-每次遍历到一个 $p$ 中的数 $x$，就会筛掉这个集合中 $\dfrac{1}{x}$ 的数，即那些是 $x$ 的倍数的数，由于 $p$ 是去重后的质因子集合，所以当前集合的大小总是 $x$ 的倍数。
-所以这个做法就能证明了，每乘一次 $\dfrac{x-1}{x}$，都相当于筛掉当前集合内 $\dfrac{1}{x}$ 的数，集合大小动态维护。
-模板代码：（代码中的 $p$ 数组是提前筛出来的质数集合，$ind$ 为其大小）
-LL phi(LL n){ if(n == 0) return 0; LL ret = n; rep(i, 1, ind){ if(n % p[i] == 0) ret = ret * 1 - ret / p[i], n /= p[i]; while(n % p[i] == 0) n /= p[i]; } if(n &gt; 1) ret = ret * 1 - ret / n; return ret; } 通过线性筛预处理 线性筛模板：
-void shai(LL n){ f[0] = f[1] = true; rep(i, 2, n){ if(!f[i]) p[&#43;&#43;ind] = i; for(LL j = 1;i * p[j] &lt;= n;j&#43;&#43;){ f[i * p[j]] = true; if(i % p[j] == 0) break; } } } 线性筛有一个性质，就是在第二重循环里，每次都会筛掉数 $i \times p_j$，而 $p_j$ 正是这个数（$i \times p_j$）的最小质因子。
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span></footer>
-  <a class="entry-link" aria-label="post link to 欧拉函数" href="https://qjwh.github.io/posts/oi/aln/eulerfunc/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
     <h2 class="entry-hint-parent">判断拓扑序是否唯一
     </h2>
   </header>
@@ -465,6 +384,105 @@ $d_{(i&#43;x_2) \bmod x_1}=\min(d_{(i&#43;x_2) \bmod x_1},d_i&#43;x_2)$
   </div>
   <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span></footer>
   <a class="entry-link" aria-label="post link to 网络流" href="https://qjwh.github.io/posts/oi/aln/flow/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">斜率优化
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>（说是斜率优化，其实和斜率几乎没有关系）
+（e…更新后确实有关系）
+其实斜率优化和决策二分栈（队列）很像，下面分几种类型来讲。
+一维斜率优化 针对形如 $d_i=\min\limits_{j=0}^{i-1} \big( d_j&#43;w(j&#43;1,i) \big)$ 的方程，而且需要满足决策单调性。
+此处重新说一下，如果我们发现一个转移点 $x$ 在 $d_i$ 的时候已经比另外一个转移点 $y$ 要更优了（$x&gt;y$），那么转移点 $y$ 在后面（$d_{i&#43;1}$ 及以后）就不可能比转移点 $x$ 要更优了，那么这个DP一定满足决策单调性，而且反过来也一样（见&#34;决策单调性.md&#34;）。
+其实证明是否满足单调性只用看：如果一个决策点 $x$ 如果在 $d_i$ 的转移中已经比决策点 $y$ 要优了，那么 $d_{i&#43;1}$ 中是否仍然满足这个条件。
+证明了满足决策单调性后，就可以开始斜率优化了。
+我们首先要考虑推斜率式：
+其实斜率式就是把式子 $d_x&#43;w(x&#43;1,i)&lt;d_y&#43;w(y&#43;1,i)$（$x&gt;y$）不断移项、变化，直到式子左边只和 $x$、$y$ 有关，右边只和 $i$ 有关为止。
+此时的斜率式一般左边是个分数，而且这个分数还需要把分子和分母的下标对应：
+如果斜率式最后是像这样的：
+$\dfrac{d_x-d_y}{v_y-v_x}&gt;-a_i$
+那么就不是个合法的斜率式，需要变成：
+$\dfrac{d_x-d_y}{v_x-v_y}&lt;a_i$
+才是合法的。
+注意，这里说的是“合法的”，而不是“正确的”，其实最上方的斜率式也可以使用，就是不能叫“斜率式”了（斜率的公式是 $\dfrac{y_2-y_1}{x_2-x_1}$）。
+设此时的斜率式就是上面说的：
+$\dfrac{d_x-d_y}{v_x-v_y}&lt;a_i$
+那么，我们就定义 $\text{slope}(y,x)=\dfrac{d_x-d_y}{v_x-v_y}$。
+有了上面函数，显然如果存在两个转移点 $x$ 和 $y$（$x&gt;y$）在转移到 $d_i$ 的时候满足 $\text{slope}(x,y)&lt;a_i$，那么就说明转移点 $x$ 比转移点 $y$ 更优，转移点 $y$ 在后面就不需要了。
+下面默认推出来的斜率式就是上式，并默认 $a$ 数组单调不降。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span></footer>
+  <a class="entry-link" aria-label="post link to 斜率优化" href="https://qjwh.github.io/posts/oi/aln/slopeopm/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">行列式
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>要说行列式，就得先说一下矩阵（其实是方阵）的秩的定义。
+对于一个方阵，其秩的定义就是矩阵里线性无关的极大值。
+听这个定义有点难懂，这里解释一下。
+其实一个方阵就可以被当做是一个没有右项的方程集。
+而一个方阵的秩就可以当做是，这个没有右项的方程集在经过高斯消元后，非 $0$ 行的数量。
+有了这个定义，矩阵的秩还可以被当做是，这个没有右项的方程集中，不会被其他方程替代掉的方程数量：
+解释一下，如果方程长这样：
+$ \begin{cases} -x_1&#43;2x_2&#43;5x_3=11 \ 2x_1=8 \ x_1&#43;2x_2&#43;5x_3=19 \end{cases} $
+那么，其实第三个方程式可以通过前两个方程式推出来，也就称作第三个方程式可以被前两个方程式替代掉。
+知道了“替代”的定义后，就知道了一件事，就是上面说的“会被其他方程替代掉的方程”，这些方程可以直接从方程组里去掉，而不影响最终的解。
+所以，我们就可以对奥数里的一个点做一个更简洁的解释：
+在奥数里，讲了解 $n$ 元一次方程（组）的方法。
+同时还说了，在这个 $n$ 元一次方程组内，如果“有用”的方程数量，刚好等于未知数的数量，或者大于未知数的数量，那么这个方程组就有唯一解。
+这一点可以被更简洁地解释为：
+这个 $n$ 元一次方程组，转化为“高斯矩阵”，并删除最后一列后（变成 $n \times n$ 的方阵），如果这个方阵的秩刚好为 $n$，那么这个方程组就有唯一解。
+然后，我们回归正题，说行列式。
+行列式是对于一个方阵来讲的，一个方阵有行列式有且仅当这个方程的秩刚好等于方阵的大小（行或者列）。
+行列式的定义此处不讲，因为：
+太复杂了 （几乎）没有用处 行列式的计算方法是用的高斯消元。
+在高斯消元的思路里，提到了三种“基本行变换”：（以下全部以高斯矩阵的角度去说）
+将一行全部乘上一个非 $0$ 实数 $x$，解不变。 将一行内的所有元素对应地加上/减去另一行对应的元素乘上一个非 $0$ 实数 $x$，解不变。 交换两行，解不变。 这三种基本行变换在执行前后，行列式并不是都不变的：
+将一行全部乘上一个非 $0$ 实数 $x$，行列式也会乘上 $x$。 将一行内的所有元素对应地加上/减去另一行对应的元素乘上一个非 $0$ 实数 $x$，行列式不变。 交换两行，行列式变号（负数变成正数，反之亦然）。 所以我们只用写一下高斯消元，然后处理一下对行列式的值的变化即可。
+但这儿还有一点问题，就是行列式怎么求。
+求法很好记，如果说当前方阵是个上三角矩阵（设方阵叫 $a$，那么 $a$ 是个上三角矩阵有且仅当对于所有的 $(i,j)$，如果满足 $i&gt;j$，那么 $a_{i,j}$ 一定要等于 $0$，当然其他方格不做要求），那么这个方阵的行列式就是这个方阵中正对角线上的元素的乘积。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span></footer>
+  <a class="entry-link" aria-label="post link to 行列式" href="https://qjwh.github.io/posts/oi/aln/hanglieshi/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">一个非常重要的语法点
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>说一个非常重要的语法错误。
+如果你写这样一句话：
+v[x] = newnode(); 其中：
+v为一个vector。 x为不越界的非负整数，且不会变化。 newnode()函数内会向vector内push_back一个新元素，并返回加入元素（即最后一个元素）的下标。 那么，你会发现，v[x]的值并不是这样变化的：
+1,2,3,4,5,6,7,... 而是类似于这样的：（非真实输出结果，仅供参考）
+1,1,2,2,3,4,4,5,6,7,8,8,9,10,11,12,13,14,15,16,16,17,18,19,20,... 你会发现部分情况下，v[x]没有变化！
+这实际上是因为vector的内部机制。
+vector会有一个capacity，就是提供的内存大小。
+每次push_back的时候，如果说加入后，不超过当前的capacity，就会直接加入。
+否则，vector会新开辟一块等于当前capacity的两倍（这个在不同编辑器上是不一样的，有些可能是每次新增 $5$ 个）的新空间，并把原本的数据拷进这块新空间内。
+比如说现在的vector是：
+内存354~357位置：3 1 2 4 且capacity是 $4$，那么我们如果尝试push_back一个 $5$，则vector就会发现大于了capacity，便会新开一块等于当前capacity的两倍的空间：
+内存354~357位置：3 1 2 4内存382~389位置： 并把当前数据拷进去：
+内存354~357位置：3 1 2 4内存382~389位置：3 1 2 4 然后在新空间内加入 $5$：
+内存354~357位置：3 1 2 4内存382~389位置：3 1 2 4 5 并把所有v[x]指向的内存都改成382~389这块新内存内对应的地方。
+不过由于C&#43;&#43;的赋值机制，系统会先找到要赋值给的变量的指针，然后求出要赋的值，赋给以前找到的指针。（这一步是推测，可能不准确）
+所以就会导致把newnode()的值赋给了原本的v[x]，导致输出的时候访问的新v[x]值出错。
+解决方法也很简单，把newnode()用个临时变量t存储，并将v[x]赋值为t即可。
+</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span></footer>
+  <a class="entry-link" aria-label="post link to 一个非常重要的语法点" href="https://qjwh.github.io/posts/oi/aln/animportantgrammer/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">
