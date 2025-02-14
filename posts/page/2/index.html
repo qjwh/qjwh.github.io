@@ -182,6 +182,41 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">Lucas定理
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>（以下全部假设 $C_n^m$ 中的 $n$ 和 $m$ 都很大，最大能达到 $10^{18}$）
+Lucas定理 Lucas定理往往用于求组合数的结果且模数较小的题目。
+其实定理很简单，也很好记，$\Large C_n^m=C_{\lfloor \frac{n}{p} \rfloor}^{\lfloor \frac{m}{p} \rfloor} \times \color{orange} C_{n \bmod p}^{m \bmod p}$，在 $p$ 为质数的条件成立。
+上面之所以强调模数较小，是因为我们需要通过预处理阶乘的方式去求橙色项的值。
+代码实现很简单，此处略。
+但有个注意点，在我的代码模板里，由于求facny数组是递推求出的，而不是每个分别去用getny求出的，所以调用init函数时，传参应该是MOD-1而不是MOD。
+exLucas定理 （前方高能）
+这个定理还是解决求 $C_n^m \bmod p$ 的值的问题，$p$ 仍然很小，但不保证是质数。
+根据M2579的做法，我们可以考虑对 $p$ 做一个唯一分解，分解成 ${p_1}^{a_1} \times {p_2}^{a_2} \times {p_3}^{a_3} \times \dots \times {p_k}^{a_k}$。
+然后，分别求出 $C_n^m \bmod {p_1}^{a_1}$ 的值、$C_n^m \bmod {p_2}^{a_2}$ 的值、$C_n^m \bmod {p_3}^{a_3}$ 的值、…、$C_n^m \bmod {p_k}^{a_k}$ 的值，然后就可以用CRT求出 $C_n^m \bmod p$ 的值了。
+在M2579内，$p$ 唯一分解后，每个 $a_i$ 都等于 $1$，所以直接用Lucas定理就可以求，但在一般的题目中，指数不一定都等于 $1$，所以才要用到exLucas定理。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span></footer>
+  <a class="entry-link" aria-label="post link to Lucas定理" href="https://qjwh.github.io/posts/oi/aln/lucas/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">nth_element（未完工）
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p></p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span></footer>
+  <a class="entry-link" aria-label="post link to nth_element（未完工）" href="https://qjwh.github.io/posts/oi/aln/nthelement/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">wqs二分
     </h2>
   </header>
@@ -395,59 +430,6 @@ $i&gt;r$，那么暴力算 $p_i$。 $r-i \geq p_{i’}$，那么 $p_i=p_{i’}$�
   </div>
   <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span></footer>
   <a class="entry-link" aria-label="post link to 马拉车算法" href="https://qjwh.github.io/posts/oi/aln/manacher/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">莫队算法
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>普通莫队算法 概览 莫队其实是分块的变化版，没有完全分块。
-但莫队的题目一般比分块的题目比较好看一些，其中的“好看”指的是很好看出这是个莫队/分块的题。
-接下来说一下莫队能解决的题型。
-解决题型 莫队一般解决以下问题：
-给你一些信息，和 $q$ 次询问，每次询问可以抽象为一个区间。
-而且这个问题还要满足一些条件：
-可以离线 不能有修改（当然带修莫队支持修改，不过普通莫队就不行了） 从 $[l,r]$ 的答案可以很快转移到 $[l-1,r]$、$[l&#43;1,r]$、$[l,r-1]$、$[l,r&#43;1]$ 的答案 解决方法 这种题型有个解决方法。
-还是先从暴力说起。
-暴力做法 看见这个问题的最后一个条件没？这个条件就启发我们从第一个问题的答案，暴力调整左、右端点，去得到第二个问题的答案，以此类推。
-这种暴力做法的复杂度一般为 $O($ 任意相邻两个问题的左、右端点差之和 $)$。
-而这个算法可以用一种数据卡掉：
-左、右端点的值的最大值 $n$ 调到最大，把询问次数 $q$ 也调到最大。 然后的 $q$ 次询问里，交替询问 $1 \sim n$ 和 $n \sim n$。 于是，复杂度被卡到 $O(qn)$。
-一次优化 这个做法的复杂度是无法接受的，所以我们考虑优化。
-我们不如把所有询问离线，然后考虑交换询问处理的顺序以减少复杂度。
-一种方式就是把左、右端点分别作为第一、二关键字，然后做排序。
-但这样就会被排序后所有询问的右端点一大一小的数据卡到 $O(qn)$ 的复杂度。
-二次优化 这样排序还是不好，还是会被卡掉，于是我们考虑变换比较函数。
-直接双关键字比较不好，那我们就分块后进行双关键字比较。
-具体地，遇到两个询问，先按左端点所属块编号从小到大排序，如果相同，则按右端点（不是所属块编号，是原本的下标）从小到大排序。
-这样的话，复杂度就是 $O(n \sqrt n&#43;q \sqrt n)$ 的复杂度了。
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span></footer>
-  <a class="entry-link" aria-label="post link to 莫队算法" href="https://qjwh.github.io/posts/oi/aln/modui/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">欧拉函数
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>欧拉函数记为 $\varphi$，$\varphi(n)$ 代表 $1 \sim n$ 内与 $n$ 互质的数的个数。
-欧拉函数有两种求法，下面分别说：
-直接求 我们设 $p$ 为 $n$ 的质因子集合（非可重集），那么 $\varphi(n)=n \times \prod\limits_{x \in p} \left( \dfrac{x-1}{x} \right)$，原理：
-我们设 $s$ 为目前与 $n$ 互质的数的集合，初始为 ${ 1,2,\dots,n }$。
-每次遍历到一个 $p$ 中的数 $x$，就会筛掉这个集合中 $\dfrac{1}{x}$ 的数，即那些是 $x$ 的倍数的数，由于 $p$ 是去重后的质因子集合，所以当前集合的大小总是 $x$ 的倍数。
-所以这个做法就能证明了，每乘一次 $\dfrac{x-1}{x}$，都相当于筛掉当前集合内 $\dfrac{1}{x}$ 的数，集合大小动态维护。
-模板代码：（代码中的 $p$ 数组是提前筛出来的质数集合，$ind$ 为其大小）
-LL phi(LL n){ if(n == 0) return 0; LL ret = n; rep(i, 1, ind){ if(n % p[i] == 0) ret = ret * 1 - ret / p[i], n /= p[i]; while(n % p[i] == 0) n /= p[i]; } if(n &gt; 1) ret = ret * 1 - ret / n; return ret; } 通过线性筛预处理 线性筛模板：
-void shai(LL n){ f[0] = f[1] = true; rep(i, 2, n){ if(!f[i]) p[&#43;&#43;ind] = i; for(LL j = 1;i * p[j] &lt;= n;j&#43;&#43;){ f[i * p[j]] = true; if(i % p[j] == 0) break; } } } 线性筛有一个性质，就是在第二重循环里，每次都会筛掉数 $i \times p_j$，而 $p_j$ 正是这个数（$i \times p_j$）的最小质因子。
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span></footer>
-  <a class="entry-link" aria-label="post link to 欧拉函数" href="https://qjwh.github.io/posts/oi/aln/eulerfunc/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">
