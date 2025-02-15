@@ -182,6 +182,34 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">马拉车算法
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>马拉车算法其实就是解决一个字符串中由某个位置为中心的最大回文串长度：（下图中蓝色部分为字符串，绿色框中的值就是以这个位置为中心的最大回文串长度）
+其次，我们发现最底下的一排绿色数字涉及到空隙，所以我们可以把字符串扩展一下：
+比如，原字符串是 $\texttt{abccabbc}$，那么扩展之后就是：
+（LaTeX炸了） $\texttt{\color{RoyalBlue}@\color{default}#\color{default}a\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{default}a\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{RoyalBlue}&amp;}$
+第一个和最后一个字符可以自己定，但是最好不要和原字符串中的字符、中间插入的字符冲突（相等）。
+注：其实还有第二种扩展方法：
+$\texttt{\color{RoyalBlue}#\color{default}a\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{default}a\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{default}}$
+还是，中间字符不能与原串字符相等。
+下面统一设「以下标 $i$ 为中心的最大回文串长度除以 $2$ 并下取整」后的答案为 $p_i$。
+然后，我们就开始求 $p$ 数组了，当我们求到 $p_i$ 的时候，我们看前面求出的 $p_j&#43;j$ 的最大值是多少（设为 $r$），即 $\max\limits_{j=1}^{i-1} { p_j&#43;j }$，同时求出最大的 $p_j&#43;j$ 对应的 $j$（设为 $c$）。
+并且，我们求出 $i$ 的对称点 $i’$，对称中心为 $c$，显然 $i’=2c-i$。
+然后，分类讨论：
+注：图中 $r$ 的意思与上面说的 $r$ 的意思有冲突，统一以上面说的定义为准。
+$i&gt;r$，那么暴力算 $p_i$。 $r-i \geq p_{i’}$，那么 $p_i=p_{i’}$。 $r-i&lt;p_{i’}$，那么让 $p_i=r-i$，继续暴力扩展。 最后就是时间复杂度问题了。
+关于时间复杂度的证明，我们可以分类讨论 $p_i$ 是用那种情况求值的：
+用情况1转移：$r$ 肯定会增加。 用情况2转移：复杂度忽略。 用情况3转移：$r$ 也肯定会增加。 由于每时每刻，$r$ 都小于等于 $n$，所以总复杂度就是 $O(n)$ 的。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span></footer>
+  <a class="entry-link" aria-label="post link to 马拉车算法" href="https://qjwh.github.io/posts/oi/aln/manacher/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">莫队算法
     </h2>
   </header>
@@ -437,39 +465,6 @@ $d_{(i&#43;x_2) \bmod x_1}=\min(d_{(i&#43;x_2) \bmod x_1},d_i&#43;x_2)$
   </div>
   <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span></footer>
   <a class="entry-link" aria-label="post link to 网络流" href="https://qjwh.github.io/posts/oi/aln/flow/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">斜率优化
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>（说是斜率优化，其实和斜率几乎没有关系）
-（e…更新后确实有关系）
-其实斜率优化和决策二分栈（队列）很像，下面分几种类型来讲。
-一维斜率优化 针对形如 $d_i=\min\limits_{j=0}^{i-1} \big( d_j&#43;w(j&#43;1,i) \big)$ 的方程，而且需要满足决策单调性。
-此处重新说一下，如果我们发现一个转移点 $x$ 在 $d_i$ 的时候已经比另外一个转移点 $y$ 要更优了（$x&gt;y$），那么转移点 $y$ 在后面（$d_{i&#43;1}$ 及以后）就不可能比转移点 $x$ 要更优了，那么这个DP一定满足决策单调性，而且反过来也一样（见&#34;决策单调性.md&#34;）。
-其实证明是否满足单调性只用看：如果一个决策点 $x$ 如果在 $d_i$ 的转移中已经比决策点 $y$ 要优了，那么 $d_{i&#43;1}$ 中是否仍然满足这个条件。
-证明了满足决策单调性后，就可以开始斜率优化了。
-我们首先要考虑推斜率式：
-其实斜率式就是把式子 $d_x&#43;w(x&#43;1,i)&lt;d_y&#43;w(y&#43;1,i)$（$x&gt;y$）不断移项、变化，直到式子左边只和 $x$、$y$ 有关，右边只和 $i$ 有关为止。
-此时的斜率式一般左边是个分数，而且这个分数还需要把分子和分母的下标对应：
-如果斜率式最后是像这样的：
-$\dfrac{d_x-d_y}{v_y-v_x}&gt;-a_i$
-那么就不是个合法的斜率式，需要变成：
-$\dfrac{d_x-d_y}{v_x-v_y}&lt;a_i$
-才是合法的。
-注意，这里说的是“合法的”，而不是“正确的”，其实最上方的斜率式也可以使用，就是不能叫“斜率式”了（斜率的公式是 $\dfrac{y_2-y_1}{x_2-x_1}$）。
-设此时的斜率式就是上面说的：
-$\dfrac{d_x-d_y}{v_x-v_y}&lt;a_i$
-那么，我们就定义 $\text{slope}(y,x)=\dfrac{d_x-d_y}{v_x-v_y}$。
-有了上面函数，显然如果存在两个转移点 $x$ 和 $y$（$x&gt;y$）在转移到 $d_i$ 的时候满足 $\text{slope}(x,y)&lt;a_i$，那么就说明转移点 $x$ 比转移点 $y$ 更优，转移点 $y$ 在后面就不需要了。
-下面默认推出来的斜率式就是上式，并默认 $a$ 数组单调不降。
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span></footer>
-  <a class="entry-link" aria-label="post link to 斜率优化" href="https://qjwh.github.io/posts/oi/aln/slopeopm/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">
