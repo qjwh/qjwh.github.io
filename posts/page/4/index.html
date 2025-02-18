@@ -182,6 +182,38 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">网络流
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>前言 首先，网络流不是一个算法，而是一个整合包（玩MC玩的），说白了就是网络流是多个算法的统称：
+最大流 EK Dinic 最小割 费用流 … 而且，有些不常用的，可能就不会提，粘个OI Wiki的链接就不详细写了。
+接下来就按照这个目录挨个讲一下每个算法。
+最大流 如果有哪里没有说清楚，可以看这里，里面还有我没有说到的最大流类型。
+看到最大流这个名字很多人都很陌生，这里就先从定义说起。
+定义 还是拆词法，“网络流”就可以大致理解为“网络”上的“流”，接下来就挨个说一下这两个的定义。
+网络 先说网络的定义。（当然不是Internet）
+我们在理解的时候可以认为是管道，但实际上它是一张特殊的有向图。
+建设管道的必然知道，管道内流过的水，准确来说是单位时间内流过的水，必然是有上限限制的，否则管道就炸了。
+这里也一样，对于每条边 $x \to y$，都有一个函数 $c(x,y)$ 表示这条边的限制，又称容量。
+如果在图上没有这条边，则统一规定 $c(x,y)=0$。
+最后，还是跟最短路一样，它有一个起点和一个终点，又称源点 $S$ 和汇点 $T$（$S \not= T$）。
+流函数 再说流函数。
+流函数就是说，在真实操作中，一个单位时间内一条边 $x \to y$ 流过的水量 $f(x,y)$。
+这里默认保证每个单位时间内都得流过这么多。
+其实很好理解。
+流函数性质 顺便说一下流函数要满足的性质。
+首先，源点可以无限输出水，汇点可以无限输入水。
+接下来就是一堆性质：
+对于每个 $x,y$，显然 $f(x,y) \leq c(x,y)$（容量限制）。 对于每个 $x,y$，$f(x,y)=-f(y,x)$（斜对称）。 对于每个 $x$，满足不是源点也不是汇点，$\sum\limits_{u \to x} f(u,x)=\sum\limits_{x \to v} f(x,v)$（流量守恒）。 这里说一下最后一点性质。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span></footer>
+  <a class="entry-link" aria-label="post link to 网络流" href="https://qjwh.github.io/posts/oi/aln/flow/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">斜率优化
     </h2>
   </header>
@@ -431,18 +463,6 @@ $x \equiv r_3 \times 70&#43;r_5 \times 21&#43;r_7 \times 15 \pmod{105}$
   </div>
   <footer class="entry-footer"><span title='2025-02-09 09:30:00 +0800 CST'>2025年2月9日</span></footer>
   <a class="entry-link" aria-label="post link to 【漂流本电子稿】06 - 友谊的旅途（未完工）" href="https://qjwh.github.io/posts/plb/plb06/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">【漂流本电子稿】05 - 个人自传（内容缺失）
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p></p>
-  </div>
-  <footer class="entry-footer"><span title='2025-02-09 09:29:00 +0800 CST'>2025年2月9日</span></footer>
-  <a class="entry-link" aria-label="post link to 【漂流本电子稿】05 - 个人自传（内容缺失）" href="https://qjwh.github.io/posts/plb/plb05/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

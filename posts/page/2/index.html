@@ -182,6 +182,26 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">CDQ分治
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>CDQ分治是一种解决三维、四维偏序的算法。
+三维偏序 三维偏序问题形如：
+有 $q$ 次询问，每次询问有两种：
+修改：会给定 $t$、$x$、$y$、$v$，表示在时刻 $t$，在二维坐标 $(x,y)$ 上加上权值 $v$，修改会永久改变权值 （废话）。 查询：会给定 $t$、$x$、$y$，表示求在时刻 $t$ 时，所有满足 $x’ \leq x$，$y’ \leq y$ 的二维坐标 $(x’,y’)$ 上的权值和。 $q \leq 2 \times 10^5$ $t,x,y \leq 2 \times 10^5$ $v \leq 10^9$ 这种问题都有一个通用的解决方法，就是CDQ分治，接下来我们讲一下算法的原理。
+我们先把所有的询问离线下来，然后按时刻（第一维）升序排序，显然排序前和排序后，相同询问答案不变。
+接下来我们定义函数 $\text{solve}(l,r)$，代表只考虑 $l \sim r$ 内的修改，然后准确回答 $l \sim r$ 内的询问。
+既然是分治，我们就要构建好整个分治思路，像这道题，就这样做：
+找到 $mid$ 为区间 $[l,r]$ 的中点 $\left\lfloor \dfrac{l&#43;r}{2} \right\rfloor$。 考虑 $l \sim mid$ 内的修改对 $l \sim mid$ 内的询问的影响：递归调用 $\text{solve}(l,mid)$。 考虑 $mid&#43;1 \sim r$ 内的修改对 $mid&#43;1 \sim r$ 内的询问的影响：递归调用 $\text{solve}(mid&#43;1,r)$。 考虑 $l \sim mid$ 内的修改对 $mid&#43;1 \sim r$ 内的询问的影响： 把 $l \sim mid$ 内的修改，和 $mid&#43;1 \sim r$ 内的询问，统统存入一个数组 $b$。 把 $b$ 中所有元素按 $x$ 坐标（第二维）升序排序。 有人对这一步的正确性有疑问，此处解释一下。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span></footer>
+  <a class="entry-link" aria-label="post link to CDQ分治" href="https://qjwh.github.io/posts/oi/aln/cdq/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">Kruskal重构树
     </h2>
   </header>
@@ -413,30 +433,6 @@ $a,b,p \leq 10^{13}$（原题数据范围）
   </div>
   <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span></footer>
   <a class="entry-link" aria-label="post link to 决策单调性" href="https://qjwh.github.io/posts/oi/aln/juecedandiaoxing/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">类欧几里得算法
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>来源：ABC372G官方题解
-贡献：OI Wiki
-这个算法确实挺妙的，所以我就写个笔记。
-定义 这个算法需要用到一个函数：
-$$ f(a,b,c,n)=\sum\limits_{i=0}^n \left\lfloor \dfrac{\color{red}a\color{default}i&#43;\color{blue}b\color{default}}{\color{green}c\color{default}} \right\rfloor $$
-在下面参数 $a$、$b$、$c$ 都会用三种颜色标出，以便于区分。
-因为 $a$、$b$、$c$、$n$ 都很大，所以我们没法直接暴力求。
-数论分块显然也不彳亍。
-所以我们只能另辟蹊径了。
-求值 咱从简单到复杂走。
-1 首先，我们可以知道：
-$$ \begin{aligned} f(a,b,c,n)&amp;=\sum\limits_{i=0}^n \left\lfloor \dfrac{\color{red}a\color{default}i&#43;\color{blue}b\color{default}}{\color{green}c\color{default}} \right\rfloor \ &amp;=\sum\limits_{i=0}^n \left\lfloor \dfrac{(\lfloor \frac{a}{c} \rfloor c &#43; a \bmod c)i&#43;(\lfloor \frac{b}{c} \rfloor c &#43; b \bmod c)}{c} \right\rfloor \ &amp;=\sum\limits_{i=0}^n \left\lfloor \dfrac{\lfloor \frac{a}{c} \rfloor c \cdot i &#43; a \bmod c \cdot i&#43;\lfloor \frac{b}{c} \rfloor c &#43; b \bmod c}{c} \right\rfloor \ &amp;=\sum\limits_{i=0}^n \left( \left\lfloor \frac{a}{c} \right\rfloor i &#43; \left\lfloor \frac{b}{c} \right\rfloor &#43; \left\lfloor \dfrac{a \bmod c \cdot i&#43;b \bmod c}{c} \right\rfloor \right) \ &amp;=\dfrac{n(n&#43;1)}{2} \left\lfloor \frac{a}{c} \right\rfloor &#43; (n&#43;1) \left\lfloor \frac{b}{c} \right\rfloor &#43; \sum\limits_{i=0}^n \left\lfloor \dfrac{\color{red}a \bmod c\color{default} \cdot i&#43;\color{blue}b \bmod c\color{default}}{\color{green}c\color{default}} \right\rfloor \ &amp;=\dfrac{n(n&#43;1)}{2} \left\lfloor \frac{a}{c} \right\rfloor &#43; (n&#43;1) \left\lfloor \frac{b}{c} \right\rfloor &#43; f(a \bmod c,b \bmod c,c,n) \ \end{aligned} $$
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span></footer>
-  <a class="entry-link" aria-label="post link to 类欧几里得算法" href="https://qjwh.github.io/posts/oi/aln/similargcd/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">
