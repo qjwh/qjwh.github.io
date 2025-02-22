@@ -202,7 +202,7 @@
 4 我们考虑求 $f(x)$，我们可以枚举拓扑序为 $x$ 的节点 $u$ 的所有出点 $v$（设其拓扑序为 $y$，且排除 $y \leq x$ 的所有点）。
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span></footer>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
   <a class="entry-link" aria-label="post link to 判断拓扑序是否唯一" href="https://qjwh.github.io/posts/oi/aln/judgetopounique/"></a>
 </article>
 
@@ -242,7 +242,7 @@ Splay（本意为“张开”但这里不是这个意思） 这个算法对上�
 而且，由于它也会让整棵树尽量平衡，所以树高还是会稳定在 $O(\log n)$ 级别。
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span></footer>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
   <a class="entry-link" aria-label="post link to 平衡树" href="https://qjwh.github.io/posts/oi/aln/balancedtree/"></a>
 </article>
 
@@ -261,7 +261,7 @@ LL ma = 0; for(LL i = 1;i &lt;= 200;i&#43;&#43;){ srand(time(0) ^ clock()); LL t
 取 $[l,r]$ 内的随机数 （就差一个字符_而已） #define random(l, r) (_rand() % ((LL)(r) - (LL)(l) &#43; 1) &#43; (LL)(l)) 据测试，这个函数可以生成在unsigned int范围内的随机数（即可以生成 $[1,2^{32})$ 内的随机数），测试程序：
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span></footer>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
   <a class="entry-link" aria-label="post link to 生成随机数（未完工）" href="https://qjwh.github.io/posts/oi/aln/genrandomnumber/"></a>
 </article>
 
@@ -295,7 +295,7 @@ LL ma = 0; for(LL i = 1;i &lt;= 200;i&#43;&#43;){ srand(time(0) ^ clock()); LL t
 所以，可以把一条路径，拆成最多 $O(\log n)$ 个DFS序区间。
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span></footer>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
   <a class="entry-link" aria-label="post link to 树链剖分" href="https://qjwh.github.io/posts/oi/aln/treechaindivision/"></a>
 </article>
 
@@ -326,7 +326,7 @@ LL ma = 0; for(LL i = 1;i &lt;= 200;i&#43;&#43;){ srand(time(0) ^ clock()); LL t
 第一类：$d_{l,r}=\min { d_{l,k}&#43;d_{k&#43;1,r} | l \leq k \leq r }&#43;w_{l,r}$，合并石子类。 第二类：$d_{i,j}=\min { d_{k,j-1}&#43;w_{k&#43;1,i} | 0 \leq k \leq i }$，区间分割类。 （这两类对应的公式里的 $\min$ 也可以替换成 $\max$）
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span></footer>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
   <a class="entry-link" aria-label="post link to 四边形不等式" href="https://qjwh.github.io/posts/oi/aln/quadrangleinequality/"></a>
 </article>
 
@@ -350,7 +350,7 @@ LL ma = 0; for(LL i = 1;i &lt;= 200;i&#43;&#43;){ srand(time(0) ^ clock()); LL t
 $d_{(i&#43;x_2) \bmod x_1}=\min(d_{(i&#43;x_2) \bmod x_1},d_i&#43;x_2)$
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span></footer>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
   <a class="entry-link" aria-label="post link to 同余最短路" href="https://qjwh.github.io/posts/oi/aln/modsp/"></a>
 </article>
 
@@ -382,7 +382,7 @@ $d_{(i&#43;x_2) \bmod x_1}=\min(d_{(i&#43;x_2) \bmod x_1},d_i&#43;x_2)$
 对于每个 $x,y$，显然 $f(x,y) \leq c(x,y)$（容量限制）。 对于每个 $x,y$，$f(x,y)=-f(y,x)$（斜对称）。 对于每个 $x$，满足不是源点也不是汇点，$\sum\limits_{u \to x} f(u,x)=\sum\limits_{x \to v} f(x,v)$（流量守恒）。 这里说一下最后一点性质。
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span></footer>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
   <a class="entry-link" aria-label="post link to 网络流" href="https://qjwh.github.io/posts/oi/aln/flow/"></a>
 </article>
 
@@ -415,7 +415,7 @@ $\dfrac{d_x-d_y}{v_x-v_y}&lt;a_i$
 下面默认推出来的斜率式就是上式，并默认 $a$ 数组单调不降。
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span></footer>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
   <a class="entry-link" aria-label="post link to 斜率优化" href="https://qjwh.github.io/posts/oi/aln/slopeopm/"></a>
 </article>
 
@@ -451,7 +451,7 @@ $ \begin{cases} -x_1&#43;2x_2&#43;5x_3=11 \ 2x_1=8 \ x_1&#43;2x_2&#43;5x_3=19 \e
 求法很好记，如果说当前方阵是个上三角矩阵（设方阵叫 $a$，那么 $a$ 是个上三角矩阵有且仅当对于所有的 $(i,j)$，如果满足 $i&gt;j$，那么 $a_{i,j}$ 一定要等于 $0$，当然其他方格不做要求），那么这个方阵的行列式就是这个方阵中正对角线上的元素的乘积。
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span></footer>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
   <a class="entry-link" aria-label="post link to 行列式" href="https://qjwh.github.io/posts/oi/aln/hanglieshi/"></a>
 </article>
 
@@ -481,7 +481,7 @@ vector会有一个capacity，就是提供的内存大小。
 解决方法也很简单，把newnode()用个临时变量t存储，并将v[x]赋值为t即可。
 </p>
   </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025年2月9日</span></footer>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
   <a class="entry-link" aria-label="post link to 一个非常重要的语法点" href="https://qjwh.github.io/posts/oi/aln/animportantgrammer/"></a>
 </article>
 <footer class="page-footer">
