@@ -182,36 +182,6 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">一个非常重要的语法点
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>说一个非常重要的语法错误。
-如果你写这样一句话：
-v[x] = newnode(); 其中：
-v为一个vector。 x为不越界的非负整数，且不会变化。 newnode()函数内会向vector内push_back一个新元素，并返回加入元素（即最后一个元素）的下标。 那么，你会发现，v[x]的值并不是这样变化的：
-1,2,3,4,5,6,7,... 而是类似于这样的：（非真实输出结果，仅供参考）
-1,1,2,2,3,4,4,5,6,7,8,8,9,10,11,12,13,14,15,16,16,17,18,19,20,... 你会发现部分情况下，v[x]没有变化！
-这实际上是因为vector的内部机制。
-vector会有一个capacity，就是提供的内存大小。
-每次push_back的时候，如果说加入后，不超过当前的capacity，就会直接加入。
-否则，vector会新开辟一块等于当前capacity的两倍（这个在不同编辑器上是不一样的，有些可能是每次新增 $5$ 个）的新空间，并把原本的数据拷进这块新空间内。
-比如说现在的vector是：
-内存354~357位置：3 1 2 4 且capacity是 $4$，那么我们如果尝试push_back一个 $5$，则vector就会发现大于了capacity，便会新开一块等于当前capacity的两倍的空间：
-内存354~357位置：3 1 2 4内存382~389位置： 并把当前数据拷进去：
-内存354~357位置：3 1 2 4内存382~389位置：3 1 2 4 然后在新空间内加入 $5$：
-内存354~357位置：3 1 2 4内存382~389位置：3 1 2 4 5 并把所有v[x]指向的内存都改成382~389这块新内存内对应的地方。
-不过由于C&#43;&#43;的赋值机制，系统会先找到要赋值给的变量的指针，然后求出要赋的值，赋给以前找到的指针。（这一步是推测，可能不准确）
-所以就会导致把newnode()的值赋给了原本的v[x]，导致输出的时候访问的新v[x]值出错。
-解决方法也很简单，把newnode()用个临时变量t存储，并将v[x]赋值为t即可。
-</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
-  <a class="entry-link" aria-label="post link to 一个非常重要的语法点" href="https://qjwh.github.io/posts/oi/aln/animportantgrammer/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
     <h2 class="entry-hint-parent">一元二次方程解法（未完工）
     </h2>
   </header>
@@ -395,6 +365,38 @@ $\color{green}(\sum a_i) \color{default} 123$
   </div>
   <footer class="entry-footer"><span title='2025-02-08 11:00:00 +0800 CST'>2025/02/08 11:00:00</span></footer>
   <a class="entry-link" aria-label="post link to Hello, world!" href="https://qjwh.github.io/posts/test/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>普通莫队算法 概览 莫队其实是分块的变化版，没有完全分块。
+但莫队的题目一般比分块的题目比较好看一些，其中的“好看”指的是很好看出这是个莫队/分块的题。
+接下来说一下莫队能解决的题型。
+解决题型 莫队一般解决以下问题：
+给你一些信息，和 $q$ 次询问，每次询问可以抽象为一个区间。
+而且这个问题还要满足一些条件：
+可以离线 不能有修改（当然带修莫队支持修改，不过普通莫队就不行了） 从 $[l,r]$ 的答案可以很快转移到 $[l-1,r]$、$[l&#43;1,r]$、$[l,r-1]$、$[l,r&#43;1]$ 的答案 解决方法 这种题型有个解决方法。
+还是先从暴力说起。
+暴力做法 看见这个问题的最后一个条件没？这个条件就启发我们从第一个问题的答案，暴力调整左、右端点，去得到第二个问题的答案，以此类推。
+这种暴力做法的复杂度一般为 $O($ 任意相邻两个问题的左、右端点差之和 $)$。
+而这个算法可以用一种数据卡掉：
+左、右端点的值的最大值 $n$ 调到最大，把询问次数 $q$ 也调到最大。 然后的 $q$ 次询问里，交替询问 $1 \sim n$ 和 $n \sim n$。 于是，复杂度被卡到 $O(qn)$。
+一次优化 这个做法的复杂度是无法接受的，所以我们考虑优化。
+我们不如把所有询问离线，然后考虑交换询问处理的顺序以减少复杂度。
+一种方式就是把左、右端点分别作为第一、二关键字，然后做排序。
+但这样就会被排序后所有询问的右端点一大一小的数据卡到 $O(qn)$ 的复杂度。
+二次优化 这样排序还是不好，还是会被卡掉，于是我们考虑变换比较函数。
+直接双关键字比较不好，那我们就分块后进行双关键字比较。
+具体地，遇到两个询问，先按左端点所属块编号从小到大排序，如果相同，则按右端点（不是所属块编号，是原本的下标）从小到大排序。
+这样的话，复杂度就是 $O(n \sqrt n&#43;q \sqrt n)$ 的复杂度了。
+...</p>
+  </div>
+  <footer class="entry-footer"></footer>
+  <a class="entry-link" aria-label="post link to " href="https://qjwh.github.io/posts/oi/aln/modui/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

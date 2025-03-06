@@ -327,38 +327,6 @@ $i&gt;r$，那么暴力算 $p_i$。 $r-i \geq p_{i’}$，那么 $p_i=p_{i’}$�
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">莫队算法
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>普通莫队算法 概览 莫队其实是分块的变化版，没有完全分块。
-但莫队的题目一般比分块的题目比较好看一些，其中的“好看”指的是很好看出这是个莫队/分块的题。
-接下来说一下莫队能解决的题型。
-解决题型 莫队一般解决以下问题：
-给你一些信息，和 $q$ 次询问，每次询问可以抽象为一个区间。
-而且这个问题还要满足一些条件：
-可以离线 不能有修改（当然带修莫队支持修改，不过普通莫队就不行了） 从 $[l,r]$ 的答案可以很快转移到 $[l-1,r]$、$[l&#43;1,r]$、$[l,r-1]$、$[l,r&#43;1]$ 的答案 解决方法 这种题型有个解决方法。
-还是先从暴力说起。
-暴力做法 看见这个问题的最后一个条件没？这个条件就启发我们从第一个问题的答案，暴力调整左、右端点，去得到第二个问题的答案，以此类推。
-这种暴力做法的复杂度一般为 $O($ 任意相邻两个问题的左、右端点差之和 $)$。
-而这个算法可以用一种数据卡掉：
-左、右端点的值的最大值 $n$ 调到最大，把询问次数 $q$ 也调到最大。 然后的 $q$ 次询问里，交替询问 $1 \sim n$ 和 $n \sim n$。 于是，复杂度被卡到 $O(qn)$。
-一次优化 这个做法的复杂度是无法接受的，所以我们考虑优化。
-我们不如把所有询问离线，然后考虑交换询问处理的顺序以减少复杂度。
-一种方式就是把左、右端点分别作为第一、二关键字，然后做排序。
-但这样就会被排序后所有询问的右端点一大一小的数据卡到 $O(qn)$ 的复杂度。
-二次优化 这样排序还是不好，还是会被卡掉，于是我们考虑变换比较函数。
-直接双关键字比较不好，那我们就分块后进行双关键字比较。
-具体地，遇到两个询问，先按左端点所属块编号从小到大排序，如果相同，则按右端点（不是所属块编号，是原本的下标）从小到大排序。
-这样的话，复杂度就是 $O(n \sqrt n&#43;q \sqrt n)$ 的复杂度了。
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
-  <a class="entry-link" aria-label="post link to 莫队算法" href="https://qjwh.github.io/posts/oi/aln/modui/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
     <h2 class="entry-hint-parent">欧拉函数
     </h2>
   </header>
@@ -442,6 +410,25 @@ Splay（本意为“张开”但这里不是这个意思） 这个算法对上�
   </div>
   <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
   <a class="entry-link" aria-label="post link to 平衡树" href="https://qjwh.github.io/posts/oi/aln/balancedtree/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">生成随机数（未完工）
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>参考
+引用头文件（常用） #include &lt;stdlib.h&gt; //生成随机数、设定随机数种子 #include &lt;ctime&gt; //生成随机数种子（1） #include &lt;time.h&gt; //生成随机数种子（2） #include &lt;unistd.h&gt; //等待（sleep(...)或usleep(...)），该头文件现在不常用 随机种子 srand(time(0) ^ clock()); 注：随机种子为time(0) ^ clock()，这个随机种子可以再毫秒级别内生成（大概率）不同的随机种子。
+取 $[l,r]$ 内的随机数 #define random(l, r) (rand() % ((LL)(r) - (LL)(l) &#43; 1) &#43; (LL)(l)) 注：rand函数只能生成 $[1,32767]$ 内的随机数（见宏RAND_MAX），大概只能生成位数 $\leq 5$ 的随机数；测试程序：
+LL ma = 0; for(LL i = 1;i &lt;= 200;i&#43;&#43;){ srand(time(0) ^ clock()); LL t = rand(); cout &lt;&lt; t &lt;&lt;endl; ma = max(ma, t); usleep(10000); } cout &lt;&lt; ma &lt;&lt;endl; 所以此处引用一个新方法：mt19937（2022/12/24：现在开始使用mt19937_64了，它可以生成 $[1,2^{64})$ 内的随机数，大一倍）。
+其实它的语法和rand的语法差不多 （才怪），是这样的：
+引用头文件（常用） #include &lt;random&gt; //生成随机数、设定随机数种子 #include &lt;ctime&gt; //生成随机数种子（1） #include &lt;time.h&gt; //生成随机数种子（2） #include &lt;unistd.h&gt; //等待（sleep(...)或usleep(...)），该头文件现在不常用 随机种子 mt19937 _rand(time(0) ^ clock()); 注：这个随机种子也可以再毫秒级别内生成（大概率）不同的随机种子
+取 $[l,r]$ 内的随机数 （就差一个字符_而已） #define random(l, r) (_rand() % ((LL)(r) - (LL)(l) &#43; 1) &#43; (LL)(l)) 据测试，这个函数可以生成在unsigned int范围内的随机数（即可以生成 $[1,2^{32})$ 内的随机数），测试程序：
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
+  <a class="entry-link" aria-label="post link to 生成随机数（未完工）" href="https://qjwh.github.io/posts/oi/aln/genrandomnumber/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

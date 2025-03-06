@@ -484,50 +484,6 @@ $\texttt{\color{RoyalBlue}@\color{default}#\color{default}a\color{RoyalBlue}#\co
 &lt;p&gt;由于每时每刻，$r$ 都小于等于 $n$，所以总复杂度就是 $O(n)$ 的。&lt;/p&gt;</description>
     </item>
     <item>
-      <title>莫队算法</title>
-      <link>https://qjwh.github.io/posts/oi/aln/modui/</link>
-      <pubDate>Sun, 09 Feb 2025 15:28:00 +0800</pubDate>
-      <guid>https://qjwh.github.io/posts/oi/aln/modui/</guid>
-      <description>&lt;text style=&#34;font-family:Noto Sans SC&#34;&gt;
-&lt;h1 id=&#34;text-stylecolorrgb0150136-普通莫队算法&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 普通莫队算法&lt;/h1&gt;
-&lt;h2 id=&#34;text-stylecolorrgb0150136-概览&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 概览&lt;/h2&gt;
-&lt;p&gt;莫队其实是分块的变化版，没有完全分块。&lt;/p&gt;
-&lt;p&gt;但莫队的题目一般比分块的题目比较好看一些，其中的“好看”指的是很好看出这是个莫队/分块的题。&lt;/p&gt;
-&lt;p&gt;接下来说一下莫队能解决的题型。&lt;/p&gt;
-&lt;h2 id=&#34;text-stylecolorrgb0150136-解决题型&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 解决题型&lt;/h2&gt;
-&lt;p&gt;莫队一般解决以下问题：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;给你一些信息，和 $q$ 次询问，每次询问可以抽象为一个区间。&lt;/p&gt;&lt;/blockquote&gt;
-&lt;p&gt;而且这个问题还要满足一些条件：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;可以离线&lt;/li&gt;
-&lt;li&gt;不能有修改（当然带修莫队支持修改，不过普通莫队就不行了）&lt;/li&gt;
-&lt;li&gt;从 $[l,r]$ 的答案可以很快转移到 $[l-1,r]$、$[l+1,r]$、$[l,r-1]$、$[l,r+1]$ 的答案&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;text-stylecolorrgb0150136-解决方法&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 解决方法&lt;/h2&gt;
-&lt;p&gt;这种题型有个解决方法。&lt;/p&gt;
-&lt;p&gt;还是先从暴力说起。&lt;/p&gt;
-&lt;h3 id=&#34;text-stylecolorrgb0150136-暴力做法&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 暴力做法&lt;/h3&gt;
-&lt;p&gt;看见这个问题的最后一个条件没？这个条件就启发我们从第一个问题的答案，暴力调整左、右端点，去得到第二个问题的答案，以此类推。&lt;/p&gt;
-&lt;p&gt;这种暴力做法的复杂度一般为 $O($ 任意相邻两个问题的左、右端点差之和 $)$。&lt;/p&gt;
-&lt;p&gt;而这个算法可以用一种数据卡掉：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;左、右端点的值的最大值 $n$ 调到最大，把询问次数 $q$ 也调到最大。&lt;/li&gt;
-&lt;li&gt;然后的 $q$ 次询问里，交替询问 $1 \sim n$ 和 $n \sim n$。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;于是，复杂度被卡到 $O(qn)$。&lt;/p&gt;
-&lt;h3 id=&#34;text-stylecolorrgb0150136-一次优化&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 一次优化&lt;/h3&gt;
-&lt;p&gt;这个做法的复杂度是无法接受的，所以我们考虑优化。&lt;/p&gt;
-&lt;p&gt;我们不如把所有询问离线，然后考虑交换询问处理的顺序以减少复杂度。&lt;/p&gt;
-&lt;p&gt;一种方式就是把左、右端点分别作为第一、二关键字，然后做排序。&lt;/p&gt;
-&lt;p&gt;但这样就会被排序后所有询问的右端点一大一小的数据卡到 $O(qn)$ 的复杂度。&lt;/p&gt;
-&lt;h3 id=&#34;text-stylecolorrgb0150136-二次优化&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 二次优化&lt;/h3&gt;
-&lt;p&gt;这样排序还是不好，还是会被卡掉，于是我们考虑变换比较函数。&lt;/p&gt;
-&lt;p&gt;直接双关键字比较不好，那我们就分块后进行双关键字比较。&lt;/p&gt;
-&lt;p&gt;具体地，遇到两个询问，先按左端点所属块编号从小到大排序，如果相同，则按右端点（不是所属块编号，是原本的下标）从小到大排序。&lt;/p&gt;
-&lt;p&gt;这样的话，复杂度就是 $O(n \sqrt n+q \sqrt n)$ 的复杂度了。&lt;/p&gt;</description>
-    </item>
-    <item>
       <title>欧拉函数</title>
       <link>https://qjwh.github.io/posts/oi/aln/eulerfunc/</link>
       <pubDate>Sun, 09 Feb 2025 15:28:00 +0800</pubDate>
