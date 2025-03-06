@@ -167,6 +167,33 @@
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">博弈论三种扩展题型
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>下面是三道与博弈论相关的题目及其做法。
+题目1：皮肤病 题面 （改编自《不可思议事件簿 第5册 魔法学院》，由艾教提供变体）
+（原题名称：加试难题）
+在一个学校内，共有 $100$ 个人，每个人都养了一只狗。
+但由于某些原因，校长确定了这 $100$ 条狗内，必然存在至少一条狗有皮肤病。
+现在那些学生要确定一下哪些狗有皮肤病。
+他们准备这样确定：
+每天上午的时候，所有人看一下除了自己的狗之外的所有狗。 如果确认自己的狗病了，就在晚上敲一下宠物房内的钟。 现在已知：
+无论谁，看那只狗，都能立刻确认它是否有皮肤病。 假设皮肤病不会对狗的寿命造成影响，即所有的狗都不会死亡。 皮肤病不能传染，并且忽略“人患病”造成的影响。 所有人都绝顶聪明（废话 并且：
+第 $1$ 天晚上，没有钟声响起。 第 $2$ 天晚上，没有钟声响起。 第 $3$ 天晚上，没有钟声响起。 … 直到第 $10$ 天晚上，终于有钟声响起了。 请问：
+那天晚上，共有多少人共同敲响了钟？ 在第 $10$ 天后，除了那些敲钟的人养的狗，是否会存在其他病了的狗？ 答案 $10$ 个人 不会 题解 我们考虑一下，如果说第 $1$ 天晚上有人敲钟，那么代表啥。
+我们从人的角度考虑，如果说一个人发现其他狗都是好狗（指没有皮肤病的狗），那么必然自己的狗有皮肤病 （除了自己的，还有谁的？难不成是他自己？）。
+这种情况下，他便会去敲钟。
+但第 $1$ 天晚上没有钟声，所以每个人都观察到了至少 $1$ 个病狗，也就是说至少有 $2$ 个病狗。
+随后第 $2$ 天，如果说一个人观察到其他的狗内，只有 $1$ 个病狗，那么显然自己的狗也得有皮肤病。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
+  <a class="entry-link" aria-label="post link to 博弈论三种扩展题型" href="https://qjwh.github.io/posts/oi/aln/games/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">点分治
     </h2>
   </header>
@@ -410,25 +437,6 @@ Splay（本意为“张开”但这里不是这个意思） 这个算法对上�
   </div>
   <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
   <a class="entry-link" aria-label="post link to 平衡树" href="https://qjwh.github.io/posts/oi/aln/balancedtree/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">生成随机数（未完工）
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>参考
-引用头文件（常用） #include &lt;stdlib.h&gt; //生成随机数、设定随机数种子 #include &lt;ctime&gt; //生成随机数种子（1） #include &lt;time.h&gt; //生成随机数种子（2） #include &lt;unistd.h&gt; //等待（sleep(...)或usleep(...)），该头文件现在不常用 随机种子 srand(time(0) ^ clock()); 注：随机种子为time(0) ^ clock()，这个随机种子可以再毫秒级别内生成（大概率）不同的随机种子。
-取 $[l,r]$ 内的随机数 #define random(l, r) (rand() % ((LL)(r) - (LL)(l) &#43; 1) &#43; (LL)(l)) 注：rand函数只能生成 $[1,32767]$ 内的随机数（见宏RAND_MAX），大概只能生成位数 $\leq 5$ 的随机数；测试程序：
-LL ma = 0; for(LL i = 1;i &lt;= 200;i&#43;&#43;){ srand(time(0) ^ clock()); LL t = rand(); cout &lt;&lt; t &lt;&lt;endl; ma = max(ma, t); usleep(10000); } cout &lt;&lt; ma &lt;&lt;endl; 所以此处引用一个新方法：mt19937（2022/12/24：现在开始使用mt19937_64了，它可以生成 $[1,2^{64})$ 内的随机数，大一倍）。
-其实它的语法和rand的语法差不多 （才怪），是这样的：
-引用头文件（常用） #include &lt;random&gt; //生成随机数、设定随机数种子 #include &lt;ctime&gt; //生成随机数种子（1） #include &lt;time.h&gt; //生成随机数种子（2） #include &lt;unistd.h&gt; //等待（sleep(...)或usleep(...)），该头文件现在不常用 随机种子 mt19937 _rand(time(0) ^ clock()); 注：这个随机种子也可以再毫秒级别内生成（大概率）不同的随机种子
-取 $[l,r]$ 内的随机数 （就差一个字符_而已） #define random(l, r) (_rand() % ((LL)(r) - (LL)(l) &#43; 1) &#43; (LL)(l)) 据测试，这个函数可以生成在unsigned int范围内的随机数（即可以生成 $[1,2^{32})$ 内的随机数），测试程序：
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
-  <a class="entry-link" aria-label="post link to 生成随机数（未完工）" href="https://qjwh.github.io/posts/oi/aln/genrandomnumber/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

@@ -167,6 +167,25 @@
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">生成随机数（未完工）
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>参考
+引用头文件（常用） #include &lt;stdlib.h&gt; //生成随机数、设定随机数种子 #include &lt;ctime&gt; //生成随机数种子（1） #include &lt;time.h&gt; //生成随机数种子（2） #include &lt;unistd.h&gt; //等待（sleep(...)或usleep(...)），该头文件现在不常用 随机种子 srand(time(0) ^ clock()); 注：随机种子为time(0) ^ clock()，这个随机种子可以再毫秒级别内生成（大概率）不同的随机种子。
+取 $[l,r]$ 内的随机数 #define random(l, r) (rand() % ((LL)(r) - (LL)(l) &#43; 1) &#43; (LL)(l)) 注：rand函数只能生成 $[1,32767]$ 内的随机数（见宏RAND_MAX），大概只能生成位数 $\leq 5$ 的随机数；测试程序：
+LL ma = 0; for(LL i = 1;i &lt;= 200;i&#43;&#43;){ srand(time(0) ^ clock()); LL t = rand(); cout &lt;&lt; t &lt;&lt;endl; ma = max(ma, t); usleep(10000); } cout &lt;&lt; ma &lt;&lt;endl; 所以此处引用一个新方法：mt19937（2022/12/24：现在开始使用mt19937_64了，它可以生成 $[1,2^{64})$ 内的随机数，大一倍）。
+其实它的语法和rand的语法差不多 （才怪），是这样的：
+引用头文件（常用） #include &lt;random&gt; //生成随机数、设定随机数种子 #include &lt;ctime&gt; //生成随机数种子（1） #include &lt;time.h&gt; //生成随机数种子（2） #include &lt;unistd.h&gt; //等待（sleep(...)或usleep(...)），该头文件现在不常用 随机种子 mt19937 _rand(time(0) ^ clock()); 注：这个随机种子也可以再毫秒级别内生成（大概率）不同的随机种子
+取 $[l,r]$ 内的随机数 （就差一个字符_而已） #define random(l, r) (_rand() % ((LL)(r) - (LL)(l) &#43; 1) &#43; (LL)(l)) 据测试，这个函数可以生成在unsigned int范围内的随机数（即可以生成 $[1,2^{32})$ 内的随机数），测试程序：
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
+  <a class="entry-link" aria-label="post link to 生成随机数（未完工）" href="https://qjwh.github.io/posts/oi/aln/genrandomnumber/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">树链剖分
     </h2>
   </header>
@@ -446,28 +465,6 @@ $\lfloor \frac{n}{i} \rfloor$ 的总取值种数最多只有第一、二部分�
   </div>
   <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
   <a class="entry-link" aria-label="post link to 整除分块" href="https://qjwh.github.io/posts/oi/aln/divisionblock/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">整体二分
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>整体二分类似于线段树上二分，在讲这个算法前，先引入几个问题。
-解决题型 整体二分一般解决的是如下的问题：
-给你一个【集合/序列/矩阵/树】，要求【静态/动态】维护所有【元素/区间/子矩阵/链/子树】中的第 $k$【可能每次给定】大元素，【可能强制在线】。
-下面是一堆例题。
-例题1 动态查询集合第k大（可离线） 题意 让你维护一个初始为空的多重集合 $s$，并支持 $q$ 次操作，操作都是下面三种之一：
-添加一个数 $x$ 到集合 $s$ 中。 在集合 $s$ 中删除一个数 $x$（保证元素存在）。 查询集合第 $k$ 大（保证第 $k$ 大存在）。 数据范围 $1 \leq q \leq 2 \times 10^5$ $0 \leq x \leq 10^9$ 题解 维护一个权值线段树（权值线段树其实就是一个维护值域的线段树），维护一段值域里有多少个数，每次询问在线段树上二分即可。
-具体地，对于线段树上某个节点对应的区间 $[l,r]$，这个节点上的值为集合中，值在 $[l,r]$ 的数的个数有多少。
-在询问时，我们要记录当前节点编号 $x$，$x$ 维护区间 $[l,r]$，以及要查询值在 $[l,r]$ 内的所有数的第 $k$ 大。
-当递归到某个状态后，我们看这个节点的左子树 $\text{lc}$ 内有多少个值，如果大于等于 $k$，则递归到左子树；否则递归到右子树，且 $k$ 减去(左子树内数的个数)。
-由于值域较大，权值线段树可能会爆，所以要先把所有询问离线下来，做个离散化，然后就可以把 $x$ 控制到 $q$ 级别，就不会爆了。
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
-  <a class="entry-link" aria-label="post link to 整体二分" href="https://qjwh.github.io/posts/oi/aln/exbinarysearch/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

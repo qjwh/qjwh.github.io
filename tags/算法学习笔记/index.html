@@ -167,6 +167,38 @@
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">莫队算法
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>普通莫队算法 概览 莫队其实是分块的变化版，没有完全分块。
+但莫队的题目一般比分块的题目比较好看一些，其中的“好看”指的是很好看出这是个莫队/分块的题。
+接下来说一下莫队能解决的题型。
+解决题型 莫队一般解决以下问题：
+给你一些信息，和 $q$ 次询问，每次询问可以抽象为一个区间。
+而且这个问题还要满足一些条件：
+可以离线 不能有修改（当然带修莫队支持修改，不过普通莫队就不行了） 从 $[l,r]$ 的答案可以很快转移到 $[l-1,r]$、$[l&#43;1,r]$、$[l,r-1]$、$[l,r&#43;1]$ 的答案 解决方法 这种题型有个解决方法。
+还是先从暴力说起。
+暴力做法 看见这个问题的最后一个条件没？这个条件就启发我们从第一个问题的答案，暴力调整左、右端点，去得到第二个问题的答案，以此类推。
+这种暴力做法的复杂度一般为 $O($ 任意相邻两个问题的左、右端点差之和 $)$。
+而这个算法可以用一种数据卡掉：
+左、右端点的值的最大值 $n$ 调到最大，把询问次数 $q$ 也调到最大。 然后的 $q$ 次询问里，交替询问 $1 \sim n$ 和 $n \sim n$。 于是，复杂度被卡到 $O(qn)$。
+一次优化 这个做法的复杂度是无法接受的，所以我们考虑优化。
+我们不如把所有询问离线，然后考虑交换询问处理的顺序以减少复杂度。
+一种方式就是把左、右端点分别作为第一、二关键字，然后做排序。
+但这样就会被排序后所有询问的右端点一大一小的数据卡到 $O(qn)$ 的复杂度。
+二次优化 这样排序还是不好，还是会被卡掉，于是我们考虑变换比较函数。
+直接双关键字比较不好，那我们就分块后进行双关键字比较。
+具体地，遇到两个询问，先按左端点所属块编号从小到大排序，如果相同，则按右端点（不是所属块编号，是原本的下标）从小到大排序。
+这样的话，复杂度就是 $O(n \sqrt n&#43;q \sqrt n)$ 的复杂度了。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-03-06 21:26:37 +0800 CST'>2025/03/06 21:26:37</span></footer>
+  <a class="entry-link" aria-label="post link to 莫队算法" href="https://qjwh.github.io/posts/oi/aln/modui/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">2-SAT算法
     </h2>
   </header>
@@ -394,34 +426,6 @@ wqs二分也是二分，那它二分什么值呢，它二分的是斜率 $mid$�
   </div>
   <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
   <a class="entry-link" aria-label="post link to 点分治" href="https://qjwh.github.io/posts/oi/aln/dfz/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">基尔霍夫矩阵
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>基尔霍夫矩阵是用来求解生成树计数、求（权值）和相关题目的利器。
-0. 求完全图的生成树数量（Prufer序列） 要说基尔霍夫矩阵，就要从一道题目说起：
-给你 $n$，问 $n$ 个节点组成的无向无根树有多少种。
-这道题可以用Prufer序列去做。
-这里简单说一下Prufer序列的求法：
-对于一张无向无根树，重复执行以下操作直到只剩 $2$ 个或更少的点，最后得到的那个序列 $a$ 就是这棵树的Prufer序列：
-我们找到此时度为 $1$ 的节点，若有多个，找编号最小的，设找到的节点编号为 $x$。 在 $a$ 的末尾添加：与 $x$ 有连边的那个唯一节点。 删除 $x$。 Prufer序列别看求法非常简单，也没啥容易发现的性质，其实用处很大。
-Prufer序列满足一个性质，就是，所有无向无根树，都可以唯一地对应一个Prufer序列；所有Prufer序列都可以唯一地对应一棵树。
-所以，这道题就有解了，答案其实就是长为 $n-2$ 的Prufer序列有多少种。
-由于Prufer序列的每个元素的值都是从 $1$ 到 $n$ 的，所以答案就是 $n^{n-2}$，显然。
-1.1. 求任意无向图的生成树数量（基尔霍夫矩阵） 但如果把题目变化一下，就不能用Prufer序列去求了：
-给你一张 $n$ 个节点 $m$ 条边的无向图，问这张图的生成树有多少个。
-这题要用基尔霍夫矩阵。
-具体地，我们定义 $D$ 矩阵，求法：
-$ D_{i,j}= \begin{cases} 0 &amp; i \not= j \ \text{deg}(i) &amp; i=j \end{cases} $
-其中，$\text{deg}(i)$ 代表这张图上 $i$ 的度是多少。
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
-  <a class="entry-link" aria-label="post link to 基尔霍夫矩阵" href="https://qjwh.github.io/posts/oi/aln/kirchhoffmatrix/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

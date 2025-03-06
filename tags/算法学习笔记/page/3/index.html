@@ -167,6 +167,37 @@
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">四边形不等式
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>（四边形不等式看标题可能觉得很难，其实比较简单）
+四边形不等式是一种DP优化的技巧，一般针对二维DP进行优化。
+在DP中，往往会有多个决策点，而其中就有一个是最优的，设 $d_{i,j}$ 的最优决策点为 $f_{i,j}$。
+（以下假设DP枚举决策点的复杂度为 $O(n)$，DP状态数为 $O(n^2)$）
+而四边形不等式就是说，如果满足 $f_{i,j-1} \leq f_{i,j} \leq f_{i&#43;1,j}$，那么可以把DP枚举决策点的范围降至 $[f_{i,j-1},f_{i&#43;1,j}]$，然后DP的复杂度就从 $O(n^3)$ 降到了 $O(n^2)$。
+而这个（复杂度）怎么证明呢？我们画一下 $f$ 数组的表：
+（此处，我们以 $i$ 为行号，以 $j$ 为列号，行、列号都从 $1$ 开始编号）
+然后，画几个标记：
+这些标记指的是，在转移 $d_{1,2}$ 的时候，转移点枚举的左右端点分别就是红箭头指向的两个数。
+同时，为了方便观察，此处还画了个蓝色的虚线。
+同理，还可以画出 $d_{2,3}$ 对应的标记：
+以此类推：
+可以发现，其实这时候所有蓝线的长度（蓝线连接的两个数字的差值定义为这个蓝线的长度）之和，最多只有 $n$。
+而对于 $d_{1,3}$ 一“类”的标记：
+可以发现，其实那些蓝线的长度之和也是最多只有 $n$。
+在画出所有蓝线之后：
+可以发现，一共就有 $n$ “类”蓝线，一“类”蓝线的长度之和最多 $n$，至此，可以证明复杂度（所有蓝线的长度之和）为 $O(n^2)$。
+接下来讲几类四边形不等式解决的经典题型：
+第一类：$d_{l,r}=\min { d_{l,k}&#43;d_{k&#43;1,r} | l \leq k \leq r }&#43;w_{l,r}$，合并石子类。 第二类：$d_{i,j}=\min { d_{k,j-1}&#43;w_{k&#43;1,i} | 0 \leq k \leq i }$，区间分割类。 （这两类对应的公式里的 $\min$ 也可以替换成 $\max$）
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
+  <a class="entry-link" aria-label="post link to 四边形不等式" href="https://qjwh.github.io/posts/oi/aln/quadrangleinequality/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">同余最短路
     </h2>
   </header>
@@ -429,42 +460,12 @@ $x \equiv r_3 \times 70&#43;r_5 \times 21&#43;r_7 \times 15 \pmod{105}$
   <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
   <a class="entry-link" aria-label="post link to 中国剩余定理" href="https://qjwh.github.io/posts/oi/aln/crt/"></a>
 </article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">组合数学（待补充）
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>有人问，组合数学不是就一些简单的公式吗？不是的，其实组合数学是数学中的一个非常庞大的分支，接下来就举一些例子。（更新中）
-本文主要讲各种数据范围下，求组合数的方式；以及球盒模型各种情况下的公式；最后是一些球盒模型的扩展情况。
-转到：球盒模型公式
-转到：球盒模型扩展公式
-（下面部分标题里的LaTeX公式更新后炸了，就凑合着看吧）
-求组合数 以下所有范围都可以当成是以下题目的某个Subtask：
-给你 $p$，代表模数。
-之后会给你一个 $q$，代表询问次数。
-每次询问给定 $n$ 和 $m$，问 $C_n^m \bmod p$ 的值。
-下面不给定 $q$ 的范围，因为不重要。
-以下全部默认 $n \geq m$。
-范围1：$n,m \leq 2000,p \leq 10^9&#43;7$ 先递推预处理，然后直接回答询问即可。
-递推式：$C_n^m=C_{n-1}^m&#43;C_{n-1}^{m-1}$。
-预处理复杂度：$O(n^2)$ 查询复杂度：$O(1)$ 范围2：$n,m \leq 10^6,p \leq 10^9&#43;7,p\text{ is prime}$ 1 先预处理阶乘，然后直接回答询问即可。
-回答询问式：$C_n^m=\dfrac{n!}{m!(n-m)!}$。
-为了节省时间复杂度，此处还可以预处理一下阶乘的逆元。
-2 预处理复杂度：$O(n)$ 查询复杂度：$O(1)$ 范围3：$n,m \leq 10^6,p \leq 10^9&#43;7$ 1 可以发现，范围2与范围3唯一的不同就是，范围3把质数的条件去掉了。
-而把质数的条件后，就没法求逆元了，因为逆元可能不存在。
-所以我们考虑换做法。
-2 我们考虑把模数做个质因数分解，变成 ${p_1}^{a_1} \times {p_2}^{a_2} \times {p_3}^{a_3} \times \dots \times {p_k}^{a_k}$。
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
-  <a class="entry-link" aria-label="post link to 组合数学（待补充）" href="https://qjwh.github.io/posts/oi/aln/c/"></a>
-</article>
 <footer class="page-footer">
   <nav class="pagination">
     <a class="prev" href="https://qjwh.github.io/tags/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/page/2/">
       «&nbsp;上一页&nbsp;
+    </a>
+    <a class="next" href="https://qjwh.github.io/tags/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/page/4/">下一页&nbsp;&nbsp;»
     </a>
   </nav>
 </footer>

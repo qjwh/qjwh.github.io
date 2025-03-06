@@ -5,11 +5,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>信息学竞赛 | CXBlog</title>
+<title>算法学习笔记 | CXBlog</title>
 <meta name="keywords" content="">
 <meta name="description" content="">
 <meta name="author" content="">
-<link rel="canonical" href="https://qjwh.github.io/tags/%E4%BF%A1%E6%81%AF%E5%AD%A6%E7%AB%9E%E8%B5%9B/">
+<link rel="canonical" href="https://qjwh.github.io/tags/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.3b2e5c86d6776f1230a6cc3dbc6bde31467e6a5f6513337e196964b4e3693a57.css" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://qjwh.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://qjwh.github.io/favicon-16x16.png">
@@ -18,8 +18,8 @@
 <link rel="mask-icon" href="https://qjwh.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" type="application/rss+xml" href="https://qjwh.github.io/tags/%E4%BF%A1%E6%81%AF%E5%AD%A6%E7%AB%9E%E8%B5%9B/index.xml">
-<link rel="alternate" hreflang="zh" href="https://qjwh.github.io/tags/%E4%BF%A1%E6%81%AF%E5%AD%A6%E7%AB%9E%E8%B5%9B/">
+<link rel="alternate" type="application/rss+xml" href="https://qjwh.github.io/tags/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.xml">
+<link rel="alternate" hreflang="zh" href="https://qjwh.github.io/tags/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
 <noscript>
     <style>
         #theme-toggle,
@@ -84,13 +84,13 @@
         
         font-family: 'Ubuntu';
     }
-</style><meta property="og:url" content="https://qjwh.github.io/tags/%E4%BF%A1%E6%81%AF%E5%AD%A6%E7%AB%9E%E8%B5%9B/">
+</style><meta property="og:url" content="https://qjwh.github.io/tags/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
   <meta property="og:site_name" content="CXBlog">
-  <meta property="og:title" content="信息学竞赛">
+  <meta property="og:title" content="算法学习笔记">
   <meta property="og:locale" content="zh">
   <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="信息学竞赛">
+<meta name="twitter:title" content="算法学习笔记">
 <meta name="twitter:description" content="">
 
 </head>
@@ -161,56 +161,9 @@
 <main class="main"> 
 <header class="page-header">
   <h1>
-    信息学竞赛
+    算法学习笔记
   </h1>
 </header>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">整体二分
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>整体二分类似于线段树上二分，在讲这个算法前，先引入几个问题。
-解决题型 整体二分一般解决的是如下的问题：
-给你一个【集合/序列/矩阵/树】，要求【静态/动态】维护所有【元素/区间/子矩阵/链/子树】中的第 $k$【可能每次给定】大元素，【可能强制在线】。
-下面是一堆例题。
-例题1 动态查询集合第k大（可离线） 题意 让你维护一个初始为空的多重集合 $s$，并支持 $q$ 次操作，操作都是下面三种之一：
-添加一个数 $x$ 到集合 $s$ 中。 在集合 $s$ 中删除一个数 $x$（保证元素存在）。 查询集合第 $k$ 大（保证第 $k$ 大存在）。 数据范围 $1 \leq q \leq 2 \times 10^5$ $0 \leq x \leq 10^9$ 题解 维护一个权值线段树（权值线段树其实就是一个维护值域的线段树），维护一段值域里有多少个数，每次询问在线段树上二分即可。
-具体地，对于线段树上某个节点对应的区间 $[l,r]$，这个节点上的值为集合中，值在 $[l,r]$ 的数的个数有多少。
-在询问时，我们要记录当前节点编号 $x$，$x$ 维护区间 $[l,r]$，以及要查询值在 $[l,r]$ 内的所有数的第 $k$ 大。
-当递归到某个状态后，我们看这个节点的左子树 $\text{lc}$ 内有多少个值，如果大于等于 $k$，则递归到左子树；否则递归到右子树，且 $k$ 减去(左子树内数的个数)。
-由于值域较大，权值线段树可能会爆，所以要先把所有询问离线下来，做个离散化，然后就可以把 $x$ 控制到 $q$ 级别，就不会爆了。
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
-  <a class="entry-link" aria-label="post link to 整体二分" href="https://qjwh.github.io/posts/oi/aln/exbinarysearch/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">中国剩余定理
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>中国剩余定理，Chinese Remainder Theorem，又称CRT，我们接下来就讲一下这个算法的原理。
-要说原理，就得从古代说起。
-（你到底是在讲编程课还是在讲历史课）
-（真的是在将编程课）
-在古代，有一个问题，叫做“物不知数问题”，原文是这样的：
-有物不知其数 三三数之剩二 五五数之剩三 七七数之剩二 问物几何？ 这个问题翻译过来就是问以下方程的所有正整数解：
-$ \begin{cases} x \equiv 2 \pmod{3} \ x \equiv 3 \pmod{5} \ x \equiv 2 \pmod{7} \end{cases} $
-这个问题在后来有一个解了，解出来这个问题的人，编了一首诗，叫做“孙子歌诀”，原文：
-三人同行七十稀 五树梅花廿一支 七子团圆正半月 除百零五便得知 这个解翻译过来就是说，若设 $r_3$ 为方程中 $x$ 模 $3$ 的余数，$r_5$、$r_7$ 同理，那么所有解 $x$ 一定满足：
-$x \equiv r_3 \times 70&#43;r_5 \times 21&#43;r_7 \times 15 \pmod{105}$
-其中 $105$ 的实际来源是上面三个方程的模数的 $\text{lcm}$，即 $\text{lcm}(3,5,7)=3 \times 5 \times 7=105$。
-关于 $70$、$21$、$15$ 的来源下面再说，我们先证明一下这个解是正确的。
-由于 $105$ 是三个模数的 $\text{lcm}$，所以说如果 $x$ 是满足条件的，$x-105$、$x&#43;105$ 都是满足条件的（此处暂时忽略“正整数解”的限制），显然。
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
-  <a class="entry-link" aria-label="post link to 中国剩余定理" href="https://qjwh.github.io/posts/oi/aln/crt/"></a>
-</article>
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
@@ -245,7 +198,7 @@ $x \equiv r_3 \times 70&#43;r_5 \times 21&#43;r_7 \times 15 \pmod{105}$
 </article>
 <footer class="page-footer">
   <nav class="pagination">
-    <a class="prev" href="https://qjwh.github.io/tags/%E4%BF%A1%E6%81%AF%E5%AD%A6%E7%AB%9E%E8%B5%9B/page/3/">
+    <a class="prev" href="https://qjwh.github.io/tags/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/page/3/">
       «&nbsp;上一页&nbsp;
     </a>
   </nav>
