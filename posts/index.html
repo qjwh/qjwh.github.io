@@ -182,6 +182,39 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">【娱乐】florr.io更新快报
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>需要更早的更新或需要修正请联系我。
+一些无关紧要的更新不会写，部分更新会加上个人看法。
+初来建议从下往上读，下面的一些专有名词在上面不做解释。
+【20250308】骨牌更新 更新新花瓣Domino（音译“多米诺”，即骨牌）。
+我们统一把一个等级Coin的伤害、耐久为同等级的标准伤害、耐久，表示为 $D$、$H$。
+外观类似两个Dice的结合，伤害为 $\dfrac{D}{15}$，耐久为 $H$。
+可以由Centipede (Evil)（地狱蜈蚣）掉落，掉率低的离谱（地狱生物没法改变的本质），掉落怪等级 $-2$ 的概率是最大的（我最大只有L的图鉴，可能u&#43;掉率会更低）。
+每次Reload后随机上下两片的点数，其上下两片点数之积即为伤害倍率，最高可造成 $6 \times 6=36$ 倍伤害，冷却 $2s$（不是 $2.5s$）。
+以下是数学方法计算该花瓣的强度以及和其他花瓣的对比：
+下面统一忽略florr判定伤害的时长 $0.04s$，也就是实际上每 $0.04s$ 才会执行一次伤害判定，但有些时候（如计算Corn的时候）因为造成伤害次数过多会算上。
+计算DPS的时候会认为你只装了这一个花瓣（有些时候会装Bur之类的另说），且用阴阳去卡这个花瓣，忽略除该花瓣之外任何花瓣的伤害，忽略操作失误。
+Domino：
+每次随机上下两片的点数，分别可以是 $1 \sim 6$，所以一共有 $6 \times 6=36$ 种等概率的情况。
+而伤害倍率的总和为 $1 \times 1&#43;1 \times 2&#43;\dots&#43;6 \times 6=(1&#43;2&#43;3&#43;4&#43;5&#43;6)^2=441$。
+平均伤害倍率即为 $441 \div 36=12.25$。
+假设已经点满了冷却（Reload）天赋，则冷却时间为 $1s$，一次平均可以造成 $\dfrac{12.25D}{15}$ 的伤害。
+单花瓣DPS为 $\dfrac{12.25D}{15} \div 1=\dfrac{49D}{60} \approx 0.82D$。
+Coin：
+伤害为 $D$，耐久为 $H$，点满冷却为 $1.25s$。
+单花瓣DPS为 $D \div 1.25=\dfrac{4D}{5}=0.8D$。
+Chip：
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-03-08 12:55:34 +0800 CST'>2025/03/08 12:55:34</span></footer>
+  <a class="entry-link" aria-label="post link to 【娱乐】florr.io更新快报" href="https://qjwh.github.io/posts/play/florr_upds/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">莫队算法
     </h2>
   </header>
@@ -210,33 +243,6 @@
   </div>
   <footer class="entry-footer"><span title='2025-03-06 21:26:37 +0800 CST'>2025/03/06 21:26:37</span></footer>
   <a class="entry-link" aria-label="post link to 莫队算法" href="https://qjwh.github.io/posts/oi/aln/modui/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">【娱乐】florr.io更新快报
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>需要更早的更新或需要修正请联系我。
-一些无关紧要的更新不会写，部分更新会加上个人看法。
-初来建议从下往上读，下面的一些专有名词在上面不做解释。
-【20250227】神使询问更新 现在你可以询问神使某个花瓣将在何时上架商店。
-询问格式：
-Oracle, oracle, make me a prediction about 品质名 花瓣全名 询问格式大小写不敏感（你可以任意变化其中单词的大小写）。
-暂不确定英文询问的品质名与花瓣全名能否为中文。
-在翻译更新后可以用其他语言来询问。
-神使回答：
-It is imminent（即将发生的）：商店刷新一次后。 Soon：商店刷新两次后。 Eventually（最后，终于）：商店刷新三次后。 Perhaps some futures are just indeterminate（不确定的）：商店刷新四次或更多次后。 The future is too cloudy to tell：商店不会上架这个花瓣。 同一个服务器内的神使只会如实回答二十个小时内（也就是一次商店刷新周期内）的第一个询问的玩家，在这个时间段内，如果已经有玩家询问过神使了（不论是什么花瓣），那么神使对任何询问都只会回答永不上架。
-游戏更新后服务器重启，所以也可以在此时进行询问。
-补充：
-碎片不能拿来与商人交易硬币。 M28说商店下一次上架SMimic（拟态）是在商店刷新 $48$ 次后，打折-10%的在刷新 $706$ 次后，打折-50%的在刷新 $862$ 次后。 【20250226】总结前几次更新 现在的地图：
-目前为止所有的配方：
-10空气 $\to$ 泡泡 月石 $\to$ 10岩石 3电池 $\to$ 电池&#43;闪电 玻璃 $\to$ 沙子 3蜂蜜 $\to$ 蜂蜡 玻璃&#43;电池&#43;灯泡 $\to$ 2激光器 碎片&#43;磁铁&#43;玻璃 $\to$ 指南针 叶子&#43;铀 $\to$ 龟背竹 触角&#43;灯泡 $\to$ 机械触角 罗勒 $\to$ 叶子 轻&#43;玫瑰 $\to$ 大丽花 触角&#43;电池 $\to$ 2机械导弹 龟背竹 $\to$ 叶子 轻&#43;蜂蜜 $\to$ 花粉 齿轮 $\to$ 碎片 电池 $\to$ 碎片 沙子 $\to$ 玻璃 100万岩石 $\to$ 月石 【20250226】杂项更新 花朵：
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-02-27 22:39:42 +0800 CST'>2025/02/27 22:39:42</span></footer>
-  <a class="entry-link" aria-label="post link to 【娱乐】florr.io更新快报" href="https://qjwh.github.io/posts/play/florr_upds/"></a>
 </article>
 
 <article class="post-entry"> 

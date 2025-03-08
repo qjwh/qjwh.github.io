@@ -6,8 +6,15 @@
     <description>Recent content in Posts on CXBlog</description>
     <generator>Hugo -- 0.143.1</generator>
     <language>zh</language>
-    <lastBuildDate>Thu, 06 Mar 2025 21:26:37 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 08 Mar 2025 12:55:34 +0800</lastBuildDate>
     <atom:link href="https://qjwh.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【娱乐】florr.io更新快报</title>
+      <link>https://qjwh.github.io/posts/play/florr_upds/</link>
+      <pubDate>Sat, 08 Mar 2025 12:55:34 +0800</pubDate>
+      <guid>https://qjwh.github.io/posts/play/florr_upds/</guid>
+      <description>官方渠道 实时更新</description>
+    </item>
     <item>
       <title>莫队算法</title>
       <link>https://qjwh.github.io/posts/oi/aln/modui/</link>
@@ -51,13 +58,6 @@
 &lt;p&gt;直接双关键字比较不好，那我们就分块后进行双关键字比较。&lt;/p&gt;
 &lt;p&gt;具体地，遇到两个询问，先按左端点所属块编号从小到大排序，如果相同，则按右端点（不是所属块编号，是原本的下标）从小到大排序。&lt;/p&gt;
 &lt;p&gt;这样的话，复杂度就是 $O(n \sqrt n+q \sqrt n)$ 的复杂度了。&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>【娱乐】florr.io更新快报</title>
-      <link>https://qjwh.github.io/posts/play/florr_upds/</link>
-      <pubDate>Thu, 27 Feb 2025 22:39:42 +0800</pubDate>
-      <guid>https://qjwh.github.io/posts/play/florr_upds/</guid>
-      <description>官方渠道 实时更新</description>
     </item>
     <item>
       <title>20250211代码源比赛</title>
