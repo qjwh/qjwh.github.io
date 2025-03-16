@@ -182,6 +182,41 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">Kruskal重构树
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>参考：
+老师讲解 Fighting_Peter 的文章 其实Kruskal重构树并不难。
+概览 首先，Kruskal重构树，顾名思义就是把整棵树重构。
+并且其是基于Kruskal算法的。
+它能解决很多问题，并且变种很多。
+但我们先从基础的实现说起。
+实现过程 我们考虑，在Kruskal算法里，我们每次会合并两个并查集集合。
+准确来说是在两个点 $u$、$v$ 之间加一个边权为 $w$ 的无向边。
+那么，我们就考虑，在重构树里，我们找到 $u$ 和 $v$ 分别所在的子树，把这两个子树的根拎出来，设为 $u’$ 和 $v’$。
+然后，我们就新建一个点 $w$，然后把 $u’$ 和 $v’$ 的父亲设为 $w$。
+此时我们就得到了另外一棵树。
+比如说这个例子：
+而在代码中，我们需要给这些方点一个别的编号，而不是以 $w$ 作为编号，否则会重，并且会炸。
+特性 我们讲一些Kruskal重构树的特性：
+这棵树一定是二叉树。
+原树中的点放到重构树上一定是叶子，重构树上其他点都是原树中的边权。
+节点个数一定是 $2n-1$，且 $2n-1$ 一定是根。
+如果是最小生成树，那么这棵重构树一定是大根堆1，否则是小根堆。
+原图中两个点 $u$、$v$ 之间所有路径上的边权最大值的最小值，就是该图的最小生成树重构树上，$u$ 和 $v$​ 的LCA的权值。
+尚未想到证明方式
+对于一个最小生成树上的点 $x$，其只通过（边权）不超过 $v$ 的边，能到的点集；和 $x$ 在重构树上深度最浅的、权值 $\leq v$ 的点 $y$ 的子树内（叶子）节点集合，是一样的。
+这里稍微证明一下。
+就是我们根据上面的性质，可以发现，设后者对应集合为 $S$，那么显然 $S$ 内的点，和 $x$ 点，的LCA的权值一定不超过 $v$，显然。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
+  <a class="entry-link" aria-label="post link to Kruskal重构树" href="https://qjwh.github.io/posts/oi/aln/kruskalcgs/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">Lucas定理
     </h2>
   </header>
@@ -402,34 +437,6 @@ $$ \begin{aligned} f(a,b,c,n)&amp;=\sum\limits_{i=0}^n \left\lfloor \dfrac{\colo
   </div>
   <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
   <a class="entry-link" aria-label="post link to 类欧几里得算法" href="https://qjwh.github.io/posts/oi/aln/similargcd/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">马拉车算法
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>马拉车算法其实就是解决一个字符串中由某个位置为中心的最大回文串长度：（下图中蓝色部分为字符串，绿色框中的值就是以这个位置为中心的最大回文串长度）
-其次，我们发现最底下的一排绿色数字涉及到空隙，所以我们可以把字符串扩展一下：
-比如，原字符串是 $\texttt{abccabbc}$，那么扩展之后就是：
-（LaTeX炸了） $\texttt{\color{RoyalBlue}@\color{default}#\color{default}a\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{default}a\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{RoyalBlue}&amp;}$
-第一个和最后一个字符可以自己定，但是最好不要和原字符串中的字符、中间插入的字符冲突（相等）。
-注：其实还有第二种扩展方法：
-$\texttt{\color{RoyalBlue}#\color{default}a\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{default}a\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{default}}$
-还是，中间字符不能与原串字符相等。
-下面统一设「以下标 $i$ 为中心的最大回文串长度除以 $2$ 并下取整」后的答案为 $p_i$。
-然后，我们就开始求 $p$ 数组了，当我们求到 $p_i$ 的时候，我们看前面求出的 $p_j&#43;j$ 的最大值是多少（设为 $r$），即 $\max\limits_{j=1}^{i-1} { p_j&#43;j }$，同时求出最大的 $p_j&#43;j$ 对应的 $j$（设为 $c$）。
-并且，我们求出 $i$ 的对称点 $i’$，对称中心为 $c$，显然 $i’=2c-i$。
-然后，分类讨论：
-注：图中 $r$ 的意思与上面说的 $r$ 的意思有冲突，统一以上面说的定义为准。
-$i&gt;r$，那么暴力算 $p_i$。 $r-i \geq p_{i’}$，那么 $p_i=p_{i’}$。 $r-i&lt;p_{i’}$，那么让 $p_i=r-i$，继续暴力扩展。 最后就是时间复杂度问题了。
-关于时间复杂度的证明，我们可以分类讨论 $p_i$ 是用那种情况求值的：
-用情况1转移：$r$ 肯定会增加。 用情况2转移：复杂度忽略。 用情况3转移：$r$ 也肯定会增加。 由于每时每刻，$r$ 都小于等于 $n$，所以总复杂度就是 $O(n)$ 的。
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
-  <a class="entry-link" aria-label="post link to 马拉车算法" href="https://qjwh.github.io/posts/oi/aln/manacher/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">
