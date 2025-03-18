@@ -167,6 +167,45 @@
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">【娱乐】florr.io更新快报
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>需要更早的更新或需要修正请联系我。
+一些无关紧要的更新不会写，部分更新会加上个人看法。
+初来建议从下往上读，下面的一些专有名词在上面不做解释。
+有时候会修改下面更新的某些内容，我会用加粗标出来。
+【20250318】沙漠新区更新 从沙漠出生点附近的竖直道延伸出一个区域，外观为一个金字塔（据猜测是新地图的入口，暂时不能进去），其门口会低频刷低级（绝大多数为Common、Unusual）木乃伊甲虫。
+据说如果门口有 $200$ 人新区域就会开放。
+更多信息敬请期待。
+【20250316】绷带更新 更新新花瓣Bandage（绷带，忘了啥意思的建议重学八下英语）。
+外观是一个被绷带缠绕着的球，没有伤害、耐久、冷却（有点像Antennae等显示在花朵表面的花瓣）。
+可以由木乃伊甲虫掉落，掉率与火蚁掉落骨头一样，最低稀有度Mythic，其他掉落和同级甲虫完全一样，极其稀有（猜测和邪眼甲虫一样的生成概率）。
+20250318更新：木乃伊甲虫掉落改变，bgg（Bettle Egg）掉率极低，Ankh掉率高。
+其作用是在花朵濒死的时候触发，可以让花朵无敌一段时间，无敌时间结束后必死（暂不确定若此时有剩余血量是否仍然会被击杀），且在一段时间内无法被ygg。
+因为维基还没更新，目前暂不知道其具体数据，这也是我咕这么久的原因之一。
+【20250308】骨牌更新 更新新花瓣Domino（音译“多米诺”，即骨牌）。
+我们统一把一个等级Coin的伤害、耐久为同等级的标准伤害、耐久，表示为 $D$、$H$。
+外观类似两个Dice的结合，伤害为 $\dfrac{D}{15}$，耐久为 $H$。
+可以由Centipede (Hel)掉落，掉率低的离谱，和原本它掉落Chip掉率是一样的。
+每次Reload后随机上下两片的点数，其上下两片点数之积即为伤害倍率，最高可造成 $6 \times 6=36$ 倍伤害，冷却 $2s$（不是 $2.5s$）。
+以下是数学方法计算该花瓣的强度以及和其他花瓣的对比：
+下面统一忽略florr判定伤害的时长 $0.04s$，也就是实际上每 $0.04s$ 才会执行一次伤害判定，但有些时候（如计算Corn的时候）因为造成伤害次数过多会算上。
+计算DPS的时候会认为你只装了这一个花瓣（有些时候会装Bur之类的另说），且用阴阳去卡这个花瓣，忽略除该花瓣之外任何花瓣的伤害，忽略操作失误。
+Domino：
+每次随机上下两片的点数，分别可以是 $1 \sim 6$，所以一共有 $6 \times 6=36$ 种等概率的情况。
+而伤害倍率的总和为 $1 \times 1&#43;1 \times 2&#43;\dots&#43;6 \times 6=(1&#43;2&#43;3&#43;4&#43;5&#43;6)^2=441$。
+平均伤害倍率即为 $441 \div 36=12.25$。
+假设已经点满了冷却（Reload）天赋，则冷却时间为 $1s$，一次平均可以造成 $\dfrac{12.25D}{15}$ 的伤害。
+单花瓣DPS为 $\dfrac{12.25D}{15} \div 1=\dfrac{49D}{60} \approx 0.82D$。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-03-18 22:09:43 +0800 CST'>2025/03/18 22:09:43</span></footer>
+  <a class="entry-link" aria-label="post link to 【娱乐】florr.io更新快报" href="https://qjwh.github.io/posts/play/florr_upds/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">【娱乐】《星际穿越》电影解说
     </h2>
   </header>
@@ -226,40 +265,6 @@
   </div>
   <footer class="entry-footer"><span title='2025-03-16 21:12:37 +0800 CST'>2025/03/16 21:12:37</span></footer>
   <a class="entry-link" aria-label="post link to 【娱乐】《星际穿越》电影解说" href="https://qjwh.github.io/posts/play/interstellar/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">【娱乐】florr.io更新快报
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>需要更早的更新或需要修正请联系我。
-一些无关紧要的更新不会写，部分更新会加上个人看法。
-初来建议从下往上读，下面的一些专有名词在上面不做解释。
-【20250308】骨牌更新 更新新花瓣Domino（音译“多米诺”，即骨牌）。
-我们统一把一个等级Coin的伤害、耐久为同等级的标准伤害、耐久，表示为 $D$、$H$。
-外观类似两个Dice的结合，伤害为 $\dfrac{D}{15}$，耐久为 $H$。
-可以由Centipede (Hel)掉落，掉率低的离谱，和原本它掉落Chip掉率是一样的。
-每次Reload后随机上下两片的点数，其上下两片点数之积即为伤害倍率，最高可造成 $6 \times 6=36$ 倍伤害，冷却 $2s$（不是 $2.5s$）。
-以下是数学方法计算该花瓣的强度以及和其他花瓣的对比：
-下面统一忽略florr判定伤害的时长 $0.04s$，也就是实际上每 $0.04s$ 才会执行一次伤害判定，但有些时候（如计算Corn的时候）因为造成伤害次数过多会算上。
-计算DPS的时候会认为你只装了这一个花瓣（有些时候会装Bur之类的另说），且用阴阳去卡这个花瓣，忽略除该花瓣之外任何花瓣的伤害，忽略操作失误。
-Domino：
-每次随机上下两片的点数，分别可以是 $1 \sim 6$，所以一共有 $6 \times 6=36$ 种等概率的情况。
-而伤害倍率的总和为 $1 \times 1&#43;1 \times 2&#43;\dots&#43;6 \times 6=(1&#43;2&#43;3&#43;4&#43;5&#43;6)^2=441$。
-平均伤害倍率即为 $441 \div 36=12.25$。
-假设已经点满了冷却（Reload）天赋，则冷却时间为 $1s$，一次平均可以造成 $\dfrac{12.25D}{15}$ 的伤害。
-单花瓣DPS为 $\dfrac{12.25D}{15} \div 1=\dfrac{49D}{60} \approx 0.82D$。
-Coin：
-伤害为 $D$，耐久为 $H$，点满冷却为 $1.25s$。
-单花瓣DPS为 $D \div 1.25=\dfrac{4D}{5}=0.8D$。
-Chip：
-伤害为 $\dfrac{D}{3}$，耐久为 $\dfrac{H}{10}$，闪避率 $90%$，点满冷却为 $1.25s$。
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-03-08 16:56:14 +0800 CST'>2025/03/08 16:56:14</span></footer>
-  <a class="entry-link" aria-label="post link to 【娱乐】florr.io更新快报" href="https://qjwh.github.io/posts/play/florr_upds/"></a>
 </article>
 
 <article class="post-entry tag-entry"> 
