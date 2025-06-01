@@ -80,6 +80,26 @@
         font-family: 'Ubuntu';
         src: url('/UbuntuB.ttf');
     }
+    @font-face { 
+        font-family: 'Cascadia Code';
+        src: url('/Cascadia_Code.ttf');
+    }
+    @font-face { 
+        font-family: 'HarmonyOS Sans SC';
+        src: url('/HarmonyOS_Sans_SC.ttf');
+    }
+    @font-face { 
+        font-family: 'JetBrains Mono';
+        src: url('/JetBrains_Mono.ttf');
+    }
+    @font-face { 
+        font-family: 'Lato';
+        src: url('/Lato.ttf');
+    }
+    @font-face { 
+        font-family: 'Noto Sans SC';
+        src: url('/Noto_Sans_SC.ttf');
+    }
     body {
         
         font-family: 'Ubuntu';
@@ -167,6 +187,106 @@
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">nth_element（未完工）
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p></p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
+  <a class="entry-link" aria-label="post link to nth_element（未完工）" href="https://qjwh.github.io/posts/oi/aln/nthelement/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">wqs二分
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>感谢这篇文章的作者。
+wqs二分一般解决这类问题：
+有 $n$ 个物品，你要选出恰好 $m$ 个（下称“选择物品个数限制”），可能有限制（下称“其他限制”），你要最大/小化某个权值。
+但除此之外，还有一些限制：
+如果我们设 $g_i$ 为选出恰好 $i$ 个时的最大/小权值，那么 $g$ 函数就应该是上凸（求最大权值）/下凹（求最小权值）的，即斜率单调递减（上凸）/递增（下凹）。 一般来说，如果没有任何限制（包括选择物品个数限制和其他限制），那么答案是很好求的。 一般来说，如果没有其他限制，那么选择物品数量越多，最小权值就越大/小。 以下是P5633的题解，顺带着讲了wqs二分的原理和应用。
+在原题中，我们可以以标号为 $s$ 点在最小生成树上的出度为横坐标，以这个出度对应的答案为纵坐标，画出图像：（网上粘的图，只画了部分横坐标的情况）
+显然D和E点就是最小值点。
+接下来就是wqs二分的重点了
+wqs二分也是二分，那它二分什么值呢，它二分的是斜率 $mid$。
+具体而言，一个斜率就对应若干条平行的边，而总有一条边是完全切这个凸包的，如 $mid=-1$ 的时候，上图中被且的那个点就刚好是C点：
+如果我们设题目要求 $s$ 的度数要恰好为 $6$，那么 $mid=-1$ 的时候被切的那个点C的纵坐标就是答案了。
+但此时我们就有两个问题了：
+如何求出被切的那个点的下标？ 就算求出了下标，那这个点的纵坐标又如何计算？ 接下来我们来解决这两个问题。
+首先，这个切线肯定是所有经过某个点且斜率等于 $mid$ 的直线中截距最小的点：
+具体地，根据切线的性质，在上述例子中，经过C点的斜率等于 $mid$ 的直线（即切线），与经过D点的斜率等于 $mid$ 的直线、经过E点的斜率等于 $mid$ 的直线相比，切线的截距肯定最小，后两者的截距肯定更大。
+其次，显然，经过点 $(x,y)$ 且斜率等于 $k$ 的直线（肯定唯一），其截距一定等于 $y-kx$（$y=kx&#43;b$，$b=y-kx$）。
+而在二分的calc函数（此处不是check函数了，calc函数的返回值、返回值含义以及应用见下）中，我们已经知道了上述公式中的 $k$ 了（$k=mid$），所以我们只要让 $y-kx$ 最小、斜率为 $k$ 且经过了某个图上的点即可。
+考虑到上述公式中的 $x$ 未知，所以我们可以干脆把所有 $s$ 的出边的边权都减 $mid$。（关于是加、减还是都彳亍的问题存疑）
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
+  <a class="entry-link" aria-label="post link to wqs二分" href="https://qjwh.github.io/posts/oi/aln/wqs/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">博弈论三种扩展题型
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>下面是三道与博弈论相关的题目及其做法。
+题目1：皮肤病 题面 （改编自《不可思议事件簿 第5册 魔法学院》，由艾教提供变体）
+（原题名称：加试难题）
+在一个学校内，共有 $100$ 个人，每个人都养了一只狗。
+但由于某些原因，校长确定了这 $100$ 条狗内，必然存在至少一条狗有皮肤病。
+现在那些学生要确定一下哪些狗有皮肤病。
+他们准备这样确定：
+每天上午的时候，所有人看一下除了自己的狗之外的所有狗。 如果确认自己的狗病了，就在晚上敲一下宠物房内的钟。 现在已知：
+无论谁，看那只狗，都能立刻确认它是否有皮肤病。 假设皮肤病不会对狗的寿命造成影响，即所有的狗都不会死亡。 皮肤病不能传染，并且忽略“人患病”造成的影响。 所有人都绝顶聪明（废话 并且：
+第 $1$ 天晚上，没有钟声响起。 第 $2$ 天晚上，没有钟声响起。 第 $3$ 天晚上，没有钟声响起。 … 直到第 $10$ 天晚上，终于有钟声响起了。 请问：
+那天晚上，共有多少人共同敲响了钟？ 在第 $10$ 天后，除了那些敲钟的人养的狗，是否会存在其他病了的狗？ 答案 $10$ 个人 不会 题解 我们考虑一下，如果说第 $1$ 天晚上有人敲钟，那么代表啥。
+我们从人的角度考虑，如果说一个人发现其他狗都是好狗（指没有皮肤病的狗），那么必然自己的狗有皮肤病 （除了自己的，还有谁的？难不成是他自己？）。
+这种情况下，他便会去敲钟。
+但第 $1$ 天晚上没有钟声，所以每个人都观察到了至少 $1$ 个病狗，也就是说至少有 $2$ 个病狗。
+随后第 $2$ 天，如果说一个人观察到其他的狗内，只有 $1$ 个病狗，那么显然自己的狗也得有皮肤病。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
+  <a class="entry-link" aria-label="post link to 博弈论三种扩展题型" href="https://qjwh.github.io/posts/oi/aln/games/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">点分治
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>点分治和树剖有一个相同点，就是算法都是从暴力经过一小步优化而来，但就是这一小步，让算法复杂度有了质的飞跃。
+下面来讲一下这个算法的原理。
+概览 其实“点分治”也是一个名不副实的算法，看完下面的讲述你就会发现这个算法根“分治”几乎无关。
+点分治是专门解决树上路径统计的一种算法（树剖则是解决对树上路径的判断的算法）。
+点分治的思想很朴素，就是DFS一下 $\text{lca}$ 的节点编号 $x$，然后统计 $\text{lca}$ 值刚好为 $x$ 的、满足题目条件的路径的数量，并累加到答案。
+但直接进行统计还是炸裂的，点分治则是对这种统计方式做了一步优化
+解决题型 上面说了，「点分治是专门解决树上路径统计的一种算法」，但并不是所有的树上路径统计都可以用点分治解决。
+其实看完下面的实现，你就能知道它解决什么类问题，不过这里还是说一下。
+就是首先，这个条件是形如“总和比某个值低”、“总和是某个值的倍数”等“可累加”的条件。
+其中“可累加”指的是，如果知道了 $A$ 部分的某个值，和 $B$ 部分的某个值，那么 $A$ 和 $B$ 部分合并后的部分是否合法也一定知道。
+但其他的条件目前还没有太明确，得自己去总结。
+算法实现 下面说一下点分治的实现。
+大体思路 我们拿“路径长度（路径上的边的边权之和）刚好为 $k$”问题举例。
+注：原题链接P3806
+就是我们考虑，当DFS到某个点 $x$ 的时候，就如上所说，设 $x$ 为 $\text{lca}$ 值。
+然后，我们按顺序遍历所有子节点 $to$。
+由于只要两个点 $y$、$z$ 满足 $y$ 和 $z$ 分别在 $x$ 的两个不同儿子及其子树内，那么 $\text{lca}(y,z)=x$。
+并且所有满足条件 $\text{lca}(y,z)=x$ 的对 $(y,z)$ 只有满足上述条件的对。
+所以，我们可以通过（另一种）DFS（方式）求出 $to$ 到 ( 所有 $to$ 及其子树内的点 ) 之间的距离（加上 $x \to to$ 的边权）的集合 $T$。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
+  <a class="entry-link" aria-label="post link to 点分治" href="https://qjwh.github.io/posts/oi/aln/dfz/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">基尔霍夫矩阵
     </h2>
   </header>
@@ -191,33 +311,6 @@ $ D_{i,j}= \begin{cases} 0 &amp; i \not= j \ \text{deg}(i) &amp; i=j \end{cases}
   </div>
   <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
   <a class="entry-link" aria-label="post link to 基尔霍夫矩阵" href="https://qjwh.github.io/posts/oi/aln/kirchhoffmatrix/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">阶和原根
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>按照正常的思路我们都直接将算法，但这会先讲一道题，然后再讲它的定义和求法。
-参考：
-ABC335G题解 阶和原根 背景 是一场ABC335里的G题，当时在赛场上大概留了一个多小时的时间，但一直都在想用BSGS，但显然最后没想出来。
-而这题的瓶颈就在下面问题：
-对于两个数 $a,b$，是否存在一个 $x$ 使得同余方程 $a^x \equiv b \pmod p$ 有解。
-$a,b,p \leq 10^{13}$（原题数据范围）
-大家看到的第一眼显然可以用BSGS求。
-但这个算法是 $O(\sqrt p)$ 的（如果涉及到具体实现的话，可能还得乘个 $\log \sqrt p$，就是set、lower_bound查找的复杂度），比较适用于单组询问，很难推广应用。
-所以还有另外一种方式，比较适用于多组询问。
-是我们求出来 $a$ 和 $b$ 的阶，即 $\text{ord}_p a$ 和 $\text{ord}_p b$，看 $\text{ord}_p b$ 是否是 $\text{ord}_p a$ 的因子（$\text{ord}_p b \mid \text{ord}_p a$）即可。
-这里先不证这个结论是否正确，但相信大家第一次看到“阶”的时候定然是一头雾水的，下面我就来说一下它的定义和求法。
-定义 阶 阶的话，跟逆元相似，还是需要两个值，只不过这里叫做“$a$ 在模 $p$ 意义下的阶”而已，换汤不换料。
-这个表示方法就是 $\text{ord}_p a$。
-它的定义是：
-给你整数 $a$、$p$。 找到最小的 $x$，使得同余方程 $a^x \equiv 1 \pmod p$ 成立。 这个 $x$，就是$a$ 在模 $p$ 意义下的阶。 原根 但说到阶，我们定要讲一下它的孪生兄弟，原根了。
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
-  <a class="entry-link" aria-label="post link to 阶和原根" href="https://qjwh.github.io/posts/oi/aln/orderandpr/"></a>
 </article>
 
 <article class="post-entry tag-entry"> 
@@ -339,99 +432,6 @@ void shai(LL n){ f[0] = f[1] = true; rep(i, 2, n){ if(!f[i]) p[&#43;&#43;ind] = 
   </div>
   <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
   <a class="entry-link" aria-label="post link to 判断拓扑序是否唯一" href="https://qjwh.github.io/posts/oi/aln/judgetopounique/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">平衡树
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>说到平衡树，很多人的第一印象就是：
-难学（知识点真多） 难懂（特别是“旋转”和证明） 难调（我的某个教练刚学平衡树的时候调了七个小时） 下面我们就来从0开始讲平衡树。
-（注：网上大多数人说到“平衡树”默认指的是“Splay”而不是其他算法）
-定义 其实平衡树（Balance Tree，简称BT）不算一种算法，而是一种统称。
-平衡树顾名思义就是非常平衡的树。
-比如说这棵树就非常不平衡：
-而这棵树就比较平衡：
-如果说的更形式化，平衡就意味着，对于每个点，其所有子树的大小差都不超过 $1$。
-具体而言，对于每个点 $x$，如果我们把其所有儿子 $to$ 的子树大小都列出来，那么这个数组内最大值和最小值差不超过 $1$。
-而且，大多数平衡树都是二叉树，这一点是为了方便操作和设计算法。
-种类 听完上面的定义，你就知道了，平衡树就是一类树状数据结构的统称。
-下面就来列举一下这类数据结构都有哪些，以及这些数据结构的简介。
-二叉搜索树（Binary Search Tree，简称BST） 大多数平衡树的前置算法，这也就意味着，大多数的平衡树都是基于BST并进行优化、扩展后得到的算法。
-而BST也是线段树（Segment Tree，部分情况下会简称为ST）进行扩展后的算法。
-具体而言，权值线段树和BST都可以维护有序集合，但有时候只能用BST解决。
-BST其实就是把权值“当做”节点编号（讲的时候一般就这么讲，但写的时候不能这么写，是把权值存入该节点的结构体内）。
-然后对于每个点，它都有最多 $2$ 个儿子，左儿子权值 $&lt;$ 当前点权值 $&lt;$ 右儿子权值。
-这样就可以方便查找。
-优点：代码好写，容易讲明白
-缺点：解决题型少，需要写定期重构（又被称作“替罪羊树思想”），复杂度高
-Treap（名字不是一个单词，而是两个单词Tree和Heap的结合） 这个算法给每个节点都添加了一个“优先级”，并让“优先级”满足小/大根堆的性质。
-并且，这里还通过“旋转”操作（最头疼的地方来了）让树尽量平衡，这样会让树高稳定在 $O(\log n)$ 级别。
-（不过注意，在最坏情况下，复杂度会达到 $O(n)$，所以 $O(\log n)$ 只是期望）
-这样，复杂度就降下来了。
-优点：复杂度低，比较容易理解，解决题型多，且容易被识别出
-缺点：比较难写，细节较多，复杂度难证明
-Splay（本意为“张开”但这里不是这个意思） 这个算法对上面的“旋转”操作又做了一遍扩展，让其能够解决子串翻转问题。
-而且，由于它也会让整棵树尽量平衡，所以树高还是会稳定在 $O(\log n)$ 级别。
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
-  <a class="entry-link" aria-label="post link to 平衡树" href="https://qjwh.github.io/posts/oi/aln/balancedtree/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">生成随机数（未完工）
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>参考
-引用头文件（常用） #include &lt;stdlib.h&gt; //生成随机数、设定随机数种子 #include &lt;ctime&gt; //生成随机数种子（1） #include &lt;time.h&gt; //生成随机数种子（2） #include &lt;unistd.h&gt; //等待（sleep(...)或usleep(...)），该头文件现在不常用 随机种子 srand(time(0) ^ clock()); 注：随机种子为time(0) ^ clock()，这个随机种子可以再毫秒级别内生成（大概率）不同的随机种子。
-取 $[l,r]$ 内的随机数 #define random(l, r) (rand() % ((LL)(r) - (LL)(l) &#43; 1) &#43; (LL)(l)) 注：rand函数只能生成 $[1,32767]$ 内的随机数（见宏RAND_MAX），大概只能生成位数 $\leq 5$ 的随机数；测试程序：
-LL ma = 0; for(LL i = 1;i &lt;= 200;i&#43;&#43;){ srand(time(0) ^ clock()); LL t = rand(); cout &lt;&lt; t &lt;&lt;endl; ma = max(ma, t); usleep(10000); } cout &lt;&lt; ma &lt;&lt;endl; 所以此处引用一个新方法：mt19937（2022/12/24：现在开始使用mt19937_64了，它可以生成 $[1,2^{64})$ 内的随机数，大一倍）。
-其实它的语法和rand的语法差不多 （才怪），是这样的：
-引用头文件（常用） #include &lt;random&gt; //生成随机数、设定随机数种子 #include &lt;ctime&gt; //生成随机数种子（1） #include &lt;time.h&gt; //生成随机数种子（2） #include &lt;unistd.h&gt; //等待（sleep(...)或usleep(...)），该头文件现在不常用 随机种子 mt19937 _rand(time(0) ^ clock()); 注：这个随机种子也可以再毫秒级别内生成（大概率）不同的随机种子
-取 $[l,r]$ 内的随机数 （就差一个字符_而已） #define random(l, r) (_rand() % ((LL)(r) - (LL)(l) &#43; 1) &#43; (LL)(l)) 据测试，这个函数可以生成在unsigned int范围内的随机数（即可以生成 $[1,2^{32})$ 内的随机数），测试程序：
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
-  <a class="entry-link" aria-label="post link to 生成随机数（未完工）" href="https://qjwh.github.io/posts/oi/aln/genrandomnumber/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">树链剖分
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>第一次看到树链剖分（简称树剖）可能觉得它非常的深奥，但其实树剖的原理非常简单，下面先说树剖大概的实现思路和解决题型。
-概览 其实树剖就是把一棵树分成若干条链，使得每个点都出现在了刚好一条链上。
-并且，我们称在某条链上的边为“重（zhòng）边”，不在任何一条链上的边为“轻边”。
-然后，我们按某种规则去DFS，求出新的DFS序，然后解决对树上路径询问的问题。
-而且，通过合理的设计每条边的轻重，可以把复杂度控制在 $O(\log n)$ 级别。
-解决题型 上面也提到了，树剖就是用来解决对树上路径进行询问的问题的算法，当然也可以解决对子树询问的问题，不过属于大材小用了。
-此外，树剖属于工具类算法，所以往往会配合树状数组、线段树、分块等算法出现。
-我把算法分为了两类，“材料类算法”和“工具类算法”，其中：
-材料类算法可以单独考，比如： 数论 推公式 DP 树状数组 线段树 … 工具类算法里面必须要套材料类算法才能考出来，比如： 二分 01分数规划（二分的一个分支） CDQ分治（需要配合树状数组） 整体二分（需要配合树状数组） 树剖（这里讲的） … 往往一些较难的题目，都是要用较难的材料类算法（比如DP），或者工具类算法配合材料类算法才能解决的题目。
-而对于后者，难度会更大一些，因为后者的关键在于转化后使用工具类算法解决。
-算法实现 下面说一下树剖的实现。
-两遍DFS 我们考虑DFS，当递归到点 $x$ 的时候，找到 $x$ 的儿子中，子树大小最大的那个儿子 $to$。
-然后，我们把 $x \to to$ 这条边设为重边，其他边设为轻边。
-得到每条边的轻重后，我们再做一遍DFS。
-而这一遍DFS是为了找到DFS序。
-而且，DFS序有一个要求，我们要先遍历有重边连接的儿子。
-这样的话，对于任意一条树上的链，链上所有点的DFS序连续，而且是由深度从浅到深依次递增。
-同时，我们还要求出，从一个点开始，不经过任何轻边，最多到哪个点。
-解决询问 而对于一次路径上某值的询问，我们可以把这个路径拆成若干条链。
-可以证明链数不超过 $O(\log n)$，这一点会在下面“复杂度证明”中证明。
-而这些拆出的链，都是原树中的链的“子集”（一条链 $L_1$ 是另外一条链 $L_2$ 的子集，有且仅当 $L_1$ 中的点，$L_2$ 中也有，边同理）。
-所以，可以把一条路径，拆成最多 $O(\log n)$ 个DFS序区间。
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
-  <a class="entry-link" aria-label="post link to 树链剖分" href="https://qjwh.github.io/posts/oi/aln/treechaindivision/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

@@ -8,34 +8,45 @@
 <title>斜率优化 | CXBlog</title>
 <meta name="keywords" content="信息学竞赛, 算法学习笔记">
 <meta name="description" content="
-（说是斜率优化，其实和斜率几乎没有关系）
-（e&hellip;更新后确实有关系）
-其实斜率优化和决策二分栈（队列）很像，下面分几种类型来讲。
+参考资料：
 
- 一维斜率优化
-针对形如 $d_i=\min\limits_{j=0}^{i-1} \big( d_j&#43;w(j&#43;1,i) \big)$ 的方程，而且需要满足决策单调性。
+Boyacoding
+OI Wiki
 
-此处重新说一下，如果我们发现一个转移点 $x$ 在 $d_i$ 的时候已经比另外一个转移点 $y$ 要更优了（$x&gt;y$），那么转移点 $y$ 在后面（$d_{i&#43;1}$ 及以后）就不可能比转移点 $x$ 要更优了，那么这个DP一定满足决策单调性，而且反过来也一样（见&quot;决策单调性.md&quot;）。
-其实证明是否满足单调性只用看：如果一个决策点 $x$ 如果在 $d_i$ 的转移中已经比决策点 $y$ 要优了，那么 $d_{i&#43;1}$ 中是否仍然满足这个条件。
-证明了满足决策单调性后，就可以开始斜率优化了。
-我们首先要考虑推斜率式：
+以下学习笔记为25.3.27重制版。
 
-其实斜率式就是把式子 $d_x&#43;w(x&#43;1,i)&lt;d_y&#43;w(y&#43;1,i)$（$x&gt;y$）不断移项、变化，直到式子左边只和 $x$、$y$ 有关，右边只和 $i$ 有关为止。
-此时的斜率式一般左边是个分数，而且这个分数还需要把分子和分母的下标对应：
+ 引入
+我们先以一道题P3195 玩具装箱为例。
+大概说一下题意：
 
-如果斜率式最后是像这样的：
-$\dfrac{d_x-d_y}{v_y-v_x}&gt;-a_i$
-那么就不是个合法的斜率式，需要变成：
-$\dfrac{d_x-d_y}{v_x-v_y}&lt;a_i$
-才是合法的。
+我们要把一个长度为 $n$ 的数组 $a$ 分成若干段。
+设一段为 $a_{l..r}$，那么其“长度”为 $r-l&#43;\sum\limits_{i=l}^r a_i$，下面简称为 $len$。
+那么这一段的“代价”为 $(len-L)^2$，$L$ 是题目中给的定值。
+最后的总代价为每一段的代价的和，问最小的总代价。
+ 暴力DP
+根据题目我们能很容易设计出一个一维DP，$d_i$ 表示 $a_{1..i}$ 的划分方案最小代价，且最后一段结束位置为 $i$。
+那么 $d_i=\min{d_j&#43;w(j&#43;1,i)}$，其中 $w(l,r)$ 为 $[l,r]$ 的代价。
+ 转化
+设 $s$ 为 $a$ 数组的前缀和，同时下面统一省略掉 $\min$，因为关于求最小值最大值只在最后一步出现。
+展开之后也就是：
+$$d_i=d_j&#43;(i-j-1&#43;s_i-s_j-L)^2$$
+把括号内的东西改成只和 $i$、$j$ 相关的两部分，也就是：
+$$d_i=d_j&#43;((i&#43;s_i)-(j&#43;1&#43;s_j&#43;L))^2$$
+那么我们可以设前半部分为 $a_i$，后半部分为 $b_j$，也就是：
+$$d_i=d_j&#43;(a_i-b_j)^2$$
+展开：
+$$d_i=d_j&#43;a_i^2&#43;b_j^2-2a_ib_j$$
+ 逼近斜率优化
+接下来关键的一步来了，我们考虑把上述式子移个项：
+$$d_j&#43;b_j^2=2a_ib_j&#43;d_i-a_i^2$$
+显然上面这个式子的先后顺序是我故意排的，那么我们一眼丁真一下，设：
 
-注意，这里说的是“合法的”，而不是“正确的”，其实最上方的斜率式也可以使用，就是不能叫“斜率式”了（斜率的公式是 $\dfrac{y_2-y_1}{x_2-x_1}$）。
-设此时的斜率式就是上面说的：
-$\dfrac{d_x-d_y}{v_x-v_y}&lt;a_i$
-那么，我们就定义 $\text{slope}(y,x)=\dfrac{d_x-d_y}{v_x-v_y}$。
+$y_j=d_j&#43;b_j^2$
+$x_j=b_j$
+$k_i=2a_i$
+$b_i=d_i-a_i^2$
 
-有了上面函数，显然如果存在两个转移点 $x$ 和 $y$（$x&gt;y$）在转移到 $d_i$ 的时候满足 $\text{slope}(x,y)&lt;a_i$，那么就说明转移点 $x$ 比转移点 $y$ 更优，转移点 $y$ 在后面就不需要了。
-下面默认推出来的斜率式就是上式，并默认 $a$ 数组单调不降。">
+那么上式可以变成：">
 <meta name="author" content="">
 <link rel="canonical" href="https://qjwh.github.io/posts/oi/aln/slopeopm/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.3b2e5c86d6776f1230a6cc3dbc6bde31467e6a5f6513337e196964b4e3693a57.css" rel="preload stylesheet" as="style">
@@ -107,6 +118,26 @@ $\dfrac{d_x-d_y}{v_x-v_y}&lt;a_i$
         font-family: 'Ubuntu';
         src: url('/UbuntuB.ttf');
     }
+    @font-face { 
+        font-family: 'Cascadia Code';
+        src: url('/Cascadia_Code.ttf');
+    }
+    @font-face { 
+        font-family: 'HarmonyOS Sans SC';
+        src: url('/HarmonyOS_Sans_SC.ttf');
+    }
+    @font-face { 
+        font-family: 'JetBrains Mono';
+        src: url('/JetBrains_Mono.ttf');
+    }
+    @font-face { 
+        font-family: 'Lato';
+        src: url('/Lato.ttf');
+    }
+    @font-face { 
+        font-family: 'Noto Sans SC';
+        src: url('/Noto_Sans_SC.ttf');
+    }
     body {
         
         font-family: 'Ubuntu';
@@ -114,65 +145,78 @@ $\dfrac{d_x-d_y}{v_x-v_y}&lt;a_i$
 </style><meta property="og:url" content="https://qjwh.github.io/posts/oi/aln/slopeopm/">
   <meta property="og:site_name" content="CXBlog">
   <meta property="og:title" content="斜率优化">
-  <meta property="og:description" content="（说是斜率优化，其实和斜率几乎没有关系）
-（e…更新后确实有关系）
-其实斜率优化和决策二分栈（队列）很像，下面分几种类型来讲。
-一维斜率优化 针对形如 $d_i=\min\limits_{j=0}^{i-1} \big( d_j&#43;w(j&#43;1,i) \big)$ 的方程，而且需要满足决策单调性。
-此处重新说一下，如果我们发现一个转移点 $x$ 在 $d_i$ 的时候已经比另外一个转移点 $y$ 要更优了（$x&gt;y$），那么转移点 $y$ 在后面（$d_{i&#43;1}$ 及以后）就不可能比转移点 $x$ 要更优了，那么这个DP一定满足决策单调性，而且反过来也一样（见&#34;决策单调性.md&#34;）。
-其实证明是否满足单调性只用看：如果一个决策点 $x$ 如果在 $d_i$ 的转移中已经比决策点 $y$ 要优了，那么 $d_{i&#43;1}$ 中是否仍然满足这个条件。
-证明了满足决策单调性后，就可以开始斜率优化了。
-我们首先要考虑推斜率式：
-其实斜率式就是把式子 $d_x&#43;w(x&#43;1,i)&lt;d_y&#43;w(y&#43;1,i)$（$x&gt;y$）不断移项、变化，直到式子左边只和 $x$、$y$ 有关，右边只和 $i$ 有关为止。
-此时的斜率式一般左边是个分数，而且这个分数还需要把分子和分母的下标对应：
-如果斜率式最后是像这样的：
-$\dfrac{d_x-d_y}{v_y-v_x}&gt;-a_i$
-那么就不是个合法的斜率式，需要变成：
-$\dfrac{d_x-d_y}{v_x-v_y}&lt;a_i$
-才是合法的。
-注意，这里说的是“合法的”，而不是“正确的”，其实最上方的斜率式也可以使用，就是不能叫“斜率式”了（斜率的公式是 $\dfrac{y_2-y_1}{x_2-x_1}$）。
-设此时的斜率式就是上面说的：
-$\dfrac{d_x-d_y}{v_x-v_y}&lt;a_i$
-那么，我们就定义 $\text{slope}(y,x)=\dfrac{d_x-d_y}{v_x-v_y}$。
-有了上面函数，显然如果存在两个转移点 $x$ 和 $y$（$x&gt;y$）在转移到 $d_i$ 的时候满足 $\text{slope}(x,y)&lt;a_i$，那么就说明转移点 $x$ 比转移点 $y$ 更优，转移点 $y$ 在后面就不需要了。
-下面默认推出来的斜率式就是上式，并默认 $a$ 数组单调不降。">
+  <meta property="og:description" content="参考资料：
+Boyacoding OI Wiki 以下学习笔记为25.3.27重制版。
+引入 我们先以一道题P3195 玩具装箱为例。
+大概说一下题意：
+我们要把一个长度为 $n$ 的数组 $a$ 分成若干段。
+设一段为 $a_{l..r}$，那么其“长度”为 $r-l&#43;\sum\limits_{i=l}^r a_i$，下面简称为 $len$。
+那么这一段的“代价”为 $(len-L)^2$，$L$ 是题目中给的定值。
+最后的总代价为每一段的代价的和，问最小的总代价。
+暴力DP 根据题目我们能很容易设计出一个一维DP，$d_i$ 表示 $a_{1..i}$ 的划分方案最小代价，且最后一段结束位置为 $i$。
+那么 $d_i=\min{d_j&#43;w(j&#43;1,i)}$，其中 $w(l,r)$ 为 $[l,r]$ 的代价。
+转化 设 $s$ 为 $a$ 数组的前缀和，同时下面统一省略掉 $\min$，因为关于求最小值最大值只在最后一步出现。
+展开之后也就是：
+$$d_i=d_j&#43;(i-j-1&#43;s_i-s_j-L)^2$$
+把括号内的东西改成只和 $i$、$j$ 相关的两部分，也就是：
+$$d_i=d_j&#43;((i&#43;s_i)-(j&#43;1&#43;s_j&#43;L))^2$$
+那么我们可以设前半部分为 $a_i$，后半部分为 $b_j$，也就是：
+$$d_i=d_j&#43;(a_i-b_j)^2$$
+展开：
+$$d_i=d_j&#43;a_i^2&#43;b_j^2-2a_ib_j$$
+逼近斜率优化 接下来关键的一步来了，我们考虑把上述式子移个项：
+$$d_j&#43;b_j^2=2a_ib_j&#43;d_i-a_i^2$$
+显然上面这个式子的先后顺序是我故意排的，那么我们一眼丁真一下，设：
+$y_j=d_j&#43;b_j^2$ $x_j=b_j$ $k_i=2a_i$ $b_i=d_i-a_i^2$ 那么上式可以变成：">
   <meta property="og:locale" content="zh">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
-    <meta property="article:published_time" content="2025-02-09T15:28:00+08:00">
-    <meta property="article:modified_time" content="2025-02-09T15:28:00+08:00">
+    <meta property="article:published_time" content="2025-03-27T23:42:58+08:00">
+    <meta property="article:modified_time" content="2025-03-27T23:42:58+08:00">
     <meta property="article:tag" content="信息学竞赛">
     <meta property="article:tag" content="算法学习笔记">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="斜率优化">
 <meta name="twitter:description" content="
-（说是斜率优化，其实和斜率几乎没有关系）
-（e&hellip;更新后确实有关系）
-其实斜率优化和决策二分栈（队列）很像，下面分几种类型来讲。
+参考资料：
 
- 一维斜率优化
-针对形如 $d_i=\min\limits_{j=0}^{i-1} \big( d_j&#43;w(j&#43;1,i) \big)$ 的方程，而且需要满足决策单调性。
+Boyacoding
+OI Wiki
 
-此处重新说一下，如果我们发现一个转移点 $x$ 在 $d_i$ 的时候已经比另外一个转移点 $y$ 要更优了（$x&gt;y$），那么转移点 $y$ 在后面（$d_{i&#43;1}$ 及以后）就不可能比转移点 $x$ 要更优了，那么这个DP一定满足决策单调性，而且反过来也一样（见&quot;决策单调性.md&quot;）。
-其实证明是否满足单调性只用看：如果一个决策点 $x$ 如果在 $d_i$ 的转移中已经比决策点 $y$ 要优了，那么 $d_{i&#43;1}$ 中是否仍然满足这个条件。
-证明了满足决策单调性后，就可以开始斜率优化了。
-我们首先要考虑推斜率式：
+以下学习笔记为25.3.27重制版。
 
-其实斜率式就是把式子 $d_x&#43;w(x&#43;1,i)&lt;d_y&#43;w(y&#43;1,i)$（$x&gt;y$）不断移项、变化，直到式子左边只和 $x$、$y$ 有关，右边只和 $i$ 有关为止。
-此时的斜率式一般左边是个分数，而且这个分数还需要把分子和分母的下标对应：
+ 引入
+我们先以一道题P3195 玩具装箱为例。
+大概说一下题意：
 
-如果斜率式最后是像这样的：
-$\dfrac{d_x-d_y}{v_y-v_x}&gt;-a_i$
-那么就不是个合法的斜率式，需要变成：
-$\dfrac{d_x-d_y}{v_x-v_y}&lt;a_i$
-才是合法的。
+我们要把一个长度为 $n$ 的数组 $a$ 分成若干段。
+设一段为 $a_{l..r}$，那么其“长度”为 $r-l&#43;\sum\limits_{i=l}^r a_i$，下面简称为 $len$。
+那么这一段的“代价”为 $(len-L)^2$，$L$ 是题目中给的定值。
+最后的总代价为每一段的代价的和，问最小的总代价。
+ 暴力DP
+根据题目我们能很容易设计出一个一维DP，$d_i$ 表示 $a_{1..i}$ 的划分方案最小代价，且最后一段结束位置为 $i$。
+那么 $d_i=\min{d_j&#43;w(j&#43;1,i)}$，其中 $w(l,r)$ 为 $[l,r]$ 的代价。
+ 转化
+设 $s$ 为 $a$ 数组的前缀和，同时下面统一省略掉 $\min$，因为关于求最小值最大值只在最后一步出现。
+展开之后也就是：
+$$d_i=d_j&#43;(i-j-1&#43;s_i-s_j-L)^2$$
+把括号内的东西改成只和 $i$、$j$ 相关的两部分，也就是：
+$$d_i=d_j&#43;((i&#43;s_i)-(j&#43;1&#43;s_j&#43;L))^2$$
+那么我们可以设前半部分为 $a_i$，后半部分为 $b_j$，也就是：
+$$d_i=d_j&#43;(a_i-b_j)^2$$
+展开：
+$$d_i=d_j&#43;a_i^2&#43;b_j^2-2a_ib_j$$
+ 逼近斜率优化
+接下来关键的一步来了，我们考虑把上述式子移个项：
+$$d_j&#43;b_j^2=2a_ib_j&#43;d_i-a_i^2$$
+显然上面这个式子的先后顺序是我故意排的，那么我们一眼丁真一下，设：
 
-注意，这里说的是“合法的”，而不是“正确的”，其实最上方的斜率式也可以使用，就是不能叫“斜率式”了（斜率的公式是 $\dfrac{y_2-y_1}{x_2-x_1}$）。
-设此时的斜率式就是上面说的：
-$\dfrac{d_x-d_y}{v_x-v_y}&lt;a_i$
-那么，我们就定义 $\text{slope}(y,x)=\dfrac{d_x-d_y}{v_x-v_y}$。
+$y_j=d_j&#43;b_j^2$
+$x_j=b_j$
+$k_i=2a_i$
+$b_i=d_i-a_i^2$
 
-有了上面函数，显然如果存在两个转移点 $x$ 和 $y$（$x&gt;y$）在转移到 $d_i$ 的时候满足 $\text{slope}(x,y)&lt;a_i$，那么就说明转移点 $x$ 比转移点 $y$ 更优，转移点 $y$ 在后面就不需要了。
-下面默认推出来的斜率式就是上式，并默认 $a$ 数组单调不降。">
+那么上式可以变成：">
 
 
 <script type="application/ld+json">
@@ -201,15 +245,15 @@ $\dfrac{d_x-d_y}{v_x-v_y}&lt;a_i$
   "@type": "BlogPosting",
   "headline": "斜率优化",
   "name": "斜率优化",
-  "description": "\r（说是斜率优化，其实和斜率几乎没有关系）\n（e\u0026hellip;更新后确实有关系）\n其实斜率优化和决策二分栈（队列）很像，下面分几种类型来讲。\n一维斜率优化 针对形如 $d_i=\\min\\limits_{j=0}^{i-1} \\big( d_j+w(j+1,i) \\big)$ 的方程，而且需要满足决策单调性。\n此处重新说一下，如果我们发现一个转移点 $x$ 在 $d_i$ 的时候已经比另外一个转移点 $y$ 要更优了（$x\u0026gt;y$），那么转移点 $y$ 在后面（$d_{i+1}$ 及以后）就不可能比转移点 $x$ 要更优了，那么这个DP一定满足决策单调性，而且反过来也一样（见\u0026quot;决策单调性.md\u0026quot;）。\n其实证明是否满足单调性只用看：如果一个决策点 $x$ 如果在 $d_i$ 的转移中已经比决策点 $y$ 要优了，那么 $d_{i+1}$ 中是否仍然满足这个条件。\n证明了满足决策单调性后，就可以开始斜率优化了。\n我们首先要考虑推斜率式：\n其实斜率式就是把式子 $d_x+w(x+1,i)\u0026lt;d_y+w(y+1,i)$（$x\u0026gt;y$）不断移项、变化，直到式子左边只和 $x$、$y$ 有关，右边只和 $i$ 有关为止。\n此时的斜率式一般左边是个分数，而且这个分数还需要把分子和分母的下标对应：\n如果斜率式最后是像这样的：\n$\\dfrac{d_x-d_y}{v_y-v_x}\u0026gt;-a_i$\n那么就不是个合法的斜率式，需要变成：\n$\\dfrac{d_x-d_y}{v_x-v_y}\u0026lt;a_i$\n才是合法的。\n注意，这里说的是“合法的”，而不是“正确的”，其实最上方的斜率式也可以使用，就是不能叫“斜率式”了（斜率的公式是 $\\dfrac{y_2-y_1}{x_2-x_1}$）。\n设此时的斜率式就是上面说的：\n$\\dfrac{d_x-d_y}{v_x-v_y}\u0026lt;a_i$\n那么，我们就定义 $\\text{slope}(y,x)=\\dfrac{d_x-d_y}{v_x-v_y}$。\n有了上面函数，显然如果存在两个转移点 $x$ 和 $y$（$x\u0026gt;y$）在转移到 $d_i$ 的时候满足 $\\text{slope}(x,y)\u0026lt;a_i$，那么就说明转移点 $x$ 比转移点 $y$ 更优，转移点 $y$ 在后面就不需要了。\n下面默认推出来的斜率式就是上式，并默认 $a$ 数组单调不降。\n",
+  "description": "\r参考资料：\nBoyacoding OI Wiki 以下学习笔记为25.3.27重制版。\n引入 我们先以一道题P3195 玩具装箱为例。\n大概说一下题意：\n我们要把一个长度为 $n$ 的数组 $a$ 分成若干段。\n设一段为 $a_{l..r}$，那么其“长度”为 $r-l+\\sum\\limits_{i=l}^r a_i$，下面简称为 $len$。\n那么这一段的“代价”为 $(len-L)^2$，$L$ 是题目中给的定值。\n最后的总代价为每一段的代价的和，问最小的总代价。\n暴力DP 根据题目我们能很容易设计出一个一维DP，$d_i$ 表示 $a_{1..i}$ 的划分方案最小代价，且最后一段结束位置为 $i$。\n那么 $d_i=\\min{d_j+w(j+1,i)}$，其中 $w(l,r)$ 为 $[l,r]$ 的代价。\n转化 设 $s$ 为 $a$ 数组的前缀和，同时下面统一省略掉 $\\min$，因为关于求最小值最大值只在最后一步出现。\n展开之后也就是：\n$$d_i=d_j+(i-j-1+s_i-s_j-L)^2$$\n把括号内的东西改成只和 $i$、$j$ 相关的两部分，也就是：\n$$d_i=d_j+((i+s_i)-(j+1+s_j+L))^2$$\n那么我们可以设前半部分为 $a_i$，后半部分为 $b_j$，也就是：\n$$d_i=d_j+(a_i-b_j)^2$$\n展开：\n$$d_i=d_j+a_i^2+b_j^2-2a_ib_j$$\n逼近斜率优化 接下来关键的一步来了，我们考虑把上述式子移个项：\n$$d_j+b_j^2=2a_ib_j+d_i-a_i^2$$\n显然上面这个式子的先后顺序是我故意排的，那么我们一眼丁真一下，设：\n$y_j=d_j+b_j^2$ $x_j=b_j$ $k_i=2a_i$ $b_i=d_i-a_i^2$ 那么上式可以变成：\n",
   "keywords": [
     "信息学竞赛", "算法学习笔记"
   ],
-  "articleBody": "\r（说是斜率优化，其实和斜率几乎没有关系）\n（e…更新后确实有关系）\n其实斜率优化和决策二分栈（队列）很像，下面分几种类型来讲。\n一维斜率优化 针对形如 $d_i=\\min\\limits_{j=0}^{i-1} \\big( d_j+w(j+1,i) \\big)$ 的方程，而且需要满足决策单调性。\n此处重新说一下，如果我们发现一个转移点 $x$ 在 $d_i$ 的时候已经比另外一个转移点 $y$ 要更优了（$x\u003ey$），那么转移点 $y$ 在后面（$d_{i+1}$ 及以后）就不可能比转移点 $x$ 要更优了，那么这个DP一定满足决策单调性，而且反过来也一样（见\"决策单调性.md\"）。\n其实证明是否满足单调性只用看：如果一个决策点 $x$ 如果在 $d_i$ 的转移中已经比决策点 $y$ 要优了，那么 $d_{i+1}$ 中是否仍然满足这个条件。\n证明了满足决策单调性后，就可以开始斜率优化了。\n我们首先要考虑推斜率式：\n其实斜率式就是把式子 $d_x+w(x+1,i)y$）不断移项、变化，直到式子左边只和 $x$、$y$ 有关，右边只和 $i$ 有关为止。\n此时的斜率式一般左边是个分数，而且这个分数还需要把分子和分母的下标对应：\n如果斜率式最后是像这样的：\n$\\dfrac{d_x-d_y}{v_y-v_x}\u003e-a_i$\n那么就不是个合法的斜率式，需要变成：\n$\\dfrac{d_x-d_y}{v_x-v_y}",
-  "wordCount" : "340",
+  "articleBody": "\r参考资料：\nBoyacoding OI Wiki 以下学习笔记为25.3.27重制版。\n引入 我们先以一道题P3195 玩具装箱为例。\n大概说一下题意：\n我们要把一个长度为 $n$ 的数组 $a$ 分成若干段。\n设一段为 $a_{l..r}$，那么其“长度”为 $r-l+\\sum\\limits_{i=l}^r a_i$，下面简称为 $len$。\n那么这一段的“代价”为 $(len-L)^2$，$L$ 是题目中给的定值。\n最后的总代价为每一段的代价的和，问最小的总代价。\n暴力DP 根据题目我们能很容易设计出一个一维DP，$d_i$ 表示 $a_{1..i}$ 的划分方案最小代价，且最后一段结束位置为 $i$。\n那么 $d_i=\\min{d_j+w(j+1,i)}$，其中 $w(l,r)$ 为 $[l,r]$ 的代价。\n转化 设 $s$ 为 $a$ 数组的前缀和，同时下面统一省略掉 $\\min$，因为关于求最小值最大值只在最后一步出现。\n展开之后也就是：\n$$d_i=d_j+(i-j-1+s_i-s_j-L)^2$$\n把括号内的东西改成只和 $i$、$j$ 相关的两部分，也就是：\n$$d_i=d_j+((i+s_i)-(j+1+s_j+L))^2$$\n那么我们可以设前半部分为 $a_i$，后半部分为 $b_j$，也就是：\n$$d_i=d_j+(a_i-b_j)^2$$\n展开：\n$$d_i=d_j+a_i^2+b_j^2-2a_ib_j$$\n逼近斜率优化 接下来关键的一步来了，我们考虑把上述式子移个项：\n$$d_j+b_j^2=2a_ib_j+d_i-a_i^2$$\n显然上面这个式子的先后顺序是我故意排的，那么我们一眼丁真一下，设：\n$y_j=d_j+b_j^2$ $x_j=b_j$ $k_i=2a_i$ $b_i=d_i-a_i^2$ 那么上式可以变成：\n$$y_j=k_ix_j+b_i$$\n数形结合 显然当我们枚举 $i$ 的时候，$i$ 就相当于是一个定值（为啥加粗下面你就知道了），那么 $k_i$ 也是定值。\n同理，前面转移完后，$x_j$、$y_j$（$j",
+  "wordCount" : "305",
   "inLanguage": "zh",
-  "datePublished": "2025-02-09T15:28:00+08:00",
-  "dateModified": "2025-02-09T15:28:00+08:00",
+  "datePublished": "2025-03-27T23:42:58+08:00",
+  "dateModified": "2025-03-27T23:42:58+08:00",
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": "https://qjwh.github.io/posts/oi/aln/slopeopm/"
@@ -297,7 +341,7 @@ $\dfrac{d_x-d_y}{v_x-v_y}&lt;a_i$
     <h1 class="post-title entry-hint-parent">
       斜率优化
     </h1>
-    <div class="post-meta"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span>
+    <div class="post-meta"><span title='2025-03-27 23:42:58 +0800 CST'>2025/03/27 23:42:58</span>
 
 </div>
   </header> <div class="toc">
@@ -308,19 +352,40 @@ $\dfrac{d_x-d_y}{v_x-v_y}&lt;a_i$
 
         <div class="inner"><ul>
                 <li>
-                    <a href="#text-stylecolorrgb0150136-%e4%b8%80%e7%bb%b4%e6%96%9c%e7%8e%87%e4%bc%98%e5%8c%96" aria-label=" 一维斜率优化"> 一维斜率优化</a></li>
-                <li>
-                    <a href="#text-stylecolorrgb0150136-%e4%ba%8c%e7%bb%b4%e6%96%9c%e7%8e%87%e4%bc%98%e5%8c%96" aria-label=" 二维斜率优化"> 二维斜率优化</a></li>
-                <li>
-                    <a href="#text-stylecolorrgb0150136-%e6%b2%a1%e6%9c%89%e5%86%b3%e7%ad%96%e5%8d%95%e8%b0%83%e6%80%a7%e7%9a%84%e6%96%9c%e7%8e%87%e4%bc%98%e5%8c%96upd-on-2316" aria-label=" 没有决策单调性的斜率优化（upd on 23.1.6）"> 没有决策单调性的斜率优化（upd on 23.1.6）</a></li>
-                <li>
-                    <a href="#text-stylecolorrgb0150136-x%e5%9d%90%e6%a0%87%e4%b8%8d%e6%bb%a1%e8%b6%b3%e9%80%92%e5%a2%9e%e7%9a%84%e6%96%9c%e7%8e%87%e4%bc%98%e5%8c%96upd-on-23226" aria-label=" X坐标不满足递增的斜率优化（upd on 23.2.26）"> X坐标不满足递增的斜率优化（upd on 23.2.26）</a><ul>
+                    <a href="#text-stylecolorrgb0150136-%e5%bc%95%e5%85%a5" aria-label=" 引入"> 引入</a><ul>
                         
                 <li>
-                    <a href="#text-stylecolorrgb0150136-%e5%88%9d%e5%a7%8b%e5%8c%96" aria-label=" 初始化"> 初始化</a></li>
+                    <a href="#text-stylecolorrgb0150136-%e6%9a%b4%e5%8a%9bdp" aria-label=" 暴力DP"> 暴力DP</a></li>
+                <li>
+                    <a href="#text-stylecolorrgb0150136-%e8%bd%ac%e5%8c%96" aria-label=" 转化"> 转化</a></li>
+                <li>
+                    <a href="#text-stylecolorrgb0150136-%e9%80%bc%e8%bf%91%e6%96%9c%e7%8e%87%e4%bc%98%e5%8c%96" aria-label=" 逼近斜率优化"> 逼近斜率优化</a></li>
+                <li>
+                    <a href="#text-stylecolorrgb0150136-%e6%95%b0%e5%bd%a2%e7%bb%93%e5%90%88" aria-label=" 数形结合"> 数形结合</a></li></ul>
+                </li>
+                <li>
+                    <a href="#text-stylecolorrgb0150136-%e5%8f%8c%e9%80%92%e5%a2%9e%e6%96%9c%e7%8e%87%e4%bc%98%e5%8c%96" aria-label=" “双递增”斜率优化"> “双递增”斜率优化</a></li>
+                <li>
+                    <a href="#text-stylecolorrgb0150136-%e5%a6%82%e6%9e%9cx%e4%b8%8d%e9%80%92%e5%a2%9e%e4%bd%86k%e9%80%92%e5%a2%9e" aria-label=" 如果x不递增但k递增"> 如果x不递增但k递增</a></li>
+                <li>
+                    <a href="#text-stylecolorrgb0150136-%e5%a6%82%e6%9e%9cx%e9%80%92%e5%a2%9e%e4%bd%86k%e4%b8%8d%e9%80%92%e5%a2%9e" aria-label=" 如果x递增但k不递增"> 如果x递增但k不递增</a></li>
+                <li>
+                    <a href="#text-stylecolorrgb0150136-%e5%8f%8c%e4%b8%8d%e9%80%92%e5%a2%9e%e6%96%9c%e7%8e%87%e4%bc%98%e5%8c%96" aria-label=" “双不递增”斜率优化"> “双不递增”斜率优化</a><ul>
+                        
+                <li>
+                    <a href="#text-stylecolorrgb0150136-%e6%9c%aa%e5%ae%9e%e8%b7%b5%e7%94%a8set%e5%94%af%e4%b8%80%e7%9c%9f%e7%a5%9e" aria-label=" 【未实践】用set（唯一真神）"> 【未实践】用set（唯一真神）</a></li>
+                <li>
+                    <a href="#text-stylecolorrgb0150136-%e6%9d%8e%e8%b6%85%e7%ba%bf%e6%ae%b5%e6%a0%91" aria-label=" 李超线段树"> 李超线段树</a></li>
+                <li>
+                    <a href="#text-stylecolorrgb0150136-cdq%e5%88%86%e6%b2%bb" aria-label=" CDQ分治"> CDQ分治</a></li>
+                <li>
+                    <a href="#text-stylecolorrgb0150136-%e5%88%9d%e5%a7%8b%e5%8c%96" aria-label=" 初始化"> 初始化</a><ul>
+                        
                 <li>
                     <a href="#text-stylecolorrgb0150136-%e8%ae%be%e8%ae%a1cdq%e5%87%bd%e6%95%b0" aria-label=" 设计CDQ函数"> 设计CDQ函数</a>
                 </li>
+            </ul>
+            </li>
             </ul>
             </li>
             </ul>
@@ -329,99 +394,147 @@ $\dfrac{d_x-d_y}{v_x-v_y}&lt;a_i$
 </div>
 
   <div class="post-content"><text style="font-family:Noto Sans SC">
-<p><del>（说是斜率优化，其实和斜率几乎没有关系）</del></p>
-<p><del>（e&hellip;更新后确实有关系）</del></p>
-<p>其实斜率优化和决策二分栈（队列）很像，下面分几种类型来讲。</p>
-<hr>
-<h2 id="text-stylecolorrgb0150136-一维斜率优化"><text style="color:rgb(0,150,136)"> 一维斜率优化<a hidden class="anchor" aria-hidden="true" href="#text-stylecolorrgb0150136-一维斜率优化">#</a></h2>
-<p>针对形如 $d_i=\min\limits_{j=0}^{i-1} \big( d_j+w(j+1,i) \big)$ 的方程，而且需要满足决策单调性。</p>
-<blockquote>
-<p>此处重新说一下，如果我们发现一个转移点 $x$ 在 $d_i$ 的时候已经比另外一个转移点 $y$ 要更优了（$x&gt;y$），那么转移点 $y$ 在后面（$d_{i+1}$ 及以后）就不可能比转移点 $x$ 要更优了，那么这个DP一定满足决策单调性，而且反过来也一样（见&quot;决策单调性.md&quot;）。</p>
-<p>其实证明是否满足单调性只用看：如果一个决策点 $x$ 如果在 $d_i$ 的转移中已经比决策点 $y$ 要优了，那么 $d_{i+1}$ 中是否仍然满足这个条件。</p></blockquote>
-<p>证明了满足决策单调性后，就可以开始斜率优化了。</p>
-<p>我们首先要考虑推斜率式：</p>
-<blockquote>
-<p>其实斜率式就是把式子 $d_x+w(x+1,i)&lt;d_y+w(y+1,i)$（$x&gt;y$）不断移项、变化，直到式子左边只和 $x$、$y$ 有关，右边只和 $i$ 有关为止。</p>
-<p>此时的斜率式一般左边是个分数，而且这个分数还需要把分子和分母的下标对应：</p>
-<blockquote>
-<p>如果斜率式最后是像这样的：</p>
-<p>$\dfrac{d_x-d_y}{v_y-v_x}&gt;-a_i$</p>
-<p>那么就不是个合法的斜率式，需要变成：</p>
-<p>$\dfrac{d_x-d_y}{v_x-v_y}&lt;a_i$</p>
-<p>才是合法的。</p>
-<blockquote>
-<p>注意，这里说的是“合法的”，而不是“正确的”，其实最上方的斜率式也可以使用，就是不能叫“斜率式”了（斜率的公式是 $\dfrac{y_2-y_1}{x_2-x_1}$）。</p></blockquote></blockquote>
-<p>设此时的斜率式就是上面说的：</p>
-<p>$\dfrac{d_x-d_y}{v_x-v_y}&lt;a_i$</p>
-<p>那么，我们就定义 $\text{slope}(y,x)=\dfrac{d_x-d_y}{v_x-v_y}$。</p>
-<blockquote>
-<p>有了上面函数，显然如果存在两个转移点 $x$ 和 $y$（$x&gt;y$）在转移到 $d_i$ 的时候满足 $\text{slope}(x,y)&lt;a_i$，那么就说明转移点 $x$ 比转移点 $y$ 更优，转移点 $y$ 在后面就不需要了。</p></blockquote>
-<p>下面默认推出来的斜率式就是上式，并默认 $a$ 数组单调不降。</p></blockquote>
-<p>upd：<strong>其实上面决策单调性的证明并不需要非常复杂地证明，其实只要证明斜率式的右项是否单调即可，即如果中间符号是小于，只用证明右项是否单调递增，反之亦然。</strong>（23.1.8）</p>
-<p>我们维护一个单调队列 $q$（设队头下标为 $h$，队尾下标为 $t$）代表目前还没有被淘汰的那些转移点，然后考虑转移 $d_i$：</p>
+<p>参考资料：</p>
 <ul>
-<li>首先，如果队列大小大于等于 $2$ 且 $\text{slope}(q_h,q_{h+1})&lt;a_i$，那么就直接弹出队首。
+<li><a href="https://boyacoding.cn/p/edu2006">Boyacoding</a></li>
+<li><a href="https://oi-wiki.org/dp/opt/slope/">OI Wiki</a></li>
+</ul>
+<p>以下学习笔记为25.3.27重制版。</p>
+<hr>
+<h2 id="text-stylecolorrgb0150136-引入"><text style="color:rgb(0,150,136)"> 引入<a hidden class="anchor" aria-hidden="true" href="#text-stylecolorrgb0150136-引入">#</a></h2>
+<p>我们先以一道题<a href="https://www.luogu.com.cn/problem/P3195">P3195 玩具装箱</a>为例。</p>
+<p>大概说一下题意：</p>
 <blockquote>
-<p>有人问，根据单调队列性质，$q_h&lt;q_{h+1}$，那不是和上面的假设 $j&gt;k$ 冲突了吗？那直接弹出 $q_h$ 岂不是会错？答案是否定的。</p>
-<p>首先，显然，对于所有的 $(j,k)$，都满足 $\text{slope}(j,k)=\text{slope}(k,j)$。</p>
-<p>有了上述性质，即 $\text{slope}(q_h,q_{h+1})=\text{slope}(q_{h+1},q_h)$，那么就和假设不冲突了。</p>
-<p>所以，如果 $\text{slope}(q_{h+1},q_h)&lt;a_i$，那么由于 $q_{h+1}&gt;q_h$，所以 $q_h$ 就会被 $q_{h+1}$ 所取代，就会被弹出队列。</p></blockquote>
-</li>
+<p>我们要把一个长度为 $n$ 的数组 $a$ 分成若干段。</p>
+<p>设一段为 $a_{l..r}$，那么其“长度”为 $r-l+\sum\limits_{i=l}^r a_i$，下面简称为 $len$。</p>
+<p>那么这一段的“代价”为 $(len-L)^2$，$L$ 是题目中给的定值。</p>
+<p>最后的总代价为每一段的代价的和，问最小的总代价。</p></blockquote>
+<h3 id="text-stylecolorrgb0150136-暴力dp"><text style="color:rgb(0,150,136)"> 暴力DP<a hidden class="anchor" aria-hidden="true" href="#text-stylecolorrgb0150136-暴力dp">#</a></h3>
+<p>根据题目我们能很容易设计出一个一维DP，$d_i$ 表示 $a_{1..i}$ 的划分方案最小代价，且最后一段结束位置为 $i$。</p>
+<p>那么 $d_i=\min{d_j+w(j+1,i)}$，其中 $w(l,r)$ 为 $[l,r]$ 的代价。</p>
+<h3 id="text-stylecolorrgb0150136-转化"><text style="color:rgb(0,150,136)"> 转化<a hidden class="anchor" aria-hidden="true" href="#text-stylecolorrgb0150136-转化">#</a></h3>
+<p>设 $s$ 为 $a$ 数组的前缀和，同时下面统一省略掉 $\min$，因为关于求最小值最大值只在最后一步出现。</p>
+<p>展开之后也就是：</p>
+<p>$$d_i=d_j+(i-j-1+s_i-s_j-L)^2$$</p>
+<p>把括号内的东西改成只和 $i$、$j$ 相关的两部分，也就是：</p>
+<p>$$d_i=d_j+((i+s_i)-(j+1+s_j+L))^2$$</p>
+<p>那么我们可以设前半部分为 $a_i$，后半部分为 $b_j$，也就是：</p>
+<p>$$d_i=d_j+(a_i-b_j)^2$$</p>
+<p>展开：</p>
+<p>$$d_i=d_j+a_i^2+b_j^2-2a_ib_j$$</p>
+<h3 id="text-stylecolorrgb0150136-逼近斜率优化"><text style="color:rgb(0,150,136)"> 逼近斜率优化<a hidden class="anchor" aria-hidden="true" href="#text-stylecolorrgb0150136-逼近斜率优化">#</a></h3>
+<p>接下来关键的一步来了，我们考虑把上述式子移个项：</p>
+<p>$$d_j+b_j^2=2a_ib_j+d_i-a_i^2$$</p>
+<p>显然上面这个式子的先后顺序是我故意排的，那么我们一眼丁真一下，设：</p>
+<ul>
+<li>$y_j=d_j+b_j^2$</li>
+<li>$x_j=b_j$</li>
+<li>$k_i=2a_i$</li>
+<li>$b_i=d_i-a_i^2$</li>
+</ul>
+<p>那么上式可以变成：</p>
+<p>$$y_j=k_ix_j+b_i$$</p>
+<h3 id="text-stylecolorrgb0150136-数形结合"><text style="color:rgb(0,150,136)"> 数形结合<a hidden class="anchor" aria-hidden="true" href="#text-stylecolorrgb0150136-数形结合">#</a></h3>
+<p>显然当我们枚举 $i$ 的时候，<strong>$i$ 就相当于是一个定值</strong>（为啥加粗下面你就知道了），那么 $k_i$ 也是定值。</p>
+<p>同理，前面转移完后，$x_j$、$y_j$（$j&lt;i$）都是定值。</p>
+<p>就差 $b_i$ 是我们不知道的，也是我们要最小化的值。</p>
+<p>所以其实问题就是说给你一些点 $(x_j,y_j)$：</p>
+<img src="https://cdn.luogu.com.cn/upload/image_hosting/bfokcgra.png" width="50%">
+<p>然后给你一个固定的斜率（以 $k=3$ 为例，看那条灰色的直线）：</p>
+<img src="https://cdn.luogu.com.cn/upload/image_hosting/g5jk1ybs.png" width="50%">
+<p>让你求出最小的截距使得它能够过任意一个点：</p>
+<img src="https://cdn.luogu.com.cn/upload/image_hosting/4mi03h97.png" width="50%">
+<p>为了求这个值，我们需要引入一个概念叫“凸包”。</p>
+<p>其实这个定义很直观，就是能够“包住”所有点的一个给定点组成的多边形：</p>
+<img src="https://cdn.luogu.com.cn/upload/image_hosting/hcih29s2.png" width="50%">
+<p>而“凸包”的“下半部分”也就是“下凸壳”，就像这些线段连起来的点：</p>
+<img src="https://cdn.luogu.com.cn/upload/image_hosting/6kihsmmb.png" width="50%">
+<p>具体而言，对于一个“下凸壳”，其按照 $x$ 坐标从左到右排序的节点序列，相邻两个点之间的斜率必然是递增的。</p>
+<p>而正是因为这些原因，我们可以发现，其实<strong>最后的答案就是和下凸壳相切的那条线的截距</strong>。</p>
+<p>并且，其实我们很容易证明，<strong>如果我们将(下凸壳内斜率 $&lt;$ 给定斜率)的边删掉，最后没被删的第一条边的左端点就是答案</strong>。</p>
+<p>如下图所示：（灰色是被删除的边，红色是最后答案点，蓝色是没被删的边）</p>
+<img src="https://cdn.luogu.com.cn/upload/image_hosting/vh70kw1w.png" width="50%">
+<p>于是，一个非常基本的做法就诞生了。</p>
+<hr>
+<h2 id="text-stylecolorrgb0150136-双递增斜率优化"><text style="color:rgb(0,150,136)"> “双递增”斜率优化<a hidden class="anchor" aria-hidden="true" href="#text-stylecolorrgb0150136-双递增斜率优化">#</a></h2>
+<p>在P3195里面，有：</p>
+<ul>
+<li>$y_j=d_j+b_j^2$</li>
+<li>$x_j=b_j=j+1+s_j+L$</li>
+<li>$k_i=2a_i$</li>
+<li>$b_i=d_i-a_i^2$</li>
+</ul>
+<p>我们可以发现：</p>
+<ul>
+<li>加入的点的 $x_j$ 是单调递增的。</li>
+<li>每次查询的 $k_i$ 是单调递增的。</li>
+</ul>
+<p>第一条就意味着，我们每次添加的点必然是在更加右边的位置的，于是我们可以这么搞：</p>
+<blockquote>
+<p>定义一个单调队列，维护一个斜率单调递增的下凸壳，如下图所示：</p>
+<img src="https://cdn.luogu.com.cn/upload/image_hosting/c7mw9oaa.png" width="50%">
+<p>随后，如果我们要加入一个点：（红色的那个是要加入的）</p>
+<img src="https://cdn.luogu.com.cn/upload/image_hosting/cuyxpj20.png" width="50%">
+<p>结果我们发现斜率不递增了：（看绿色的那两条边）</p>
+<img src="https://cdn.luogu.com.cn/upload/image_hosting/bn6ayk1m.png" width="50%">
+<p>所以我们就把队尾弹掉（这里不选择移除 $i$ 点是因为显然如果移除了就不是下凸壳了）：</p>
+<img src="https://cdn.luogu.com.cn/upload/image_hosting/3gcnjimj.png" width="50%">
+<p>继续比较：</p>
+<img src="https://cdn.luogu.com.cn/upload/image_hosting/7z89jtu3.png" width="50%">
+<p>弹出：</p>
+<img src="https://cdn.luogu.com.cn/upload/image_hosting/tlaigthe.png" width="50%">
+<p>终于满足条件了：</p>
+<img src="https://cdn.luogu.com.cn/upload/image_hosting/qthr83a9.png" width="50%">
+<p>于是一次节点添加就完成了。</p></blockquote>
+<p>而由于查询斜率递增，所以我们每次都不断弹出开头小于查询斜率的节点即可。</p>
+<p>最后实现就是：（设 $q_{h..t}$ 为单调队列）</p>
+<ul>
+<li>首先，如果队列大小大于等于 $2$ 且 $\text{slope}(q_h,q_{h+1})&lt;k_i$，那么就直接弹出队首。</li>
 <li>其次，以 $q_h$ 作为转移点转移 $d_i$。</li>
-<li>然后，如果队列大小大于等于 $2$ 且 $\text{slope}(q_{t-1},q_t) \geq \text{slope}(q_t,i)$，那么就直接弹出队尾。
-<blockquote>
-<p>首先，在此时的 $q_t$ 和 $i$ 在将来成为队列的前两个元素的时候，且 $\text{slope}(q_h,q_{h+1})&lt;a_i$ 的条件也满足的时候（此时的时刻设为时刻1），此时的 $q_t$ 也会被弹出。</p>
-<p>其次，在此时的 $q_{t-1}$ 和 $q_t$ 在将来成为队列的前两个元素的时候，且 $\text{slope}(q_h,q_{h+1})&lt;a_i$ 的条件也满足的时候（此时的时刻设为时刻2），此时的 $q_{t-1}$ 也会被弹出。</p>
-<p>显然，时刻1小于时刻2。</p>
-<p>所以综上所述，如果此时的 $q_{t-1}$ 被弹出了，那么 $q_t$ 也被弹出了，而 $q_{t-1}$ 更靠队头一些，所以 $q_t$ 是不需要的。</p></blockquote>
-</li>
+<li>然后，如果队列大小大于等于 $2$ 且 $\text{slope}(q_{t-1},q_t) \geq \text{slope}(q_t,i)$，那么就直接弹出队尾。</li>
 <li>最后，在队尾加入 $i$。</li>
 </ul>
-<p>（参考代码：<a href="https://actiku.com/record/63b26cc8d369ced64117abc2">M2500</a>、<a href="https://actiku.com/record/63b26df9d369ced64117abf7">M2506</a>）</p>
-<h2 id="text-stylecolorrgb0150136-二维斜率优化"><text style="color:rgb(0,150,136)"> 二维斜率优化<a hidden class="anchor" aria-hidden="true" href="#text-stylecolorrgb0150136-二维斜率优化">#</a></h2>
-<p>其实也差不多，它针对的是形如 $d_{i,j}=\min\limits_{k=0}^{i-1} \big( d_{k,j-1}+w(k+1,i) \big)$ 的转移方程，且满足决策单调性（记 $d_{i,j}$ 的最优转移点为 $f_{i,j}$，那么此处的“决策单调性”就是指的对于所有的 $i$、$j$ 都满足 $f_{i,j} \leq f_{i+1,j}$）。</p>
-<p>实现也差不多，我们直接从小到大枚举 $j$，然后对于所有 $i$ 分别用上述做法转移即可，就是需要改一些细节，但也不多。</p>
-<p>（参考题目：<a href="https://actiku.com/record/63b2a87bd369ced64117b422">M2515</a>）</p>
+<p>（参考代码：<a href="https://marsoj.cn/new/record/63b26cc8d369ced64117abc2">M2500</a>、<a href="https://marsoj.cn/new/record/63b26df9d369ced64117abf7">M2506</a>）</p>
+<p>相似的还有二维斜率优化，非常相似，这里就不多赘述了。</p>
+<p>（参考代码：<a href="https://marsoj.cn/new/record/63b2a87bd369ced64117b422">M2515</a>）</p>
 <hr>
-<h2 id="text-stylecolorrgb0150136-没有决策单调性的斜率优化upd-on-2316"><text style="color:rgb(0,150,136)"> 没有决策单调性的斜率优化（upd on 23.1.6）<a hidden class="anchor" aria-hidden="true" href="#text-stylecolorrgb0150136-没有决策单调性的斜率优化upd-on-2316">#</a></h2>
-<p>针对形如 $d_i=\max\limits_{j=0}^{i-1} \big( d_j+w(j+1,i) \big)$ 的方程，但不满足决策单调性。</p>
-<p>还是老规矩，我们推导一下斜率式，设推导结果为 $\dfrac{y_j-y_k}{x_j-x_k}&gt;s_i$，并且<strong>要求 $x$ 数组单调不降</strong>，但 $s$ 数组不一定，可能是非常不规则的数组。</p>
-<p>此处可以发现我们变换了一下变量名，其实没有决策单调性的斜率优化我就是用「把一个转移点 $j$ 想成一个二维平面上的坐标 $(x_j,y_j)$」的方法理解的。</p>
-<p>一样，我们维护一个单调队列 $q$（设队头下标为 $h$，队尾下标为 $t$）代表目前还没有被淘汰的那些转移点（<strong>当前队列内的点斜率单调递减</strong>），然后考虑转移 $d_i$：</p>
-<ul>
-<li>首先，由于不满足单调性，所以此处<strong>不能弹出队首</strong>，我们需要二分出斜率小于等于 $s_i$ 的最后面的下标来作为转移点。</li>
-<li>其次，以找到的下标为转移点来转移 $d_i$。</li>
-<li>然后，如果队列大小大于等于 $2$ 且 $\text{slope}(q_{t-1},q_t) \leq \text{slope}(q_t,i)$，那么就直接弹出队尾。
-<blockquote>
-<p>有人对这个过程有疑问，此处解释一下。</p>
-<p>其实这个单调队列里维护的是一个<strong>斜率单调递减的凸包</strong>（不要和数学知识里的“凸包”搞混了，和那个“凸包”没有任何关系；下面的“凸壳”也是指的“凸包”），如下图所示：</p>
-<p><img loading="lazy" src="https://cdn.luogu.com.cn/upload/image_hosting/4o2mun5y.png"></p>
-<p>在这里，“凸包”其实就是指的如上图的一个“包”住所有点的“拼合线段”（多个线段“拼”起来后的东西在这里称为“拼合线段”）。</p>
-<p>我们考虑新加一个点：（最右上角）</p>
-<p><img loading="lazy" src="https://cdn.luogu.com.cn/upload/image_hosting/c5aj7534.png"></p>
-<p>比较此时队列后两个元素：</p>
-<p><img loading="lazy" src="https://cdn.luogu.com.cn/upload/image_hosting/gjtksma8.png"></p>
-<p>显然两个绿色虚线相比，前者斜率小于后者，所以弹出队尾，继续比较：</p>
-<p><img loading="lazy" src="https://cdn.luogu.com.cn/upload/image_hosting/5gho8xmp.png"></p>
-<p>还是前者（斜率）小于后者，弹出队尾，继续比较：</p>
-<p><img loading="lazy" src="https://cdn.luogu.com.cn/upload/image_hosting/b2cscdnr.png"></p>
-<p>终于满足条件了，所以队列最后只剩下这些元素了：</p>
-<p><img loading="lazy" src="https://cdn.luogu.com.cn/upload/image_hosting/d3e6tjo2.png"></p>
-<p>自己推一下式子就知道了，其实上面那个斜率式原本的形式是 $y_j-s_i \times x_j&gt;y_k-s_i \times x_k$（即 $w(j+1,i)=y_j-s_i \times x_j$），回顾整个删除过程，显然所有删除的点都不可能比最后留下的三个转移点要更优。</p>
-<p>其他情况可以自己讨论一下，很容易证明。</p></blockquote>
-</li>
-<li>最后，在队尾加入 $i$。</li>
-</ul>
-<p>（参考代码：<a href="https://actiku.com/record/63ba71729c9538ff8927edc7">M2484</a>）</p>
+<h2 id="text-stylecolorrgb0150136-如果x不递增但k递增"><text style="color:rgb(0,150,136)"> 如果x不递增但k递增<a hidden class="anchor" aria-hidden="true" href="#text-stylecolorrgb0150136-如果x不递增但k递增">#</a></h2>
+<p>那么我们就要对插入做个手脚了。</p>
+<p>这会我们插入不一定是在结尾了，可以是任何位置。</p>
+<p>所以我们可以用<code>set</code>维护所有单调队列上的点。</p>
+<p>然后我们二分一下插入位置。</p>
+<p>随后在插入后，分别删除一下插入位置前后的几个节点，直到满足要求。</p>
+<p>剩下的不变。</p>
 <hr>
-<h2 id="text-stylecolorrgb0150136-x坐标不满足递增的斜率优化upd-on-23226"><text style="color:rgb(0,150,136)"> X坐标不满足递增的斜率优化（upd on 23.2.26）<a hidden class="anchor" aria-hidden="true" href="#text-stylecolorrgb0150136-x坐标不满足递增的斜率优化upd-on-23226">#</a></h2>
-<p>针对形如 $d_i=\max\limits_{j=0}^{i-1} \big( d_j+w(j+1,i) \big)$ 的方程，但推导后的斜率式中X坐标不满足决策单调性。</p>
-<p>还是老规矩，我们推导一下斜率式，设推导结果为 $\dfrac{y_j-y_k}{x_j-x_k}&gt;s_i$，并且<strong>假设 $x$ 数组（X坐标）并不单调</strong>，但 $s$ 数组不一定，可能是非常不规则的数组。</p>
-<p>（注意，X、Y坐标不一定是一开始就能知道的，可能需要在求出DP值后才可以求出的，但 $s$ 数组必须在一开头就能求出）</p>
+<h2 id="text-stylecolorrgb0150136-如果x递增但k不递增"><text style="color:rgb(0,150,136)"> 如果x递增但k不递增<a hidden class="anchor" aria-hidden="true" href="#text-stylecolorrgb0150136-如果x递增但k不递增">#</a></h2>
+<p>因为 $x$ 递增，所以插入不变。</p>
+<p>因为 $k$ 不递增，所以我们不能弹出队首了，而是我们要每次二分一下。</p>
+<p>我们二分出斜率大于等于查询斜率的线段中最左边的那个，此处建议用手写队列。</p>
+<p>剩下的不变。</p>
+<hr>
+<h2 id="text-stylecolorrgb0150136-双不递增斜率优化"><text style="color:rgb(0,150,136)"> “双不递增”斜率优化<a hidden class="anchor" aria-hidden="true" href="#text-stylecolorrgb0150136-双不递增斜率优化">#</a></h2>
+<p>但如果说两个都不递增呢？</p>
+<p>这个有很多种做法。</p>
+<h3 id="text-stylecolorrgb0150136-未实践用set唯一真神"><text style="color:rgb(0,150,136)"> 【未实践】用<code>set</code>（唯一真神）<a hidden class="anchor" aria-hidden="true" href="#text-stylecolorrgb0150136-未实践用set唯一真神">#</a></h3>
+<p>那么我们就考虑把上面两个做法合并一下。</p>
+<p>我们在插入的时候维护两个<code>set</code>，一个记录 $(x,y)$，另一个维护相邻两个点的斜率。</p>
+<p>查询的时候对第二个<code>set</code>二分即可。</p>
+<p>理论可行，但写代码的时候需要注意很多细节。</p>
+<p>不过复杂度是单 $\log$ 的，这是它相对于下面做法的优势。</p>
+<h3 id="text-stylecolorrgb0150136-李超线段树"><text style="color:rgb(0,150,136)"> 李超线段树<a hidden class="anchor" aria-hidden="true" href="#text-stylecolorrgb0150136-李超线段树">#</a></h3>
+<p>我们回到上面的式子：</p>
+<p>$$d_i=d_j+a_i^2+b_j^2-2a_ib_j$$</p>
+<p>这时候我们换个角度思考，我们不把 $i$ 看成常量，而是换种方式转化公式：</p>
+<p>$$d_i=-2b_j \times a_i+d_j+b_j^2+a_i^2$$</p>
+<p>对于每个 $j$，我们加一条斜率为 $-2b_j$、截距为 $d_j+b_j^2$ 的直线。</p>
+<p>然后在 $i$ 转移的时候，我们查一下 $x=a_i$ 的时候，最大的 $y$ 是多少，加上 $a_i^2$ 就是 $d_i$ 的最大值。</p>
+<p>关于李超线段树可以看我的另外一篇笔记。</p>
+<h3 id="text-stylecolorrgb0150136-cdq分治"><text style="color:rgb(0,150,136)"> CDQ分治<a hidden class="anchor" aria-hidden="true" href="#text-stylecolorrgb0150136-cdq分治">#</a></h3>
+<p>【下面内容还要修改，咕咕咕】</p>
 <h3 id="text-stylecolorrgb0150136-初始化"><text style="color:rgb(0,150,136)"> 初始化<a hidden class="anchor" aria-hidden="true" href="#text-stylecolorrgb0150136-初始化">#</a></h3>
 <p>在这种情况下，我们就要用到CDQ分治了。</p>
 <p>我们直接给 $d$ 数组赋初值，并记录初始每个点的X坐标和Y坐标（还有下标），赋值到一个数组 $q$ 里去，然后把 $q$ 数组按 $s_i$ 从大到小排序。</p>
-<h3 id="text-stylecolorrgb0150136-设计cdq函数"><text style="color:rgb(0,150,136)"> 设计CDQ函数<a hidden class="anchor" aria-hidden="true" href="#text-stylecolorrgb0150136-设计cdq函数">#</a></h3>
+<h4 id="text-stylecolorrgb0150136-设计cdq函数"><text style="color:rgb(0,150,136)"> 设计CDQ函数<a hidden class="anchor" aria-hidden="true" href="#text-stylecolorrgb0150136-设计cdq函数">#</a></h4>
 <p>然后我们考虑设计 $\text{cdq}(l,r)$ 函数。</p>
 <p>首先，如果 $l=r$，那么此时 $d_l$ 的值就知道了，所以我们就用新的 $d_l$ 值重新更新 $q_l$ 的X、Y坐标。</p>
 <p>否则，我们求出 $[l,r]$ 区间的中点 $\text{mid}$。</p>
@@ -433,11 +546,7 @@ $\dfrac{d_x-d_y}{v_x-v_y}&lt;a_i$
 <p>弹出所有无用状态后，直接用 $q_h$ 更新 $d_i$ 即可。</p>
 <p>执行完转移后，递归 $\text{cdq}(\text{mid}+1,r)$。</p>
 <p>但要注意，可以维护凸壳有且仅当X坐标递增，所以此处要拿 $l \sim \text{mid}$ 和 $\text{mid}+1 \sim r$ 的排序结果，把 $q_l \sim q_r$ 内所有元素按X坐标递增顺序排序。</p>
-<p>（参考代码：<a href="https://actiku.com/record/63fb3a3d6834993168ec47b4">M2590</a>）</p>
-<hr>
-<blockquote>
-<p>补充：</p>
-<p>名不副实的意思是：<strong>空有虚名，名声和实际不一致</strong>。也说名不符实。</p></blockquote>
+<p>（参考代码：<a href="https://marsoj.cn/new/record/63fb3a3d6834993168ec47b4">M2590</a>）</p>
 
 
   </div>

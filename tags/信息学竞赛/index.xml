@@ -6,8 +6,196 @@
     <description>Recent content in 信息学竞赛 on CXBlog</description>
     <generator>Hugo -- 0.143.1</generator>
     <language>zh</language>
-    <lastBuildDate>Thu, 06 Mar 2025 21:26:37 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 01 Jun 2025 00:00:00 +0800</lastBuildDate>
     <atom:link href="https://qjwh.github.io/tags/%E4%BF%A1%E6%81%AF%E5%AD%A6%E7%AB%9E%E8%B5%9B/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>卷积</title>
+      <link>https://qjwh.github.io/posts/oi/aln/fftntt/</link>
+      <pubDate>Sun, 01 Jun 2025 00:00:00 +0800</pubDate>
+      <guid>https://qjwh.github.io/posts/oi/aln/fftntt/</guid>
+      <description>&lt;p&gt;未完工，敬请期待。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>网络流</title>
+      <link>https://qjwh.github.io/posts/oi/aln/flow/</link>
+      <pubDate>Fri, 30 May 2025 20:56:39 +0800</pubDate>
+      <guid>https://qjwh.github.io/posts/oi/aln/flow/</guid>
+      <description>&lt;text style=&#34;font-family:Noto Sans SC&#34;&gt;
+&lt;h2 id=&#34;text-stylecolorrgb0150136-前言&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 前言&lt;/h2&gt;
+&lt;p&gt;首先，网络流不是一个算法，而是一个整合包（玩MC玩的），说白了就是网络流是多个算法的统称：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;最大流
+&lt;ul&gt;
+&lt;li&gt;EK&lt;/li&gt;
+&lt;li&gt;Dinic&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;最小割&lt;/li&gt;
+&lt;li&gt;费用流&lt;/li&gt;
+&lt;li&gt;&amp;hellip;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;而且，有些不常用的，可能就不会提，粘个OI Wiki的链接就不详细写了。&lt;/p&gt;
+&lt;p&gt;接下来就按照这个目录挨个讲一下每个算法。&lt;/p&gt;
+&lt;h2 id=&#34;text-stylecolorrgb0150136-最大流&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 最大流&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;如果有哪里没有说清楚，可以看&lt;a href=&#34;https://oi-wiki.org/graph/flow/max-flow/&#34;&gt;这里&lt;/a&gt;，里面还有我没有说到的最大流类型。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;看到最大流这个名字很多人都很陌生，这里就先从定义说起。&lt;/p&gt;
+&lt;h3 id=&#34;text-stylecolorrgb0150136-定义&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 定义&lt;/h3&gt;
+&lt;p&gt;还是拆词法，“网络流”就可以大致理解为“网络”上的“流”，接下来就挨个说一下这两个的定义。&lt;/p&gt;
+&lt;h4 id=&#34;text-stylecolorrgb0150136-网络&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 网络&lt;/h4&gt;
+&lt;p&gt;先说网络的定义。&lt;del&gt;（当然不是Internet）&lt;/del&gt;&lt;/p&gt;
+&lt;p&gt;我们在理解的时候可以认为是管道，但实际上它是一张特殊的&lt;strong&gt;有向&lt;/strong&gt;图。&lt;/p&gt;
+&lt;p&gt;建设管道的必然知道，管道内流过的水，准确来说是单位时间内流过的水，必然是有上限限制的，否则管道就炸了。&lt;/p&gt;
+&lt;p&gt;这里也一样，对于每条边 $x \to y$，都有一个函数 $c(x,y)$ 表示这条边的限制，又称&lt;strong&gt;容量&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;如果在图上没有这条边，则统一规定 $c(x,y)=0$。&lt;/p&gt;
+&lt;p&gt;最后，还是跟最短路一样，它有一个起点和一个终点，又称&lt;strong&gt;源点&lt;/strong&gt; $S$ 和&lt;strong&gt;汇点&lt;/strong&gt; $T$（$S \not= T$）。&lt;/p&gt;
+&lt;h4 id=&#34;text-stylecolorrgb0150136-流函数&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 流函数&lt;/h4&gt;
+&lt;p&gt;再说流函数。&lt;/p&gt;
+&lt;p&gt;流函数就是说，在真实操作中，一个单位时间内一条边 $x \to y$ 流过的水量 $f(x,y)$。&lt;/p&gt;
+&lt;p&gt;这里默认保证每个单位时间内都得流过这么多。&lt;/p&gt;
+&lt;p&gt;其实很好理解。&lt;/p&gt;
+&lt;h4 id=&#34;text-stylecolorrgb0150136-流函数性质&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 流函数性质&lt;/h4&gt;
+&lt;p&gt;顺便说一下流函数要满足的性质。&lt;/p&gt;
+&lt;p&gt;首先，源点可以无限输出水，汇点可以无限输入水。&lt;/p&gt;
+&lt;p&gt;接下来就是一堆性质：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;对于每个 $x,y$，显然 $f(x,y) \leq c(x,y)$（&lt;strong&gt;容量限制&lt;/strong&gt;）。&lt;/li&gt;
+&lt;li&gt;对于每个 $x,y$，$f(x,y)=-f(y,x)$（&lt;strong&gt;斜对称&lt;/strong&gt;）。&lt;/li&gt;
+&lt;li&gt;对于每个 $x$，满足不是源点也不是汇点，$\sum\limits_{u \to x} f(u,x)=\sum\limits_{x \to v} f(x,v)$（&lt;strong&gt;流量守恒&lt;/strong&gt;）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这里说一下最后一点性质。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>BSGS算法</title>
+      <link>https://qjwh.github.io/posts/oi/aln/bsgs/</link>
+      <pubDate>Mon, 21 Apr 2025 22:58:14 +0800</pubDate>
+      <guid>https://qjwh.github.io/posts/oi/aln/bsgs/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;basic&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;BSGS算法英文名叫“baby-step giant-step”，又称“大步小步算法”。&lt;/p&gt;
+&lt;p&gt;这个算法听名字似乎是个随机化算法，但实际上是数论算法。&lt;/p&gt;
+&lt;p&gt;具体地，这个算法解决的是 $a^x \equiv b \pmod{p}$ 的解，其中 $a$、$b$、$p$ 是已知的（$0 \leq a,b&amp;lt;p$，保证 $\gcd(a,p)=1$），$x$ 是要求的。&lt;/p&gt;
+&lt;p&gt;这个算法甚至可以求出所有的 $x$，但为了好讲，我们先考虑如何求出是否有解，以下代码中&lt;code&gt;YES&lt;/code&gt;就代表确定有解了。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;force algorithm&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;首先，有一个暴力算法：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;rep&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;INF&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ksm&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;b&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;YES&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;但这个算法是 $O(\infty)$ 的，我们考虑优化。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;optimization algorithm 1&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;我们考虑 $x$ 的上界，根据欧拉定理，$a^{\varphi(p)} \equiv 1 \pmod{p}$，我们就可以确定，$x$ 的上界就是 $\varphi(p)$（准确来说减 $1$ 也彳亍），因为如果 $x&amp;gt;\varphi(p)$，那么 $a^x$ 就等于 $a^{x-\varphi(p)}$，也就成为了一个循环，所以上界就是 $\varphi(p)$。&lt;/p&gt;
+&lt;p&gt;由于 $\varphi(p)&amp;lt;p$，所以可以把 $p$ &lt;strong&gt;当做&lt;/strong&gt;是质数，$x$ 的上界也就是 $p-1$ 了。&lt;/p&gt;
+&lt;p&gt;所以：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;rep&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;p&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ksm&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;b&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;YES&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;optimization algorithm 2 (BSGS)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;但这个算法还是可能会TLE，我们继续考虑优化&lt;/p&gt;
+&lt;p&gt;我们定义 $q=\left\lceil \sqrt{p} \right\rceil$，那么我们其实就可以把 $x$ 表示为 $q$ 进制下的两位数，具体地，我们把 $x$ 表示为了 $Aq+B$（$0 \leq A,B&amp;lt;q$），然后上述公式就可以化成 $a^{Aq+B} \equiv b \pmod{p}$，即 $a^{Aq} \times a^B \equiv b \pmod{p}$。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>阶和原根</title>
+      <link>https://qjwh.github.io/posts/oi/aln/orderandpr/</link>
+      <pubDate>Mon, 21 Apr 2025 22:44:20 +0800</pubDate>
+      <guid>https://qjwh.github.io/posts/oi/aln/orderandpr/</guid>
+      <description>&lt;text style=&#34;font-family:Noto Sans SC&#34;&gt;
+&lt;p&gt;按照正常的思路我们都直接讲算法，但这会先讲一道题，然后再讲它的定义和求法。&lt;/p&gt;
+&lt;p&gt;参考：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://zhuanlan.zhihu.com/p/676549667&#34;&gt;ABC335G题解&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.cnblogs.com/ac-evil/p/12809289.html&#34;&gt;阶和原根&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;text-stylecolorrgb0150136-背景&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 背景&lt;/h2&gt;
+&lt;p&gt;是一场&lt;a href=&#34;https://atcoder.jp/contests/abc335&#34;&gt;ABC335&lt;/a&gt;里的&lt;a href=&#34;https://atcoder.jp/contests/abc335/tasks/abc335_g&#34;&gt;G题&lt;/a&gt;，当时在赛场上大概留了一个多小时的时间，但一直都在想用&lt;a href=&#34;https://qjwh.github.io/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/BSGS%E7%AE%97%E6%B3%95%EF%BC%88%E5%88%9D%E7%89%88%EF%BC%89.md&#34;&gt;BSGS&lt;/a&gt;，但显然最后没想出来。&lt;/p&gt;
+&lt;p&gt;而这题的瓶颈就在下面问题：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;对于两个数 $a,b$，是否存在一个 $x$ 使得同余方程 $a^x \equiv b \pmod p$ 有解。&lt;/p&gt;
+&lt;p&gt;$a,b,p \leq 10^{13}$（原题数据范围）&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;大家看到的第一眼显然可以用&lt;a href=&#34;https://qjwh.github.io/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/BSGS%E7%AE%97%E6%B3%95%EF%BC%88%E5%88%9D%E7%89%88%EF%BC%89.md&#34;&gt;BSGS&lt;/a&gt;求。&lt;/p&gt;
+&lt;p&gt;但这个算法是 $O(\sqrt p)$ 的（如果涉及到具体实现的话，可能还得乘个 $\log \sqrt p$，就是&lt;code&gt;set&lt;/code&gt;、&lt;code&gt;lower_bound&lt;/code&gt;查找的复杂度），比较适用于单组询问，很难推广应用。&lt;/p&gt;
+&lt;p&gt;所以还有另外一种方式，比较适用于多组询问。&lt;/p&gt;
+&lt;p&gt;是我们求出来 $a$ 和 $b$ 的阶，即 $\text{ord}_p a$ 和 $\text{ord}_p b$，看 $\text{ord}_p b$ 是否是 $\text{ord}_p a$ 的因子（$\text{ord}_p b \mid \text{ord}_p a$）即可。&lt;/p&gt;
+&lt;p&gt;这里先不证这个结论是否正确，但相信大家第一次看到“阶”的时候定然是一头雾水的，下面我就来说一下它的定义和求法。&lt;/p&gt;
+&lt;h2 id=&#34;text-stylecolorrgb0150136-定义&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 定义&lt;/h2&gt;
+&lt;h3 id=&#34;text-stylecolorrgb0150136-阶&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 阶&lt;/h3&gt;
+&lt;p&gt;阶的话，跟逆元相似，还是需要两个值，只不过这里叫做“$a$ 在模 $p$ 意义下的&lt;strong&gt;阶&lt;/strong&gt;”而已，换汤不换料。&lt;/p&gt;
+&lt;p&gt;这个表示方法就是 $\text{ord}_p a$。&lt;/p&gt;
+&lt;p&gt;它的定义是：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;给你整数 $a$、$p$。&lt;/li&gt;
+&lt;li&gt;找到最小的 $x$，使得同余方程 $a^x \equiv 1 \pmod p$ 成立。&lt;/li&gt;
+&lt;li&gt;这个 $x$，就是 $a$ 在模 $p$ 意义下的阶。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;text-stylecolorrgb0150136-原根&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 原根&lt;/h3&gt;
+&lt;p&gt;但说到阶，我们定要讲一下它的孪生兄弟，原根了。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Lucas定理</title>
+      <link>https://qjwh.github.io/posts/oi/aln/lucas/</link>
+      <pubDate>Mon, 21 Apr 2025 21:17:58 +0800</pubDate>
+      <guid>https://qjwh.github.io/posts/oi/aln/lucas/</guid>
+      <description>&lt;p&gt;（以下全部假设 $C_n^m$ 中的 $n$ 和 $m$ 都很大，最大能达到 $10^{18}$）&lt;/p&gt;
+&lt;h2 id=&#34;lucas定理&#34;&gt;Lucas定理&lt;/h2&gt;
+&lt;p&gt;Lucas定理往往用于求组合数的结果且&lt;strong&gt;模数较小&lt;/strong&gt;的题目。&lt;/p&gt;
+&lt;p&gt;其实定理很简单，也很好记，$\Large C_n^m=C_{\lfloor \frac{n}{p} \rfloor}^{\lfloor \frac{m}{p} \rfloor} \times \color{orange} C_{n \bmod p}^{m \bmod p}$，在 $p$ 为质数的条件成立。&lt;/p&gt;
+&lt;p&gt;上面之所以强调模数较小，是因为我们需要通过预处理阶乘的方式去求橙色项的值。&lt;/p&gt;
+&lt;p&gt;代码实现很简单，此处略。&lt;/p&gt;
+&lt;p&gt;但有个注意点，在我的代码模板里，由于求&lt;code&gt;facny&lt;/code&gt;数组是递推求出的，而不是每个分别去用&lt;code&gt;getny&lt;/code&gt;求出的，所以调用&lt;code&gt;init&lt;/code&gt;函数时，传参应该是&lt;code&gt;MOD-1&lt;/code&gt;而不是&lt;code&gt;MOD&lt;/code&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;exlucas定理&#34;&gt;exLucas定理&lt;/h2&gt;
+&lt;p&gt;&lt;del&gt;（前方高能）&lt;/del&gt;&lt;/p&gt;
+&lt;p&gt;这个定理还是解决求 $C_n^m \bmod p$ 的值的问题，$p$ 仍然很小，但&lt;strong&gt;不保证是质数&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;根据M2579的做法，我们可以考虑对 $p$ 做一个唯一分解，分解成 ${p_1}^{a_1} \times {p_2}^{a_2} \times {p_3}^{a_3} \times \dots \times {p_k}^{a_k}$。&lt;/p&gt;
+&lt;p&gt;然后，分别求出 $C_n^m \bmod {p_1}^{a_1}$ 的值、$C_n^m \bmod {p_2}^{a_2}$ 的值、$C_n^m \bmod {p_3}^{a_3}$ 的值、&amp;hellip;、$C_n^m \bmod {p_k}^{a_k}$ 的值，然后就可以用CRT求出 $C_n^m \bmod p$ 的值了。&lt;/p&gt;
+&lt;p&gt;在M2579内，$p$ 唯一分解后，每个 $a_i$ 都等于 $1$，所以直接用Lucas定理就可以求，但在一般的题目中，指数不一定都等于 $1$，所以才要用到exLucas定理。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>斜率优化</title>
+      <link>https://qjwh.github.io/posts/oi/aln/slopeopm/</link>
+      <pubDate>Thu, 27 Mar 2025 23:42:58 +0800</pubDate>
+      <guid>https://qjwh.github.io/posts/oi/aln/slopeopm/</guid>
+      <description>&lt;text style=&#34;font-family:Noto Sans SC&#34;&gt;
+&lt;p&gt;参考资料：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://boyacoding.cn/p/edu2006&#34;&gt;Boyacoding&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://oi-wiki.org/dp/opt/slope/&#34;&gt;OI Wiki&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以下学习笔记为25.3.27重制版。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;text-stylecolorrgb0150136-引入&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 引入&lt;/h2&gt;
+&lt;p&gt;我们先以一道题&lt;a href=&#34;https://www.luogu.com.cn/problem/P3195&#34;&gt;P3195 玩具装箱&lt;/a&gt;为例。&lt;/p&gt;
+&lt;p&gt;大概说一下题意：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;我们要把一个长度为 $n$ 的数组 $a$ 分成若干段。&lt;/p&gt;
+&lt;p&gt;设一段为 $a_{l..r}$，那么其“长度”为 $r-l+\sum\limits_{i=l}^r a_i$，下面简称为 $len$。&lt;/p&gt;
+&lt;p&gt;那么这一段的“代价”为 $(len-L)^2$，$L$ 是题目中给的定值。&lt;/p&gt;
+&lt;p&gt;最后的总代价为每一段的代价的和，问最小的总代价。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;h3 id=&#34;text-stylecolorrgb0150136-暴力dp&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 暴力DP&lt;/h3&gt;
+&lt;p&gt;根据题目我们能很容易设计出一个一维DP，$d_i$ 表示 $a_{1..i}$ 的划分方案最小代价，且最后一段结束位置为 $i$。&lt;/p&gt;
+&lt;p&gt;那么 $d_i=\min{d_j+w(j+1,i)}$，其中 $w(l,r)$ 为 $[l,r]$ 的代价。&lt;/p&gt;
+&lt;h3 id=&#34;text-stylecolorrgb0150136-转化&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 转化&lt;/h3&gt;
+&lt;p&gt;设 $s$ 为 $a$ 数组的前缀和，同时下面统一省略掉 $\min$，因为关于求最小值最大值只在最后一步出现。&lt;/p&gt;
+&lt;p&gt;展开之后也就是：&lt;/p&gt;
+&lt;p&gt;$$d_i=d_j+(i-j-1+s_i-s_j-L)^2$$&lt;/p&gt;
+&lt;p&gt;把括号内的东西改成只和 $i$、$j$ 相关的两部分，也就是：&lt;/p&gt;
+&lt;p&gt;$$d_i=d_j+((i+s_i)-(j+1+s_j+L))^2$$&lt;/p&gt;
+&lt;p&gt;那么我们可以设前半部分为 $a_i$，后半部分为 $b_j$，也就是：&lt;/p&gt;
+&lt;p&gt;$$d_i=d_j+(a_i-b_j)^2$$&lt;/p&gt;
+&lt;p&gt;展开：&lt;/p&gt;
+&lt;p&gt;$$d_i=d_j+a_i^2+b_j^2-2a_ib_j$$&lt;/p&gt;
+&lt;h3 id=&#34;text-stylecolorrgb0150136-逼近斜率优化&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 逼近斜率优化&lt;/h3&gt;
+&lt;p&gt;接下来关键的一步来了，我们考虑把上述式子移个项：&lt;/p&gt;
+&lt;p&gt;$$d_j+b_j^2=2a_ib_j+d_i-a_i^2$$&lt;/p&gt;
+&lt;p&gt;显然上面这个式子的先后顺序是我故意排的，那么我们一眼丁真一下，设：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;$y_j=d_j+b_j^2$&lt;/li&gt;
+&lt;li&gt;$x_j=b_j$&lt;/li&gt;
+&lt;li&gt;$k_i=2a_i$&lt;/li&gt;
+&lt;li&gt;$b_i=d_i-a_i^2$&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;那么上式可以变成：&lt;/p&gt;</description>
+    </item>
     <item>
       <title>莫队算法</title>
       <link>https://qjwh.github.io/posts/oi/aln/modui/</link>
@@ -166,36 +354,6 @@
 &lt;p&gt;所以，如果说A男和B女、C男和A女之间都有矛盾，那么就需要在：&lt;/p&gt;</description>
     </item>
     <item>
-      <title>BSGS算法</title>
-      <link>https://qjwh.github.io/posts/oi/aln/bsgs/</link>
-      <pubDate>Sun, 09 Feb 2025 15:28:00 +0800</pubDate>
-      <guid>https://qjwh.github.io/posts/oi/aln/bsgs/</guid>
-      <description>&lt;p&gt;&lt;strong&gt;basic&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;BSGS算法英文名叫“baby-step giant-step”，又称“大步小步算法”。&lt;/p&gt;
-&lt;p&gt;这个算法听名字似乎是个随机化算法，但实际上是数论算法。&lt;/p&gt;
-&lt;p&gt;具体地，这个算法解决的是 $a^x \equiv b \pmod{p}$ 的解，其中 $a$、$b$、$p$ 是已知的（$0 \leq a,b&amp;lt;p$，保证 $\gcd(a,p)=1$），$x$ 是要求的。&lt;/p&gt;
-&lt;p&gt;这个算法甚至可以求出所有的 $x$，但为了好讲，我们先考虑如何求出是否有解，以下代码中&lt;code&gt;YES&lt;/code&gt;就代表确定有解了。&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;&lt;strong&gt;force algorithm&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;首先，有一个暴力算法：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;rep&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;INF&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ksm&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;b&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;YES&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;但这个算法是 $O(\infty)$ 的，我们考虑优化。&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;&lt;strong&gt;optimization algorithm 1&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;我们考虑 $x$ 的上界，根据欧拉定理，$a^{\varphi(p)} \equiv 1 \pmod{p}$，我们就可以确定，$x$ 的上界就是 $\varphi(p)$（准确来说减 $1$ 也彳亍），因为如果 $x&amp;gt;\varphi(p)$，那么 $a^x$ 就等于 $a^{x-\varphi(p)}$，也就成为了一个循环，所以上界就是 $\varphi(p)$。&lt;/p&gt;
-&lt;p&gt;由于 $\varphi(p)&amp;lt;p$，所以可以把 $p$ &lt;strong&gt;当做&lt;/strong&gt;是质数，$x$ 的上界也就是 $p-1$ 了。&lt;/p&gt;
-&lt;p&gt;所以：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;rep&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;p&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ksm&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;b&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;YES&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
-&lt;p&gt;&lt;strong&gt;optimization algorithm 2 (BSGS)&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;但这个算法还是可能会TLE，我们继续考虑优化&lt;/p&gt;
-&lt;p&gt;我们定义 $q=\left\lceil \sqrt{p} \right\rceil$，那么我们其实就可以把 $x$ 表示为 $q$ 进制下的两位数，具体地，我们把 $x$ 表示为了 $Aq+B$（$0 \leq A,B&amp;lt;q$），然后上述公式就可以化成 $a^{Aq+B} \equiv b \pmod{p}$，即 $a^{Aq} \times a^B \equiv b \pmod{p}$。&lt;/p&gt;</description>
-    </item>
-    <item>
       <title>CDQ分治</title>
       <link>https://qjwh.github.io/posts/oi/aln/cdq/</link>
       <pubDate>Sun, 09 Feb 2025 15:28:00 +0800</pubDate>
@@ -281,25 +439,6 @@
 &lt;blockquote&gt;
 &lt;p&gt;这里稍微证明一下。&lt;/p&gt;
 &lt;p&gt;就是我们根据上面的性质，可以发现，设后者对应集合为 $S$，那么显然 $S$ 内的点，和 $x$ 点，的LCA的权值一定不超过 $v$，显然。&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Lucas定理</title>
-      <link>https://qjwh.github.io/posts/oi/aln/lucas/</link>
-      <pubDate>Sun, 09 Feb 2025 15:28:00 +0800</pubDate>
-      <guid>https://qjwh.github.io/posts/oi/aln/lucas/</guid>
-      <description>&lt;p&gt;（以下全部假设 $C_n^m$ 中的 $n$ 和 $m$ 都很大，最大能达到 $10^{18}$）&lt;/p&gt;
-&lt;h2 id=&#34;lucas定理&#34;&gt;Lucas定理&lt;/h2&gt;
-&lt;p&gt;Lucas定理往往用于求组合数的结果且&lt;strong&gt;模数较小&lt;/strong&gt;的题目。&lt;/p&gt;
-&lt;p&gt;其实定理很简单，也很好记，$\Large C_n^m=C_{\lfloor \frac{n}{p} \rfloor}^{\lfloor \frac{m}{p} \rfloor} \times \color{orange} C_{n \bmod p}^{m \bmod p}$，在 $p$ 为质数的条件成立。&lt;/p&gt;
-&lt;p&gt;上面之所以强调模数较小，是因为我们需要通过预处理阶乘的方式去求橙色项的值。&lt;/p&gt;
-&lt;p&gt;代码实现很简单，此处略。&lt;/p&gt;
-&lt;p&gt;但有个注意点，在我的代码模板里，由于求&lt;code&gt;facny&lt;/code&gt;数组是递推求出的，而不是每个分别去用&lt;code&gt;getny&lt;/code&gt;求出的，所以调用&lt;code&gt;init&lt;/code&gt;函数时，传参应该是&lt;code&gt;MOD-1&lt;/code&gt;而不是&lt;code&gt;MOD&lt;/code&gt;。&lt;/p&gt;
-&lt;h2 id=&#34;exlucas定理&#34;&gt;exLucas定理&lt;/h2&gt;
-&lt;p&gt;&lt;del&gt;（前方高能）&lt;/del&gt;&lt;/p&gt;
-&lt;p&gt;这个定理还是解决求 $C_n^m \bmod p$ 的值的问题，$p$ 仍然很小，但&lt;strong&gt;不保证是质数&lt;/strong&gt;。&lt;/p&gt;
-&lt;p&gt;根据M2579的做法，我们可以考虑对 $p$ 做一个唯一分解，分解成 ${p_1}^{a_1} \times {p_2}^{a_2} \times {p_3}^{a_3} \times \dots \times {p_k}^{a_k}$。&lt;/p&gt;
-&lt;p&gt;然后，分别求出 $C_n^m \bmod {p_1}^{a_1}$ 的值、$C_n^m \bmod {p_2}^{a_2}$ 的值、$C_n^m \bmod {p_3}^{a_3}$ 的值、&amp;hellip;、$C_n^m \bmod {p_k}^{a_k}$ 的值，然后就可以用CRT求出 $C_n^m \bmod p$ 的值了。&lt;/p&gt;
-&lt;p&gt;在M2579内，$p$ 唯一分解后，每个 $a_i$ 都等于 $1$，所以直接用Lucas定理就可以求，但在一般的题目中，指数不一定都等于 $1$，所以才要用到exLucas定理。&lt;/p&gt;</description>
     </item>
     <item>
       <title>nth_element（未完工）</title>
@@ -468,42 +607,6 @@ D_{i,j}=
 \end{cases}
 $&lt;/p&gt;
 &lt;p&gt;其中，$\text{deg}(i)$ 代表这张图上 $i$ 的度是多少。&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>阶和原根</title>
-      <link>https://qjwh.github.io/posts/oi/aln/orderandpr/</link>
-      <pubDate>Sun, 09 Feb 2025 15:28:00 +0800</pubDate>
-      <guid>https://qjwh.github.io/posts/oi/aln/orderandpr/</guid>
-      <description>&lt;text style=&#34;font-family:Noto Sans SC&#34;&gt;
-&lt;p&gt;按照正常的思路我们都直接将算法，但这会先讲一道题，然后再讲它的定义和求法。&lt;/p&gt;
-&lt;p&gt;参考：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://zhuanlan.zhihu.com/p/676549667&#34;&gt;ABC335G题解&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.cnblogs.com/ac-evil/p/12809289.html&#34;&gt;阶和原根&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;text-stylecolorrgb0150136-背景&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 背景&lt;/h2&gt;
-&lt;p&gt;是一场&lt;a href=&#34;https://atcoder.jp/contests/abc335&#34;&gt;ABC335&lt;/a&gt;里的&lt;a href=&#34;https://atcoder.jp/contests/abc335/tasks/abc335_g&#34;&gt;G题&lt;/a&gt;，当时在赛场上大概留了一个多小时的时间，但一直都在想用&lt;a href=&#34;https://qjwh.github.io/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/BSGS%E7%AE%97%E6%B3%95%EF%BC%88%E5%88%9D%E7%89%88%EF%BC%89.md&#34;&gt;BSGS&lt;/a&gt;，但显然最后没想出来。&lt;/p&gt;
-&lt;p&gt;而这题的瓶颈就在下面问题：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;对于两个数 $a,b$，是否存在一个 $x$ 使得同余方程 $a^x \equiv b \pmod p$ 有解。&lt;/p&gt;
-&lt;p&gt;$a,b,p \leq 10^{13}$（原题数据范围）&lt;/p&gt;&lt;/blockquote&gt;
-&lt;p&gt;大家看到的第一眼显然可以用&lt;a href=&#34;https://qjwh.github.io/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/BSGS%E7%AE%97%E6%B3%95%EF%BC%88%E5%88%9D%E7%89%88%EF%BC%89.md&#34;&gt;BSGS&lt;/a&gt;求。&lt;/p&gt;
-&lt;p&gt;但这个算法是 $O(\sqrt p)$ 的（如果涉及到具体实现的话，可能还得乘个 $\log \sqrt p$，就是&lt;code&gt;set&lt;/code&gt;、&lt;code&gt;lower_bound&lt;/code&gt;查找的复杂度），比较适用于单组询问，很难推广应用。&lt;/p&gt;
-&lt;p&gt;所以还有另外一种方式，比较适用于多组询问。&lt;/p&gt;
-&lt;p&gt;是我们求出来 $a$ 和 $b$ 的阶，即 $\text{ord}_p a$ 和 $\text{ord}_p b$，看 $\text{ord}_p b$ 是否是 $\text{ord}_p a$ 的因子（$\text{ord}_p b \mid \text{ord}_p a$）即可。&lt;/p&gt;
-&lt;p&gt;这里先不证这个结论是否正确，但相信大家第一次看到“阶”的时候定然是一头雾水的，下面我就来说一下它的定义和求法。&lt;/p&gt;
-&lt;h2 id=&#34;text-stylecolorrgb0150136-定义&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 定义&lt;/h2&gt;
-&lt;h3 id=&#34;text-stylecolorrgb0150136-阶&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 阶&lt;/h3&gt;
-&lt;p&gt;阶的话，跟逆元相似，还是需要两个值，只不过这里叫做“$a$ 在模 $p$ 意义下的&lt;strong&gt;阶&lt;/strong&gt;”而已，换汤不换料。&lt;/p&gt;
-&lt;p&gt;这个表示方法就是 $\text{ord}_p a$。&lt;/p&gt;
-&lt;p&gt;它的定义是：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;给你整数 $a$、$p$。&lt;/li&gt;
-&lt;li&gt;找到最小的 $x$，使得同余方程 $a^x \equiv 1 \pmod p$ 成立。&lt;/li&gt;
-&lt;li&gt;这个 $x$，就是$a$ 在模 $p$ 意义下的阶。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;text-stylecolorrgb0150136-原根&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 原根&lt;/h3&gt;
-&lt;p&gt;但说到阶，我们定要讲一下它的孪生兄弟，原根了。&lt;/p&gt;</description>
     </item>
     <item>
       <title>决策单调性</title>
@@ -894,91 +997,6 @@ $\texttt{\color{RoyalBlue}@\color{default}#\color{default}a\color{RoyalBlue}#\co
 &lt;h3 id=&#34;text-stylecolorrgb0150136-转移&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 转移&lt;/h3&gt;
 &lt;p&gt;其实也很好想，比如用一次「向上走 $x_2$ 层」操作，那么 $d_i$ 可以转移到 $d_{(i+x_2) \bmod x_1}$，转移代价为 $x_2$，所以：&lt;/p&gt;
 &lt;p&gt;$d_{(i+x_2) \bmod x_1}=\min(d_{(i+x_2) \bmod x_1},d_i+x_2)$&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>网络流</title>
-      <link>https://qjwh.github.io/posts/oi/aln/flow/</link>
-      <pubDate>Sun, 09 Feb 2025 15:28:00 +0800</pubDate>
-      <guid>https://qjwh.github.io/posts/oi/aln/flow/</guid>
-      <description>&lt;text style=&#34;font-family:Noto Sans SC&#34;&gt;
-&lt;h2 id=&#34;text-stylecolorrgb0150136-前言&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 前言&lt;/h2&gt;
-&lt;p&gt;首先，网络流不是一个算法，而是一个整合包（玩MC玩的），说白了就是网络流是多个算法的统称：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;最大流
-&lt;ul&gt;
-&lt;li&gt;EK&lt;/li&gt;
-&lt;li&gt;Dinic&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;最小割&lt;/li&gt;
-&lt;li&gt;费用流&lt;/li&gt;
-&lt;li&gt;&amp;hellip;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;而且，有些不常用的，可能就不会提，粘个OI Wiki的链接就不详细写了。&lt;/p&gt;
-&lt;p&gt;接下来就按照这个目录挨个讲一下每个算法。&lt;/p&gt;
-&lt;h2 id=&#34;text-stylecolorrgb0150136-最大流&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 最大流&lt;/h2&gt;
-&lt;blockquote&gt;
-&lt;p&gt;如果有哪里没有说清楚，可以看&lt;a href=&#34;https://oi-wiki.org/graph/flow/max-flow/&#34;&gt;这里&lt;/a&gt;，里面还有我没有说到的最大流类型。&lt;/p&gt;&lt;/blockquote&gt;
-&lt;p&gt;看到最大流这个名字很多人都很陌生，这里就先从定义说起。&lt;/p&gt;
-&lt;h3 id=&#34;text-stylecolorrgb0150136-定义&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 定义&lt;/h3&gt;
-&lt;p&gt;还是拆词法，“网络流”就可以大致理解为“网络”上的“流”，接下来就挨个说一下这两个的定义。&lt;/p&gt;
-&lt;h4 id=&#34;text-stylecolorrgb0150136-网络&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 网络&lt;/h4&gt;
-&lt;p&gt;先说网络的定义。&lt;del&gt;（当然不是Internet）&lt;/del&gt;&lt;/p&gt;
-&lt;p&gt;我们在理解的时候可以认为是管道，但实际上它是一张特殊的&lt;strong&gt;有向&lt;/strong&gt;图。&lt;/p&gt;
-&lt;p&gt;建设管道的必然知道，管道内流过的水，准确来说是单位时间内流过的水，必然是有上限限制的，否则管道就炸了。&lt;/p&gt;
-&lt;p&gt;这里也一样，对于每条边 $x \to y$，都有一个函数 $c(x,y)$ 表示这条边的限制，又称&lt;strong&gt;容量&lt;/strong&gt;。&lt;/p&gt;
-&lt;p&gt;如果在图上没有这条边，则统一规定 $c(x,y)=0$。&lt;/p&gt;
-&lt;p&gt;最后，还是跟最短路一样，它有一个起点和一个终点，又称&lt;strong&gt;源点&lt;/strong&gt; $S$ 和&lt;strong&gt;汇点&lt;/strong&gt; $T$（$S \not= T$）。&lt;/p&gt;
-&lt;h4 id=&#34;text-stylecolorrgb0150136-流函数&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 流函数&lt;/h4&gt;
-&lt;p&gt;再说流函数。&lt;/p&gt;
-&lt;p&gt;流函数就是说，在真实操作中，一个单位时间内一条边 $x \to y$ 流过的水量 $f(x,y)$。&lt;/p&gt;
-&lt;p&gt;这里默认保证每个单位时间内都得流过这么多。&lt;/p&gt;
-&lt;p&gt;其实很好理解。&lt;/p&gt;
-&lt;h4 id=&#34;text-stylecolorrgb0150136-流函数性质&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 流函数性质&lt;/h4&gt;
-&lt;p&gt;顺便说一下流函数要满足的性质。&lt;/p&gt;
-&lt;p&gt;首先，源点可以无限输出水，汇点可以无限输入水。&lt;/p&gt;
-&lt;p&gt;接下来就是一堆性质：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;对于每个 $x,y$，显然 $f(x,y) \leq c(x,y)$（&lt;strong&gt;容量限制&lt;/strong&gt;）。&lt;/li&gt;
-&lt;li&gt;对于每个 $x,y$，$f(x,y)=-f(y,x)$（&lt;strong&gt;斜对称&lt;/strong&gt;）。&lt;/li&gt;
-&lt;li&gt;对于每个 $x$，满足不是源点也不是汇点，$\sum\limits_{u \to x} f(u,x)=\sum\limits_{x \to v} f(x,v)$（&lt;strong&gt;流量守恒&lt;/strong&gt;）。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;这里说一下最后一点性质。&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>斜率优化</title>
-      <link>https://qjwh.github.io/posts/oi/aln/slopeopm/</link>
-      <pubDate>Sun, 09 Feb 2025 15:28:00 +0800</pubDate>
-      <guid>https://qjwh.github.io/posts/oi/aln/slopeopm/</guid>
-      <description>&lt;text style=&#34;font-family:Noto Sans SC&#34;&gt;
-&lt;p&gt;&lt;del&gt;（说是斜率优化，其实和斜率几乎没有关系）&lt;/del&gt;&lt;/p&gt;
-&lt;p&gt;&lt;del&gt;（e&amp;hellip;更新后确实有关系）&lt;/del&gt;&lt;/p&gt;
-&lt;p&gt;其实斜率优化和决策二分栈（队列）很像，下面分几种类型来讲。&lt;/p&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;text-stylecolorrgb0150136-一维斜率优化&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 一维斜率优化&lt;/h2&gt;
-&lt;p&gt;针对形如 $d_i=\min\limits_{j=0}^{i-1} \big( d_j+w(j+1,i) \big)$ 的方程，而且需要满足决策单调性。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;此处重新说一下，如果我们发现一个转移点 $x$ 在 $d_i$ 的时候已经比另外一个转移点 $y$ 要更优了（$x&amp;gt;y$），那么转移点 $y$ 在后面（$d_{i+1}$ 及以后）就不可能比转移点 $x$ 要更优了，那么这个DP一定满足决策单调性，而且反过来也一样（见&amp;quot;决策单调性.md&amp;quot;）。&lt;/p&gt;
-&lt;p&gt;其实证明是否满足单调性只用看：如果一个决策点 $x$ 如果在 $d_i$ 的转移中已经比决策点 $y$ 要优了，那么 $d_{i+1}$ 中是否仍然满足这个条件。&lt;/p&gt;&lt;/blockquote&gt;
-&lt;p&gt;证明了满足决策单调性后，就可以开始斜率优化了。&lt;/p&gt;
-&lt;p&gt;我们首先要考虑推斜率式：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;其实斜率式就是把式子 $d_x+w(x+1,i)&amp;lt;d_y+w(y+1,i)$（$x&amp;gt;y$）不断移项、变化，直到式子左边只和 $x$、$y$ 有关，右边只和 $i$ 有关为止。&lt;/p&gt;
-&lt;p&gt;此时的斜率式一般左边是个分数，而且这个分数还需要把分子和分母的下标对应：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;如果斜率式最后是像这样的：&lt;/p&gt;
-&lt;p&gt;$\dfrac{d_x-d_y}{v_y-v_x}&amp;gt;-a_i$&lt;/p&gt;
-&lt;p&gt;那么就不是个合法的斜率式，需要变成：&lt;/p&gt;
-&lt;p&gt;$\dfrac{d_x-d_y}{v_x-v_y}&amp;lt;a_i$&lt;/p&gt;
-&lt;p&gt;才是合法的。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;注意，这里说的是“合法的”，而不是“正确的”，其实最上方的斜率式也可以使用，就是不能叫“斜率式”了（斜率的公式是 $\dfrac{y_2-y_1}{x_2-x_1}$）。&lt;/p&gt;&lt;/blockquote&gt;&lt;/blockquote&gt;
-&lt;p&gt;设此时的斜率式就是上面说的：&lt;/p&gt;
-&lt;p&gt;$\dfrac{d_x-d_y}{v_x-v_y}&amp;lt;a_i$&lt;/p&gt;
-&lt;p&gt;那么，我们就定义 $\text{slope}(y,x)=\dfrac{d_x-d_y}{v_x-v_y}$。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;有了上面函数，显然如果存在两个转移点 $x$ 和 $y$（$x&amp;gt;y$）在转移到 $d_i$ 的时候满足 $\text{slope}(x,y)&amp;lt;a_i$，那么就说明转移点 $x$ 比转移点 $y$ 更优，转移点 $y$ 在后面就不需要了。&lt;/p&gt;&lt;/blockquote&gt;
-&lt;p&gt;下面默认推出来的斜率式就是上式，并默认 $a$ 数组单调不降。&lt;/p&gt;</description>
     </item>
     <item>
       <title>行列式</title>

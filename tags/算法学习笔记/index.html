@@ -80,6 +80,26 @@
         font-family: 'Ubuntu';
         src: url('/UbuntuB.ttf');
     }
+    @font-face { 
+        font-family: 'Cascadia Code';
+        src: url('/Cascadia_Code.ttf');
+    }
+    @font-face { 
+        font-family: 'HarmonyOS Sans SC';
+        src: url('/HarmonyOS_Sans_SC.ttf');
+    }
+    @font-face { 
+        font-family: 'JetBrains Mono';
+        src: url('/JetBrains_Mono.ttf');
+    }
+    @font-face { 
+        font-family: 'Lato';
+        src: url('/Lato.ttf');
+    }
+    @font-face { 
+        font-family: 'Noto Sans SC';
+        src: url('/Noto_Sans_SC.ttf');
+    }
     body {
         
         font-family: 'Ubuntu';
@@ -167,6 +187,163 @@
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">卷积
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>未完工，敬请期待。
+</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-06-01 00:00:00 +0800 CST'>2025/06/01 00:00:00</span></footer>
+  <a class="entry-link" aria-label="post link to 卷积" href="https://qjwh.github.io/posts/oi/aln/fftntt/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">网络流
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>前言 首先，网络流不是一个算法，而是一个整合包（玩MC玩的），说白了就是网络流是多个算法的统称：
+最大流 EK Dinic 最小割 费用流 … 而且，有些不常用的，可能就不会提，粘个OI Wiki的链接就不详细写了。
+接下来就按照这个目录挨个讲一下每个算法。
+最大流 如果有哪里没有说清楚，可以看这里，里面还有我没有说到的最大流类型。
+看到最大流这个名字很多人都很陌生，这里就先从定义说起。
+定义 还是拆词法，“网络流”就可以大致理解为“网络”上的“流”，接下来就挨个说一下这两个的定义。
+网络 先说网络的定义。（当然不是Internet）
+我们在理解的时候可以认为是管道，但实际上它是一张特殊的有向图。
+建设管道的必然知道，管道内流过的水，准确来说是单位时间内流过的水，必然是有上限限制的，否则管道就炸了。
+这里也一样，对于每条边 $x \to y$，都有一个函数 $c(x,y)$ 表示这条边的限制，又称容量。
+如果在图上没有这条边，则统一规定 $c(x,y)=0$。
+最后，还是跟最短路一样，它有一个起点和一个终点，又称源点 $S$ 和汇点 $T$（$S \not= T$）。
+流函数 再说流函数。
+流函数就是说，在真实操作中，一个单位时间内一条边 $x \to y$ 流过的水量 $f(x,y)$。
+这里默认保证每个单位时间内都得流过这么多。
+其实很好理解。
+流函数性质 顺便说一下流函数要满足的性质。
+首先，源点可以无限输出水，汇点可以无限输入水。
+接下来就是一堆性质：
+对于每个 $x,y$，显然 $f(x,y) \leq c(x,y)$（容量限制）。 对于每个 $x,y$，$f(x,y)=-f(y,x)$（斜对称）。 对于每个 $x$，满足不是源点也不是汇点，$\sum\limits_{u \to x} f(u,x)=\sum\limits_{x \to v} f(x,v)$（流量守恒）。 这里说一下最后一点性质。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-05-30 20:56:39 +0800 CST'>2025/05/30 20:56:39</span></footer>
+  <a class="entry-link" aria-label="post link to 网络流" href="https://qjwh.github.io/posts/oi/aln/flow/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">BSGS算法
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>basic
+BSGS算法英文名叫“baby-step giant-step”，又称“大步小步算法”。
+这个算法听名字似乎是个随机化算法，但实际上是数论算法。
+具体地，这个算法解决的是 $a^x \equiv b \pmod{p}$ 的解，其中 $a$、$b$、$p$ 是已知的（$0 \leq a,b&lt;p$，保证 $\gcd(a,p)=1$），$x$ 是要求的。
+这个算法甚至可以求出所有的 $x$，但为了好讲，我们先考虑如何求出是否有解，以下代码中YES就代表确定有解了。
+force algorithm
+首先，有一个暴力算法：
+rep(x, 0, INF) if(ksm(a, x, p) == b) YES 但这个算法是 $O(\infty)$ 的，我们考虑优化。
+optimization algorithm 1
+我们考虑 $x$ 的上界，根据欧拉定理，$a^{\varphi(p)} \equiv 1 \pmod{p}$，我们就可以确定，$x$ 的上界就是 $\varphi(p)$（准确来说减 $1$ 也彳亍），因为如果 $x&gt;\varphi(p)$，那么 $a^x$ 就等于 $a^{x-\varphi(p)}$，也就成为了一个循环，所以上界就是 $\varphi(p)$。
+由于 $\varphi(p)&lt;p$，所以可以把 $p$ 当做是质数，$x$ 的上界也就是 $p-1$ 了。
+所以：
+rep(x, 0, p - 1) if(ksm(a, x, p) == b) YES optimization algorithm 2 (BSGS)
+但这个算法还是可能会TLE，我们继续考虑优化
+我们定义 $q=\left\lceil \sqrt{p} \right\rceil$，那么我们其实就可以把 $x$ 表示为 $q$ 进制下的两位数，具体地，我们把 $x$ 表示为了 $Aq&#43;B$（$0 \leq A,B&lt;q$），然后上述公式就可以化成 $a^{Aq&#43;B} \equiv b \pmod{p}$，即 $a^{Aq} \times a^B \equiv b \pmod{p}$。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-04-21 22:58:14 +0800 CST'>2025/04/21 22:58:14</span></footer>
+  <a class="entry-link" aria-label="post link to BSGS算法" href="https://qjwh.github.io/posts/oi/aln/bsgs/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">阶和原根
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>按照正常的思路我们都直接讲算法，但这会先讲一道题，然后再讲它的定义和求法。
+参考：
+ABC335G题解 阶和原根 背景 是一场ABC335里的G题，当时在赛场上大概留了一个多小时的时间，但一直都在想用BSGS，但显然最后没想出来。
+而这题的瓶颈就在下面问题：
+对于两个数 $a,b$，是否存在一个 $x$ 使得同余方程 $a^x \equiv b \pmod p$ 有解。
+$a,b,p \leq 10^{13}$（原题数据范围）
+大家看到的第一眼显然可以用BSGS求。
+但这个算法是 $O(\sqrt p)$ 的（如果涉及到具体实现的话，可能还得乘个 $\log \sqrt p$，就是set、lower_bound查找的复杂度），比较适用于单组询问，很难推广应用。
+所以还有另外一种方式，比较适用于多组询问。
+是我们求出来 $a$ 和 $b$ 的阶，即 $\text{ord}_p a$ 和 $\text{ord}_p b$，看 $\text{ord}_p b$ 是否是 $\text{ord}_p a$ 的因子（$\text{ord}_p b \mid \text{ord}_p a$）即可。
+这里先不证这个结论是否正确，但相信大家第一次看到“阶”的时候定然是一头雾水的，下面我就来说一下它的定义和求法。
+定义 阶 阶的话，跟逆元相似，还是需要两个值，只不过这里叫做“$a$ 在模 $p$ 意义下的阶”而已，换汤不换料。
+这个表示方法就是 $\text{ord}_p a$。
+它的定义是：
+给你整数 $a$、$p$。 找到最小的 $x$，使得同余方程 $a^x \equiv 1 \pmod p$ 成立。 这个 $x$，就是 $a$ 在模 $p$ 意义下的阶。 原根 但说到阶，我们定要讲一下它的孪生兄弟，原根了。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-04-21 22:44:20 +0800 CST'>2025/04/21 22:44:20</span></footer>
+  <a class="entry-link" aria-label="post link to 阶和原根" href="https://qjwh.github.io/posts/oi/aln/orderandpr/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Lucas定理
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>（以下全部假设 $C_n^m$ 中的 $n$ 和 $m$ 都很大，最大能达到 $10^{18}$）
+Lucas定理 Lucas定理往往用于求组合数的结果且模数较小的题目。
+其实定理很简单，也很好记，$\Large C_n^m=C_{\lfloor \frac{n}{p} \rfloor}^{\lfloor \frac{m}{p} \rfloor} \times \color{orange} C_{n \bmod p}^{m \bmod p}$，在 $p$ 为质数的条件成立。
+上面之所以强调模数较小，是因为我们需要通过预处理阶乘的方式去求橙色项的值。
+代码实现很简单，此处略。
+但有个注意点，在我的代码模板里，由于求facny数组是递推求出的，而不是每个分别去用getny求出的，所以调用init函数时，传参应该是MOD-1而不是MOD。
+exLucas定理 （前方高能）
+这个定理还是解决求 $C_n^m \bmod p$ 的值的问题，$p$ 仍然很小，但不保证是质数。
+根据M2579的做法，我们可以考虑对 $p$ 做一个唯一分解，分解成 ${p_1}^{a_1} \times {p_2}^{a_2} \times {p_3}^{a_3} \times \dots \times {p_k}^{a_k}$。
+然后，分别求出 $C_n^m \bmod {p_1}^{a_1}$ 的值、$C_n^m \bmod {p_2}^{a_2}$ 的值、$C_n^m \bmod {p_3}^{a_3}$ 的值、…、$C_n^m \bmod {p_k}^{a_k}$ 的值，然后就可以用CRT求出 $C_n^m \bmod p$ 的值了。
+在M2579内，$p$ 唯一分解后，每个 $a_i$ 都等于 $1$，所以直接用Lucas定理就可以求，但在一般的题目中，指数不一定都等于 $1$，所以才要用到exLucas定理。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-04-21 21:17:58 +0800 CST'>2025/04/21 21:17:58</span></footer>
+  <a class="entry-link" aria-label="post link to Lucas定理" href="https://qjwh.github.io/posts/oi/aln/lucas/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">斜率优化
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>参考资料：
+Boyacoding OI Wiki 以下学习笔记为25.3.27重制版。
+引入 我们先以一道题P3195 玩具装箱为例。
+大概说一下题意：
+我们要把一个长度为 $n$ 的数组 $a$ 分成若干段。
+设一段为 $a_{l..r}$，那么其“长度”为 $r-l&#43;\sum\limits_{i=l}^r a_i$，下面简称为 $len$。
+那么这一段的“代价”为 $(len-L)^2$，$L$ 是题目中给的定值。
+最后的总代价为每一段的代价的和，问最小的总代价。
+暴力DP 根据题目我们能很容易设计出一个一维DP，$d_i$ 表示 $a_{1..i}$ 的划分方案最小代价，且最后一段结束位置为 $i$。
+那么 $d_i=\min{d_j&#43;w(j&#43;1,i)}$，其中 $w(l,r)$ 为 $[l,r]$ 的代价。
+转化 设 $s$ 为 $a$ 数组的前缀和，同时下面统一省略掉 $\min$，因为关于求最小值最大值只在最后一步出现。
+展开之后也就是：
+$$d_i=d_j&#43;(i-j-1&#43;s_i-s_j-L)^2$$
+把括号内的东西改成只和 $i$、$j$ 相关的两部分，也就是：
+$$d_i=d_j&#43;((i&#43;s_i)-(j&#43;1&#43;s_j&#43;L))^2$$
+那么我们可以设前半部分为 $a_i$，后半部分为 $b_j$，也就是：
+$$d_i=d_j&#43;(a_i-b_j)^2$$
+展开：
+$$d_i=d_j&#43;a_i^2&#43;b_j^2-2a_ib_j$$
+逼近斜率优化 接下来关键的一步来了，我们考虑把上述式子移个项：
+$$d_j&#43;b_j^2=2a_ib_j&#43;d_i-a_i^2$$
+显然上面这个式子的先后顺序是我故意排的，那么我们一眼丁真一下，设：
+$y_j=d_j&#43;b_j^2$ $x_j=b_j$ $k_i=2a_i$ $b_i=d_i-a_i^2$ 那么上式可以变成：
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-03-27 23:42:58 +0800 CST'>2025/03/27 23:42:58</span></footer>
+  <a class="entry-link" aria-label="post link to 斜率优化" href="https://qjwh.github.io/posts/oi/aln/slopeopm/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">莫队算法
     </h2>
   </header>
@@ -225,33 +402,6 @@ $1$ 号点代表第一对夫妻是A男参与宴会，$2$ 号点代表A女参与�
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">BSGS算法
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>basic
-BSGS算法英文名叫“baby-step giant-step”，又称“大步小步算法”。
-这个算法听名字似乎是个随机化算法，但实际上是数论算法。
-具体地，这个算法解决的是 $a^x \equiv b \pmod{p}$ 的解，其中 $a$、$b$、$p$ 是已知的（$0 \leq a,b&lt;p$，保证 $\gcd(a,p)=1$），$x$ 是要求的。
-这个算法甚至可以求出所有的 $x$，但为了好讲，我们先考虑如何求出是否有解，以下代码中YES就代表确定有解了。
-force algorithm
-首先，有一个暴力算法：
-rep(x, 0, INF) if(ksm(a, x, p) == b) YES 但这个算法是 $O(\infty)$ 的，我们考虑优化。
-optimization algorithm 1
-我们考虑 $x$ 的上界，根据欧拉定理，$a^{\varphi(p)} \equiv 1 \pmod{p}$，我们就可以确定，$x$ 的上界就是 $\varphi(p)$（准确来说减 $1$ 也彳亍），因为如果 $x&gt;\varphi(p)$，那么 $a^x$ 就等于 $a^{x-\varphi(p)}$，也就成为了一个循环，所以上界就是 $\varphi(p)$。
-由于 $\varphi(p)&lt;p$，所以可以把 $p$ 当做是质数，$x$ 的上界也就是 $p-1$ 了。
-所以：
-rep(x, 0, p - 1) if(ksm(a, x, p) == b) YES optimization algorithm 2 (BSGS)
-但这个算法还是可能会TLE，我们继续考虑优化
-我们定义 $q=\left\lceil \sqrt{p} \right\rceil$，那么我们其实就可以把 $x$ 表示为 $q$ 进制下的两位数，具体地，我们把 $x$ 表示为了 $Aq&#43;B$（$0 \leq A,B&lt;q$），然后上述公式就可以化成 $a^{Aq&#43;B} \equiv b \pmod{p}$，即 $a^{Aq} \times a^B \equiv b \pmod{p}$。
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
-  <a class="entry-link" aria-label="post link to BSGS算法" href="https://qjwh.github.io/posts/oi/aln/bsgs/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
     <h2 class="entry-hint-parent">CDQ分治
     </h2>
   </header>
@@ -303,129 +453,6 @@ rep(x, 0, p - 1) if(ksm(a, x, p) == b) YES optimization algorithm 2 (BSGS)
   </div>
   <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
   <a class="entry-link" aria-label="post link to Kruskal重构树" href="https://qjwh.github.io/posts/oi/aln/kruskalcgs/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Lucas定理
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>（以下全部假设 $C_n^m$ 中的 $n$ 和 $m$ 都很大，最大能达到 $10^{18}$）
-Lucas定理 Lucas定理往往用于求组合数的结果且模数较小的题目。
-其实定理很简单，也很好记，$\Large C_n^m=C_{\lfloor \frac{n}{p} \rfloor}^{\lfloor \frac{m}{p} \rfloor} \times \color{orange} C_{n \bmod p}^{m \bmod p}$，在 $p$ 为质数的条件成立。
-上面之所以强调模数较小，是因为我们需要通过预处理阶乘的方式去求橙色项的值。
-代码实现很简单，此处略。
-但有个注意点，在我的代码模板里，由于求facny数组是递推求出的，而不是每个分别去用getny求出的，所以调用init函数时，传参应该是MOD-1而不是MOD。
-exLucas定理 （前方高能）
-这个定理还是解决求 $C_n^m \bmod p$ 的值的问题，$p$ 仍然很小，但不保证是质数。
-根据M2579的做法，我们可以考虑对 $p$ 做一个唯一分解，分解成 ${p_1}^{a_1} \times {p_2}^{a_2} \times {p_3}^{a_3} \times \dots \times {p_k}^{a_k}$。
-然后，分别求出 $C_n^m \bmod {p_1}^{a_1}$ 的值、$C_n^m \bmod {p_2}^{a_2}$ 的值、$C_n^m \bmod {p_3}^{a_3}$ 的值、…、$C_n^m \bmod {p_k}^{a_k}$ 的值，然后就可以用CRT求出 $C_n^m \bmod p$ 的值了。
-在M2579内，$p$ 唯一分解后，每个 $a_i$ 都等于 $1$，所以直接用Lucas定理就可以求，但在一般的题目中，指数不一定都等于 $1$，所以才要用到exLucas定理。
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
-  <a class="entry-link" aria-label="post link to Lucas定理" href="https://qjwh.github.io/posts/oi/aln/lucas/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">nth_element（未完工）
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p></p>
-  </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
-  <a class="entry-link" aria-label="post link to nth_element（未完工）" href="https://qjwh.github.io/posts/oi/aln/nthelement/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">wqs二分
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>感谢这篇文章的作者。
-wqs二分一般解决这类问题：
-有 $n$ 个物品，你要选出恰好 $m$ 个（下称“选择物品个数限制”），可能有限制（下称“其他限制”），你要最大/小化某个权值。
-但除此之外，还有一些限制：
-如果我们设 $g_i$ 为选出恰好 $i$ 个时的最大/小权值，那么 $g$ 函数就应该是上凸（求最大权值）/下凹（求最小权值）的，即斜率单调递减（上凸）/递增（下凹）。 一般来说，如果没有任何限制（包括选择物品个数限制和其他限制），那么答案是很好求的。 一般来说，如果没有其他限制，那么选择物品数量越多，最小权值就越大/小。 以下是P5633的题解，顺带着讲了wqs二分的原理和应用。
-在原题中，我们可以以标号为 $s$ 点在最小生成树上的出度为横坐标，以这个出度对应的答案为纵坐标，画出图像：（网上粘的图，只画了部分横坐标的情况）
-显然D和E点就是最小值点。
-接下来就是wqs二分的重点了
-wqs二分也是二分，那它二分什么值呢，它二分的是斜率 $mid$。
-具体而言，一个斜率就对应若干条平行的边，而总有一条边是完全切这个凸包的，如 $mid=-1$ 的时候，上图中被且的那个点就刚好是C点：
-如果我们设题目要求 $s$ 的度数要恰好为 $6$，那么 $mid=-1$ 的时候被切的那个点C的纵坐标就是答案了。
-但此时我们就有两个问题了：
-如何求出被切的那个点的下标？ 就算求出了下标，那这个点的纵坐标又如何计算？ 接下来我们来解决这两个问题。
-首先，这个切线肯定是所有经过某个点且斜率等于 $mid$ 的直线中截距最小的点：
-具体地，根据切线的性质，在上述例子中，经过C点的斜率等于 $mid$ 的直线（即切线），与经过D点的斜率等于 $mid$ 的直线、经过E点的斜率等于 $mid$ 的直线相比，切线的截距肯定最小，后两者的截距肯定更大。
-其次，显然，经过点 $(x,y)$ 且斜率等于 $k$ 的直线（肯定唯一），其截距一定等于 $y-kx$（$y=kx&#43;b$，$b=y-kx$）。
-而在二分的calc函数（此处不是check函数了，calc函数的返回值、返回值含义以及应用见下）中，我们已经知道了上述公式中的 $k$ 了（$k=mid$），所以我们只要让 $y-kx$ 最小、斜率为 $k$ 且经过了某个图上的点即可。
-考虑到上述公式中的 $x$ 未知，所以我们可以干脆把所有 $s$ 的出边的边权都减 $mid$。（关于是加、减还是都彳亍的问题存疑）
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
-  <a class="entry-link" aria-label="post link to wqs二分" href="https://qjwh.github.io/posts/oi/aln/wqs/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">博弈论三种扩展题型
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>下面是三道与博弈论相关的题目及其做法。
-题目1：皮肤病 题面 （改编自《不可思议事件簿 第5册 魔法学院》，由艾教提供变体）
-（原题名称：加试难题）
-在一个学校内，共有 $100$ 个人，每个人都养了一只狗。
-但由于某些原因，校长确定了这 $100$ 条狗内，必然存在至少一条狗有皮肤病。
-现在那些学生要确定一下哪些狗有皮肤病。
-他们准备这样确定：
-每天上午的时候，所有人看一下除了自己的狗之外的所有狗。 如果确认自己的狗病了，就在晚上敲一下宠物房内的钟。 现在已知：
-无论谁，看那只狗，都能立刻确认它是否有皮肤病。 假设皮肤病不会对狗的寿命造成影响，即所有的狗都不会死亡。 皮肤病不能传染，并且忽略“人患病”造成的影响。 所有人都绝顶聪明（废话 并且：
-第 $1$ 天晚上，没有钟声响起。 第 $2$ 天晚上，没有钟声响起。 第 $3$ 天晚上，没有钟声响起。 … 直到第 $10$ 天晚上，终于有钟声响起了。 请问：
-那天晚上，共有多少人共同敲响了钟？ 在第 $10$ 天后，除了那些敲钟的人养的狗，是否会存在其他病了的狗？ 答案 $10$ 个人 不会 题解 我们考虑一下，如果说第 $1$ 天晚上有人敲钟，那么代表啥。
-我们从人的角度考虑，如果说一个人发现其他狗都是好狗（指没有皮肤病的狗），那么必然自己的狗有皮肤病 （除了自己的，还有谁的？难不成是他自己？）。
-这种情况下，他便会去敲钟。
-但第 $1$ 天晚上没有钟声，所以每个人都观察到了至少 $1$ 个病狗，也就是说至少有 $2$ 个病狗。
-随后第 $2$ 天，如果说一个人观察到其他的狗内，只有 $1$ 个病狗，那么显然自己的狗也得有皮肤病。
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
-  <a class="entry-link" aria-label="post link to 博弈论三种扩展题型" href="https://qjwh.github.io/posts/oi/aln/games/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">点分治
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>点分治和树剖有一个相同点，就是算法都是从暴力经过一小步优化而来，但就是这一小步，让算法复杂度有了质的飞跃。
-下面来讲一下这个算法的原理。
-概览 其实“点分治”也是一个名不副实的算法，看完下面的讲述你就会发现这个算法根“分治”几乎无关。
-点分治是专门解决树上路径统计的一种算法（树剖则是解决对树上路径的判断的算法）。
-点分治的思想很朴素，就是DFS一下 $\text{lca}$ 的节点编号 $x$，然后统计 $\text{lca}$ 值刚好为 $x$ 的、满足题目条件的路径的数量，并累加到答案。
-但直接进行统计还是炸裂的，点分治则是对这种统计方式做了一步优化
-解决题型 上面说了，「点分治是专门解决树上路径统计的一种算法」，但并不是所有的树上路径统计都可以用点分治解决。
-其实看完下面的实现，你就能知道它解决什么类问题，不过这里还是说一下。
-就是首先，这个条件是形如“总和比某个值低”、“总和是某个值的倍数”等“可累加”的条件。
-其中“可累加”指的是，如果知道了 $A$ 部分的某个值，和 $B$ 部分的某个值，那么 $A$ 和 $B$ 部分合并后的部分是否合法也一定知道。
-但其他的条件目前还没有太明确，得自己去总结。
-算法实现 下面说一下点分治的实现。
-大体思路 我们拿“路径长度（路径上的边的边权之和）刚好为 $k$”问题举例。
-注：原题链接P3806
-就是我们考虑，当DFS到某个点 $x$ 的时候，就如上所说，设 $x$ 为 $\text{lca}$ 值。
-然后，我们按顺序遍历所有子节点 $to$。
-由于只要两个点 $y$、$z$ 满足 $y$ 和 $z$ 分别在 $x$ 的两个不同儿子及其子树内，那么 $\text{lca}(y,z)=x$。
-并且所有满足条件 $\text{lca}(y,z)=x$ 的对 $(y,z)$ 只有满足上述条件的对。
-所以，我们可以通过（另一种）DFS（方式）求出 $to$ 到 ( 所有 $to$ 及其子树内的点 ) 之间的距离（加上 $x \to to$ 的边权）的集合 $T$。
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
-  <a class="entry-link" aria-label="post link to 点分治" href="https://qjwh.github.io/posts/oi/aln/dfz/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

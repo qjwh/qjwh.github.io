@@ -80,6 +80,26 @@
         font-family: 'Ubuntu';
         src: url('/UbuntuB.ttf');
     }
+    @font-face { 
+        font-family: 'Cascadia Code';
+        src: url('/Cascadia_Code.ttf');
+    }
+    @font-face { 
+        font-family: 'HarmonyOS Sans SC';
+        src: url('/HarmonyOS_Sans_SC.ttf');
+    }
+    @font-face { 
+        font-family: 'JetBrains Mono';
+        src: url('/JetBrains_Mono.ttf');
+    }
+    @font-face { 
+        font-family: 'Lato';
+        src: url('/Lato.ttf');
+    }
+    @font-face { 
+        font-family: 'Noto Sans SC';
+        src: url('/Noto_Sans_SC.ttf');
+    }
     body {
         
         font-family: 'Ubuntu';
@@ -164,6 +184,30 @@
     信息学竞赛
   </h1>
 </header>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">整除分块
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>感谢这篇文章的作者
+整除分块主要解决求解 $\sum\limits_{i=1}^n \lfloor \frac{n}{i} \rfloor$ 的值。
+一看这个公式，可能毫无头绪，但画张图你就有点思路了：（$n=11$）
+（灰色线：$y=\frac{11}{x}$，绿色点：$y=\lfloor \frac{11}{x} \rfloor$，橙色线：仅为辅助）
+这张图其实就是在提示我们：
+$\lfloor \frac{n}{i} \rfloor$ 的值随着 $i$ 的增长而非单调递减 $\lfloor \frac{n}{i} \rfloor$ 的值往往会在一段区间内相等 所以，我们就有一个思路了，就是求出所有值（下面的“值”都代指的是 $\lfloor \frac{n}{i} \rfloor$）相等的极大区间集，然后就可以快速统计了。
+有人问，这不就是个常数级别的优化吗，怎么能叫“快速”呢？其实区间个数总是 $O(\sqrt{n})$ 级别，最多约 $2 \times \sqrt{n}$。
+证明：
+我们把 $i$ 分成两部分去考虑，一部分是 $i \leq \sqrt{n}$，另一部分是 $i&gt;\sqrt{n}$。
+在第一部分内，$i$ 也就只有 $\sqrt{n}$ 种取值，$\lfloor \frac{n}{i} \rfloor$ 最多只有约 $\sqrt{n}$ 种取值。
+在第二部分内，$\lfloor \frac{n}{i} \rfloor$ 在 $i$ 最小时（$i=\sqrt{n}&#43;1$）会达到最大值，约 $\sqrt{n}$；而上面说“$\lfloor \frac{n}{i} \rfloor$ 的值随着 $i$ 的增长而非单调递减”，所以易得 $\lfloor \frac{n}{i} \rfloor$ 最多也只有约 $\sqrt{n}$ 种取值。
+$\lfloor \frac{n}{i} \rfloor$ 的总取值种数最多只有第一、二部分的取值个数和，即 $2 \times \sqrt{n}$，证毕。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
+  <a class="entry-link" aria-label="post link to 整除分块" href="https://qjwh.github.io/posts/oi/aln/divisionblock/"></a>
+</article>
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">

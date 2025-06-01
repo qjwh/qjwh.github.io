@@ -80,6 +80,26 @@
         font-family: 'Ubuntu';
         src: url('/UbuntuB.ttf');
     }
+    @font-face { 
+        font-family: 'Cascadia Code';
+        src: url('/Cascadia_Code.ttf');
+    }
+    @font-face { 
+        font-family: 'HarmonyOS Sans SC';
+        src: url('/HarmonyOS_Sans_SC.ttf');
+    }
+    @font-face { 
+        font-family: 'JetBrains Mono';
+        src: url('/JetBrains_Mono.ttf');
+    }
+    @font-face { 
+        font-family: 'Lato';
+        src: url('/Lato.ttf');
+    }
+    @font-face { 
+        font-family: 'Noto Sans SC';
+        src: url('/Noto_Sans_SC.ttf');
+    }
     body {
         
         font-family: 'Ubuntu';
@@ -167,6 +187,99 @@
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">平衡树
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>说到平衡树，很多人的第一印象就是：
+难学（知识点真多） 难懂（特别是“旋转”和证明） 难调（我的某个教练刚学平衡树的时候调了七个小时） 下面我们就来从0开始讲平衡树。
+（注：网上大多数人说到“平衡树”默认指的是“Splay”而不是其他算法）
+定义 其实平衡树（Balance Tree，简称BT）不算一种算法，而是一种统称。
+平衡树顾名思义就是非常平衡的树。
+比如说这棵树就非常不平衡：
+而这棵树就比较平衡：
+如果说的更形式化，平衡就意味着，对于每个点，其所有子树的大小差都不超过 $1$。
+具体而言，对于每个点 $x$，如果我们把其所有儿子 $to$ 的子树大小都列出来，那么这个数组内最大值和最小值差不超过 $1$。
+而且，大多数平衡树都是二叉树，这一点是为了方便操作和设计算法。
+种类 听完上面的定义，你就知道了，平衡树就是一类树状数据结构的统称。
+下面就来列举一下这类数据结构都有哪些，以及这些数据结构的简介。
+二叉搜索树（Binary Search Tree，简称BST） 大多数平衡树的前置算法，这也就意味着，大多数的平衡树都是基于BST并进行优化、扩展后得到的算法。
+而BST也是线段树（Segment Tree，部分情况下会简称为ST）进行扩展后的算法。
+具体而言，权值线段树和BST都可以维护有序集合，但有时候只能用BST解决。
+BST其实就是把权值“当做”节点编号（讲的时候一般就这么讲，但写的时候不能这么写，是把权值存入该节点的结构体内）。
+然后对于每个点，它都有最多 $2$ 个儿子，左儿子权值 $&lt;$ 当前点权值 $&lt;$ 右儿子权值。
+这样就可以方便查找。
+优点：代码好写，容易讲明白
+缺点：解决题型少，需要写定期重构（又被称作“替罪羊树思想”），复杂度高
+Treap（名字不是一个单词，而是两个单词Tree和Heap的结合） 这个算法给每个节点都添加了一个“优先级”，并让“优先级”满足小/大根堆的性质。
+并且，这里还通过“旋转”操作（最头疼的地方来了）让树尽量平衡，这样会让树高稳定在 $O(\log n)$ 级别。
+（不过注意，在最坏情况下，复杂度会达到 $O(n)$，所以 $O(\log n)$ 只是期望）
+这样，复杂度就降下来了。
+优点：复杂度低，比较容易理解，解决题型多，且容易被识别出
+缺点：比较难写，细节较多，复杂度难证明
+Splay（本意为“张开”但这里不是这个意思） 这个算法对上面的“旋转”操作又做了一遍扩展，让其能够解决子串翻转问题。
+而且，由于它也会让整棵树尽量平衡，所以树高还是会稳定在 $O(\log n)$ 级别。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
+  <a class="entry-link" aria-label="post link to 平衡树" href="https://qjwh.github.io/posts/oi/aln/balancedtree/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">生成随机数（未完工）
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>参考
+引用头文件（常用） #include &lt;stdlib.h&gt; //生成随机数、设定随机数种子 #include &lt;ctime&gt; //生成随机数种子（1） #include &lt;time.h&gt; //生成随机数种子（2） #include &lt;unistd.h&gt; //等待（sleep(...)或usleep(...)），该头文件现在不常用 随机种子 srand(time(0) ^ clock()); 注：随机种子为time(0) ^ clock()，这个随机种子可以再毫秒级别内生成（大概率）不同的随机种子。
+取 $[l,r]$ 内的随机数 #define random(l, r) (rand() % ((LL)(r) - (LL)(l) &#43; 1) &#43; (LL)(l)) 注：rand函数只能生成 $[1,32767]$ 内的随机数（见宏RAND_MAX），大概只能生成位数 $\leq 5$ 的随机数；测试程序：
+LL ma = 0; for(LL i = 1;i &lt;= 200;i&#43;&#43;){ srand(time(0) ^ clock()); LL t = rand(); cout &lt;&lt; t &lt;&lt;endl; ma = max(ma, t); usleep(10000); } cout &lt;&lt; ma &lt;&lt;endl; 所以此处引用一个新方法：mt19937（2022/12/24：现在开始使用mt19937_64了，它可以生成 $[1,2^{64})$ 内的随机数，大一倍）。
+其实它的语法和rand的语法差不多 （才怪），是这样的：
+引用头文件（常用） #include &lt;random&gt; //生成随机数、设定随机数种子 #include &lt;ctime&gt; //生成随机数种子（1） #include &lt;time.h&gt; //生成随机数种子（2） #include &lt;unistd.h&gt; //等待（sleep(...)或usleep(...)），该头文件现在不常用 随机种子 mt19937 _rand(time(0) ^ clock()); 注：这个随机种子也可以再毫秒级别内生成（大概率）不同的随机种子
+取 $[l,r]$ 内的随机数 （就差一个字符_而已） #define random(l, r) (_rand() % ((LL)(r) - (LL)(l) &#43; 1) &#43; (LL)(l)) 据测试，这个函数可以生成在unsigned int范围内的随机数（即可以生成 $[1,2^{32})$ 内的随机数），测试程序：
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
+  <a class="entry-link" aria-label="post link to 生成随机数（未完工）" href="https://qjwh.github.io/posts/oi/aln/genrandomnumber/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">树链剖分
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>第一次看到树链剖分（简称树剖）可能觉得它非常的深奥，但其实树剖的原理非常简单，下面先说树剖大概的实现思路和解决题型。
+概览 其实树剖就是把一棵树分成若干条链，使得每个点都出现在了刚好一条链上。
+并且，我们称在某条链上的边为“重（zhòng）边”，不在任何一条链上的边为“轻边”。
+然后，我们按某种规则去DFS，求出新的DFS序，然后解决对树上路径询问的问题。
+而且，通过合理的设计每条边的轻重，可以把复杂度控制在 $O(\log n)$ 级别。
+解决题型 上面也提到了，树剖就是用来解决对树上路径进行询问的问题的算法，当然也可以解决对子树询问的问题，不过属于大材小用了。
+此外，树剖属于工具类算法，所以往往会配合树状数组、线段树、分块等算法出现。
+我把算法分为了两类，“材料类算法”和“工具类算法”，其中：
+材料类算法可以单独考，比如： 数论 推公式 DP 树状数组 线段树 … 工具类算法里面必须要套材料类算法才能考出来，比如： 二分 01分数规划（二分的一个分支） CDQ分治（需要配合树状数组） 整体二分（需要配合树状数组） 树剖（这里讲的） … 往往一些较难的题目，都是要用较难的材料类算法（比如DP），或者工具类算法配合材料类算法才能解决的题目。
+而对于后者，难度会更大一些，因为后者的关键在于转化后使用工具类算法解决。
+算法实现 下面说一下树剖的实现。
+两遍DFS 我们考虑DFS，当递归到点 $x$ 的时候，找到 $x$ 的儿子中，子树大小最大的那个儿子 $to$。
+然后，我们把 $x \to to$ 这条边设为重边，其他边设为轻边。
+得到每条边的轻重后，我们再做一遍DFS。
+而这一遍DFS是为了找到DFS序。
+而且，DFS序有一个要求，我们要先遍历有重边连接的儿子。
+这样的话，对于任意一条树上的链，链上所有点的DFS序连续，而且是由深度从浅到深依次递增。
+同时，我们还要求出，从一个点开始，不经过任何轻边，最多到哪个点。
+解决询问 而对于一次路径上某值的询问，我们可以把这个路径拆成若干条链。
+可以证明链数不超过 $O(\log n)$，这一点会在下面“复杂度证明”中证明。
+而这些拆出的链，都是原树中的链的“子集”（一条链 $L_1$ 是另外一条链 $L_2$ 的子集，有且仅当 $L_1$ 中的点，$L_2$ 中也有，边同理）。
+所以，可以把一条路径，拆成最多 $O(\log n)$ 个DFS序区间。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
+  <a class="entry-link" aria-label="post link to 树链剖分" href="https://qjwh.github.io/posts/oi/aln/treechaindivision/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">四边形不等式
     </h2>
   </header>
@@ -218,71 +331,6 @@ $d_{(i&#43;x_2) \bmod x_1}=\min(d_{(i&#43;x_2) \bmod x_1},d_i&#43;x_2)$
   </div>
   <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
   <a class="entry-link" aria-label="post link to 同余最短路" href="https://qjwh.github.io/posts/oi/aln/modsp/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">网络流
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>前言 首先，网络流不是一个算法，而是一个整合包（玩MC玩的），说白了就是网络流是多个算法的统称：
-最大流 EK Dinic 最小割 费用流 … 而且，有些不常用的，可能就不会提，粘个OI Wiki的链接就不详细写了。
-接下来就按照这个目录挨个讲一下每个算法。
-最大流 如果有哪里没有说清楚，可以看这里，里面还有我没有说到的最大流类型。
-看到最大流这个名字很多人都很陌生，这里就先从定义说起。
-定义 还是拆词法，“网络流”就可以大致理解为“网络”上的“流”，接下来就挨个说一下这两个的定义。
-网络 先说网络的定义。（当然不是Internet）
-我们在理解的时候可以认为是管道，但实际上它是一张特殊的有向图。
-建设管道的必然知道，管道内流过的水，准确来说是单位时间内流过的水，必然是有上限限制的，否则管道就炸了。
-这里也一样，对于每条边 $x \to y$，都有一个函数 $c(x,y)$ 表示这条边的限制，又称容量。
-如果在图上没有这条边，则统一规定 $c(x,y)=0$。
-最后，还是跟最短路一样，它有一个起点和一个终点，又称源点 $S$ 和汇点 $T$（$S \not= T$）。
-流函数 再说流函数。
-流函数就是说，在真实操作中，一个单位时间内一条边 $x \to y$ 流过的水量 $f(x,y)$。
-这里默认保证每个单位时间内都得流过这么多。
-其实很好理解。
-流函数性质 顺便说一下流函数要满足的性质。
-首先，源点可以无限输出水，汇点可以无限输入水。
-接下来就是一堆性质：
-对于每个 $x,y$，显然 $f(x,y) \leq c(x,y)$（容量限制）。 对于每个 $x,y$，$f(x,y)=-f(y,x)$（斜对称）。 对于每个 $x$，满足不是源点也不是汇点，$\sum\limits_{u \to x} f(u,x)=\sum\limits_{x \to v} f(x,v)$（流量守恒）。 这里说一下最后一点性质。
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
-  <a class="entry-link" aria-label="post link to 网络流" href="https://qjwh.github.io/posts/oi/aln/flow/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">斜率优化
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>（说是斜率优化，其实和斜率几乎没有关系）
-（e…更新后确实有关系）
-其实斜率优化和决策二分栈（队列）很像，下面分几种类型来讲。
-一维斜率优化 针对形如 $d_i=\min\limits_{j=0}^{i-1} \big( d_j&#43;w(j&#43;1,i) \big)$ 的方程，而且需要满足决策单调性。
-此处重新说一下，如果我们发现一个转移点 $x$ 在 $d_i$ 的时候已经比另外一个转移点 $y$ 要更优了（$x&gt;y$），那么转移点 $y$ 在后面（$d_{i&#43;1}$ 及以后）就不可能比转移点 $x$ 要更优了，那么这个DP一定满足决策单调性，而且反过来也一样（见&#34;决策单调性.md&#34;）。
-其实证明是否满足单调性只用看：如果一个决策点 $x$ 如果在 $d_i$ 的转移中已经比决策点 $y$ 要优了，那么 $d_{i&#43;1}$ 中是否仍然满足这个条件。
-证明了满足决策单调性后，就可以开始斜率优化了。
-我们首先要考虑推斜率式：
-其实斜率式就是把式子 $d_x&#43;w(x&#43;1,i)&lt;d_y&#43;w(y&#43;1,i)$（$x&gt;y$）不断移项、变化，直到式子左边只和 $x$、$y$ 有关，右边只和 $i$ 有关为止。
-此时的斜率式一般左边是个分数，而且这个分数还需要把分子和分母的下标对应：
-如果斜率式最后是像这样的：
-$\dfrac{d_x-d_y}{v_y-v_x}&gt;-a_i$
-那么就不是个合法的斜率式，需要变成：
-$\dfrac{d_x-d_y}{v_x-v_y}&lt;a_i$
-才是合法的。
-注意，这里说的是“合法的”，而不是“正确的”，其实最上方的斜率式也可以使用，就是不能叫“斜率式”了（斜率的公式是 $\dfrac{y_2-y_1}{x_2-x_1}$）。
-设此时的斜率式就是上面说的：
-$\dfrac{d_x-d_y}{v_x-v_y}&lt;a_i$
-那么，我们就定义 $\text{slope}(y,x)=\dfrac{d_x-d_y}{v_x-v_y}$。
-有了上面函数，显然如果存在两个转移点 $x$ 和 $y$（$x&gt;y$）在转移到 $d_i$ 的时候满足 $\text{slope}(x,y)&lt;a_i$，那么就说明转移点 $x$ 比转移点 $y$ 更优，转移点 $y$ 在后面就不需要了。
-下面默认推出来的斜率式就是上式，并默认 $a$ 数组单调不降。
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
-  <a class="entry-link" aria-label="post link to 斜率优化" href="https://qjwh.github.io/posts/oi/aln/slopeopm/"></a>
 </article>
 
 <article class="post-entry tag-entry"> 
@@ -434,31 +482,6 @@ $\lfloor \frac{n}{i} \rfloor$ 的总取值种数最多只有第一、二部分�
   </div>
   <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
   <a class="entry-link" aria-label="post link to 整体二分" href="https://qjwh.github.io/posts/oi/aln/exbinarysearch/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">中国剩余定理
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>中国剩余定理，Chinese Remainder Theorem，又称CRT，我们接下来就讲一下这个算法的原理。
-要说原理，就得从古代说起。
-（你到底是在讲编程课还是在讲历史课）
-（真的是在将编程课）
-在古代，有一个问题，叫做“物不知数问题”，原文是这样的：
-有物不知其数 三三数之剩二 五五数之剩三 七七数之剩二 问物几何？ 这个问题翻译过来就是问以下方程的所有正整数解：
-$ \begin{cases} x \equiv 2 \pmod{3} \ x \equiv 3 \pmod{5} \ x \equiv 2 \pmod{7} \end{cases} $
-这个问题在后来有一个解了，解出来这个问题的人，编了一首诗，叫做“孙子歌诀”，原文：
-三人同行七十稀 五树梅花廿一支 七子团圆正半月 除百零五便得知 这个解翻译过来就是说，若设 $r_3$ 为方程中 $x$ 模 $3$ 的余数，$r_5$、$r_7$ 同理，那么所有解 $x$ 一定满足：
-$x \equiv r_3 \times 70&#43;r_5 \times 21&#43;r_7 \times 15 \pmod{105}$
-其中 $105$ 的实际来源是上面三个方程的模数的 $\text{lcm}$，即 $\text{lcm}(3,5,7)=3 \times 5 \times 7=105$。
-关于 $70$、$21$、$15$ 的来源下面再说，我们先证明一下这个解是正确的。
-由于 $105$ 是三个模数的 $\text{lcm}$，所以说如果 $x$ 是满足条件的，$x-105$、$x&#43;105$ 都是满足条件的（此处暂时忽略“正整数解”的限制），显然。
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
-  <a class="entry-link" aria-label="post link to 中国剩余定理" href="https://qjwh.github.io/posts/oi/aln/crt/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

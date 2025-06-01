@@ -80,6 +80,26 @@
         font-family: 'Ubuntu';
         src: url('/UbuntuB.ttf');
     }
+    @font-face { 
+        font-family: 'Cascadia Code';
+        src: url('/Cascadia_Code.ttf');
+    }
+    @font-face { 
+        font-family: 'HarmonyOS Sans SC';
+        src: url('/HarmonyOS_Sans_SC.ttf');
+    }
+    @font-face { 
+        font-family: 'JetBrains Mono';
+        src: url('/JetBrains_Mono.ttf');
+    }
+    @font-face { 
+        font-family: 'Lato';
+        src: url('/Lato.ttf');
+    }
+    @font-face { 
+        font-family: 'Noto Sans SC';
+        src: url('/Noto_Sans_SC.ttf');
+    }
     body {
         
         font-family: 'Ubuntu';
@@ -179,6 +199,30 @@
     Posts
   </h1>
 </header>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">同余最短路
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>同余最短路看名字感觉很难，但其实非常简单，也好理解，先说一道题：
+题目 原型：洛谷P3403 跳楼机
+有一栋 $h$ 层的大楼（层数编号从 $1$ 到 $h$），有 $n&#43;1$ 种移动方式：
+回到 $1$ 层 向上走 $x_1 \sim x_n$ 层 楼层不是循环的，你无论如何都无法到达 $h&#43;1$ 层或以上。
+最初你可以在任意一层（但也无关紧要），问你能到达多少个不同的楼层。
+题解 分类 我们按楼层模 $x_1$ 的余数分类，把楼层 $i$ 分到 $i \bmod x_1$ 类。
+这样分类有什么用呢？见下。
+定义状态 有了这个分类，我们可以定义状态 $d_i$（$i \in [0,x_1)$）代表不用「向上走 $x_1$ 层」操作能到达的、最小的第 $i$ 类楼层是多少。
+那么，由于有「向上走 $x_1$ 层」操作，所以 $d_i,d_i&#43;x_1,d_i&#43;2x_1,\dots$（比 $d_i$ 大或相等的第 $i$ 类楼层）都是可达的。
+接下来考虑转移这个状态。
+转移 其实也很好想，比如用一次「向上走 $x_2$ 层」操作，那么 $d_i$ 可以转移到 $d_{(i&#43;x_2) \bmod x_1}$，转移代价为 $x_2$，所以：
+$d_{(i&#43;x_2) \bmod x_1}=\min(d_{(i&#43;x_2) \bmod x_1},d_i&#43;x_2)$
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
+  <a class="entry-link" aria-label="post link to 同余最短路" href="https://qjwh.github.io/posts/oi/aln/modsp/"></a>
+</article>
 
 <article class="post-entry"> 
   <header class="entry-header">
