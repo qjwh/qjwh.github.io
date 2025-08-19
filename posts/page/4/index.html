@@ -202,6 +202,37 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">四边形不等式
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>（四边形不等式看标题可能觉得很难，其实比较简单）
+四边形不等式是一种DP优化的技巧，一般针对二维DP进行优化。
+在DP中，往往会有多个决策点，而其中就有一个是最优的，设 $d_{i,j}$ 的最优决策点为 $f_{i,j}$。
+（以下假设DP枚举决策点的复杂度为 $O(n)$，DP状态数为 $O(n^2)$）
+而四边形不等式就是说，如果满足 $f_{i,j-1} \leq f_{i,j} \leq f_{i&#43;1,j}$，那么可以把DP枚举决策点的范围降至 $[f_{i,j-1},f_{i&#43;1,j}]$，然后DP的复杂度就从 $O(n^3)$ 降到了 $O(n^2)$。
+而这个（复杂度）怎么证明呢？我们画一下 $f$ 数组的表：
+（此处，我们以 $i$ 为行号，以 $j$ 为列号，行、列号都从 $1$ 开始编号）
+然后，画几个标记：
+这些标记指的是，在转移 $d_{1,2}$ 的时候，转移点枚举的左右端点分别就是红箭头指向的两个数。
+同时，为了方便观察，此处还画了个蓝色的虚线。
+同理，还可以画出 $d_{2,3}$ 对应的标记：
+以此类推：
+可以发现，其实这时候所有蓝线的长度（蓝线连接的两个数字的差值定义为这个蓝线的长度）之和，最多只有 $n$。
+而对于 $d_{1,3}$ 一“类”的标记：
+可以发现，其实那些蓝线的长度之和也是最多只有 $n$。
+在画出所有蓝线之后：
+可以发现，一共就有 $n$ “类”蓝线，一“类”蓝线的长度之和最多 $n$，至此，可以证明复杂度（所有蓝线的长度之和）为 $O(n^2)$。
+接下来讲几类四边形不等式解决的经典题型：
+第一类：$d_{l,r}=\min { d_{l,k}&#43;d_{k&#43;1,r} | l \leq k \leq r }&#43;w_{l,r}$，合并石子类。 第二类：$d_{i,j}=\min { d_{k,j-1}&#43;w_{k&#43;1,i} | 0 \leq k \leq i }$，区间分割类。 （这两类对应的公式里的 $\min$ 也可以替换成 $\max$）
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
+  <a class="entry-link" aria-label="post link to 四边形不等式" href="https://qjwh.github.io/posts/oi/aln/quadrangleinequality/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">同余最短路
     </h2>
   </header>

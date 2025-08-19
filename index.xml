@@ -6,8 +6,28 @@
     <description>Recent content on CXBlog</description>
     <generator>Hugo -- 0.143.1</generator>
     <language>zh</language>
-    <lastBuildDate>Sun, 01 Jun 2025 00:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 18 Aug 2025 09:51:00 +0800</lastBuildDate>
     <atom:link href="https://qjwh.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【娱乐】Ubuntu 24.04 双系统安装&amp;基本配置全过程保姆级教程</title>
+      <link>https://qjwh.github.io/posts/play/ubuntu2404_dsys/</link>
+      <pubDate>Mon, 18 Aug 2025 09:51:00 +0800</pubDate>
+      <guid>https://qjwh.github.io/posts/play/ubuntu2404_dsys/</guid>
+      <description>&lt;p&gt;文章非常长，有问题或安装的时候出现异常及时在评论区发一下。&lt;/p&gt;
+&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
+&lt;p&gt;开始之前先说两个概念，就是 Ubuntu 是基于 Linux 内核开发的操作系统发行版‌，相当于 Ubuntu 就是在 Linux 这个开源内核基础上包裹了一个“外壳”。一般 Ubuntu 在中文中念做“乌班图”“吾帮托”“吾帮图”之类的，可以按照您的喜好选择。&lt;/p&gt;
+&lt;p&gt;首先，我们大费周章地搞一个双系统，必然是有其原因的。&lt;/p&gt;
+&lt;p&gt;我选择 Ubuntu 的原因主要有几个：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;安全&lt;/strong&gt;：Ubuntu 系统完全是开源的（系统源代码向所有人开放），所以相较于其他系统不会有后门之类的东西。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;简洁&lt;/strong&gt;：Ubuntu 的自带程序极其少，以其目前最新版 Ubuntu 24.04 为例，安装完毕后系统的总 CPU 占用率不到 1%，内存占用不超过 4 GB，所以这就带来了很多好处。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;节能&lt;/strong&gt;：其对于电量的消耗极少，尤其是在开了节能模式的情况下；而且其配置要求极低，与 Windows 10 差不多（但稍高一些，具体可以看下面正文），基本上老电脑都能跑得动，&lt;del&gt;但如果您的电脑 Windows 10 都跑不动建议换新电脑&lt;/del&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;美观&lt;/strong&gt;：如果您看惯了 Windows 10 的 UI 界面，您可以试一下 Ubuntu 的 GNOME 界面，动画效果齐全，但比 Windows 11 耗能少得多，笔者个人认为这个界面已经足以和 Windows 11 媲美了。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;快速&lt;/strong&gt;：笔者实测在 Linux 下很多程序都运行得比 Windows 下快得多，甚至有些能够达到 2 秒和不到 1 毫秒的差别（1000 毫秒为 1 秒）。&lt;/li&gt;
+&lt;li&gt;&lt;del&gt;当然还有为了装b&lt;/del&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;甚至安装之后系统还支持 Windows 下的 FAT32、exFAT、NTFS 等文件系统（Linux 的文件系统默认是 ext4），所以您完全可以在您的 Ubuntu 下打开您原本的 C 盘、D 盘等，当然还有您的所有外接存储设备。&lt;/p&gt;</description>
+    </item>
     <item>
       <title>卷积</title>
       <link>https://qjwh.github.io/posts/oi/aln/fftntt/</link>
