@@ -13,7 +13,8 @@
       <link>https://qjwh.github.io/posts/play/ubuntu2404_dsys/</link>
       <pubDate>Mon, 18 Aug 2025 09:51:00 +0800</pubDate>
       <guid>https://qjwh.github.io/posts/play/ubuntu2404_dsys/</guid>
-      <description>&lt;p&gt;文章非常长，有问题或安装的时候出现异常及时在评论区发一下。&lt;/p&gt;
+      <description>&lt;text style=&#34;font-family:Ubuntu&#34;&gt;
+&lt;p&gt;文章非常长，有问题或安装的时候出现异常及时在评论区发一下。&lt;/p&gt;
 &lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
 &lt;p&gt;开始之前先说两个概念，就是 Ubuntu 是基于 Linux 内核开发的操作系统发行版‌，相当于 Ubuntu 就是在 Linux 这个开源内核基础上包裹了一个“外壳”。一般 Ubuntu 在中文中念做“乌班图”“吾帮托”“吾帮图”之类的，可以按照您的喜好选择。&lt;/p&gt;
 &lt;p&gt;首先，我们大费周章地搞一个双系统，必然是有其原因的。&lt;/p&gt;
