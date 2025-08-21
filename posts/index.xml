@@ -1499,6 +1499,13 @@ $&lt;/p&gt;
 &lt;p&gt;我们考虑把模数做个质因数分解，变成 ${p_1}^{a_1} \times {p_2}^{a_2} \times {p_3}^{a_3} \times \dots \times {p_k}^{a_k}$。&lt;/p&gt;</description>
     </item>
     <item>
+      <title>Bugs Report</title>
+      <link>https://qjwh.github.io/posts/bugsreport/</link>
+      <pubDate>Sat, 08 Feb 2025 11:00:00 +0800</pubDate>
+      <guid>https://qjwh.github.io/posts/bugsreport/</guid>
+      <description>&lt;p&gt;如果您在使用本博客的时候发现bug，请在本文章的评论区指出，我会进行修复。&lt;/p&gt;</description>
+    </item>
+    <item>
       <title>Hello, world!</title>
       <link>https://qjwh.github.io/posts/test/</link>
       <pubDate>Sat, 08 Feb 2025 11:00:00 +0800</pubDate>
