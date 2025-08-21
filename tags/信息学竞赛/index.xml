@@ -4,7 +4,7 @@
     <title>信息学竞赛 on CXBlog</title>
     <link>https://qjwh.github.io/tags/%E4%BF%A1%E6%81%AF%E5%AD%A6%E7%AB%9E%E8%B5%9B/</link>
     <description>Recent content in 信息学竞赛 on CXBlog</description>
-    <generator>Hugo -- 0.143.1</generator>
+    <generator>Hugo -- 0.148.2</generator>
     <language>zh</language>
     <lastBuildDate>Sun, 01 Jun 2025 00:00:00 +0800</lastBuildDate>
     <atom:link href="https://qjwh.github.io/tags/%E4%BF%A1%E6%81%AF%E5%AD%A6%E7%AB%9E%E8%B5%9B/index.xml" rel="self" type="application/rss+xml" />
@@ -21,7 +21,7 @@
       <pubDate>Fri, 30 May 2025 20:56:39 +0800</pubDate>
       <guid>https://qjwh.github.io/posts/oi/aln/flow/</guid>
       <description>&lt;text style=&#34;font-family:Noto Sans SC&#34;&gt;
-&lt;h2 id=&#34;text-stylecolorrgb0150136-前言&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 前言&lt;/h2&gt;
+&lt;h2 id=&#34;前言&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 前言&lt;/h2&gt;
 &lt;p&gt;首先，网络流不是一个算法，而是一个整合包（玩MC玩的），说白了就是网络流是多个算法的统称：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;最大流
@@ -36,25 +36,25 @@
 &lt;/ul&gt;
 &lt;p&gt;而且，有些不常用的，可能就不会提，粘个OI Wiki的链接就不详细写了。&lt;/p&gt;
 &lt;p&gt;接下来就按照这个目录挨个讲一下每个算法。&lt;/p&gt;
-&lt;h2 id=&#34;text-stylecolorrgb0150136-最大流&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 最大流&lt;/h2&gt;
+&lt;h2 id=&#34;最大流&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 最大流&lt;/h2&gt;
 &lt;blockquote&gt;
 &lt;p&gt;如果有哪里没有说清楚，可以看&lt;a href=&#34;https://oi-wiki.org/graph/flow/max-flow/&#34;&gt;这里&lt;/a&gt;，里面还有我没有说到的最大流类型。&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;看到最大流这个名字很多人都很陌生，这里就先从定义说起。&lt;/p&gt;
-&lt;h3 id=&#34;text-stylecolorrgb0150136-定义&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 定义&lt;/h3&gt;
+&lt;h3 id=&#34;定义&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 定义&lt;/h3&gt;
 &lt;p&gt;还是拆词法，“网络流”就可以大致理解为“网络”上的“流”，接下来就挨个说一下这两个的定义。&lt;/p&gt;
-&lt;h4 id=&#34;text-stylecolorrgb0150136-网络&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 网络&lt;/h4&gt;
+&lt;h4 id=&#34;网络&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 网络&lt;/h4&gt;
 &lt;p&gt;先说网络的定义。&lt;del&gt;（当然不是Internet）&lt;/del&gt;&lt;/p&gt;
 &lt;p&gt;我们在理解的时候可以认为是管道，但实际上它是一张特殊的&lt;strong&gt;有向&lt;/strong&gt;图。&lt;/p&gt;
 &lt;p&gt;建设管道的必然知道，管道内流过的水，准确来说是单位时间内流过的水，必然是有上限限制的，否则管道就炸了。&lt;/p&gt;
 &lt;p&gt;这里也一样，对于每条边 $x \to y$，都有一个函数 $c(x,y)$ 表示这条边的限制，又称&lt;strong&gt;容量&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;如果在图上没有这条边，则统一规定 $c(x,y)=0$。&lt;/p&gt;
 &lt;p&gt;最后，还是跟最短路一样，它有一个起点和一个终点，又称&lt;strong&gt;源点&lt;/strong&gt; $S$ 和&lt;strong&gt;汇点&lt;/strong&gt; $T$（$S \not= T$）。&lt;/p&gt;
-&lt;h4 id=&#34;text-stylecolorrgb0150136-流函数&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 流函数&lt;/h4&gt;
+&lt;h4 id=&#34;流函数&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 流函数&lt;/h4&gt;
 &lt;p&gt;再说流函数。&lt;/p&gt;
 &lt;p&gt;流函数就是说，在真实操作中，一个单位时间内一条边 $x \to y$ 流过的水量 $f(x,y)$。&lt;/p&gt;
 &lt;p&gt;这里默认保证每个单位时间内都得流过这么多。&lt;/p&gt;
 &lt;p&gt;其实很好理解。&lt;/p&gt;
-&lt;h4 id=&#34;text-stylecolorrgb0150136-流函数性质&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 流函数性质&lt;/h4&gt;
+&lt;h4 id=&#34;流函数性质&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 流函数性质&lt;/h4&gt;
 &lt;p&gt;顺便说一下流函数要满足的性质。&lt;/p&gt;
 &lt;p&gt;首先，源点可以无限输出水，汇点可以无限输入水。&lt;/p&gt;
 &lt;p&gt;接下来就是一堆性质：&lt;/p&gt;
@@ -107,7 +107,7 @@
 &lt;li&gt;&lt;a href=&#34;https://zhuanlan.zhihu.com/p/676549667&#34;&gt;ABC335G题解&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.cnblogs.com/ac-evil/p/12809289.html&#34;&gt;阶和原根&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;text-stylecolorrgb0150136-背景&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 背景&lt;/h2&gt;
+&lt;h2 id=&#34;背景&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 背景&lt;/h2&gt;
 &lt;p&gt;是一场&lt;a href=&#34;https://atcoder.jp/contests/abc335&#34;&gt;ABC335&lt;/a&gt;里的&lt;a href=&#34;https://atcoder.jp/contests/abc335/tasks/abc335_g&#34;&gt;G题&lt;/a&gt;，当时在赛场上大概留了一个多小时的时间，但一直都在想用&lt;a href=&#34;https://qjwh.github.io/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/BSGS%E7%AE%97%E6%B3%95%EF%BC%88%E5%88%9D%E7%89%88%EF%BC%89.md&#34;&gt;BSGS&lt;/a&gt;，但显然最后没想出来。&lt;/p&gt;
 &lt;p&gt;而这题的瓶颈就在下面问题：&lt;/p&gt;
 &lt;blockquote&gt;
@@ -118,8 +118,8 @@
 &lt;p&gt;所以还有另外一种方式，比较适用于多组询问。&lt;/p&gt;
 &lt;p&gt;是我们求出来 $a$ 和 $b$ 的阶，即 $\text{ord}_p a$ 和 $\text{ord}_p b$，看 $\text{ord}_p b$ 是否是 $\text{ord}_p a$ 的因子（$\text{ord}_p b \mid \text{ord}_p a$）即可。&lt;/p&gt;
 &lt;p&gt;这里先不证这个结论是否正确，但相信大家第一次看到“阶”的时候定然是一头雾水的，下面我就来说一下它的定义和求法。&lt;/p&gt;
-&lt;h2 id=&#34;text-stylecolorrgb0150136-定义&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 定义&lt;/h2&gt;
-&lt;h3 id=&#34;text-stylecolorrgb0150136-阶&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 阶&lt;/h3&gt;
+&lt;h2 id=&#34;定义&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 定义&lt;/h2&gt;
+&lt;h3 id=&#34;阶&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 阶&lt;/h3&gt;
 &lt;p&gt;阶的话，跟逆元相似，还是需要两个值，只不过这里叫做“$a$ 在模 $p$ 意义下的&lt;strong&gt;阶&lt;/strong&gt;”而已，换汤不换料。&lt;/p&gt;
 &lt;p&gt;这个表示方法就是 $\text{ord}_p a$。&lt;/p&gt;
 &lt;p&gt;它的定义是：&lt;/p&gt;
@@ -128,7 +128,7 @@
 &lt;li&gt;找到最小的 $x$，使得同余方程 $a^x \equiv 1 \pmod p$ 成立。&lt;/li&gt;
 &lt;li&gt;这个 $x$，就是 $a$ 在模 $p$ 意义下的阶。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;text-stylecolorrgb0150136-原根&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 原根&lt;/h3&gt;
+&lt;h3 id=&#34;原根&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 原根&lt;/h3&gt;
 &lt;p&gt;但说到阶，我们定要讲一下它的孪生兄弟，原根了。&lt;/p&gt;</description>
     </item>
     <item>
@@ -163,7 +163,7 @@
 &lt;/ul&gt;
 &lt;p&gt;以下学习笔记为25.3.27重制版。&lt;/p&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;text-stylecolorrgb0150136-引入&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 引入&lt;/h2&gt;
+&lt;h2 id=&#34;引入&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 引入&lt;/h2&gt;
 &lt;p&gt;我们先以一道题&lt;a href=&#34;https://www.luogu.com.cn/problem/P3195&#34;&gt;P3195 玩具装箱&lt;/a&gt;为例。&lt;/p&gt;
 &lt;p&gt;大概说一下题意：&lt;/p&gt;
 &lt;blockquote&gt;
@@ -171,10 +171,10 @@
 &lt;p&gt;设一段为 $a_{l..r}$，那么其“长度”为 $r-l+\sum\limits_{i=l}^r a_i$，下面简称为 $len$。&lt;/p&gt;
 &lt;p&gt;那么这一段的“代价”为 $(len-L)^2$，$L$ 是题目中给的定值。&lt;/p&gt;
 &lt;p&gt;最后的总代价为每一段的代价的和，问最小的总代价。&lt;/p&gt;&lt;/blockquote&gt;
-&lt;h3 id=&#34;text-stylecolorrgb0150136-暴力dp&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 暴力DP&lt;/h3&gt;
+&lt;h3 id=&#34;暴力dp&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 暴力DP&lt;/h3&gt;
 &lt;p&gt;根据题目我们能很容易设计出一个一维DP，$d_i$ 表示 $a_{1..i}$ 的划分方案最小代价，且最后一段结束位置为 $i$。&lt;/p&gt;
 &lt;p&gt;那么 $d_i=\min{d_j+w(j+1,i)}$，其中 $w(l,r)$ 为 $[l,r]$ 的代价。&lt;/p&gt;
-&lt;h3 id=&#34;text-stylecolorrgb0150136-转化&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 转化&lt;/h3&gt;
+&lt;h3 id=&#34;转化&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 转化&lt;/h3&gt;
 &lt;p&gt;设 $s$ 为 $a$ 数组的前缀和，同时下面统一省略掉 $\min$，因为关于求最小值最大值只在最后一步出现。&lt;/p&gt;
 &lt;p&gt;展开之后也就是：&lt;/p&gt;
 &lt;p&gt;$$d_i=d_j+(i-j-1+s_i-s_j-L)^2$$&lt;/p&gt;
@@ -184,7 +184,7 @@
 &lt;p&gt;$$d_i=d_j+(a_i-b_j)^2$$&lt;/p&gt;
 &lt;p&gt;展开：&lt;/p&gt;
 &lt;p&gt;$$d_i=d_j+a_i^2+b_j^2-2a_ib_j$$&lt;/p&gt;
-&lt;h3 id=&#34;text-stylecolorrgb0150136-逼近斜率优化&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 逼近斜率优化&lt;/h3&gt;
+&lt;h3 id=&#34;逼近斜率优化&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 逼近斜率优化&lt;/h3&gt;
 &lt;p&gt;接下来关键的一步来了，我们考虑把上述式子移个项：&lt;/p&gt;
 &lt;p&gt;$$d_j+b_j^2=2a_ib_j+d_i-a_i^2$$&lt;/p&gt;
 &lt;p&gt;显然上面这个式子的先后顺序是我故意排的，那么我们一眼丁真一下，设：&lt;/p&gt;
@@ -202,12 +202,12 @@
       <pubDate>Thu, 06 Mar 2025 21:26:37 +0800</pubDate>
       <guid>https://qjwh.github.io/posts/oi/aln/modui/</guid>
       <description>&lt;text style=&#34;font-family:Noto Sans SC&#34;&gt;
-&lt;h1 id=&#34;text-stylecolorrgb0150136-普通莫队算法&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 普通莫队算法&lt;/h1&gt;
-&lt;h2 id=&#34;text-stylecolorrgb0150136-概览&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 概览&lt;/h2&gt;
+&lt;h1 id=&#34;普通莫队算法&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 普通莫队算法&lt;/h1&gt;
+&lt;h2 id=&#34;概览&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 概览&lt;/h2&gt;
 &lt;p&gt;莫队其实是分块的变化版，没有完全分块。&lt;/p&gt;
 &lt;p&gt;但莫队的题目一般比分块的题目比较好看一些，其中的“好看”指的是很好看出这是个莫队/分块的题。&lt;/p&gt;
 &lt;p&gt;接下来说一下莫队能解决的题型。&lt;/p&gt;
-&lt;h2 id=&#34;text-stylecolorrgb0150136-解决题型&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 解决题型&lt;/h2&gt;
+&lt;h2 id=&#34;解决题型&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 解决题型&lt;/h2&gt;
 &lt;p&gt;莫队一般解决以下问题：&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;给你一些信息，和 $q$ 次询问，每次询问可以抽象为一个区间。&lt;/p&gt;&lt;/blockquote&gt;
@@ -217,10 +217,10 @@
 &lt;li&gt;不能有修改（当然带修莫队支持修改，不过普通莫队就不行了）&lt;/li&gt;
 &lt;li&gt;从 $[l,r]$ 的答案可以很快转移到 $[l-1,r]$、$[l+1,r]$、$[l,r-1]$、$[l,r+1]$ 的答案&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;text-stylecolorrgb0150136-解决方法&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 解决方法&lt;/h2&gt;
+&lt;h2 id=&#34;解决方法&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 解决方法&lt;/h2&gt;
 &lt;p&gt;这种题型有个解决方法。&lt;/p&gt;
 &lt;p&gt;还是先从暴力说起。&lt;/p&gt;
-&lt;h3 id=&#34;text-stylecolorrgb0150136-暴力做法&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 暴力做法&lt;/h3&gt;
+&lt;h3 id=&#34;暴力做法&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 暴力做法&lt;/h3&gt;
 &lt;p&gt;看见这个问题的最后一个条件没？这个条件就启发我们从第一个问题的答案，暴力调整左、右端点，去得到第二个问题的答案，以此类推。&lt;/p&gt;
 &lt;p&gt;这种暴力做法的复杂度一般为 $O($ 任意相邻两个问题的左、右端点差之和 $)$。&lt;/p&gt;
 &lt;p&gt;而这个算法可以用一种数据卡掉：&lt;/p&gt;
@@ -229,12 +229,12 @@
 &lt;li&gt;然后的 $q$ 次询问里，交替询问 $1 \sim n$ 和 $n \sim n$。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;于是，复杂度被卡到 $O(qn)$。&lt;/p&gt;
-&lt;h3 id=&#34;text-stylecolorrgb0150136-一次优化&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 一次优化&lt;/h3&gt;
+&lt;h3 id=&#34;一次优化&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 一次优化&lt;/h3&gt;
 &lt;p&gt;这个做法的复杂度是无法接受的，所以我们考虑优化。&lt;/p&gt;
 &lt;p&gt;我们不如把所有询问离线，然后考虑交换询问处理的顺序以减少复杂度。&lt;/p&gt;
 &lt;p&gt;一种方式就是把左、右端点分别作为第一、二关键字，然后做排序。&lt;/p&gt;
 &lt;p&gt;但这样就会被排序后所有询问的右端点一大一小的数据卡到 $O(qn)$ 的复杂度。&lt;/p&gt;
-&lt;h3 id=&#34;text-stylecolorrgb0150136-二次优化&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 二次优化&lt;/h3&gt;
+&lt;h3 id=&#34;二次优化&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 二次优化&lt;/h3&gt;
 &lt;p&gt;这样排序还是不好，还是会被卡掉，于是我们考虑变换比较函数。&lt;/p&gt;
 &lt;p&gt;直接双关键字比较不好，那我们就分块后进行双关键字比较。&lt;/p&gt;
 &lt;p&gt;具体地，遇到两个询问，先按左端点所属块编号从小到大排序，如果相同，则按右端点（不是所属块编号，是原本的下标）从小到大排序。&lt;/p&gt;
@@ -245,7 +245,7 @@
       <link>https://qjwh.github.io/posts/oi/competition/20250211%E4%BB%A3%E7%A0%81%E6%BA%90%E6%AF%94%E8%B5%9B/</link>
       <pubDate>Tue, 11 Feb 2025 21:49:00 +0800</pubDate>
       <guid>https://qjwh.github.io/posts/oi/competition/20250211%E4%BB%A3%E7%A0%81%E6%BA%90%E6%AF%94%E8%B5%9B/</guid>
-      <description>&lt;h2 id=&#34;text-stylecolorrgb0150136-赛时记录&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 赛时记录&lt;/h2&gt;
+      <description>&lt;h2 id=&#34;赛时记录&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 赛时记录&lt;/h2&gt;
 &lt;p&gt;比赛一开始（$11$ 分钟）就过了A。&lt;/p&gt;
 &lt;p&gt;后来一直在B题思考正解。&lt;/p&gt;
 &lt;p&gt;在比赛达到 $2h$ 之后，我发现正解已经没希望了，结论假了。&lt;/p&gt;
@@ -256,10 +256,10 @@
 &lt;p&gt;此时里比赛结束还有 $27$ 分钟，所以回头看了一下，发现C题的暴力很多。&lt;/p&gt;
 &lt;p&gt;先后搞了子任务 $1 \sim 3$，总共 $70$ 分。&lt;/p&gt;
 &lt;p&gt;然后比赛就结束了。&lt;/p&gt;
-&lt;h2 id=&#34;text-stylecolorrgb0150136-估分-vs-结果&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 估分 VS 结果&lt;/h2&gt;
+&lt;h2 id=&#34;估分-vs-结果&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 估分 VS 结果&lt;/h2&gt;
 &lt;p&gt;估分：$100+10+70+45=225$&lt;/p&gt;
 &lt;p&gt;结果：$100+25+0+30=155$&lt;/p&gt;
-&lt;h3 id=&#34;text-stylecolorrgb0150136-挂分原因&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 挂分原因&lt;/h3&gt;
+&lt;h3 id=&#34;挂分原因&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 挂分原因&lt;/h3&gt;
 &lt;p&gt;关于B为啥多了 $15$ 分，我也不知道。&lt;/p&gt;
 &lt;p&gt;C很复杂：&lt;/p&gt;
 &lt;ul&gt;
@@ -271,7 +271,7 @@
 &lt;ul&gt;
 &lt;li&gt;子任务3 $T=1,k \leq 15$ 挂了：实现的时候没有预处理 $s$、$e$ 的答案，导致询问次数太多TLE。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;text-stylecolorrgb0150136-策略&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 策略&lt;/h2&gt;
+&lt;h2 id=&#34;策略&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 策略&lt;/h2&gt;
 &lt;p&gt;感觉还是卡B太久。&lt;/p&gt;
 &lt;p&gt;事实上这次A非常确信做法正确，事实就是正确的，但后面的题没有对拍，导致总共挂了 $85$ 分。&lt;/p&gt;
 &lt;p&gt;之后无论对于正解还是暴力都得对拍，如果认为有挂的概率的那种。&lt;/p&gt;</description>
@@ -317,18 +317,18 @@
       <pubDate>Sun, 09 Feb 2025 15:28:00 +0800</pubDate>
       <guid>https://qjwh.github.io/posts/oi/aln/2sat/</guid>
       <description>&lt;text style=&#34;font-family:Noto Sans SC&#34;&gt;
-&lt;h2 id=&#34;text-stylecolorrgb0150136-前言&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 前言&lt;/h2&gt;
+&lt;h2 id=&#34;前言&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 前言&lt;/h2&gt;
 &lt;p&gt;2-SAT中的SAT是适定性（Satisfiability）问题的简称，一般形式为 $k$ - 适定性问题，简称 $k$ - SAT，但由于 $k&amp;gt;2$ 时问题为NP完全问题（只有指数级别复杂度的解法，或者多项式级别复杂度的&lt;strong&gt;相似&lt;/strong&gt;解法），而 $k=1$ 时都不用解了 &lt;del&gt;（废话）&lt;/del&gt; ，所以下面全部考虑 $k=2$ 的情况。&lt;/p&gt;
-&lt;h2 id=&#34;text-stylecolorrgb0150136-定义&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 定义&lt;/h2&gt;
+&lt;h2 id=&#34;定义&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 定义&lt;/h2&gt;
 &lt;p&gt;2-SAT问题简单来说就是，有 $n$ 个集合，每个集合包含两个元素（集合 $i$ 包含元素 $2i-1$ 和 $2i$，但其实编号是无关紧要的，任意都行），你必须要在&lt;strong&gt;每个&lt;/strong&gt;集合里分别选择&lt;strong&gt;刚好&lt;/strong&gt;一个元素，但某些元素之间可能有矛盾，即这两个元素不能在一种方案里被同时选择，问你是否有解，报告出来，如果有解，输出一种方案（可能不用输出）。&lt;/p&gt;
-&lt;h2 id=&#34;text-stylecolorrgb0150136-题目&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 题目&lt;/h2&gt;
+&lt;h2 id=&#34;题目&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 题目&lt;/h2&gt;
 &lt;p&gt;看上面的定义可能有点难懂，这里举个题目。&lt;/p&gt;
 &lt;p&gt;有一场宴会，这场宴会只有 $n$ 对幸运夫妻可以参加，每对夫妻里只能选择&lt;strong&gt;刚好&lt;/strong&gt;一个人去参加这场宴会。&lt;/p&gt;
 &lt;p&gt;但部分人之间可能有矛盾，会给出所有有矛盾的两人编号。&lt;/p&gt;
 &lt;p&gt;问你，是否可以构造一种合法方案，如果不行，报告无解，否则输出一种方案。&lt;/p&gt;
-&lt;h2 id=&#34;text-stylecolorrgb0150136-解法&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 解法&lt;/h2&gt;
+&lt;h2 id=&#34;解法&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 解法&lt;/h2&gt;
 &lt;p&gt;（下面统一默认要解决的是实际问题，不是定义里的问题）&lt;/p&gt;
-&lt;h3 id=&#34;text-stylecolorrgb0150136-定义点边&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 定义点、边&lt;/h3&gt;
+&lt;h3 id=&#34;定义点边&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 定义点、边&lt;/h3&gt;
 &lt;p&gt;我们考虑把夫妻编个名字：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;第一对夫妻：A男、A女&lt;/li&gt;
@@ -350,7 +350,7 @@
 &lt;ul&gt;
 &lt;li&gt;一条&lt;strong&gt;有向边&lt;/strong&gt; $u \to v$，代表现实 $u$ &lt;strong&gt;满足&lt;/strong&gt;了，现实 $v$ 也要&lt;strong&gt;满足&lt;/strong&gt;。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h4 id=&#34;text-stylecolorrgb0150136-举个例子&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 举个例子&lt;/h4&gt;
+&lt;h4 id=&#34;举个例子&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 举个例子&lt;/h4&gt;
 &lt;p&gt;所以，如果说A男和B女、C男和A女之间都有矛盾，那么就需要在：&lt;/p&gt;</description>
     </item>
     <item>
@@ -360,7 +360,7 @@
       <guid>https://qjwh.github.io/posts/oi/aln/cdq/</guid>
       <description>&lt;text style=&#34;font-family:Noto Sans SC&#34;&gt;
 &lt;p&gt;CDQ分治是一种解决三维、四维偏序的算法。&lt;/p&gt;
-&lt;h2 id=&#34;text-stylecolorrgb0150136-三维偏序&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 三维偏序&lt;/h2&gt;
+&lt;h2 id=&#34;三维偏序&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 三维偏序&lt;/h2&gt;
 &lt;p&gt;三维偏序问题形如：&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;有 $q$ 次询问，每次询问有两种：&lt;/p&gt;
@@ -494,8 +494,8 @@
       <guid>https://qjwh.github.io/posts/oi/aln/games/</guid>
       <description>&lt;text style=&#34;font-family:Noto Sans SC&#34;&gt;
 &lt;p&gt;下面是三道与博弈论相关的题目及其做法。&lt;/p&gt;
-&lt;h1 id=&#34;text-stylecolorrgb0150136-题目1皮肤病&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 题目1：皮肤病&lt;/h1&gt;
-&lt;h2 id=&#34;text-stylecolorrgb0150136-题面&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 题面&lt;/h2&gt;
+&lt;h1 id=&#34;题目1皮肤病&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 题目1：皮肤病&lt;/h1&gt;
+&lt;h2 id=&#34;题面&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 题面&lt;/h2&gt;
 &lt;p&gt;（改编自《不可思议事件簿 第5册 魔法学院》，由艾教提供变体）&lt;/p&gt;
 &lt;p&gt;（原题名称：加试难题）&lt;/p&gt;
 &lt;p&gt;在一个学校内，共有 $100$ 个人，每个人都养了一只狗。&lt;/p&gt;
@@ -526,12 +526,12 @@
 &lt;li&gt;那天晚上，共有多少人共同敲响了钟？&lt;/li&gt;
 &lt;li&gt;在第 $10$ 天后，除了那些敲钟的人养的狗，是否会存在其他病了的狗？&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;text-stylecolorrgb0150136-答案&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 答案&lt;/h2&gt;
+&lt;h2 id=&#34;答案&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 答案&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;$10$ 个人&lt;/li&gt;
 &lt;li&gt;不会&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;text-stylecolorrgb0150136-题解&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 题解&lt;/h2&gt;
+&lt;h2 id=&#34;题解&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 题解&lt;/h2&gt;
 &lt;p&gt;我们考虑一下，如果说第 $1$ 天晚上有人敲钟，那么代表啥。&lt;/p&gt;
 &lt;p&gt;我们从人的角度考虑，如果说一个人发现其他狗都是好狗（指没有皮肤病的狗），那么必然自己的狗有皮肤病 &lt;del&gt;（除了自己的，还有谁的？难不成是他自己？）&lt;/del&gt;。&lt;/p&gt;
 &lt;p&gt;这种情况下，他便会去敲钟。&lt;/p&gt;
@@ -546,20 +546,20 @@
       <description>&lt;text style=&#34;font-family:Noto Sans SC&#34;&gt;
 &lt;p&gt;点分治和树剖有一个相同点，就是算法都是从暴力经过一小步优化而来，但就是这一小步，让算法复杂度有了质的飞跃。&lt;/p&gt;
 &lt;p&gt;下面来讲一下这个算法的原理。&lt;/p&gt;
-&lt;h2 id=&#34;text-stylecolorrgb0150136-概览&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 概览&lt;/h2&gt;
+&lt;h2 id=&#34;概览&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 概览&lt;/h2&gt;
 &lt;p&gt;其实“点分治”也是一个名不副实的算法，看完下面的讲述你就会发现这个算法根“分治”几乎无关。&lt;/p&gt;
 &lt;p&gt;点分治是专门解决树上路径统计的一种算法（树剖则是解决对树上路径的判断的算法）。&lt;/p&gt;
 &lt;p&gt;点分治的思想很朴素，就是DFS一下 $\text{lca}$ 的节点编号 $x$，然后统计 $\text{lca}$ 值刚好为 $x$ 的、满足题目条件的路径的数量，并累加到答案。&lt;/p&gt;
 &lt;p&gt;但直接进行统计还是炸裂的，点分治则是对这种统计方式做了一步优化&lt;/p&gt;
-&lt;h2 id=&#34;text-stylecolorrgb0150136-解决题型&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 解决题型&lt;/h2&gt;
+&lt;h2 id=&#34;解决题型&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 解决题型&lt;/h2&gt;
 &lt;p&gt;上面说了，「点分治是专门解决树上路径统计的一种算法」，但并不是所有的树上路径统计都可以用点分治解决。&lt;/p&gt;
 &lt;p&gt;其实看完下面的实现，你就能知道它解决什么类问题，不过这里还是说一下。&lt;/p&gt;
 &lt;p&gt;就是首先，这个条件是形如“总和比某个值低”、“总和是某个值的倍数”等“可累加”的条件。&lt;/p&gt;
 &lt;p&gt;其中“可累加”指的是，如果知道了 $A$ 部分的某个值，和 $B$ 部分的某个值，那么 $A$ 和 $B$ 部分合并后的部分是否合法也一定知道。&lt;/p&gt;
 &lt;p&gt;但其他的条件目前还没有太明确，得自己去总结。&lt;/p&gt;
-&lt;h2 id=&#34;text-stylecolorrgb0150136-算法实现&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 算法实现&lt;/h2&gt;
+&lt;h2 id=&#34;算法实现&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 算法实现&lt;/h2&gt;
 &lt;p&gt;下面说一下点分治的实现。&lt;/p&gt;
-&lt;h3 id=&#34;text-stylecolorrgb0150136-大体思路&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 大体思路&lt;/h3&gt;
+&lt;h3 id=&#34;大体思路&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 大体思路&lt;/h3&gt;
 &lt;p&gt;我们拿“路径长度（路径上的边的边权之和）刚好为 $k$”问题举例。&lt;/p&gt;
 &lt;p&gt;注：原题链接&lt;a href=&#34;https://www.luogu.com.cn/problem/P3806&#34;&gt;P3806&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;就是我们考虑，当DFS到某个点 $x$ 的时候，就如上所说，设 $x$ 为 $\text{lca}$ 值。&lt;/p&gt;
@@ -575,7 +575,7 @@
       <guid>https://qjwh.github.io/posts/oi/aln/kirchhoffmatrix/</guid>
       <description>&lt;p&gt;基尔霍夫矩阵是用来求解生成树计数、求（权值）和相关题目的利器。&lt;/p&gt;
 &lt;hr&gt;
-&lt;h3 id=&#34;text-stylecolorrgb0150136-0-求完全图的生成树数量prufer序列&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 0. 求完全图的生成树数量（Prufer序列）&lt;/h3&gt;
+&lt;h3 id=&#34;0-求完全图的生成树数量prufer序列&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 0. 求完全图的生成树数量（Prufer序列）&lt;/h3&gt;
 &lt;p&gt;要说基尔霍夫矩阵，就要从一道题目说起：&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;给你 $n$，问 $n$ 个节点组成的无向无根树有多少种。&lt;/p&gt;&lt;/blockquote&gt;
@@ -593,7 +593,7 @@
 &lt;p&gt;所以，这道题就有解了，答案其实就是长为 $n-2$ 的Prufer序列有多少种。&lt;/p&gt;
 &lt;p&gt;由于Prufer序列的每个元素的值都是从 $1$ 到 $n$ 的，所以答案就是 $n^{n-2}$，显然。&lt;/p&gt;
 &lt;hr&gt;
-&lt;h3 id=&#34;text-stylecolorrgb0150136-11-求任意无向图的生成树数量基尔霍夫矩阵&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 1.1. 求任意无向图的生成树数量（基尔霍夫矩阵）&lt;/h3&gt;
+&lt;h3 id=&#34;11-求任意无向图的生成树数量基尔霍夫矩阵&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 1.1. 求任意无向图的生成树数量（基尔霍夫矩阵）&lt;/h3&gt;
 &lt;p&gt;但如果把题目变化一下，就不能用Prufer序列去求了：&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;给你一张 $n$ 个节点 $m$ 条边的无向图，问这张图的生成树有多少个。&lt;/p&gt;&lt;/blockquote&gt;
@@ -635,7 +635,7 @@ $&lt;/p&gt;
 &lt;p&gt;来源：&lt;a href=&#34;https://atcoder.jp/contests/abc372/tasks/abc372_g&#34;&gt;ABC372G&lt;/a&gt;&lt;a href=&#34;https://atcoder.jp/contests/abc372/editorial/10988&#34;&gt;官方题解&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;贡献：&lt;a href=&#34;https://oi-wiki.org/math/number-theory/euclidean&#34;&gt;OI Wiki&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;这个算法确实挺妙的，所以我就写个笔记。&lt;/p&gt;
-&lt;h2 id=&#34;text-stylecolorrgb0150136-定义&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 定义&lt;/h2&gt;
+&lt;h2 id=&#34;定义&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 定义&lt;/h2&gt;
 &lt;p&gt;这个算法需要用到一个函数：&lt;/p&gt;
 &lt;p&gt;$$
 f(a,b,c,n)=\sum\limits_{i=0}^n \left\lfloor \dfrac{\color{red}a\color{default}i+\color{blue}b\color{default}}{\color{green}c\color{default}} \right\rfloor
@@ -644,9 +644,9 @@ $$&lt;/p&gt;
 &lt;p&gt;因为 $a$、$b$、$c$、$n$ 都很大，所以我们没法直接暴力求。&lt;/p&gt;
 &lt;p&gt;数论分块显然也不彳亍。&lt;/p&gt;
 &lt;p&gt;所以我们只能另辟蹊径了。&lt;/p&gt;
-&lt;h2 id=&#34;text-stylecolorrgb0150136-求值&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 求值&lt;/h2&gt;
+&lt;h2 id=&#34;求值&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 求值&lt;/h2&gt;
 &lt;p&gt;咱从简单到复杂走。&lt;/p&gt;
-&lt;h3 id=&#34;text-stylecolorrgb0150136-1&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 1&lt;/h3&gt;
+&lt;h3 id=&#34;1&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 1&lt;/h3&gt;
 &lt;p&gt;首先，我们可以知道：&lt;/p&gt;
 &lt;p&gt;$$
 \begin{aligned}
@@ -747,12 +747,12 @@ $\texttt{\color{RoyalBlue}@\color{default}#\color{default}a\color{RoyalBlue}#\co
       <description>&lt;text style=&#34;font-family:Lato,楷体&#34;&gt;
 &lt;p&gt;我们现在要解决一个问题，就如标题所说，我们要判断一个DAG的拓扑序是否唯一。&lt;/p&gt;
 &lt;p&gt;以下说两种做法。&lt;/p&gt;
-&lt;h2 id=&#34;text-stylecolorrgb0150136-做法1推荐&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 做法1（推荐）&lt;/h2&gt;
+&lt;h2 id=&#34;做法1推荐&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 做法1（推荐）&lt;/h2&gt;
 &lt;p&gt;在拓扑排序时，我们只要每时每刻都判断一下，此时的队列大小是否大于 $1$ 即可。&lt;/p&gt;
 &lt;p&gt;因为，如果队列大小大于 $1$，则选择任何一个元素都可以加入到拓扑序的最后下标，所以拓扑序不唯一。&lt;/p&gt;
-&lt;h2 id=&#34;text-stylecolorrgb0150136-做法2&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 做法2&lt;/h2&gt;
+&lt;h2 id=&#34;做法2&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 做法2&lt;/h2&gt;
 &lt;p&gt;（以下是我考试时想出来的做法，思维难度较高，但整个构思过程中都没有思维跳跃）&lt;/p&gt;
-&lt;h3 id=&#34;text-stylecolorrgb0150136-1&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 1&lt;/h3&gt;
+&lt;h3 id=&#34;1&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 1&lt;/h3&gt;
 &lt;p&gt;首先，我们建出这个DAG，然后我们考虑，其实一个DAG唯一，有且仅当对于所有点对 $(u,v)$（$1 \leq u,v \leq n$），都满足以下两点之一：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;点 $u$ 可以到达点 $v$。&lt;/li&gt;
@@ -764,14 +764,14 @@ $\texttt{\color{RoyalBlue}@\color{default}#\color{default}a\color{RoyalBlue}#\co
 &lt;p&gt;在这种情况里，我们直接把红色集合和蓝色集合里的拓扑序“交换”，变成：&lt;/p&gt;
 &lt;p&gt;于是乎，就得到了另一个合法的拓扑序，证毕。&lt;/p&gt;
 &lt;p&gt;关于如果满足条件，则拓扑序唯一，此处不多赘述，自行脑补。&lt;/p&gt;&lt;/blockquote&gt;
-&lt;h3 id=&#34;text-stylecolorrgb0150136-2&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 2&lt;/h3&gt;
+&lt;h3 id=&#34;2&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 2&lt;/h3&gt;
 &lt;p&gt;上述条件还可以继续变化，变成：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;对于所有点对 $(u,v)$（$1 \leq u,v \leq n$，且 $v$ 的拓扑序比 $u$ 的要大），都满足点 $u$ 可以到达点 $v$。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;text-stylecolorrgb0150136-3&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 3&lt;/h3&gt;
+&lt;h3 id=&#34;3&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 3&lt;/h3&gt;
 &lt;p&gt;我们考虑定义函数 $f(x)$ 代表拓扑序为 $x$ 的节点，是否能到达所有拓扑序为 $y$（$x&amp;lt;y$）的点。&lt;/p&gt;
-&lt;h3 id=&#34;text-stylecolorrgb0150136-4&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 4&lt;/h3&gt;
+&lt;h3 id=&#34;4&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 4&lt;/h3&gt;
 &lt;p&gt;我们考虑求 $f(x)$，我们可以枚举拓扑序为 $x$ 的节点 $u$ 的所有出点 $v$（设其拓扑序为 $y$，且排除 $y \leq x$ 的所有点）。&lt;/p&gt;</description>
     </item>
     <item>
@@ -788,7 +788,7 @@ $\texttt{\color{RoyalBlue}@\color{default}#\color{default}a\color{RoyalBlue}#\co
 &lt;/ul&gt;
 &lt;p&gt;下面我们就来从0开始讲平衡树。&lt;/p&gt;
 &lt;p&gt;（注：网上大多数人说到“平衡树”默认指的是“Splay”而不是其他算法）&lt;/p&gt;
-&lt;h1 id=&#34;text-stylecolorrgb0150136-定义&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 定义&lt;/h1&gt;
+&lt;h1 id=&#34;定义&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 定义&lt;/h1&gt;
 &lt;p&gt;其实平衡树（Balance Tree，简称BT）不算一种算法，而是一种统称。&lt;/p&gt;
 &lt;p&gt;平衡树顾名思义就是非常平衡的树。&lt;/p&gt;
 &lt;p&gt;比如说这棵树就非常不平衡：&lt;/p&gt;
@@ -798,10 +798,10 @@ $\texttt{\color{RoyalBlue}@\color{default}#\color{default}a\color{RoyalBlue}#\co
 &lt;p&gt;如果说的更形式化，平衡就意味着，对于每个点，其所有子树的大小差都不超过 $1$。&lt;/p&gt;
 &lt;p&gt;具体而言，对于每个点 $x$，如果我们把其所有儿子 $to$ 的子树大小都列出来，那么这个数组内最大值和最小值差不超过 $1$。&lt;/p&gt;
 &lt;p&gt;而且，大多数平衡树都是二叉树，这一点是为了方便操作和设计算法。&lt;/p&gt;
-&lt;h1 id=&#34;text-stylecolorrgb0150136-种类&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 种类&lt;/h1&gt;
+&lt;h1 id=&#34;种类&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 种类&lt;/h1&gt;
 &lt;p&gt;听完上面的定义，你就知道了，平衡树就是一类树状数据结构的统称。&lt;/p&gt;
 &lt;p&gt;下面就来列举一下这类数据结构都有哪些，以及这些数据结构的简介。&lt;/p&gt;
-&lt;h2 id=&#34;text-stylecolorrgb0150136-二叉搜索树binary-search-tree简称bst&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 二叉搜索树（Binary Search Tree，简称BST）&lt;/h2&gt;
+&lt;h2 id=&#34;二叉搜索树binary-search-tree简称bst&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 二叉搜索树（Binary Search Tree，简称BST）&lt;/h2&gt;
 &lt;p&gt;大多数平衡树的前置算法，这也就意味着，大多数的平衡树都是基于BST并进行优化、扩展后得到的算法。&lt;/p&gt;
 &lt;p&gt;而BST也是线段树（Segment Tree，部分情况下会简称为ST）进行扩展后的算法。&lt;/p&gt;
 &lt;p&gt;具体而言，权值线段树和BST都可以维护有序集合，但有时候只能用BST解决。&lt;/p&gt;
@@ -810,14 +810,14 @@ $\texttt{\color{RoyalBlue}@\color{default}#\color{default}a\color{RoyalBlue}#\co
 &lt;p&gt;这样就可以方便查找。&lt;/p&gt;
 &lt;p&gt;优点：代码好写，容易讲明白&lt;/p&gt;
 &lt;p&gt;缺点：解决题型少，需要写定期重构（又被称作“替罪羊树思想”），复杂度高&lt;/p&gt;
-&lt;h2 id=&#34;text-stylecolorrgb0150136-treap名字不是一个单词而是两个单词tree和heap的结合&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; Treap（名字不是一个单词，而是两个单词Tree和Heap的结合）&lt;/h2&gt;
+&lt;h2 id=&#34;treap名字不是一个单词而是两个单词tree和heap的结合&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; Treap（名字不是一个单词，而是两个单词Tree和Heap的结合）&lt;/h2&gt;
 &lt;p&gt;这个算法给每个节点都添加了一个“优先级”，并让“优先级”满足小/大根堆的性质。&lt;/p&gt;
 &lt;p&gt;并且，这里还通过“旋转”操作（最头疼的地方来了）让树尽量平衡，这样会让树高稳定在 $O(\log n)$ 级别。&lt;/p&gt;
 &lt;p&gt;（不过注意，在最坏情况下，复杂度会达到 $O(n)$，所以 $O(\log n)$ 只是期望）&lt;/p&gt;
 &lt;p&gt;这样，复杂度就降下来了。&lt;/p&gt;
 &lt;p&gt;优点：复杂度低，比较容易理解，解决题型多，且容易被识别出&lt;/p&gt;
 &lt;p&gt;缺点：比较难写，细节较多，复杂度难证明&lt;/p&gt;
-&lt;h2 id=&#34;text-stylecolorrgb0150136-splay本意为张开但这里不是这个意思&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; Splay（本意为“张开”但这里不是这个意思）&lt;/h2&gt;
+&lt;h2 id=&#34;splay本意为张开但这里不是这个意思&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; Splay（本意为“张开”但这里不是这个意思）&lt;/h2&gt;
 &lt;p&gt;这个算法对上面的“旋转”操作又做了一遍扩展，让其能够解决子串翻转问题。&lt;/p&gt;
 &lt;p&gt;而且，由于它也会让整棵树尽量平衡，所以树高还是会稳定在 $O(\log n)$ 级别。&lt;/p&gt;</description>
     </item>
@@ -883,12 +883,12 @@ $\texttt{\color{RoyalBlue}@\color{default}#\color{default}a\color{RoyalBlue}#\co
       <guid>https://qjwh.github.io/posts/oi/aln/treechaindivision/</guid>
       <description>&lt;text style=&#34;font-family:Noto Sans SC&#34;&gt;
 &lt;p&gt;第一次看到树链剖分（简称树剖）可能觉得它非常的深奥，但其实树剖的原理非常简单，下面先说树剖大概的实现思路和解决题型。&lt;/p&gt;
-&lt;h2 id=&#34;text-stylecolorrgb0150136-概览&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 概览&lt;/h2&gt;
+&lt;h2 id=&#34;概览&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 概览&lt;/h2&gt;
 &lt;p&gt;其实树剖就是把一棵树分成若干条链，使得每个点都出现在了刚好一条链上。&lt;/p&gt;
 &lt;p&gt;并且，我们称在某条链上的边为“重（zhòng）边”，不在任何一条链上的边为“轻边”。&lt;/p&gt;
 &lt;p&gt;然后，我们按某种规则去DFS，求出新的DFS序，然后解决对树上路径询问的问题。&lt;/p&gt;
 &lt;p&gt;而且，通过合理的设计每条边的轻重，可以把复杂度控制在 $O(\log n)$ 级别。&lt;/p&gt;
-&lt;h2 id=&#34;text-stylecolorrgb0150136-解决题型&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 解决题型&lt;/h2&gt;
+&lt;h2 id=&#34;解决题型&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 解决题型&lt;/h2&gt;
 &lt;p&gt;上面也提到了，树剖就是用来解决对树上路径进行询问的问题的算法，当然也可以解决对子树询问的问题，不过属于大材小用了。&lt;/p&gt;
 &lt;p&gt;此外，树剖属于工具类算法，所以往往会配合树状数组、线段树、分块等算法出现。&lt;/p&gt;
 &lt;blockquote&gt;
@@ -917,9 +917,9 @@ $\texttt{\color{RoyalBlue}@\color{default}#\color{default}a\color{RoyalBlue}#\co
 &lt;/ul&gt;
 &lt;p&gt;往往一些较难的题目，都是要用较难的材料类算法（比如DP），或者工具类算法配合材料类算法才能解决的题目。&lt;/p&gt;
 &lt;p&gt;而对于后者，难度会更大一些，因为后者的关键在于&lt;strong&gt;转化&lt;/strong&gt;后使用工具类算法解决。&lt;/p&gt;&lt;/blockquote&gt;
-&lt;h2 id=&#34;text-stylecolorrgb0150136-算法实现&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 算法实现&lt;/h2&gt;
+&lt;h2 id=&#34;算法实现&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 算法实现&lt;/h2&gt;
 &lt;p&gt;下面说一下树剖的实现。&lt;/p&gt;
-&lt;h3 id=&#34;text-stylecolorrgb0150136-两遍dfs&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 两遍DFS&lt;/h3&gt;
+&lt;h3 id=&#34;两遍dfs&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 两遍DFS&lt;/h3&gt;
 &lt;p&gt;我们考虑DFS，当递归到点 $x$ 的时候，找到 $x$ 的儿子中，子树大小最大的那个儿子 $to$。&lt;/p&gt;
 &lt;p&gt;然后，我们把 $x \to to$ 这条边设为重边，其他边设为轻边。&lt;/p&gt;
 &lt;p&gt;得到每条边的轻重后，我们再做一遍DFS。&lt;/p&gt;
@@ -927,7 +927,7 @@ $\texttt{\color{RoyalBlue}@\color{default}#\color{default}a\color{RoyalBlue}#\co
 &lt;p&gt;而且，DFS序有一个要求，我们要先遍历有重边连接的儿子。&lt;/p&gt;
 &lt;p&gt;这样的话，对于任意一条树上的链，链上所有点的DFS序连续，而且是由深度从浅到深依次递增。&lt;/p&gt;
 &lt;p&gt;同时，我们还要求出，从一个点开始，不经过任何轻边，最多到哪个点。&lt;/p&gt;
-&lt;h3 id=&#34;text-stylecolorrgb0150136-解决询问&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 解决询问&lt;/h3&gt;
+&lt;h3 id=&#34;解决询问&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 解决询问&lt;/h3&gt;
 &lt;p&gt;而对于一次路径上某值的询问，我们可以把这个路径拆成若干条链。&lt;/p&gt;
 &lt;p&gt;可以证明链数不超过 $O(\log n)$，这一点会在下面“复杂度证明”中证明。&lt;/p&gt;
 &lt;p&gt;而这些拆出的链，都是原树中的链的“子集”（一条链 $L_1$ 是另外一条链 $L_2$ 的子集，有且仅当 $L_1$ 中的点，$L_2$ 中也有，边同理）。&lt;/p&gt;
@@ -977,7 +977,7 @@ $\texttt{\color{RoyalBlue}@\color{default}#\color{default}a\color{RoyalBlue}#\co
       <guid>https://qjwh.github.io/posts/oi/aln/modsp/</guid>
       <description>&lt;text style=&#34;font-family:Lato,楷体&#34;&gt;
 &lt;p&gt;同余最短路看名字感觉很难，但其实非常简单，也好理解，先说一道题：&lt;/p&gt;
-&lt;h2 id=&#34;text-stylecolorrgb0150136-题目&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 题目&lt;/h2&gt;
+&lt;h2 id=&#34;题目&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 题目&lt;/h2&gt;
 &lt;p&gt;原型：&lt;a href=&#34;https://www.luogu.com.cn/problem/P3403&#34;&gt;洛谷P3403 跳楼机&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;有一栋 $h$ 层的大楼（层数编号从 $1$ 到 $h$），有 $n+1$ 种移动方式：&lt;/p&gt;
 &lt;ul&gt;
@@ -986,15 +986,15 @@ $\texttt{\color{RoyalBlue}@\color{default}#\color{default}a\color{RoyalBlue}#\co
 &lt;/ul&gt;
 &lt;p&gt;楼层不是循环的，你无论如何都无法到达 $h+1$ 层或以上。&lt;/p&gt;
 &lt;p&gt;最初你可以在任意一层（但也无关紧要），问你能到达多少个不同的楼层。&lt;/p&gt;
-&lt;h2 id=&#34;text-stylecolorrgb0150136-题解&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 题解&lt;/h2&gt;
-&lt;h3 id=&#34;text-stylecolorrgb0150136-分类&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 分类&lt;/h3&gt;
+&lt;h2 id=&#34;题解&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 题解&lt;/h2&gt;
+&lt;h3 id=&#34;分类&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 分类&lt;/h3&gt;
 &lt;p&gt;我们按楼层模 $x_1$ 的余数分类，把楼层 $i$ 分到 $i \bmod x_1$ 类。&lt;/p&gt;
 &lt;p&gt;这样分类有什么用呢？见下。&lt;/p&gt;
-&lt;h3 id=&#34;text-stylecolorrgb0150136-定义状态&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 定义状态&lt;/h3&gt;
+&lt;h3 id=&#34;定义状态&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 定义状态&lt;/h3&gt;
 &lt;p&gt;有了这个分类，我们可以定义状态 $d_i$（$i \in [0,x_1)$）代表不用「向上走 $x_1$ 层」操作能到达的、最小的第 $i$ 类楼层是多少。&lt;/p&gt;
 &lt;p&gt;那么，由于有「向上走 $x_1$ 层」操作，所以 $d_i,d_i+x_1,d_i+2x_1,\dots$（比 $d_i$ 大或相等的第 $i$ 类楼层）都是可达的。&lt;/p&gt;
 &lt;p&gt;接下来考虑转移这个状态。&lt;/p&gt;
-&lt;h3 id=&#34;text-stylecolorrgb0150136-转移&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 转移&lt;/h3&gt;
+&lt;h3 id=&#34;转移&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 转移&lt;/h3&gt;
 &lt;p&gt;其实也很好想，比如用一次「向上走 $x_2$ 层」操作，那么 $d_i$ 可以转移到 $d_{(i+x_2) \bmod x_1}$，转移代价为 $x_2$，所以：&lt;/p&gt;
 &lt;p&gt;$d_{(i+x_2) \bmod x_1}=\min(d_{(i+x_2) \bmod x_1},d_i+x_2)$&lt;/p&gt;</description>
     </item>
@@ -1100,9 +1100,9 @@ $&lt;/p&gt;
 &lt;p&gt;在数学、编程界里，可能会经常遇到方程，而且有时候还会遇到一种特殊方程——一元二次方程。&lt;/p&gt;
 &lt;p&gt;除此之外，还有含参一元二次方程，这里也会一起讲。&lt;em&gt;（待补充）&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;其实还有如二元一次方程、一元三次方程等的特殊方程，但在这里不讲。&lt;/p&gt;
-&lt;h1 id=&#34;text-stylecolorrgb0150136-一元二次方程&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 一元二次方程&lt;/h1&gt;
+&lt;h1 id=&#34;一元二次方程&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 一元二次方程&lt;/h1&gt;
 &lt;p&gt;有人看到“一元二次方程”就不知道是啥意思，这里先说一下定义&lt;/p&gt;
-&lt;h2 id=&#34;text-stylecolorrgb0150136-定义&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 定义&lt;/h2&gt;
+&lt;h2 id=&#34;定义&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 定义&lt;/h2&gt;
 &lt;p&gt;首先，方程相信大家都见过，所以这里不写对方程的定义解释。（废话&lt;/p&gt;
 &lt;p&gt;而 $x$ 元 $y$ 次方程就是这么定义的：&lt;/p&gt;
 &lt;ul&gt;
@@ -1116,8 +1116,8 @@ $&lt;/p&gt;
 &lt;li&gt;$x^3+2x^2-1=16x$：一元三次方程，也是一种不常见的方程类型。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;讲完定义，接下来说怎么解&lt;/p&gt;
-&lt;h2 id=&#34;text-stylecolorrgb0150136-解法&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 解法&lt;/h2&gt;
-&lt;h3 id=&#34;text-stylecolorrgb0150136-推导&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 推导&lt;/h3&gt;
+&lt;h2 id=&#34;解法&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 解法&lt;/h2&gt;
+&lt;h3 id=&#34;推导&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 推导&lt;/h3&gt;
 &lt;p&gt;我们&lt;strong&gt;把方程一般化&lt;/strong&gt;，变成：&lt;/p&gt;
 &lt;p&gt;$ax^2+bx+c=0$&lt;/p&gt;
 &lt;p&gt;其中 $a$、$b$、$c$ 均为常量。&lt;/p&gt;
@@ -1170,25 +1170,25 @@ $&lt;/p&gt;
       <guid>https://qjwh.github.io/posts/oi/aln/exbinarysearch/</guid>
       <description>&lt;text style=&#34;font-family:Noto Sans SC&#34;&gt;
 &lt;p&gt;整体二分类似于线段树上二分，在讲这个算法前，先引入几个问题。&lt;/p&gt;
-&lt;h2 id=&#34;text-stylecolorrgb0150136-解决题型&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 解决题型&lt;/h2&gt;
+&lt;h2 id=&#34;解决题型&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 解决题型&lt;/h2&gt;
 &lt;p&gt;整体二分一般解决的是如下的问题：&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;给你一个【集合/序列/矩阵/树】，要求【静态/动态】维护所有【元素/区间/子矩阵/链/子树】中的第 $k$【可能每次给定】大元素，【可能强制在线】。&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;下面是一堆例题。&lt;/p&gt;
-&lt;h2 id=&#34;text-stylecolorrgb0150136-例题1-动态查询集合第k大可离线&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 例题1 动态查询集合第k大（可离线）&lt;/h2&gt;
-&lt;h3 id=&#34;text-stylecolorrgb0150136-题意&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 题意&lt;/h3&gt;
+&lt;h2 id=&#34;例题1-动态查询集合第k大可离线&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 例题1 动态查询集合第k大（可离线）&lt;/h2&gt;
+&lt;h3 id=&#34;题意&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 题意&lt;/h3&gt;
 &lt;p&gt;让你维护一个初始为空的多重集合 $s$，并支持 $q$ 次操作，操作都是下面三种之一：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;添加一个数 $x$ 到集合 $s$ 中。&lt;/li&gt;
 &lt;li&gt;在集合 $s$ 中删除一个数 $x$（保证元素存在）。&lt;/li&gt;
 &lt;li&gt;查询集合第 $k$ 大（保证第 $k$ 大存在）。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;text-stylecolorrgb0150136-数据范围&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 数据范围&lt;/h3&gt;
+&lt;h3 id=&#34;数据范围&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 数据范围&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;$1 \leq q \leq 2 \times 10^5$&lt;/li&gt;
 &lt;li&gt;$0 \leq x \leq 10^9$&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;text-stylecolorrgb0150136-题解&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 题解&lt;/h3&gt;
+&lt;h3 id=&#34;题解&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 题解&lt;/h3&gt;
 &lt;p&gt;维护一个权值线段树（权值线段树其实就是一个维护值域的线段树），维护一段值域里有多少个数，每次询问在线段树上二分即可。&lt;/p&gt;
 &lt;p&gt;具体地，对于线段树上某个节点对应的区间 $[l,r]$，这个节点上的值为集合中，值在 $[l,r]$ 的数的个数有多少。&lt;/p&gt;
 &lt;p&gt;在询问时，我们要记录当前节点编号 $x$，$x$ 维护区间 $[l,r]$，以及要查询值在 $[l,r]$ 内的所有数的第 $k$ 大。&lt;/p&gt;
@@ -1246,7 +1246,7 @@ $&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://qjwh.github.io/posts/oi/aln/c/#%e7%90%83%e7%9b%92%e6%a8%a1%e5%9e%8b%e6%89%a9%e5%b1%95%e4%b8%bb%e8%a6%81%e6%83%85%e5%86%b5%e6%80%bb%e7%bb%93&#34;&gt;转到：球盒模型扩展公式&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;（下面部分标题里的LaTeX公式更新后炸了，就凑合着看吧）&lt;/p&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;text-stylecolorrgb0150136-求组合数&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 求组合数&lt;/h2&gt;
+&lt;h2 id=&#34;求组合数&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 求组合数&lt;/h2&gt;
 &lt;p&gt;以下所有范围都可以当成是以下题目的某个Subtask：&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;给你 $p$，代表模数。&lt;/p&gt;
@@ -1254,29 +1254,29 @@ $&lt;/p&gt;
 &lt;p&gt;每次询问给定 $n$ 和 $m$，问 $C_n^m \bmod p$ 的值。&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;下面不给定 $q$ 的范围，因为不重要。&lt;/p&gt;
 &lt;p&gt;以下全部默认 $n \geq m$。&lt;/p&gt;
-&lt;h3 id=&#34;text-stylecolorrgb0150136-范围1nm-leq-2000p-leq-1097&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 范围1：$n,m \leq 2000,p \leq 10^9+7$&lt;/h3&gt;
+&lt;h3 id=&#34;范围1nm-leq-2000p-leq-1097&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 范围1：$n,m \leq 2000,p \leq 10^9+7$&lt;/h3&gt;
 &lt;p&gt;先递推预处理，然后直接回答询问即可。&lt;/p&gt;
 &lt;p&gt;递推式：$C_n^m=C_{n-1}^m+C_{n-1}^{m-1}$。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;预处理复杂度：$O(n^2)$&lt;/li&gt;
 &lt;li&gt;查询复杂度：$O(1)$&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;text-stylecolorrgb0150136-范围2nm-leq-106p-leq-1097ptext-is-prime&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 范围2：$n,m \leq 10^6,p \leq 10^9+7,p\text{ is prime}$&lt;/h3&gt;
-&lt;h4 id=&#34;text-stylecolorrgb0150136-1&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 1&lt;/h4&gt;
+&lt;h3 id=&#34;范围2nm-leq-106p-leq-1097ptext-is-prime&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 范围2：$n,m \leq 10^6,p \leq 10^9+7,p\text{ is prime}$&lt;/h3&gt;
+&lt;h4 id=&#34;1&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 1&lt;/h4&gt;
 &lt;p&gt;先预处理阶乘，然后直接回答询问即可。&lt;/p&gt;
 &lt;p&gt;回答询问式：$C_n^m=\dfrac{n!}{m!(n-m)!}$。&lt;/p&gt;
 &lt;p&gt;为了节省时间复杂度，此处还可以预处理一下阶乘的逆元。&lt;/p&gt;
-&lt;h4 id=&#34;text-stylecolorrgb0150136-2&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 2&lt;/h4&gt;
+&lt;h4 id=&#34;2&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 2&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;预处理复杂度：$O(n)$&lt;/li&gt;
 &lt;li&gt;查询复杂度：$O(1)$&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;text-stylecolorrgb0150136-范围3nm-leq-106p-leq-1097&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 范围3：$n,m \leq 10^6,p \leq 10^9+7$&lt;/h3&gt;
-&lt;h4 id=&#34;text-stylecolorrgb0150136-1-1&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 1&lt;/h4&gt;
+&lt;h3 id=&#34;范围3nm-leq-106p-leq-1097&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 范围3：$n,m \leq 10^6,p \leq 10^9+7$&lt;/h3&gt;
+&lt;h4 id=&#34;1-1&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 1&lt;/h4&gt;
 &lt;p&gt;可以发现，范围2与范围3唯一的不同就是，范围3把质数的条件去掉了。&lt;/p&gt;
 &lt;p&gt;而把质数的条件后，就没法求逆元了，因为逆元可能不存在。&lt;/p&gt;
 &lt;p&gt;所以我们考虑换做法。&lt;/p&gt;
-&lt;h4 id=&#34;text-stylecolorrgb0150136-2-1&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 2&lt;/h4&gt;
+&lt;h4 id=&#34;2-1&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 2&lt;/h4&gt;
 &lt;p&gt;我们考虑把模数做个质因数分解，变成 ${p_1}^{a_1} \times {p_2}^{a_2} \times {p_3}^{a_3} \times \dots \times {p_k}^{a_k}$。&lt;/p&gt;</description>
     </item>
   </channel>

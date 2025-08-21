@@ -31,7 +31,7 @@
 $d_{(i&#43;x_2) \bmod x_1}=\min(d_{(i&#43;x_2) \bmod x_1},d_i&#43;x_2)$">
 <meta name="author" content="">
 <link rel="canonical" href="https://qjwh.github.io/posts/oi/aln/modsp/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.3b2e5c86d6776f1230a6cc3dbc6bde31467e6a5f6513337e196964b4e3693a57.css" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.8fe10233a706bc87f2e08b3cf97b8bd4c0a80f10675a143675d59212121037c0.css" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://qjwh.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://qjwh.github.io/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://qjwh.github.io/favicon-32x32.png">
@@ -244,7 +244,7 @@ $d_{(i&#43;x_2) \bmod x_1}=\min(d_{(i&#43;x_2) \bmod x_1},d_i&#43;x_2)$">
         <div class="logo">
             <a href="https://qjwh.github.io/" accesskey="h" title="CXBlog (Alt + H)">CXBlog</a>
             <div class="logo-switches">
-                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -309,18 +309,18 @@ $d_{(i&#43;x_2) \bmod x_1}=\min(d_{(i&#43;x_2) \bmod x_1},d_i&#43;x_2)$">
 
         <div class="inner"><ul>
                 <li>
-                    <a href="#text-stylecolorrgb0150136-%e9%a2%98%e7%9b%ae" aria-label=" 题目"> 题目</a></li>
+                    <a href="#%e9%a2%98%e7%9b%ae" aria-label=" 题目"> 题目</a></li>
                 <li>
-                    <a href="#text-stylecolorrgb0150136-%e9%a2%98%e8%a7%a3" aria-label=" 题解"> 题解</a><ul>
+                    <a href="#%e9%a2%98%e8%a7%a3" aria-label=" 题解"> 题解</a><ul>
                         
                 <li>
-                    <a href="#text-stylecolorrgb0150136-%e5%88%86%e7%b1%bb" aria-label=" 分类"> 分类</a></li>
+                    <a href="#%e5%88%86%e7%b1%bb" aria-label=" 分类"> 分类</a></li>
                 <li>
-                    <a href="#text-stylecolorrgb0150136-%e5%ae%9a%e4%b9%89%e7%8a%b6%e6%80%81" aria-label=" 定义状态"> 定义状态</a></li>
+                    <a href="#%e5%ae%9a%e4%b9%89%e7%8a%b6%e6%80%81" aria-label=" 定义状态"> 定义状态</a></li>
                 <li>
-                    <a href="#text-stylecolorrgb0150136-%e8%bd%ac%e7%a7%bb" aria-label=" 转移"> 转移</a></li>
+                    <a href="#%e8%bd%ac%e7%a7%bb" aria-label=" 转移"> 转移</a></li>
                 <li>
-                    <a href="#text-stylecolorrgb0150136-%e4%bf%ae%e6%94%b9" aria-label=" 修改"> 修改</a>
+                    <a href="#%e4%bf%ae%e6%94%b9" aria-label=" 修改"> 修改</a>
                 </li>
             </ul>
             </li>
@@ -331,7 +331,7 @@ $d_{(i&#43;x_2) \bmod x_1}=\min(d_{(i&#43;x_2) \bmod x_1},d_i&#43;x_2)$">
 
   <div class="post-content"><text style="font-family:Lato,楷体">
 <p>同余最短路看名字感觉很难，但其实非常简单，也好理解，先说一道题：</p>
-<h2 id="text-stylecolorrgb0150136-题目"><text style="color:rgb(0,150,136)"> 题目<a hidden class="anchor" aria-hidden="true" href="#text-stylecolorrgb0150136-题目">#</a></h2>
+<h2 id="题目"><text style="color:rgb(0,150,136)"> 题目<a hidden class="anchor" aria-hidden="true" href="#题目">#</a></h2>
 <p>原型：<a href="https://www.luogu.com.cn/problem/P3403">洛谷P3403 跳楼机</a></p>
 <p>有一栋 $h$ 层的大楼（层数编号从 $1$ 到 $h$），有 $n+1$ 种移动方式：</p>
 <ul>
@@ -340,18 +340,18 @@ $d_{(i&#43;x_2) \bmod x_1}=\min(d_{(i&#43;x_2) \bmod x_1},d_i&#43;x_2)$">
 </ul>
 <p>楼层不是循环的，你无论如何都无法到达 $h+1$ 层或以上。</p>
 <p>最初你可以在任意一层（但也无关紧要），问你能到达多少个不同的楼层。</p>
-<h2 id="text-stylecolorrgb0150136-题解"><text style="color:rgb(0,150,136)"> 题解<a hidden class="anchor" aria-hidden="true" href="#text-stylecolorrgb0150136-题解">#</a></h2>
-<h3 id="text-stylecolorrgb0150136-分类"><text style="color:rgb(0,150,136)"> 分类<a hidden class="anchor" aria-hidden="true" href="#text-stylecolorrgb0150136-分类">#</a></h3>
+<h2 id="题解"><text style="color:rgb(0,150,136)"> 题解<a hidden class="anchor" aria-hidden="true" href="#题解">#</a></h2>
+<h3 id="分类"><text style="color:rgb(0,150,136)"> 分类<a hidden class="anchor" aria-hidden="true" href="#分类">#</a></h3>
 <p>我们按楼层模 $x_1$ 的余数分类，把楼层 $i$ 分到 $i \bmod x_1$ 类。</p>
 <p>这样分类有什么用呢？见下。</p>
-<h3 id="text-stylecolorrgb0150136-定义状态"><text style="color:rgb(0,150,136)"> 定义状态<a hidden class="anchor" aria-hidden="true" href="#text-stylecolorrgb0150136-定义状态">#</a></h3>
+<h3 id="定义状态"><text style="color:rgb(0,150,136)"> 定义状态<a hidden class="anchor" aria-hidden="true" href="#定义状态">#</a></h3>
 <p>有了这个分类，我们可以定义状态 $d_i$（$i \in [0,x_1)$）代表不用「向上走 $x_1$ 层」操作能到达的、最小的第 $i$ 类楼层是多少。</p>
 <p>那么，由于有「向上走 $x_1$ 层」操作，所以 $d_i,d_i+x_1,d_i+2x_1,\dots$（比 $d_i$ 大或相等的第 $i$ 类楼层）都是可达的。</p>
 <p>接下来考虑转移这个状态。</p>
-<h3 id="text-stylecolorrgb0150136-转移"><text style="color:rgb(0,150,136)"> 转移<a hidden class="anchor" aria-hidden="true" href="#text-stylecolorrgb0150136-转移">#</a></h3>
+<h3 id="转移"><text style="color:rgb(0,150,136)"> 转移<a hidden class="anchor" aria-hidden="true" href="#转移">#</a></h3>
 <p>其实也很好想，比如用一次「向上走 $x_2$ 层」操作，那么 $d_i$ 可以转移到 $d_{(i+x_2) \bmod x_1}$，转移代价为 $x_2$，所以：</p>
 <p>$d_{(i+x_2) \bmod x_1}=\min(d_{(i+x_2) \bmod x_1},d_i+x_2)$</p>
-<h3 id="text-stylecolorrgb0150136-修改"><text style="color:rgb(0,150,136)"> 修改<a hidden class="anchor" aria-hidden="true" href="#text-stylecolorrgb0150136-修改">#</a></h3>
+<h3 id="修改"><text style="color:rgb(0,150,136)"> 修改<a hidden class="anchor" aria-hidden="true" href="#修改">#</a></h3>
 <p>但很快就能发现，这个DP不拥有拓扑序，所以必须要用最短路去解决，建图伪代码：</p>
 <ul>
 <li>枚举 $i \in [0,x_1)$
