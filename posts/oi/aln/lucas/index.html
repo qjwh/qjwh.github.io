@@ -22,7 +22,7 @@ exLucas定理
 在M2579内，$p$ 唯一分解后，每个 $a_i$ 都等于 $1$，所以直接用Lucas定理就可以求，但在一般的题目中，指数不一定都等于 $1$，所以才要用到exLucas定理。">
 <meta name="author" content="">
 <link rel="canonical" href="https://qjwh.github.io/posts/oi/aln/lucas/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.8fe10233a706bc87f2e08b3cf97b8bd4c0a80f10675a143675d59212121037c0.css" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.2211ca3164be7830024f6aad2b3a2e520843a64f8f048445c3401c1249aa051d.css" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://qjwh.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://qjwh.github.io/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://qjwh.github.io/favicon-32x32.png">
@@ -330,7 +330,8 @@ exLucas定理
 <p>（为了好看一些，我把新加进来的系数标成了橙色）</p>
 <p>化简：</p>
 <p>$C_n^m \bmod q^a=\dfrac{n!}{m!(n-m)!} \bmod q^a$</p>
-<p>与原式相同，证毕。</p></blockquote>
+<p>与原式相同，证毕。</p>
+</blockquote>
 <p>有人问，这个转化有啥用呢？用处很大，因为此时三项（$\dfrac{n!}{q^x}$、$\dfrac{m!}{q^y}$、$\dfrac{(n-m)!}{q^z}$）的唯一分解中<strong>都没有 $q$ 了</strong>，也就意味着分母中的两个数<strong>都有在模 $q^a$ 意义下的逆元了</strong>，也就<strong>可以直接除</strong>了。</p>
 <p>所以，我们又把问题转化为了，求 $\dfrac{n!}{q^x} \bmod q^a$ 的值。</p>
 <hr>

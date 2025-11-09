@@ -17,6 +17,7 @@
 莫队一般解决以下问题：
 
 给你一些信息，和 $q$ 次询问，每次询问可以抽象为一个区间。
+
 而且这个问题还要满足一些条件：
 
 可以离线
@@ -47,7 +48,7 @@
 这样的话，复杂度就是 $O(n \sqrt n&#43;q \sqrt n)$ 的复杂度了。">
 <meta name="author" content="">
 <link rel="canonical" href="https://qjwh.github.io/posts/oi/aln/modui/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.8fe10233a706bc87f2e08b3cf97b8bd4c0a80f10675a143675d59212121037c0.css" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.2211ca3164be7830024f6aad2b3a2e520843a64f8f048445c3401c1249aa051d.css" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://qjwh.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://qjwh.github.io/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://qjwh.github.io/favicon-32x32.png">
@@ -186,6 +187,7 @@
 莫队一般解决以下问题：
 
 给你一些信息，和 $q$ 次询问，每次询问可以抽象为一个区间。
+
 而且这个问题还要满足一些条件：
 
 可以离线
@@ -462,7 +464,8 @@
 <h2 id="解决题型"><text style="color:rgb(0,150,136)"> 解决题型<a hidden class="anchor" aria-hidden="true" href="#解决题型">#</a></h2>
 <p>莫队一般解决以下问题：</p>
 <blockquote>
-<p>给你一些信息，和 $q$ 次询问，每次询问可以抽象为一个区间。</p></blockquote>
+<p>给你一些信息，和 $q$ 次询问，每次询问可以抽象为一个区间。</p>
+</blockquote>
 <p>而且这个问题还要满足一些条件：</p>
 <ul>
 <li>可以离线</li>
@@ -554,17 +557,20 @@
 <li>我们先看一下 $t$ 指针移动的总复杂度：
 <blockquote>
 <p>显然对于每个不同的 $(\text{bel}_l,\text{bel}_r)$（$\text{bel}_i$ 表示 $i$ 所在块），$t$ 最坏会从最小值移动到最大值（$O(n \times C^2)$ 复杂度）；然后在换块的时候，再从最大值移动到最小值（$O(n \times C^2)$ 复杂度）。</p>
-<p>此处设 $l$、$r$、$t$ 的最大值都是 $n$，那么 $t$ 指针的复杂度就是 $O(nC^2)$。</p></blockquote>
+<p>此处设 $l$、$r$、$t$ 的最大值都是 $n$，那么 $t$ 指针的复杂度就是 $O(nC^2)$。</p>
+</blockquote>
 </li>
 <li>我们再看一下 $r$ 指针移动的总复杂度：
 <blockquote>
 <p>在 $\text{bel}_l$ 变化时，$r$ 最坏会从最大值移动到最小值（$O(nC)$ 复杂度）；而在 $\text{bel}_l$ 不变时，如果 $\text{bel}_r$ 也不变，则 $r$ 每次变化最多 $B$（$O(nB)$ 复杂度，注意不是 $O(BC^2)$）；但如果 $\text{bel}_r$ 变化，则 $r$ 变化最多 $2B$（$O(BC^2)$ 复杂度）。</p>
-<p>由于 $O(BC)=O(n)$，所以最后一部分的复杂度就是 $O(BC^2)=O(nC)$；且根据上面复杂度 $O(nC^2)$，我们猜测 $B&gt;C$（因为后面要复杂度均衡）；所以 $r$ 指针的复杂度就是 $O(nB)$。</p></blockquote>
+<p>由于 $O(BC)=O(n)$，所以最后一部分的复杂度就是 $O(BC^2)=O(nC)$；且根据上面复杂度 $O(nC^2)$，我们猜测 $B&gt;C$（因为后面要复杂度均衡）；所以 $r$ 指针的复杂度就是 $O(nB)$。</p>
+</blockquote>
 </li>
 <li>最后看一下 $l$ 指针移动的总复杂度：
 <blockquote>
 <p>在 $\text{bel}_l$ 变化时，$l$ 会变化 $2B$ 次（$O(BC)$ 复杂度）；而在 $\text{bel}_l$ 不变时，$l$ 每次变化最多 $B$ 次（$O(nB)$ 复杂度）。</p>
-<p>综上所述，$l$ 指针的复杂度就是 $O(nB)$。</p></blockquote>
+<p>综上所述，$l$ 指针的复杂度就是 $O(nB)$。</p>
+</blockquote>
 </li>
 </ol>
 <p>然后，我们的目标就是设计 $B$ 和 $C$ 的值，使得这三个部分的复杂度相同。</p>

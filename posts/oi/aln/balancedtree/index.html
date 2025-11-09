@@ -50,7 +50,7 @@ BST其实就是把权值“当做”节点编号（讲的时候一般就这么�
 而且，由于它也会让整棵树尽量平衡，所以树高还是会稳定在 $O(\log n)$ 级别。">
 <meta name="author" content="">
 <link rel="canonical" href="https://qjwh.github.io/posts/oi/aln/balancedtree/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.8fe10233a706bc87f2e08b3cf97b8bd4c0a80f10675a143675d59212121037c0.css" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.2211ca3164be7830024f6aad2b3a2e520843a64f8f048445c3401c1249aa051d.css" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://qjwh.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://qjwh.github.io/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://qjwh.github.io/favicon-32x32.png">
@@ -610,7 +610,8 @@ BST其实就是把权值“当做”节点编号（讲的时候一般就这么�
 <p>其他的没变，只是用的是“动态开点权值线段树”而已。</p>
 <blockquote>
 <p><del>上联：可持久化带懒标记离线线段树</del><br>
-<del>下联：有限状态乌姆尼克权值自动机</del></p></blockquote>
+<del>下联：有限状态乌姆尼克权值自动机</del></p>
+</blockquote>
 <p>时间复杂度：$O(n \log n)$</p>
 <h3 id="代码-1"><text style="color:rgb(0,150,136)"> 代码<a hidden class="anchor" aria-hidden="true" href="#代码-1">#</a></h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="err">由于</span><span class="n">P6136过于卡空间</span><span class="err">，所以下面代码递交上去并不能</span><span class="n">AC</span><span class="err">，而是获得</span><span class="mi">64</span><span class="err">分，所以仅供参考</span>
@@ -704,7 +705,8 @@ BST其实就是把权值“当做”节点编号（讲的时候一般就这么�
 <blockquote>
 <p>找到这个点的话很简单，可以直接暴力。</p>
 <p>由于BST要求左子树内的所有权值 $&lt;$ 右子树内的所有权值，所以我们可以贪心。</p>
-<p>递归过程中，无脑一直往左/右儿子走，如果都没有则返回。</p></blockquote>
+<p>递归过程中，无脑一直往左/右儿子走，如果都没有则返回。</p>
+</blockquote>
 <p>然后，我们把这个节点和 $x$ 交换，并删除此时的 $x$ 点即可。</p>
 <h3 id="其他四种操作"><text style="color:rgb(0,150,136)"> 其他四种操作<a hidden class="anchor" aria-hidden="true" href="#其他四种操作">#</a></h3>
 <p>类似于线段树上二分。</p>
@@ -772,7 +774,8 @@ BST其实就是把权值“当做”节点编号（讲的时候一般就这么�
 <p>但这里只写了一个函数，有人问这个函数实现的是什么旋？其实这个函数其实既实现了左旋，又实现了右旋。</p>
 <p>而这一点怎么理解呢？可以发现，用哪种旋法，只取决于这个点是左还是右儿子。</p>
 <p>如果是左儿子，那么就得用右旋，否则用左旋。</p>
-<p>所以上面代码既实现了左旋（节点 $x$ 为右儿子），也实现了右旋（节点 $x$ 为左儿子）。</p></blockquote>
+<p>所以上面代码既实现了左旋（节点 $x$ 为右儿子），也实现了右旋（节点 $x$ 为左儿子）。</p>
+</blockquote>
 <p>在Splay里，会对“旋转”做升级（添加了一个<code>splay</code>操作，但<code>rotate</code>操作没变），这时候会更头疼。</p>
 <blockquote>
 <p>附：</p>
@@ -794,7 +797,8 @@ BST其实就是把权值“当做”节点编号（讲的时候一般就这么�
 </span></span></span><span class="line"><span class="cl"><span class="cp">#define rc(x) sons(x, 1)
 </span></span></span><span class="line"><span class="cl"><span class="cp">#define sp(x) (rc(fa(x)) == x)  </span><span class="c1">//x的在哪个儿子上
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#define pushup(x) (sz(x) = sz(lc(x)) + sz(rc(x)))  </span><span class="c1">//pushup操作
-</span></span></span></code></pre></div><p>这些信息只是为了方便理解代码，不用全抄。</p></blockquote>
+</span></span></span></code></pre></div><p>这些信息只是为了方便理解代码，不用全抄。</p>
+</blockquote>
 <h3 id="插入"><text style="color:rgb(0,150,136)"> 插入<a hidden class="anchor" aria-hidden="true" href="#插入">#</a></h3>
 <p>在插入操作里，我们先忽略优先级，按BST的性质找到插入点。</p>
 <p>然后，从该点遍历到根。</p>
@@ -1436,7 +1440,8 @@ BST其实就是把权值“当做”节点编号（讲的时候一般就这么�
 <p>这个复杂度是可以证明的，其均摊复杂度为 $O(\log n)$，其中 $n$ 为节点数。</p>
 <blockquote>
 <p>证明：</p>
-<p><em>（暑假的时候补）</em></p></blockquote>
+<p><em>（暑假的时候补）</em></p>
+</blockquote>
 <p>不过有时候少旋转了，可能会导致复杂度增加，所以建议比赛的时候（特别是OI赛制比赛）造几个边界数据看是否能过。</p>
 <h3 id="代码-4"><text style="color:rgb(0,150,136)"> 代码<a hidden class="anchor" aria-hidden="true" href="#代码-4">#</a></h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="err">递交到</span><span class="n">P3369即可AC</span>

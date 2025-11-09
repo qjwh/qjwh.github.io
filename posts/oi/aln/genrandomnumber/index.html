@@ -22,6 +22,7 @@ srand(time(0) ^ clock());
 
 注：随机种子为time(0) ^ clock()，这个随机种子可以再毫秒级别内生成（大概率）不同的随机种子。
 
+
 取 $[l,r]$ 内的随机数
 
 #define random(l, r) (rand() % ((LL)(r) - (LL)(l) &#43; 1) &#43; (LL)(l))
@@ -58,7 +59,7 @@ mt19937 _rand(time(0) ^ clock());
 据测试，这个函数可以生成在unsigned int范围内的随机数（即可以生成 $[1,2^{32})$ 内的随机数），测试程序：">
 <meta name="author" content="">
 <link rel="canonical" href="https://qjwh.github.io/posts/oi/aln/genrandomnumber/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.8fe10233a706bc87f2e08b3cf97b8bd4c0a80f10675a143675d59212121037c0.css" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.2211ca3164be7830024f6aad2b3a2e520843a64f8f048445c3401c1249aa051d.css" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://qjwh.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://qjwh.github.io/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://qjwh.github.io/favicon-32x32.png">
@@ -188,6 +189,7 @@ LL ma = 0; for(LL i = 1;i &lt;= 200;i&#43;&#43;){ srand(time(0) ^ clock()); LL t
 srand(time(0) ^ clock());
 
 注：随机种子为time(0) ^ clock()，这个随机种子可以再毫秒级别内生成（大概率）不同的随机种子。
+
 
 取 $[l,r]$ 内的随机数
 
@@ -365,7 +367,8 @@ mt19937 _rand(time(0) ^ clock());
 </ul>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">srand</span><span class="p">(</span><span class="n">time</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">^</span> <span class="n">clock</span><span class="p">());</span>
 </span></span></code></pre></div><blockquote>
-<p>注：随机种子为<code>time(0) ^ clock()</code>，这个随机种子可以再毫秒级别内生成（大概率）不同的随机种子。</p></blockquote>
+<p>注：随机种子为<code>time(0) ^ clock()</code>，这个随机种子可以再毫秒级别内生成（大概率）不同的随机种子。</p>
+</blockquote>
 <ul>
 <li>取 $[l,r]$ 内的随机数</li>
 </ul>
@@ -415,7 +418,8 @@ mt19937 _rand(time(0) ^ clock());
 <p>这个类名叫<code>random_device</code>，用法如下：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">random_device</span> <span class="n">rand_seed</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="n">mt19937</span> <span class="nf">_rand</span><span class="p">(</span><span class="n">rand_seed</span><span class="p">());</span>
-</span></span></code></pre></div><p>这样随机种子就可以更好地生成了。</p></blockquote>
+</span></span></code></pre></div><p>这样随机种子就可以更好地生成了。</p>
+</blockquote>
 <p><code>random_shuffle</code>介绍 <em>（待补）</em></p>
 <p><code>shuffle</code>介绍 <em>（待补）</em></p>
 <hr>

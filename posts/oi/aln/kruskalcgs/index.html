@@ -48,13 +48,14 @@ Fighting_Peter 的文章
 尚未想到证明方式
 
 
+
 对于一个最小生成树上的点 $x$，其只通过（边权）不超过 $v$ 的边，能到的点集；和 $x$ 在重构树上深度最浅的、权值 $\leq v$ 的点 $y$ 的子树内（叶子）节点集合，是一样的。
 
 这里稍微证明一下。
 就是我们根据上面的性质，可以发现，设后者对应集合为 $S$，那么显然 $S$ 内的点，和 $x$ 点，的LCA的权值一定不超过 $v$，显然。">
 <meta name="author" content="">
 <link rel="canonical" href="https://qjwh.github.io/posts/oi/aln/kruskalcgs/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.8fe10233a706bc87f2e08b3cf97b8bd4c0a80f10675a143675d59212121037c0.css" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.2211ca3164be7830024f6aad2b3a2e520843a64f8f048445c3401c1249aa051d.css" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://qjwh.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://qjwh.github.io/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://qjwh.github.io/favicon-32x32.png">
@@ -225,6 +226,7 @@ Fighting_Peter 的文章
 原图中两个点 $u$、$v$ 之间所有路径上的边权最大值的最小值，就是该图的最小生成树重构树上，$u$ 和 $v$​ 的LCA的权值。
 
 尚未想到证明方式
+
 
 
 对于一个最小生成树上的点 $x$，其只通过（边权）不超过 $v$ 的边，能到的点集；和 $x$ 在重构树上深度最浅的、权值 $\leq v$ 的点 $y$ 的子树内（叶子）节点集合，是一样的。
@@ -426,7 +428,8 @@ Fighting_Peter 的文章
 <li>
 <p>原图中两个点 $u$、$v$ 之间所有路径上的边权最大值的最小值，就是该图的最小生成树重构树上，$u$ 和 $v$​ 的LCA的权值。</p>
 <blockquote>
-<p><em>尚未想到证明方式</em></p></blockquote>
+<p><em>尚未想到证明方式</em></p>
+</blockquote>
 </li>
 <li>
 <p>对于一个最小生成树上的点 $x$，其只通过（边权）不超过 $v$ 的边，能到的点集；和 $x$ 在重构树上深度最浅的、权值 $\leq v$ 的点 $y$ 的子树内（叶子）节点集合，是一样的。</p>
@@ -434,7 +437,8 @@ Fighting_Peter 的文章
 <p>这里稍微证明一下。</p>
 <p>就是我们根据上面的性质，可以发现，设后者对应集合为 $S$，那么显然 $S$ 内的点，和 $x$ 点，的LCA的权值一定不超过 $v$，显然。</p>
 <p>那根据上面那个性质，LCA不超过 $v$，那么路径上的最大权值最小值一定也不超过 $v$。</p>
-<p>既然如此，就证毕了。</p></blockquote>
+<p>既然如此，就证毕了。</p>
+</blockquote>
 </li>
 </ul>
 <h2 id="解决题型">解决题型<a hidden class="anchor" aria-hidden="true" href="#解决题型">#</a></h2>
@@ -459,7 +463,8 @@ Fighting_Peter 的文章
 <p>然后，我们找到这个值的 $\log_2$ 值，即 $lg=\big\lfloor \log_2 (dep_u-dep_t) ~\big\rfloor$。</p>
 <p>随后，我们可以发现，我们得求出 $u$ 往上 $len-2^{lg}$ 条边的点。</p>
 <p>因为只有在知道这个点 $x$ 后，我们才能确定 $\max$ 的第二项。</p>
-<p>最后我们可以直接求出答案 $\max(ma_{u,lg},ma_{x,lg})$。</p></blockquote>
+<p>最后我们可以直接求出答案 $\max(ma_{u,lg},ma_{x,lg})$。</p>
+</blockquote>
 <p>那么，可以发现，这个复杂度是 $\log$ 的，跑得慢，细节多~~（不过实际上不多）~~。</p>
 <p>不过根据上述特性，我们可以用Kruskal重构树做。</p>
 <p>我们使用RMQ可以 $O(1)$ 在线求出任意两点的LCA值，即可 $O(1)$ 回答询问。</p>

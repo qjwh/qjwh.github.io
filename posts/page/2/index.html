@@ -10,7 +10,7 @@
 <meta name="description" content="Posts - CXBlog">
 <meta name="author" content="">
 <link rel="canonical" href="https://qjwh.github.io/posts/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.8fe10233a706bc87f2e08b3cf97b8bd4c0a80f10675a143675d59212121037c0.css" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.2211ca3164be7830024f6aad2b3a2e520843a64f8f048445c3401c1249aa051d.css" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://qjwh.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://qjwh.github.io/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://qjwh.github.io/favicon-32x32.png">
@@ -419,6 +419,7 @@ wqs二分也是二分，那它二分什么值呢，它二分的是斜率 $mid$�
 其次，显然，经过点 $(x,y)$ 且斜率等于 $k$ 的直线（肯定唯一），其截距一定等于 $y-kx$（$y=kx&#43;b$，$b=y-kx$）。
 而在二分的calc函数（此处不是check函数了，calc函数的返回值、返回值含义以及应用见下）中，我们已经知道了上述公式中的 $k$ 了（$k=mid$），所以我们只要让 $y-kx$ 最小、斜率为 $k$ 且经过了某个图上的点即可。
 考虑到上述公式中的 $x$ 未知，所以我们可以干脆把所有 $s$ 的出边的边权都减 $mid$。（关于是加、减还是都彳亍的问题存疑）
+然后我们对新图跑一个最小生成树，看这个最小生成树中 $s$ 的出度是多少，那么被切点的X坐标就是多少；并且这颗最小生成树的边权和就是这个切线的截距，显然。
 ...</p>
   </div>
   <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>

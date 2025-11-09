@@ -45,7 +45,7 @@ $5$ 号点代表第三对夫妻是C男参与宴会，$6$ 号点代表C女参与�
 所以，如果说A男和B女、C男和A女之间都有矛盾，那么就需要在：">
 <meta name="author" content="">
 <link rel="canonical" href="https://qjwh.github.io/posts/oi/aln/2sat/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.8fe10233a706bc87f2e08b3cf97b8bd4c0a80f10675a143675d59212121037c0.css" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.2211ca3164be7830024f6aad2b3a2e520843a64f8f048445c3401c1249aa051d.css" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://qjwh.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://qjwh.github.io/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://qjwh.github.io/favicon-32x32.png">
@@ -485,7 +485,8 @@ $5$ 号点代表第三对夫妻是C男参与宴会，$6$ 号点代表C女参与�
 <p>我们再证明最短路是错误的。</p>
 <p>$dis_v=\max(dis_v,dis_u+1)$前面的过程先跳过，我们考虑语句 $dis_v=\max(dis_v,dis_u+1)$，在使用最短路时，会变成 $dis_v=\min(dis_v,dis_u+1)$。</p>
 <p>所以，在使用最短路作为层数的时候，只能保证 $dis_v \leq dis_u+1$，不一定满足上述条件。</p>
-<p>虽然说是<strong>不一定</strong>满足上述条件，但可能错误是不可改变的现实，所以最短路不可取，证毕。</p></blockquote>
+<p>虽然说是<strong>不一定</strong>满足上述条件，但可能错误是不可改变的现实，所以最短路不可取，证毕。</p>
+</blockquote>
 <p>如：</p>
 <img src="https://cdn.luogu.com.cn/upload/image_hosting/860jl5zu.png" width="55%">
 <p>的分层方案就是：</p>
@@ -501,7 +502,8 @@ $5$ 号点代表第三对夫妻是C男参与宴会，$6$ 号点代表C女参与�
 <ul>
 <li>$x$ 和 $y$ 之间没有路径。</li>
 <li>有从 $y$ 到 $x$ 的有向路径，但没有反向路径（从 $x$ 到 $y$ 的路径）。</li>
-</ul></blockquote>
+</ul>
+</blockquote>
 <p>这个是很好证明对于任何拓扑序都满足的，所以此处略。</p>
 <hr>
 <h4 id="正式证明"><text style="color:rgb(0,150,136)"> 正式证明<a hidden class="anchor" aria-hidden="true" href="#正式证明">#</a></h4>
@@ -510,7 +512,8 @@ $5$ 号点代表第三对夫妻是C男参与宴会，$6$ 号点代表C女参与�
 <p>根据性质2，如果说 $x$ 点的拓扑序比 $y$ 点大，那么就有两种情况，只要分别证明即可。</p>
 <p>对于情况1，两点之间没有路径，那么无论是 $x$ 点对应现实满足，还是 $y$ 点，都是可行的，证毕。</p>
 <p>对于情况2，有从 $y$ 到 $x$ 的右项路径，但没有反向路径，那么根据连边具有传递性的性质，如果 $y$ 对应现实满足，$x$ 也要满足，不符合题目条件；但如果说 $x$ 对应现实满足，那么我们完全可以说 $y$ 对应现实不满足，此时就满足题目条件了，证毕。</p>
-<p>两种情况都满足，证毕。</p></blockquote>
+<p>两种情况都满足，证毕。</p>
+</blockquote>
 <p>证明完后，直接按上述过程搞即可得到最终方案。</p>
 
 

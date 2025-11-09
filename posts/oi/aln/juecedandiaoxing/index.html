@@ -21,7 +21,7 @@
 有了深度的保证，而且一层内的 $[jl,jr]$ 区间长度和最多只有 $O(n)$ 级别，所以一次分治的复杂度就是 $O(n \log n)$。">
 <meta name="author" content="">
 <link rel="canonical" href="https://qjwh.github.io/posts/oi/aln/juecedandiaoxing/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.8fe10233a706bc87f2e08b3cf97b8bd4c0a80f10675a143675d59212121037c0.css" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.2211ca3164be7830024f6aad2b3a2e520843a64f8f048445c3401c1249aa051d.css" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://qjwh.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://qjwh.github.io/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://qjwh.github.io/favicon-32x32.png">
@@ -308,13 +308,16 @@
 <p>其次，只看 $[jl,jr]$，$[jl,jr]$ 在递归的过程中就形成了个线段树的类似结构，只不过单层内可能有部分重叠位置，而且划分点（上面说的“最终转移点”）可能不是中点，不过无关紧要。</p>
 <p>然后，再看 $[l,r]$，$[l,r]$ 在递归过程中也形成了类似于线段树的结构，并且易证这个递归树深度是不会超过 $\log n$ 的。</p>
 <p>有了深度的保证，而且一层内的 $[jl,jr]$ 区间长度和最多只有 $O(n)$ 级别，所以一次分治的复杂度就是 $O(n \log n)$。</p>
-<p>一共 $n$ 次分治，总复杂度为 $O(n^2 \log n)$。</p></blockquote>
+<p>一共 $n$ 次分治，总复杂度为 $O(n^2 \log n)$。</p>
+</blockquote>
 <h2 id="一维决策单调性">一维决策单调性<a hidden class="anchor" aria-hidden="true" href="#一维决策单调性">#</a></h2>
 <p>如果是一维的转移方程 $d_i=\min\limits_{j=0}^{i-1} \Big( d_j+w(j+1,i) \Big)$，如果也满足决策单调性（记 $d_i$ 的最优转移点为 $f_i$，那么就是说满足 $f_i \leq f_{i+1}$），那么如何优化呢，可以用决策二分栈（说是用栈，但我看其他人大多都写的是队列）。</p>
 <blockquote>
 <p>下面统一设 $g(j,i)=d_j+w(j+1,i)$，并设 $c(x,y)$ 代表 $g(x,\dots)$ 大于等于 $g(y,\dots)$ 的最小下标，即 $c(x,y)$ 是满足 $g(x,p) \geq g(y,p)$ 的最小 $p$，满足单调性，可以二分实现。</p>
 <blockquote>
-<p>这里说一下 $c(x,y)$ 的二段性证明，就是决策单调性有一个显然的推论，就是如果 $g(x,\dots)$ 在某一刻超过（大于等于）了另外一个 $g(y,\dots)$，且 $x&lt;y$，那么 $g(y,\dots)$ 就不可能再反超（大于等于）$g(x,\dots)$ 了。</p></blockquote></blockquote>
+<p>这里说一下 $c(x,y)$ 的二段性证明，就是决策单调性有一个显然的推论，就是如果 $g(x,\dots)$ 在某一刻超过（大于等于）了另外一个 $g(y,\dots)$，且 $x&lt;y$，那么 $g(y,\dots)$ 就不可能再反超（大于等于）$g(x,\dots)$ 了。</p>
+</blockquote>
+</blockquote>
 <p>（下述做法为假）</p>
 <blockquote>
 <p>我们用一个队列来维护若干个三元组 $[l,r,x]$，代表说照目前看来，$[l,r]$ 内的 $d$ 值都是从点 $x$ 转移最优。</p>
@@ -324,7 +327,8 @@
 <li>其次，如果队头的管辖范围仍然不包括 $i$（队头的 $[l,r]$ 不包含当前的 $i$），那么弹出队头。</li>
 <li>拿队头的 $x$ 来转移 $d_i$。</li>
 <li>然后，不断弹出队尾，找到 $g(i,\dots)$ 超过或等于 $g(队尾的x,\dots)$ 的最小下标（易证满足单调性，所以可以用二分来实现）$k$，然后弹出队尾，插入 $[原本队尾的l,k-1,原本队尾的x]$（如果这个三元组的区间为空或者已经无用，那么就不用插入了）和 $[k,n,i]$。</li>
-</ul></blockquote>
+</ul>
+</blockquote>
 <p>我们用一个队列 $q$（注意，这里的队列是手写队列）来维护若干个转移点，同时设 $k_i=c(q_i,q_{i+1})$。</p>
 <p>然后，就可以转移了：（设当前要转移 $d_i$，当前队列的第一个元素下标为 $h$，最后一个元素下标为 $t$）</p>
 <ul>

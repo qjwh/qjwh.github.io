@@ -4,7 +4,7 @@
     <title>Posts on CXBlog</title>
     <link>https://qjwh.github.io/posts/</link>
     <description>Recent content in Posts on CXBlog</description>
-    <generator>Hugo -- 0.148.2</generator>
+    <generator>Hugo -- 0.152.2</generator>
     <language>zh</language>
     <lastBuildDate>Mon, 18 Aug 2025 09:51:00 +0800</lastBuildDate>
     <atom:link href="https://qjwh.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
@@ -59,7 +59,8 @@
 &lt;p&gt;接下来就按照这个目录挨个讲一下每个算法。&lt;/p&gt;
 &lt;h2 id=&#34;最大流&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 最大流&lt;/h2&gt;
 &lt;blockquote&gt;
-&lt;p&gt;如果有哪里没有说清楚，可以看&lt;a href=&#34;https://oi-wiki.org/graph/flow/max-flow/&#34;&gt;这里&lt;/a&gt;，里面还有我没有说到的最大流类型。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;如果有哪里没有说清楚，可以看&lt;a href=&#34;https://oi-wiki.org/graph/flow/max-flow/&#34;&gt;这里&lt;/a&gt;，里面还有我没有说到的最大流类型。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;看到最大流这个名字很多人都很陌生，这里就先从定义说起。&lt;/p&gt;
 &lt;h3 id=&#34;定义&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 定义&lt;/h3&gt;
 &lt;p&gt;还是拆词法，“网络流”就可以大致理解为“网络”上的“流”，接下来就挨个说一下这两个的定义。&lt;/p&gt;
@@ -133,7 +134,8 @@
 &lt;p&gt;而这题的瓶颈就在下面问题：&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;对于两个数 $a,b$，是否存在一个 $x$ 使得同余方程 $a^x \equiv b \pmod p$ 有解。&lt;/p&gt;
-&lt;p&gt;$a,b,p \leq 10^{13}$（原题数据范围）&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;$a,b,p \leq 10^{13}$（原题数据范围）&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;大家看到的第一眼显然可以用&lt;a href=&#34;https://qjwh.github.io/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/BSGS%E7%AE%97%E6%B3%95%EF%BC%88%E5%88%9D%E7%89%88%EF%BC%89.md&#34;&gt;BSGS&lt;/a&gt;求。&lt;/p&gt;
 &lt;p&gt;但这个算法是 $O(\sqrt p)$ 的（如果涉及到具体实现的话，可能还得乘个 $\log \sqrt p$，就是&lt;code&gt;set&lt;/code&gt;、&lt;code&gt;lower_bound&lt;/code&gt;查找的复杂度），比较适用于单组询问，很难推广应用。&lt;/p&gt;
 &lt;p&gt;所以还有另外一种方式，比较适用于多组询问。&lt;/p&gt;
@@ -198,7 +200,8 @@
 &lt;p&gt;我们要把一个长度为 $n$ 的数组 $a$ 分成若干段。&lt;/p&gt;
 &lt;p&gt;设一段为 $a_{l..r}$，那么其“长度”为 $r-l+\sum\limits_{i=l}^r a_i$，下面简称为 $len$。&lt;/p&gt;
 &lt;p&gt;那么这一段的“代价”为 $(len-L)^2$，$L$ 是题目中给的定值。&lt;/p&gt;
-&lt;p&gt;最后的总代价为每一段的代价的和，问最小的总代价。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;最后的总代价为每一段的代价的和，问最小的总代价。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h3 id=&#34;暴力dp&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 暴力DP&lt;/h3&gt;
 &lt;p&gt;根据题目我们能很容易设计出一个一维DP，$d_i$ 表示 $a_{1..i}$ 的划分方案最小代价，且最后一段结束位置为 $i$。&lt;/p&gt;
 &lt;p&gt;那么 $d_i=\min{d_j+w(j+1,i)}$，其中 $w(l,r)$ 为 $[l,r]$ 的代价。&lt;/p&gt;
@@ -222,7 +225,8 @@
 &lt;li&gt;$k_i=2a_i$&lt;/li&gt;
 &lt;li&gt;$b_i=d_i-a_i^2$&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;那么上式可以变成：&lt;/p&gt;</description>
+&lt;p&gt;那么上式可以变成：&lt;/p&gt;
+&lt;p&gt;$$y_j=k_ix_j+b_i$$&lt;/p&gt;</description>
     </item>
     <item>
       <title>【娱乐】《星际穿越》电影解说</title>
@@ -318,7 +322,8 @@
 &lt;h2 id=&#34;解决题型&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 解决题型&lt;/h2&gt;
 &lt;p&gt;莫队一般解决以下问题：&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;给你一些信息，和 $q$ 次询问，每次询问可以抽象为一个区间。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;给你一些信息，和 $q$ 次询问，每次询问可以抽象为一个区间。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;而且这个问题还要满足一些条件：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;可以离线&lt;/li&gt;
@@ -592,7 +597,8 @@
 &lt;li&gt;$q \leq 2 \times 10^5$&lt;/li&gt;
 &lt;li&gt;$t,x,y \leq 2 \times 10^5$&lt;/li&gt;
 &lt;li&gt;$v \leq 10^9$&lt;/li&gt;
-&lt;/ul&gt;&lt;/blockquote&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;这种问题都有一个通用的解决方法，就是CDQ分治，接下来我们讲一下算法的原理。&lt;/p&gt;
 &lt;p&gt;我们先把所有的询问离线下来，然后按时刻（第一维）升序排序，显然排序前和排序后，相同询问答案不变。&lt;/p&gt;
 &lt;p&gt;接下来我们定义函数 $\text{solve}(l,r)$，代表只考虑 $l \sim r$ 内的修改，然后准确回答 $l \sim r$ 内的询问。&lt;/p&gt;
@@ -651,7 +657,8 @@
 &lt;li&gt;
 &lt;p&gt;原图中两个点 $u$、$v$ 之间所有路径上的边权最大值的最小值，就是该图的最小生成树重构树上，$u$ 和 $v$​ 的LCA的权值。&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;&lt;em&gt;尚未想到证明方式&lt;/em&gt;&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;&lt;em&gt;尚未想到证明方式&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;对于一个最小生成树上的点 $x$，其只通过（边权）不超过 $v$ 的边，能到的点集；和 $x$ 在重构树上深度最浅的、权值 $\leq v$ 的点 $y$ 的子树内（叶子）节点集合，是一样的。&lt;/p&gt;
@@ -675,7 +682,8 @@
 &lt;hr&gt;
 &lt;p&gt;wqs二分一般解决这类问题：&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;有 $n$ 个物品，你要选出恰好 $m$ 个（下称“选择物品个数限制”），可能有限制（下称“其他限制”），你要最大/小化某个权值。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;有 $n$ 个物品，你要选出恰好 $m$ 个（下称“选择物品个数限制”），可能有限制（下称“其他限制”），你要最大/小化某个权值。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;但除此之外，还有一些限制：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;如果我们设 $g_i$ 为选出恰好 $i$ 个时的最大/小权值，那么 $g$ 函数就应该是上凸（求最大权值）/下凹（求最小权值）的，即斜率单调递减（上凸）/递增（下凹）。&lt;/li&gt;
@@ -701,10 +709,12 @@
 &lt;p&gt;接下来我们来解决这两个问题。&lt;/p&gt;
 &lt;p&gt;首先，这个切线肯定是所有经过某个点且斜率等于 $mid$ 的直线中截距最小的点：&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;具体地，根据切线的性质，在上述例子中，经过C点的斜率等于 $mid$ 的直线（即切线），与经过D点的斜率等于 $mid$ 的直线、经过E点的斜率等于 $mid$ 的直线相比，切线的截距肯定最小，后两者的截距肯定更大。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;具体地，根据切线的性质，在上述例子中，经过C点的斜率等于 $mid$ 的直线（即切线），与经过D点的斜率等于 $mid$ 的直线、经过E点的斜率等于 $mid$ 的直线相比，切线的截距肯定最小，后两者的截距肯定更大。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;其次，显然，经过点 $(x,y)$ 且斜率等于 $k$ 的直线（肯定唯一），其截距一定等于 $y-kx$（$y=kx+b$，$b=y-kx$）。&lt;/p&gt;
 &lt;p&gt;而在二分的&lt;code&gt;calc&lt;/code&gt;函数（此处不是&lt;code&gt;check&lt;/code&gt;函数了，&lt;code&gt;calc&lt;/code&gt;函数的返回值、返回值含义以及应用见下）中，我们已经知道了上述公式中的 $k$ 了（$k=mid$），所以我们只要让 $y-kx$ 最小、斜率为 $k$ 且经过了某个图上的点即可。&lt;/p&gt;
-&lt;p&gt;考虑到上述公式中的 $x$ 未知，所以我们可以干脆把所有 $s$ 的出边的边权都减 $mid$。&lt;em&gt;（关于是加、减还是都彳亍的问题存疑）&lt;/em&gt;&lt;/p&gt;</description>
+&lt;p&gt;考虑到上述公式中的 $x$ 未知，所以我们可以干脆把所有 $s$ 的出边的边权都减 $mid$。&lt;em&gt;（关于是加、减还是都彳亍的问题存疑）&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;然后我们对新图跑一个最小生成树，看这个最小生成树中 $s$ 的出度是多少，那么被切点的X坐标就是多少；并且这颗最小生成树的边权和就是这个切线的截距，显然。&lt;/p&gt;</description>
     </item>
     <item>
       <title>博弈论三种扩展题型</title>
@@ -797,7 +807,8 @@
 &lt;h3 id=&#34;0-求完全图的生成树数量prufer序列&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 0. 求完全图的生成树数量（Prufer序列）&lt;/h3&gt;
 &lt;p&gt;要说基尔霍夫矩阵，就要从一道题目说起：&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;给你 $n$，问 $n$ 个节点组成的无向无根树有多少种。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;给你 $n$，问 $n$ 个节点组成的无向无根树有多少种。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;这道题可以用Prufer序列去做。&lt;/p&gt;
 &lt;p&gt;这里简单说一下Prufer序列的求法：&lt;/p&gt;
 &lt;blockquote&gt;
@@ -806,7 +817,8 @@
 &lt;li&gt;我们找到此时度为 $1$ 的节点，若有多个，找编号最小的，设找到的节点编号为 $x$。&lt;/li&gt;
 &lt;li&gt;在 $a$ 的末尾添加：与 $x$ 有连边的那个唯一节点。&lt;/li&gt;
 &lt;li&gt;删除 $x$。&lt;/li&gt;
-&lt;/ul&gt;&lt;/blockquote&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;Prufer序列别看求法非常简单，也没啥容易发现的性质，其实用处很大。&lt;/p&gt;
 &lt;p&gt;Prufer序列满足一个性质，就是，所有无向无根树，都可以唯一地对应一个Prufer序列；所有Prufer序列都可以唯一地对应一棵树。&lt;/p&gt;
 &lt;p&gt;所以，这道题就有解了，答案其实就是长为 $n-2$ 的Prufer序列有多少种。&lt;/p&gt;
@@ -815,7 +827,8 @@
 &lt;h3 id=&#34;11-求任意无向图的生成树数量基尔霍夫矩阵&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 1.1. 求任意无向图的生成树数量（基尔霍夫矩阵）&lt;/h3&gt;
 &lt;p&gt;但如果把题目变化一下，就不能用Prufer序列去求了：&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;给你一张 $n$ 个节点 $m$ 条边的无向图，问这张图的生成树有多少个。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;给你一张 $n$ 个节点 $m$ 条边的无向图，问这张图的生成树有多少个。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;这题要用基尔霍夫矩阵。&lt;/p&gt;
 &lt;p&gt;具体地，我们定义 $D$ 矩阵，求法：&lt;/p&gt;
 &lt;p&gt;$
@@ -825,7 +838,8 @@ D_{i,j}=
 \text{deg}(i) &amp;amp; i=j
 \end{cases}
 $&lt;/p&gt;
-&lt;p&gt;其中，$\text{deg}(i)$ 代表这张图上 $i$ 的度是多少。&lt;/p&gt;</description>
+&lt;p&gt;其中，$\text{deg}(i)$ 代表这张图上 $i$ 的度是多少。&lt;/p&gt;
+&lt;p&gt;我们再定义 $A$ 矩阵，求法：&lt;/p&gt;</description>
     </item>
     <item>
       <title>决策单调性</title>
@@ -895,14 +909,18 @@ $\texttt{\color{RoyalBlue}@\color{default}#\color{default}a\color{RoyalBlue}#\co
 &lt;blockquote&gt;
 &lt;p&gt;注：其实还有第二种扩展方法：&lt;/p&gt;
 &lt;p&gt;$\texttt{\color{RoyalBlue}#\color{default}a\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{default}a\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{default}}$&lt;/p&gt;
-&lt;p&gt;还是，中间字符不能与原串字符相等。&lt;/p&gt;&lt;/blockquote&gt;&lt;/blockquote&gt;
+&lt;p&gt;还是，中间字符不能与原串字符相等。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/blockquote&gt;
 &lt;blockquote&gt;
-&lt;p&gt;下面统一设「以下标 $i$ 为中心的最大回文串长度&lt;strong&gt;除以 $2$ 并下取整&lt;/strong&gt;」后的答案为 $p_i$。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;下面统一设「以下标 $i$ 为中心的最大回文串长度&lt;strong&gt;除以 $2$ 并下取整&lt;/strong&gt;」后的答案为 $p_i$。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;然后，我们就开始求 $p$ 数组了，当我们求到 $p_i$ 的时候，我们看前面求出的 $p_j+j$ 的最大值是多少（设为 $r$），即 $\max\limits_{j=1}^{i-1} { p_j+j }$，同时求出最大的 $p_j+j$ 对应的 $j$（设为 $c$）。&lt;/p&gt;
 &lt;p&gt;并且，我们求出 $i$ 的对称点 $i&amp;rsquo;$，对称中心为 $c$，显然 $i&amp;rsquo;=2c-i$。&lt;/p&gt;
 &lt;p&gt;然后，分类讨论：&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;注：图中 $r$ 的意思与上面说的 $r$ 的意思有冲突，统一以上面说的定义为准。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;注：图中 $r$ 的意思与上面说的 $r$ 的意思有冲突，统一以上面说的定义为准。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;ol&gt;
 &lt;li&gt;$i&amp;gt;r$，那么暴力算 $p_i$。
 &lt;img loading=&#34;lazy&#34; src=&#34;https://cdn.luogu.com.cn/upload/image_hosting/cqrtkobp.png&#34;&gt;&lt;/li&gt;
@@ -918,7 +936,8 @@ $\texttt{\color{RoyalBlue}@\color{default}#\color{default}a\color{RoyalBlue}#\co
 &lt;li&gt;用情况2转移：复杂度忽略。&lt;/li&gt;
 &lt;li&gt;用情况3转移：$r$ 也肯定会增加。&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;由于每时每刻，$r$ 都小于等于 $n$，所以总复杂度就是 $O(n)$ 的。&lt;/p&gt;</description>
+&lt;p&gt;由于每时每刻，$r$ 都小于等于 $n$，所以总复杂度就是 $O(n)$ 的。&lt;/p&gt;
+&lt;p&gt;这里解释一个代码细节，我的模板中，可以发现 $p_i$ 赋的初始值是 $\min(r-i,p_{i&amp;rsquo;})$，有人会问，如果最小值最后取的是 $p_{i&amp;rsquo;}$，会不会多复杂度（继续扩展）？答案是否定的，因为 $p_{i&amp;rsquo;}$ 是极大值，如果能继续扩展，那么 $p_{i&amp;rsquo;}$ 也会增大，证毕。&lt;/p&gt;</description>
     </item>
     <item>
       <title>欧拉函数</title>
@@ -932,7 +951,8 @@ $\texttt{\color{RoyalBlue}@\color{default}#\color{default}a\color{RoyalBlue}#\co
 &lt;blockquote&gt;
 &lt;p&gt;我们设 $s$ 为目前与 $n$ 互质的数的集合，初始为 ${ 1,2,\dots,n }$。&lt;/p&gt;
 &lt;p&gt;每次遍历到一个 $p$ 中的数 $x$，就会筛掉这个集合中 $\dfrac{1}{x}$ 的数，即那些是 $x$ 的倍数的数，由于 $p$ 是去重后的质因子集合，所以当前集合的大小总是 $x$ 的倍数。&lt;/p&gt;
-&lt;p&gt;所以这个做法就能证明了，每乘一次 $\dfrac{x-1}{x}$，都相当于筛掉当前集合内 $\dfrac{1}{x}$ 的数，集合大小动态维护。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;所以这个做法就能证明了，每乘一次 $\dfrac{x-1}{x}$，都相当于筛掉当前集合内 $\dfrac{1}{x}$ 的数，集合大小动态维护。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;模板代码：（代码中的 $p$ 数组是提前筛出来的质数集合，$ind$ 为其大小）&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;LL&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;phi&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;LL&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;){&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
@@ -982,7 +1002,8 @@ $\texttt{\color{RoyalBlue}@\color{default}#\color{default}a\color{RoyalBlue}#\co
 &lt;p&gt;其实，如果存在一个不满足上述条件的点对 $(u,v)$，那么整张图可能会张这样：（下面标记的 $(u,v)$ 只是其中一个）&lt;/p&gt;
 &lt;p&gt;在这种情况里，我们直接把红色集合和蓝色集合里的拓扑序“交换”，变成：&lt;/p&gt;
 &lt;p&gt;于是乎，就得到了另一个合法的拓扑序，证毕。&lt;/p&gt;
-&lt;p&gt;关于如果满足条件，则拓扑序唯一，此处不多赘述，自行脑补。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;关于如果满足条件，则拓扑序唯一，此处不多赘述，自行脑补。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h3 id=&#34;2&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 2&lt;/h3&gt;
 &lt;p&gt;上述条件还可以继续变化，变成：&lt;/p&gt;
 &lt;ul&gt;
@@ -1058,7 +1079,8 @@ $\texttt{\color{RoyalBlue}@\color{default}#\color{default}a\color{RoyalBlue}#\co
 &lt;/ul&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;srand&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;time&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;^&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;clock&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;());&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
-&lt;p&gt;注：随机种子为&lt;code&gt;time(0) ^ clock()&lt;/code&gt;，这个随机种子可以再毫秒级别内生成（大概率）不同的随机种子。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;注：随机种子为&lt;code&gt;time(0) ^ clock()&lt;/code&gt;，这个随机种子可以再毫秒级别内生成（大概率）不同的随机种子。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;取 $[l,r]$ 内的随机数&lt;/li&gt;
 &lt;/ul&gt;
@@ -1135,7 +1157,8 @@ $\texttt{\color{RoyalBlue}@\color{default}#\color{default}a\color{RoyalBlue}#\co
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;往往一些较难的题目，都是要用较难的材料类算法（比如DP），或者工具类算法配合材料类算法才能解决的题目。&lt;/p&gt;
-&lt;p&gt;而对于后者，难度会更大一些，因为后者的关键在于&lt;strong&gt;转化&lt;/strong&gt;后使用工具类算法解决。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;而对于后者，难度会更大一些，因为后者的关键在于&lt;strong&gt;转化&lt;/strong&gt;后使用工具类算法解决。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h2 id=&#34;算法实现&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 算法实现&lt;/h2&gt;
 &lt;p&gt;下面说一下树剖的实现。&lt;/p&gt;
 &lt;h3 id=&#34;两遍dfs&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 两遍DFS&lt;/h3&gt;
@@ -1238,14 +1261,17 @@ x_1+2x_2+5x_3=19
 \end{cases}
 $&lt;/p&gt;
 &lt;p&gt;那么，其实第三个方程式可以通过前两个方程式推出来，也就称作第三个方程式可以被前两个方程式替代掉。&lt;/p&gt;
-&lt;p&gt;知道了“替代”的定义后，就知道了一件事，就是上面说的“会被其他方程替代掉的方程”，这些方程可以直接从方程组里去掉，而不影响最终的解。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;知道了“替代”的定义后，就知道了一件事，就是上面说的“会被其他方程替代掉的方程”，这些方程可以直接从方程组里去掉，而不影响最终的解。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;所以，我们就可以对奥数里的一个点做一个更简洁的解释：&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;在奥数里，讲了解 $n$ 元一次方程（组）的方法。&lt;/p&gt;
-&lt;p&gt;同时还说了，在这个 $n$ 元一次方程组内，如果“有用”的方程数量，刚好等于未知数的数量，或者大于未知数的数量，那么这个方程组就有唯一解。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;同时还说了，在这个 $n$ 元一次方程组内，如果“有用”的方程数量，刚好等于未知数的数量，或者大于未知数的数量，那么这个方程组就有唯一解。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;这一点可以被更简洁地解释为：&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;这个 $n$ 元一次方程组，转化为“高斯矩阵”，并删除最后一列后（变成 $n \times n$ 的方阵），如果这个方阵的秩刚好为 $n$，那么这个方程组就有唯一解。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;这个 $n$ 元一次方程组，转化为“高斯矩阵”，并删除最后一列后（变成 $n \times n$ 的方阵），如果这个方阵的秩刚好为 $n$，那么这个方程组就有唯一解。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;hr&gt;
 &lt;p&gt;然后，我们回归正题，说行列式。&lt;/p&gt;
 &lt;p&gt;行列式是对于一个方阵来讲的，一个方阵有行列式有且仅当这个方程的秩刚好等于方阵的大小（行或者列）。&lt;/p&gt;
@@ -1392,7 +1418,8 @@ $&lt;/p&gt;
 &lt;h2 id=&#34;解决题型&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 解决题型&lt;/h2&gt;
 &lt;p&gt;整体二分一般解决的是如下的问题：&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;给你一个【集合/序列/矩阵/树】，要求【静态/动态】维护所有【元素/区间/子矩阵/链/子树】中的第 $k$【可能每次给定】大元素，【可能强制在线】。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;给你一个【集合/序列/矩阵/树】，要求【静态/动态】维护所有【元素/区间/子矩阵/链/子树】中的第 $k$【可能每次给定】大元素，【可能强制在线】。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;下面是一堆例题。&lt;/p&gt;
 &lt;h2 id=&#34;例题1-动态查询集合第k大可离线&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 例题1 动态查询集合第k大（可离线）&lt;/h2&gt;
 &lt;h3 id=&#34;题意&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 题意&lt;/h3&gt;
@@ -1470,7 +1497,8 @@ $&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;给你 $p$，代表模数。&lt;/p&gt;
 &lt;p&gt;之后会给你一个 $q$，代表询问次数。&lt;/p&gt;
-&lt;p&gt;每次询问给定 $n$ 和 $m$，问 $C_n^m \bmod p$ 的值。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;每次询问给定 $n$ 和 $m$，问 $C_n^m \bmod p$ 的值。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;下面不给定 $q$ 的范围，因为不重要。&lt;/p&gt;
 &lt;p&gt;以下全部默认 $n \geq m$。&lt;/p&gt;
 &lt;h3 id=&#34;范围1nm-leq-2000p-leq-1097&#34;&gt;&lt;text style=&#34;color:rgb(0,150,136)&#34;&gt; 范围1：$n,m \leq 2000,p \leq 10^9+7$&lt;/h3&gt;

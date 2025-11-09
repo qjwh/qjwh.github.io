@@ -21,12 +21,16 @@ $\texttt{\color{RoyalBlue}@\color{default}#\color{default}a\color{RoyalBlue}#\co
 $\texttt{\color{RoyalBlue}#\color{default}a\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{default}a\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{default}}$
 还是，中间字符不能与原串字符相等。
 
+
+
 下面统一设「以下标 $i$ 为中心的最大回文串长度除以 $2$ 并下取整」后的答案为 $p_i$。
+
 然后，我们就开始求 $p$ 数组了，当我们求到 $p_i$ 的时候，我们看前面求出的 $p_j&#43;j$ 的最大值是多少（设为 $r$），即 $\max\limits_{j=1}^{i-1} { p_j&#43;j }$，同时求出最大的 $p_j&#43;j$ 对应的 $j$（设为 $c$）。
 并且，我们求出 $i$ 的对称点 $i&rsquo;$，对称中心为 $c$，显然 $i&rsquo;=2c-i$。
 然后，分类讨论：
 
 注：图中 $r$ 的意思与上面说的 $r$ 的意思有冲突，统一以上面说的定义为准。
+
 
 $i&gt;r$，那么暴力算 $p_i$。
 
@@ -42,10 +46,11 @@ $r-i&lt;p_{i&rsquo;}$，那么让 $p_i=r-i$，继续暴力扩展。
 用情况2转移：复杂度忽略。
 用情况3转移：$r$ 也肯定会增加。
 
-由于每时每刻，$r$ 都小于等于 $n$，所以总复杂度就是 $O(n)$ 的。">
+由于每时每刻，$r$ 都小于等于 $n$，所以总复杂度就是 $O(n)$ 的。
+这里解释一个代码细节，我的模板中，可以发现 $p_i$ 赋的初始值是 $\min(r-i,p_{i&rsquo;})$，有人会问，如果最小值最后取的是 $p_{i&rsquo;}$，会不会多复杂度（继续扩展）？答案是否定的，因为 $p_{i&rsquo;}$ 是极大值，如果能继续扩展，那么 $p_{i&rsquo;}$ 也会增大，证毕。">
 <meta name="author" content="">
 <link rel="canonical" href="https://qjwh.github.io/posts/oi/aln/manacher/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.8fe10233a706bc87f2e08b3cf97b8bd4c0a80f10675a143675d59212121037c0.css" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.2211ca3164be7830024f6aad2b3a2e520843a64f8f048445c3401c1249aa051d.css" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://qjwh.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://qjwh.github.io/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://qjwh.github.io/favicon-32x32.png">
@@ -160,7 +165,8 @@ $\texttt{\color{RoyalBlue}#\color{default}a\color{RoyalBlue}#\color{default}b\co
 注：图中 $r$ 的意思与上面说的 $r$ 的意思有冲突，统一以上面说的定义为准。
 $i&gt;r$，那么暴力算 $p_i$。 $r-i \geq p_{i’}$，那么 $p_i=p_{i’}$。 $r-i&lt;p_{i’}$，那么让 $p_i=r-i$，继续暴力扩展。 最后就是时间复杂度问题了。
 关于时间复杂度的证明，我们可以分类讨论 $p_i$ 是用那种情况求值的：
-用情况1转移：$r$ 肯定会增加。 用情况2转移：复杂度忽略。 用情况3转移：$r$ 也肯定会增加。 由于每时每刻，$r$ 都小于等于 $n$，所以总复杂度就是 $O(n)$ 的。">
+用情况1转移：$r$ 肯定会增加。 用情况2转移：复杂度忽略。 用情况3转移：$r$ 也肯定会增加。 由于每时每刻，$r$ 都小于等于 $n$，所以总复杂度就是 $O(n)$ 的。
+这里解释一个代码细节，我的模板中，可以发现 $p_i$ 赋的初始值是 $\min(r-i,p_{i’})$，有人会问，如果最小值最后取的是 $p_{i’}$，会不会多复杂度（继续扩展）？答案是否定的，因为 $p_{i’}$ 是极大值，如果能继续扩展，那么 $p_{i’}$ 也会增大，证毕。">
   <meta property="og:locale" content="zh">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -184,12 +190,16 @@ $\texttt{\color{RoyalBlue}@\color{default}#\color{default}a\color{RoyalBlue}#\co
 $\texttt{\color{RoyalBlue}#\color{default}a\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{default}a\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{default}}$
 还是，中间字符不能与原串字符相等。
 
+
+
 下面统一设「以下标 $i$ 为中心的最大回文串长度除以 $2$ 并下取整」后的答案为 $p_i$。
+
 然后，我们就开始求 $p$ 数组了，当我们求到 $p_i$ 的时候，我们看前面求出的 $p_j&#43;j$ 的最大值是多少（设为 $r$），即 $\max\limits_{j=1}^{i-1} { p_j&#43;j }$，同时求出最大的 $p_j&#43;j$ 对应的 $j$（设为 $c$）。
 并且，我们求出 $i$ 的对称点 $i&rsquo;$，对称中心为 $c$，显然 $i&rsquo;=2c-i$。
 然后，分类讨论：
 
 注：图中 $r$ 的意思与上面说的 $r$ 的意思有冲突，统一以上面说的定义为准。
+
 
 $i&gt;r$，那么暴力算 $p_i$。
 
@@ -205,7 +215,8 @@ $r-i&lt;p_{i&rsquo;}$，那么让 $p_i=r-i$，继续暴力扩展。
 用情况2转移：复杂度忽略。
 用情况3转移：$r$ 也肯定会增加。
 
-由于每时每刻，$r$ 都小于等于 $n$，所以总复杂度就是 $O(n)$ 的。">
+由于每时每刻，$r$ 都小于等于 $n$，所以总复杂度就是 $O(n)$ 的。
+这里解释一个代码细节，我的模板中，可以发现 $p_i$ 赋的初始值是 $\min(r-i,p_{i&rsquo;})$，有人会问，如果最小值最后取的是 $p_{i&rsquo;}$，会不会多复杂度（继续扩展）？答案是否定的，因为 $p_{i&rsquo;}$ 是极大值，如果能继续扩展，那么 $p_{i&rsquo;}$ 也会增大，证毕。">
 
 
 <script type="application/ld+json">
@@ -234,7 +245,7 @@ $r-i&lt;p_{i&rsquo;}$，那么让 $p_i=r-i$，继续暴力扩展。
   "@type": "BlogPosting",
   "headline": "马拉车算法",
   "name": "马拉车算法",
-  "description": "\r马拉车算法其实就是解决一个字符串中由某个位置为中心的最大回文串长度：（下图中蓝色部分为字符串，绿色框中的值就是以这个位置为中心的最大回文串长度）\n其次，我们发现最底下的一排绿色数字涉及到空隙，所以我们可以把字符串扩展一下：\n比如，原字符串是 $\\texttt{abccabbc}$，那么扩展之后就是：\n（LaTeX炸了） $\\texttt{\\color{RoyalBlue}@\\color{default}#\\color{default}a\\color{RoyalBlue}#\\color{default}b\\color{RoyalBlue}#\\color{default}c\\color{RoyalBlue}#\\color{default}c\\color{RoyalBlue}#\\color{default}a\\color{RoyalBlue}#\\color{default}b\\color{RoyalBlue}#\\color{default}b\\color{RoyalBlue}#\\color{default}c\\color{RoyalBlue}#\\color{RoyalBlue}\u0026amp;}$\n第一个和最后一个字符可以自己定，但是最好不要和原字符串中的字符、中间插入的字符冲突（相等）。\n注：其实还有第二种扩展方法：\n$\\texttt{\\color{RoyalBlue}#\\color{default}a\\color{RoyalBlue}#\\color{default}b\\color{RoyalBlue}#\\color{default}c\\color{RoyalBlue}#\\color{default}c\\color{RoyalBlue}#\\color{default}a\\color{RoyalBlue}#\\color{default}b\\color{RoyalBlue}#\\color{default}b\\color{RoyalBlue}#\\color{default}c\\color{RoyalBlue}#\\color{default}}$\n还是，中间字符不能与原串字符相等。\n下面统一设「以下标 $i$ 为中心的最大回文串长度除以 $2$ 并下取整」后的答案为 $p_i$。\n然后，我们就开始求 $p$ 数组了，当我们求到 $p_i$ 的时候，我们看前面求出的 $p_j+j$ 的最大值是多少（设为 $r$），即 $\\max\\limits_{j=1}^{i-1} { p_j+j }$，同时求出最大的 $p_j+j$ 对应的 $j$（设为 $c$）。\n并且，我们求出 $i$ 的对称点 $i\u0026rsquo;$，对称中心为 $c$，显然 $i\u0026rsquo;=2c-i$。\n然后，分类讨论：\n注：图中 $r$ 的意思与上面说的 $r$ 的意思有冲突，统一以上面说的定义为准。\n$i\u0026gt;r$，那么暴力算 $p_i$。 $r-i \\geq p_{i\u0026rsquo;}$，那么 $p_i=p_{i\u0026rsquo;}$。 $r-i\u0026lt;p_{i\u0026rsquo;}$，那么让 $p_i=r-i$，继续暴力扩展。 最后就是时间复杂度问题了。\n关于时间复杂度的证明，我们可以分类讨论 $p_i$ 是用那种情况求值的：\n用情况1转移：$r$ 肯定会增加。 用情况2转移：复杂度忽略。 用情况3转移：$r$ 也肯定会增加。 由于每时每刻，$r$ 都小于等于 $n$，所以总复杂度就是 $O(n)$ 的。\n",
+  "description": "\r马拉车算法其实就是解决一个字符串中由某个位置为中心的最大回文串长度：（下图中蓝色部分为字符串，绿色框中的值就是以这个位置为中心的最大回文串长度）\n其次，我们发现最底下的一排绿色数字涉及到空隙，所以我们可以把字符串扩展一下：\n比如，原字符串是 $\\texttt{abccabbc}$，那么扩展之后就是：\n（LaTeX炸了） $\\texttt{\\color{RoyalBlue}@\\color{default}#\\color{default}a\\color{RoyalBlue}#\\color{default}b\\color{RoyalBlue}#\\color{default}c\\color{RoyalBlue}#\\color{default}c\\color{RoyalBlue}#\\color{default}a\\color{RoyalBlue}#\\color{default}b\\color{RoyalBlue}#\\color{default}b\\color{RoyalBlue}#\\color{default}c\\color{RoyalBlue}#\\color{RoyalBlue}\u0026amp;}$\n第一个和最后一个字符可以自己定，但是最好不要和原字符串中的字符、中间插入的字符冲突（相等）。\n注：其实还有第二种扩展方法：\n$\\texttt{\\color{RoyalBlue}#\\color{default}a\\color{RoyalBlue}#\\color{default}b\\color{RoyalBlue}#\\color{default}c\\color{RoyalBlue}#\\color{default}c\\color{RoyalBlue}#\\color{default}a\\color{RoyalBlue}#\\color{default}b\\color{RoyalBlue}#\\color{default}b\\color{RoyalBlue}#\\color{default}c\\color{RoyalBlue}#\\color{default}}$\n还是，中间字符不能与原串字符相等。\n下面统一设「以下标 $i$ 为中心的最大回文串长度除以 $2$ 并下取整」后的答案为 $p_i$。\n然后，我们就开始求 $p$ 数组了，当我们求到 $p_i$ 的时候，我们看前面求出的 $p_j+j$ 的最大值是多少（设为 $r$），即 $\\max\\limits_{j=1}^{i-1} { p_j+j }$，同时求出最大的 $p_j+j$ 对应的 $j$（设为 $c$）。\n并且，我们求出 $i$ 的对称点 $i\u0026rsquo;$，对称中心为 $c$，显然 $i\u0026rsquo;=2c-i$。\n然后，分类讨论：\n注：图中 $r$ 的意思与上面说的 $r$ 的意思有冲突，统一以上面说的定义为准。\n$i\u0026gt;r$，那么暴力算 $p_i$。 $r-i \\geq p_{i\u0026rsquo;}$，那么 $p_i=p_{i\u0026rsquo;}$。 $r-i\u0026lt;p_{i\u0026rsquo;}$，那么让 $p_i=r-i$，继续暴力扩展。 最后就是时间复杂度问题了。\n关于时间复杂度的证明，我们可以分类讨论 $p_i$ 是用那种情况求值的：\n用情况1转移：$r$ 肯定会增加。 用情况2转移：复杂度忽略。 用情况3转移：$r$ 也肯定会增加。 由于每时每刻，$r$ 都小于等于 $n$，所以总复杂度就是 $O(n)$ 的。\n这里解释一个代码细节，我的模板中，可以发现 $p_i$ 赋的初始值是 $\\min(r-i,p_{i\u0026rsquo;})$，有人会问，如果最小值最后取的是 $p_{i\u0026rsquo;}$，会不会多复杂度（继续扩展）？答案是否定的，因为 $p_{i\u0026rsquo;}$ 是极大值，如果能继续扩展，那么 $p_{i\u0026rsquo;}$ 也会增大，证毕。\n",
   "keywords": [
     "信息学竞赛", "算法学习笔记"
   ],
@@ -347,14 +358,18 @@ $\texttt{\color{RoyalBlue}@\color{default}#\color{default}a\color{RoyalBlue}#\co
 <blockquote>
 <p>注：其实还有第二种扩展方法：</p>
 <p>$\texttt{\color{RoyalBlue}#\color{default}a\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{default}a\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}b\color{RoyalBlue}#\color{default}c\color{RoyalBlue}#\color{default}}$</p>
-<p>还是，中间字符不能与原串字符相等。</p></blockquote></blockquote>
+<p>还是，中间字符不能与原串字符相等。</p>
+</blockquote>
+</blockquote>
 <blockquote>
-<p>下面统一设「以下标 $i$ 为中心的最大回文串长度<strong>除以 $2$ 并下取整</strong>」后的答案为 $p_i$。</p></blockquote>
+<p>下面统一设「以下标 $i$ 为中心的最大回文串长度<strong>除以 $2$ 并下取整</strong>」后的答案为 $p_i$。</p>
+</blockquote>
 <p>然后，我们就开始求 $p$ 数组了，当我们求到 $p_i$ 的时候，我们看前面求出的 $p_j+j$ 的最大值是多少（设为 $r$），即 $\max\limits_{j=1}^{i-1} { p_j+j }$，同时求出最大的 $p_j+j$ 对应的 $j$（设为 $c$）。</p>
 <p>并且，我们求出 $i$ 的对称点 $i&rsquo;$，对称中心为 $c$，显然 $i&rsquo;=2c-i$。</p>
 <p>然后，分类讨论：</p>
 <blockquote>
-<p>注：图中 $r$ 的意思与上面说的 $r$ 的意思有冲突，统一以上面说的定义为准。</p></blockquote>
+<p>注：图中 $r$ 的意思与上面说的 $r$ 的意思有冲突，统一以上面说的定义为准。</p>
+</blockquote>
 <ol>
 <li>$i&gt;r$，那么暴力算 $p_i$。
 <img loading="lazy" src="https://cdn.luogu.com.cn/upload/image_hosting/cqrtkobp.png"></li>

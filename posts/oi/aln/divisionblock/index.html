@@ -28,7 +28,7 @@ $\lfloor \frac{n}{i} \rfloor$ 的值往往会在一段区间内相等
 $\lfloor \frac{n}{i} \rfloor$ 的总取值种数最多只有第一、二部分的取值个数和，即 $2 \times \sqrt{n}$，证毕。">
 <meta name="author" content="">
 <link rel="canonical" href="https://qjwh.github.io/posts/oi/aln/divisionblock/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.8fe10233a706bc87f2e08b3cf97b8bd4c0a80f10675a143675d59212121037c0.css" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.2211ca3164be7830024f6aad2b3a2e520843a64f8f048445c3401c1249aa051d.css" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://qjwh.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://qjwh.github.io/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://qjwh.github.io/favicon-32x32.png">
@@ -315,7 +315,8 @@ $\lfloor \frac{n}{i} \rfloor$ 的总取值种数最多只有第一、二部分�
 <p>我们把 $i$ 分成两部分去考虑，一部分是 $i \leq \sqrt{n}$，另一部分是 $i&gt;\sqrt{n}$。</p>
 <p>在第一部分内，$i$ 也就只有 $\sqrt{n}$ 种取值，$\lfloor \frac{n}{i} \rfloor$ 最多只有约 $\sqrt{n}$ 种取值。</p>
 <p>在第二部分内，$\lfloor \frac{n}{i} \rfloor$ 在 $i$ 最小时（$i=\sqrt{n}+1$）会达到最大值，约 $\sqrt{n}$；而上面说“$\lfloor \frac{n}{i} \rfloor$ 的值随着 $i$ 的增长而非单调递减”，所以易得 $\lfloor \frac{n}{i} \rfloor$ 最多也只有约 $\sqrt{n}$ 种取值。</p>
-<p>$\lfloor \frac{n}{i} \rfloor$ 的总取值种数最多只有第一、二部分的取值个数和，即 $2 \times \sqrt{n}$，证毕。</p></blockquote>
+<p>$\lfloor \frac{n}{i} \rfloor$ 的总取值种数最多只有第一、二部分的取值个数和，即 $2 \times \sqrt{n}$，证毕。</p>
+</blockquote>
 <p>然后，我们就考虑求区间集了，以下设 $l$ 为这个区间的左端点，$r$ 为这个区间的右端点，且 $l$ 已知。</p>
 <p>设 $v=\lfloor \frac{n}{l} \rfloor$，其实 $r$ 就是最大的 $i$ 满足 $v=\lfloor \frac{n}{i} \rfloor$，显然（条件）等价于  $i=\lfloor \frac{n}{v} \rfloor$，带入 $v$ 后即可求出 $r=\left\lfloor \dfrac{n}{\lfloor \frac{n}{l} \rfloor} \right\rfloor$。</p>
 <p>于是乎，最上面那个问题就可以求解了，答案就是 $\sum (r-l+1) \times v$。</p>

@@ -23,6 +23,7 @@ OI Wiki
 设一段为 $a_{l..r}$，那么其“长度”为 $r-l&#43;\sum\limits_{i=l}^r a_i$，下面简称为 $len$。
 那么这一段的“代价”为 $(len-L)^2$，$L$ 是题目中给的定值。
 最后的总代价为每一段的代价的和，问最小的总代价。
+
  暴力DP
 根据题目我们能很容易设计出一个一维DP，$d_i$ 表示 $a_{1..i}$ 的划分方案最小代价，且最后一段结束位置为 $i$。
 那么 $d_i=\min{d_j&#43;w(j&#43;1,i)}$，其中 $w(l,r)$ 为 $[l,r]$ 的代价。
@@ -46,10 +47,11 @@ $x_j=b_j$
 $k_i=2a_i$
 $b_i=d_i-a_i^2$
 
-那么上式可以变成：">
+那么上式可以变成：
+$$y_j=k_ix_j&#43;b_i$$">
 <meta name="author" content="">
 <link rel="canonical" href="https://qjwh.github.io/posts/oi/aln/slopeopm/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.8fe10233a706bc87f2e08b3cf97b8bd4c0a80f10675a143675d59212121037c0.css" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.2211ca3164be7830024f6aad2b3a2e520843a64f8f048445c3401c1249aa051d.css" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://qjwh.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://qjwh.github.io/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://qjwh.github.io/favicon-32x32.png">
@@ -171,7 +173,8 @@ $$d_i=d_j&#43;a_i^2&#43;b_j^2-2a_ib_j$$
 逼近斜率优化 接下来关键的一步来了，我们考虑把上述式子移个项：
 $$d_j&#43;b_j^2=2a_ib_j&#43;d_i-a_i^2$$
 显然上面这个式子的先后顺序是我故意排的，那么我们一眼丁真一下，设：
-$y_j=d_j&#43;b_j^2$ $x_j=b_j$ $k_i=2a_i$ $b_i=d_i-a_i^2$ 那么上式可以变成：">
+$y_j=d_j&#43;b_j^2$ $x_j=b_j$ $k_i=2a_i$ $b_i=d_i-a_i^2$ 那么上式可以变成：
+$$y_j=k_ix_j&#43;b_i$$">
   <meta property="og:locale" content="zh">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -197,6 +200,7 @@ OI Wiki
 设一段为 $a_{l..r}$，那么其“长度”为 $r-l&#43;\sum\limits_{i=l}^r a_i$，下面简称为 $len$。
 那么这一段的“代价”为 $(len-L)^2$，$L$ 是题目中给的定值。
 最后的总代价为每一段的代价的和，问最小的总代价。
+
  暴力DP
 根据题目我们能很容易设计出一个一维DP，$d_i$ 表示 $a_{1..i}$ 的划分方案最小代价，且最后一段结束位置为 $i$。
 那么 $d_i=\min{d_j&#43;w(j&#43;1,i)}$，其中 $w(l,r)$ 为 $[l,r]$ 的代价。
@@ -220,7 +224,8 @@ $x_j=b_j$
 $k_i=2a_i$
 $b_i=d_i-a_i^2$
 
-那么上式可以变成：">
+那么上式可以变成：
+$$y_j=k_ix_j&#43;b_i$$">
 
 
 <script type="application/ld+json">
@@ -249,7 +254,7 @@ $b_i=d_i-a_i^2$
   "@type": "BlogPosting",
   "headline": "斜率优化",
   "name": "斜率优化",
-  "description": "\r参考资料：\nBoyacoding OI Wiki 以下学习笔记为25.3.27重制版。\n引入 我们先以一道题P3195 玩具装箱为例。\n大概说一下题意：\n我们要把一个长度为 $n$ 的数组 $a$ 分成若干段。\n设一段为 $a_{l..r}$，那么其“长度”为 $r-l+\\sum\\limits_{i=l}^r a_i$，下面简称为 $len$。\n那么这一段的“代价”为 $(len-L)^2$，$L$ 是题目中给的定值。\n最后的总代价为每一段的代价的和，问最小的总代价。\n暴力DP 根据题目我们能很容易设计出一个一维DP，$d_i$ 表示 $a_{1..i}$ 的划分方案最小代价，且最后一段结束位置为 $i$。\n那么 $d_i=\\min{d_j+w(j+1,i)}$，其中 $w(l,r)$ 为 $[l,r]$ 的代价。\n转化 设 $s$ 为 $a$ 数组的前缀和，同时下面统一省略掉 $\\min$，因为关于求最小值最大值只在最后一步出现。\n展开之后也就是：\n$$d_i=d_j+(i-j-1+s_i-s_j-L)^2$$\n把括号内的东西改成只和 $i$、$j$ 相关的两部分，也就是：\n$$d_i=d_j+((i+s_i)-(j+1+s_j+L))^2$$\n那么我们可以设前半部分为 $a_i$，后半部分为 $b_j$，也就是：\n$$d_i=d_j+(a_i-b_j)^2$$\n展开：\n$$d_i=d_j+a_i^2+b_j^2-2a_ib_j$$\n逼近斜率优化 接下来关键的一步来了，我们考虑把上述式子移个项：\n$$d_j+b_j^2=2a_ib_j+d_i-a_i^2$$\n显然上面这个式子的先后顺序是我故意排的，那么我们一眼丁真一下，设：\n$y_j=d_j+b_j^2$ $x_j=b_j$ $k_i=2a_i$ $b_i=d_i-a_i^2$ 那么上式可以变成：\n",
+  "description": "\r参考资料：\nBoyacoding OI Wiki 以下学习笔记为25.3.27重制版。\n引入 我们先以一道题P3195 玩具装箱为例。\n大概说一下题意：\n我们要把一个长度为 $n$ 的数组 $a$ 分成若干段。\n设一段为 $a_{l..r}$，那么其“长度”为 $r-l+\\sum\\limits_{i=l}^r a_i$，下面简称为 $len$。\n那么这一段的“代价”为 $(len-L)^2$，$L$ 是题目中给的定值。\n最后的总代价为每一段的代价的和，问最小的总代价。\n暴力DP 根据题目我们能很容易设计出一个一维DP，$d_i$ 表示 $a_{1..i}$ 的划分方案最小代价，且最后一段结束位置为 $i$。\n那么 $d_i=\\min{d_j+w(j+1,i)}$，其中 $w(l,r)$ 为 $[l,r]$ 的代价。\n转化 设 $s$ 为 $a$ 数组的前缀和，同时下面统一省略掉 $\\min$，因为关于求最小值最大值只在最后一步出现。\n展开之后也就是：\n$$d_i=d_j+(i-j-1+s_i-s_j-L)^2$$\n把括号内的东西改成只和 $i$、$j$ 相关的两部分，也就是：\n$$d_i=d_j+((i+s_i)-(j+1+s_j+L))^2$$\n那么我们可以设前半部分为 $a_i$，后半部分为 $b_j$，也就是：\n$$d_i=d_j+(a_i-b_j)^2$$\n展开：\n$$d_i=d_j+a_i^2+b_j^2-2a_ib_j$$\n逼近斜率优化 接下来关键的一步来了，我们考虑把上述式子移个项：\n$$d_j+b_j^2=2a_ib_j+d_i-a_i^2$$\n显然上面这个式子的先后顺序是我故意排的，那么我们一眼丁真一下，设：\n$y_j=d_j+b_j^2$ $x_j=b_j$ $k_i=2a_i$ $b_i=d_i-a_i^2$ 那么上式可以变成：\n$$y_j=k_ix_j+b_i$$\n",
   "keywords": [
     "信息学竞赛", "算法学习笔记"
   ],
@@ -412,7 +417,8 @@ $b_i=d_i-a_i^2$
 <p>我们要把一个长度为 $n$ 的数组 $a$ 分成若干段。</p>
 <p>设一段为 $a_{l..r}$，那么其“长度”为 $r-l+\sum\limits_{i=l}^r a_i$，下面简称为 $len$。</p>
 <p>那么这一段的“代价”为 $(len-L)^2$，$L$ 是题目中给的定值。</p>
-<p>最后的总代价为每一段的代价的和，问最小的总代价。</p></blockquote>
+<p>最后的总代价为每一段的代价的和，问最小的总代价。</p>
+</blockquote>
 <h3 id="暴力dp"><text style="color:rgb(0,150,136)"> 暴力DP<a hidden class="anchor" aria-hidden="true" href="#暴力dp">#</a></h3>
 <p>根据题目我们能很容易设计出一个一维DP，$d_i$ 表示 $a_{1..i}$ 的划分方案最小代价，且最后一段结束位置为 $i$。</p>
 <p>那么 $d_i=\min{d_j+w(j+1,i)}$，其中 $w(l,r)$ 为 $[l,r]$ 的代价。</p>
@@ -489,7 +495,8 @@ $b_i=d_i-a_i^2$
 <img src="https://cdn.luogu.com.cn/upload/image_hosting/tlaigthe.png" width="50%">
 <p>终于满足条件了：</p>
 <img src="https://cdn.luogu.com.cn/upload/image_hosting/qthr83a9.png" width="50%">
-<p>于是一次节点添加就完成了。</p></blockquote>
+<p>于是一次节点添加就完成了。</p>
+</blockquote>
 <p>而由于查询斜率递增，所以我们每次都不断弹出开头小于查询斜率的节点即可。</p>
 <p>最后实现就是：（设 $q_{h..t}$ 为单调队列）</p>
 <ul>

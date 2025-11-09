@@ -42,7 +42,7 @@ $x \equiv r_3 \times 70&#43;r_5 \times 21&#43;r_7 \times 15 \pmod{105}$
 由于 $105$ 是三个模数的 $\text{lcm}$，所以说如果 $x$ 是满足条件的，$x-105$、$x&#43;105$ 都是满足条件的（此处暂时忽略“正整数解”的限制），显然。">
 <meta name="author" content="">
 <link rel="canonical" href="https://qjwh.github.io/posts/oi/aln/crt/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.8fe10233a706bc87f2e08b3cf97b8bd4c0a80f10675a143675d59212121037c0.css" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.2211ca3164be7830024f6aad2b3a2e520843a64f8f048445c3401c1249aa051d.css" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://qjwh.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://qjwh.github.io/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://qjwh.github.io/favicon-32x32.png">
@@ -365,7 +365,8 @@ $</p>
 <p>我们把方程式换种写法，变成 $x \bmod 3=r_3$。</p>
 <p>那么，我们再把 $x$ 的解带入进去，变成 $(\color{orangered} r_3 \times 70 \color{default}+\color{orange} r_5 \times 21 \color{default}+\color{royalblue} r_7 \times 15 \color{default}) \bmod 3=r_3$。</p>
 <p>可以发现，其实黄色项（中间）和蓝色项（最后）是可以被 $3$ 整除的，所以可以直接删掉，只保留橙色项（最前），变成 $\color{orangered} r_3 \times 70 \color{default} \bmod 3=r_3$</p>
-<p>由于 $70 \bmod 3=1$，所以上述方程一定成立，显然。</p></blockquote>
+<p>由于 $70 \bmod 3=1$，所以上述方程一定成立，显然。</p>
+</blockquote>
 <p>带入到其他方程式也是差不多的证法，此处略。</p>
 <hr>
 <p>有了上面那个具体的例子，我们就可以来解决抽象的例子了：</p>

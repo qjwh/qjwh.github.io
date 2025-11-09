@@ -15,6 +15,7 @@
 我们设 $s$ 为目前与 $n$ 互质的数的集合，初始为 ${ 1,2,\dots,n }$。
 每次遍历到一个 $p$ 中的数 $x$，就会筛掉这个集合中 $\dfrac{1}{x}$ 的数，即那些是 $x$ 的倍数的数，由于 $p$ 是去重后的质因子集合，所以当前集合的大小总是 $x$ 的倍数。
 所以这个做法就能证明了，每乘一次 $\dfrac{x-1}{x}$，都相当于筛掉当前集合内 $\dfrac{1}{x}$ 的数，集合大小动态维护。
+
 模板代码：（代码中的 $p$ 数组是提前筛出来的质数集合，$ind$ 为其大小）
 LL phi(LL n){
     if(n == 0) return 0;
@@ -41,7 +42,7 @@ void shai(LL n){
 线性筛有一个性质，就是在第二重循环里，每次都会筛掉数 $i \times p_j$，而 $p_j$ 正是这个数（$i \times p_j$）的最小质因子。">
 <meta name="author" content="">
 <link rel="canonical" href="https://qjwh.github.io/posts/oi/aln/eulerfunc/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.8fe10233a706bc87f2e08b3cf97b8bd4c0a80f10675a143675d59212121037c0.css" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.2211ca3164be7830024f6aad2b3a2e520843a64f8f048445c3401c1249aa051d.css" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://qjwh.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://qjwh.github.io/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://qjwh.github.io/favicon-32x32.png">
@@ -167,6 +168,7 @@ void shai(LL n){ f[0] = f[1] = true; rep(i, 2, n){ if(!f[i]) p[&#43;&#43;ind] = 
 我们设 $s$ 为目前与 $n$ 互质的数的集合，初始为 ${ 1,2,\dots,n }$。
 每次遍历到一个 $p$ 中的数 $x$，就会筛掉这个集合中 $\dfrac{1}{x}$ 的数，即那些是 $x$ 的倍数的数，由于 $p$ 是去重后的质因子集合，所以当前集合的大小总是 $x$ 的倍数。
 所以这个做法就能证明了，每乘一次 $\dfrac{x-1}{x}$，都相当于筛掉当前集合内 $\dfrac{1}{x}$ 的数，集合大小动态维护。
+
 模板代码：（代码中的 $p$ 数组是提前筛出来的质数集合，$ind$ 为其大小）
 LL phi(LL n){
     if(n == 0) return 0;
@@ -342,7 +344,8 @@ void shai(LL n){
 <blockquote>
 <p>我们设 $s$ 为目前与 $n$ 互质的数的集合，初始为 ${ 1,2,\dots,n }$。</p>
 <p>每次遍历到一个 $p$ 中的数 $x$，就会筛掉这个集合中 $\dfrac{1}{x}$ 的数，即那些是 $x$ 的倍数的数，由于 $p$ 是去重后的质因子集合，所以当前集合的大小总是 $x$ 的倍数。</p>
-<p>所以这个做法就能证明了，每乘一次 $\dfrac{x-1}{x}$，都相当于筛掉当前集合内 $\dfrac{1}{x}$ 的数，集合大小动态维护。</p></blockquote>
+<p>所以这个做法就能证明了，每乘一次 $\dfrac{x-1}{x}$，都相当于筛掉当前集合内 $\dfrac{1}{x}$ 的数，集合大小动态维护。</p>
+</blockquote>
 <p>模板代码：（代码中的 $p$ 数组是提前筛出来的质数集合，$ind$ 为其大小）</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">LL</span> <span class="nf">phi</span><span class="p">(</span><span class="n">LL</span> <span class="n">n</span><span class="p">){</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>

@@ -10,7 +10,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <link rel="canonical" href="https://qjwh.github.io/tags/%E4%BF%A1%E6%81%AF%E5%AD%A6%E7%AB%9E%E8%B5%9B/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.8fe10233a706bc87f2e08b3cf97b8bd4c0a80f10675a143675d59212121037c0.css" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.2211ca3164be7830024f6aad2b3a2e520843a64f8f048445c3401c1249aa051d.css" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://qjwh.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://qjwh.github.io/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://qjwh.github.io/favicon-32x32.png">
@@ -280,6 +280,7 @@ wqs二分也是二分，那它二分什么值呢，它二分的是斜率 $mid$�
 其次，显然，经过点 $(x,y)$ 且斜率等于 $k$ 的直线（肯定唯一），其截距一定等于 $y-kx$（$y=kx&#43;b$，$b=y-kx$）。
 而在二分的calc函数（此处不是check函数了，calc函数的返回值、返回值含义以及应用见下）中，我们已经知道了上述公式中的 $k$ 了（$k=mid$），所以我们只要让 $y-kx$ 最小、斜率为 $k$ 且经过了某个图上的点即可。
 考虑到上述公式中的 $x$ 未知，所以我们可以干脆把所有 $s$ 的出边的边权都减 $mid$。（关于是加、减还是都彳亍的问题存疑）
+然后我们对新图跑一个最小生成树，看这个最小生成树中 $s$ 的出度是多少，那么被切点的X坐标就是多少；并且这颗最小生成树的边权和就是这个切线的截距，显然。
 ...</p>
   </div>
   <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
@@ -366,6 +367,7 @@ Prufer序列满足一个性质，就是，所有无向无根树，都可以唯�
 具体地，我们定义 $D$ 矩阵，求法：
 $ D_{i,j}= \begin{cases} 0 &amp; i \not= j \ \text{deg}(i) &amp; i=j \end{cases} $
 其中，$\text{deg}(i)$ 代表这张图上 $i$ 的度是多少。
+我们再定义 $A$ 矩阵，求法：
 ...</p>
   </div>
   <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
@@ -440,7 +442,8 @@ $\texttt{\color{RoyalBlue}#\color{default}a\color{RoyalBlue}#\color{default}b\co
 $i&gt;r$，那么暴力算 $p_i$。 $r-i \geq p_{i’}$，那么 $p_i=p_{i’}$。 $r-i&lt;p_{i’}$，那么让 $p_i=r-i$，继续暴力扩展。 最后就是时间复杂度问题了。
 关于时间复杂度的证明，我们可以分类讨论 $p_i$ 是用那种情况求值的：
 用情况1转移：$r$ 肯定会增加。 用情况2转移：复杂度忽略。 用情况3转移：$r$ 也肯定会增加。 由于每时每刻，$r$ 都小于等于 $n$，所以总复杂度就是 $O(n)$ 的。
-...</p>
+这里解释一个代码细节，我的模板中，可以发现 $p_i$ 赋的初始值是 $\min(r-i,p_{i’})$，有人会问，如果最小值最后取的是 $p_{i’}$，会不会多复杂度（继续扩展）？答案是否定的，因为 $p_{i’}$ 是极大值，如果能继续扩展，那么 $p_{i’}$ 也会增大，证毕。
+</p>
   </div>
   <footer class="entry-footer"><span title='2025-02-09 15:28:00 +0800 CST'>2025/02/09 15:28:00</span></footer>
   <a class="entry-link" aria-label="post link to 马拉车算法" href="https://qjwh.github.io/posts/oi/aln/manacher/"></a>
