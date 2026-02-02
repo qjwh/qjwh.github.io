@@ -4,7 +4,7 @@
     <title>信息学竞赛 on CXBlog</title>
     <link>https://qjwh.github.io/tags/%E4%BF%A1%E6%81%AF%E5%AD%A6%E7%AB%9E%E8%B5%9B/</link>
     <description>Recent content in 信息学竞赛 on CXBlog</description>
-    <generator>Hugo -- 0.152.2</generator>
+    <generator>Hugo -- 0.155.1</generator>
     <language>zh</language>
     <lastBuildDate>Sun, 01 Jun 2025 00:00:00 +0800</lastBuildDate>
     <atom:link href="https://qjwh.github.io/tags/%E4%BF%A1%E6%81%AF%E5%AD%A6%E7%AB%9E%E8%B5%9B/index.xml" rel="self" type="application/rss+xml" />
@@ -852,9 +852,9 @@ $\texttt{\color{RoyalBlue}@\color{default}#\color{default}a\color{RoyalBlue}#\co
 &lt;li&gt;引用头文件（常用）&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#include&lt;/span&gt; &lt;span class=&#34;cpf&#34;&gt;&amp;lt;stdlib.h&amp;gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//生成随机数、设定随机数种子
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;#include&lt;/span&gt; &lt;span class=&#34;cpf&#34;&gt;&amp;lt;ctime&amp;gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//生成随机数种子（1）
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;#include&lt;/span&gt; &lt;span class=&#34;cpf&#34;&gt;&amp;lt;time.h&amp;gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//生成随机数种子（2）
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;#include&lt;/span&gt; &lt;span class=&#34;cpf&#34;&gt;&amp;lt;unistd.h&amp;gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//等待（sleep(...)或usleep(...)），该头文件现在不常用
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#include&lt;/span&gt; &lt;span class=&#34;cpf&#34;&gt;&amp;lt;ctime&amp;gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//生成随机数种子（1）
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#include&lt;/span&gt; &lt;span class=&#34;cpf&#34;&gt;&amp;lt;time.h&amp;gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//生成随机数种子（2）
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#include&lt;/span&gt; &lt;span class=&#34;cpf&#34;&gt;&amp;lt;unistd.h&amp;gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//等待（sleep(...)或usleep(...)），该头文件现在不常用
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
 &lt;li&gt;随机种子&lt;/li&gt;
 &lt;/ul&gt;
@@ -884,9 +884,9 @@ $\texttt{\color{RoyalBlue}@\color{default}#\color{default}a\color{RoyalBlue}#\co
 &lt;li&gt;引用头文件（常用）&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#include&lt;/span&gt; &lt;span class=&#34;cpf&#34;&gt;&amp;lt;random&amp;gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//生成随机数、设定随机数种子
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;#include&lt;/span&gt; &lt;span class=&#34;cpf&#34;&gt;&amp;lt;ctime&amp;gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//生成随机数种子（1）
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;#include&lt;/span&gt; &lt;span class=&#34;cpf&#34;&gt;&amp;lt;time.h&amp;gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//生成随机数种子（2）
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;#include&lt;/span&gt; &lt;span class=&#34;cpf&#34;&gt;&amp;lt;unistd.h&amp;gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//等待（sleep(...)或usleep(...)），该头文件现在不常用
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#include&lt;/span&gt; &lt;span class=&#34;cpf&#34;&gt;&amp;lt;ctime&amp;gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//生成随机数种子（1）
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#include&lt;/span&gt; &lt;span class=&#34;cpf&#34;&gt;&amp;lt;time.h&amp;gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//生成随机数种子（2）
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#include&lt;/span&gt; &lt;span class=&#34;cpf&#34;&gt;&amp;lt;unistd.h&amp;gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//等待（sleep(...)或usleep(...)），该头文件现在不常用
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
 &lt;li&gt;随机种子&lt;/li&gt;
 &lt;/ul&gt;

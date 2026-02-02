@@ -377,19 +377,19 @@ void shai(LL n){
 </span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">]){</span>
 </span></span><span class="line"><span class="cl">            <span class="n">p</span><span class="p">[</span><span class="o">++</span><span class="n">ind</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">            <span class="c1">//显然
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">phi</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">            <span class="n">phi</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">        <span class="k">for</span><span class="p">(</span><span class="n">LL</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span><span class="n">i</span> <span class="o">*</span> <span class="n">p</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span><span class="n">j</span><span class="o">++</span><span class="p">){</span>
 </span></span><span class="line"><span class="cl">            <span class="n">f</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">p</span><span class="p">[</span><span class="n">j</span><span class="p">]]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="n">i</span> <span class="o">%</span> <span class="n">p</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
 </span></span><span class="line"><span class="cl">                <span class="c1">//由于i%p[j]=0，所以i中也存在质因子p[j]
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="c1">//所以，i*p[j]和i的质因子集合并没有变化，只是值乘了p[j]而已
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="c1">//简单想一下可以发现，其实phi[i*p[j]]就是phi[i]的p[j]倍
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="n">phi</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">p</span><span class="p">[</span><span class="n">j</span><span class="p">]]</span> <span class="o">=</span> <span class="n">phi</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">p</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+</span></span></span><span class="line"><span class="cl">                <span class="c1">//所以，i*p[j]和i的质因子集合并没有变化，只是值乘了p[j]而已
+</span></span></span><span class="line"><span class="cl">                <span class="c1">//简单想一下可以发现，其实phi[i*p[j]]就是phi[i]的p[j]倍
+</span></span></span><span class="line"><span class="cl">                <span class="n">phi</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">p</span><span class="p">[</span><span class="n">j</span><span class="p">]]</span> <span class="o">=</span> <span class="n">phi</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">p</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">                <span class="k">break</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">            <span class="p">}</span>
 </span></span><span class="line"><span class="cl">            <span class="c1">//积性函数性质
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">phi</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">p</span><span class="p">[</span><span class="n">j</span><span class="p">]]</span> <span class="o">=</span> <span class="n">phi</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">phi</span><span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="n">j</span><span class="p">]];</span>
+</span></span></span><span class="line"><span class="cl">            <span class="n">phi</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">p</span><span class="p">[</span><span class="n">j</span><span class="p">]]</span> <span class="o">=</span> <span class="n">phi</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">phi</span><span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="n">j</span><span class="p">]];</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
@@ -423,7 +423,7 @@ void shai(LL n){
     </main>
     
 <footer class="footer">
-        <span>&copy; 2025 <a href="https://qjwh.github.io/">CXBlog</a></span> · 
+        <span>&copy; 2026 <a href="https://qjwh.github.io/">CXBlog</a></span> · 
 
     <span>
         Powered by
