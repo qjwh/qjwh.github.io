@@ -71,7 +71,59 @@
         document.querySelector("html").dataset.theme = 'light';
     }
 
-</script><meta property="og:url" content="https://qjwh.github.io/posts/">
+</script><script src="https://unpkg.com/feather-icons"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.28/dist/katex.min.css" integrity="sha384-Wsr4Nh3yrvMf2KCebJchRJoVo1gTU6kcP05uRSh5NV3sj9+a8IomuJoQzf3sMq4T" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.28/dist/katex.min.js" integrity="sha384-+W9OcrYK2/bD7BmUAk+xeFAyKp0QjyRQUCxeU31dfyTt/FrPsUgaBTLLkVf33qWt" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.28/dist/contrib/auto-render.min.js" integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+      
+      
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '$', right: '$', display: false},
+      ],
+      
+      throwOnError : false
+    });
+  });
+</script>
+
+<style>
+    @font-face { 
+        font-family: 'UbuntuB';
+        src: url('/UbuntuB.ttf');
+    }
+    @font-face { 
+        font-family: 'Ubuntu';
+        src: url('/Ubuntu.ttf');
+    }
+    @font-face { 
+        font-family: 'Cascadia Code';
+        src: url('/Cascadia_Code.ttf');
+    }
+    @font-face { 
+        font-family: 'HarmonyOS Sans SC';
+        src: url('/HarmonyOS_Sans_SC.ttf');
+    }
+    @font-face { 
+        font-family: 'JetBrains Mono';
+        src: url('/JetBrains_Mono.ttf');
+    }
+    @font-face { 
+        font-family: 'Lato';
+        src: url('/Lato.ttf');
+    }
+    @font-face { 
+        font-family: 'Noto Sans SC';
+        src: url('/Noto_Sans_SC.ttf');
+    }
+    body {
+        font-family: 'UbuntuB';
+    }
+</style><meta property="og:url" content="https://qjwh.github.io/posts/">
   <meta property="og:site_name" content="CXBlog">
   <meta property="og:title" content="Posts">
   <meta property="og:locale" content="zh">
