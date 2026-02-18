@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh" dir="auto">
+<html lang="zh" dir="auto" data-theme="auto">
 
 <head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,7 +10,7 @@
 <meta name="description" content="如果您在使用本博客的时候发现bug，请在本文章的评论区指出，我会进行修复。">
 <meta name="author" content="">
 <link rel="canonical" href="https://qjwh.github.io/posts/bugsreport/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.2211ca3164be7830024f6aad2b3a2e520843a64f8f048445c3401c1249aa051d.css" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.da3211e5ef867bf2b75fd5a6515cfed7195c011e8ab735694e203810a827097b.css" integrity="sha256-2jIR5e&#43;Ge/K3X9WmUVz&#43;1xlcAR6KtzVpTiA4EKgnCXs=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://qjwh.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://qjwh.github.io/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://qjwh.github.io/favicon-32x32.png">
@@ -39,75 +39,38 @@
                 --code-block-bg: rgb(46, 46, 51);
                 --code-bg: rgb(55, 56, 62);
                 --border: rgb(51, 51, 51);
+                color-scheme: dark;
             }
 
             .list {
                 background: var(--theme);
             }
 
-            .list:not(.dark)::-webkit-scrollbar-track {
-                background: 0 0;
+            .toc {
+                background: var(--entry);
             }
+        }
 
-            .list:not(.dark)::-webkit-scrollbar-thumb {
-                border-color: var(--theme);
+        @media (prefers-color-scheme: light) {
+            .list::-webkit-scrollbar-thumb {
+                border-color: var(--code-bg);
             }
         }
 
     </style>
-</noscript><script src="https://unpkg.com/feather-icons"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" crossorigin="anonymous">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+</noscript>
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    renderMathInElement(document.body, {
-      
-      
-      delimiters: [
-        {left: '$$', right: '$$', display: true},
-        {left: '$', right: '$', display: false},
-      ],
-      
-      throwOnError : false
-    });
-  });
-</script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
 
-<style>
-    @font-face { 
-        font-family: 'UbuntuB';
-        src: url('/UbuntuB.ttf');
-    }
-    @font-face { 
-        font-family: 'Ubuntu';
-        src: url('/Ubuntu.ttf');
-    }
-    @font-face { 
-        font-family: 'Cascadia Code';
-        src: url('/Cascadia_Code.ttf');
-    }
-    @font-face { 
-        font-family: 'HarmonyOS Sans SC';
-        src: url('/HarmonyOS_Sans_SC.ttf');
-    }
-    @font-face { 
-        font-family: 'JetBrains Mono';
-        src: url('/JetBrains_Mono.ttf');
-    }
-    @font-face { 
-        font-family: 'Lato';
-        src: url('/Lato.ttf');
-    }
-    @font-face { 
-        font-family: 'Noto Sans SC';
-        src: url('/Noto_Sans_SC.ttf');
-    }
-    body {
-        
-        font-family: 'UbuntuB';
-    }
-</style><meta property="og:url" content="https://qjwh.github.io/posts/bugsreport/">
+</script><meta property="og:url" content="https://qjwh.github.io/posts/bugsreport/">
   <meta property="og:site_name" content="CXBlog">
   <meta property="og:title" content="Bugs Report">
   <meta property="og:description" content="如果您在使用本博客的时候发现bug，请在本文章的评论区指出，我会进行修复。">
@@ -171,20 +134,8 @@
 }
 </script>
 </head>
-
-<body class="" id="top">
-<script>
-    if (localStorage.getItem("pref-theme") === "dark") {
-        document.body.classList.add('dark');
-    } else if (localStorage.getItem("pref-theme") === "light") {
-        document.body.classList.remove('dark')
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.body.classList.add('dark');
-    }
-
-</script>
-
-<header class="header">
+<body id="top">
+    <header class="header">
     <nav class="nav">
         <div class="logo">
             <a href="https://qjwh.github.io/" accesskey="h" title="CXBlog (Alt + H)">CXBlog</a>
@@ -256,23 +207,7 @@
   <footer class="post-footer">
     <ul class="post-tags">
     </ul>
-  </footer><script src="https://giscus.app/client.js"
-        data-repo="qjwh/qjwh.github.io"
-        data-repo-id="R_kgDON2IyEw"
-        data-category="Announcements"
-        data-category-id="DIC_kwDON2IyE84Cm0DH"
-        data-mapping="pathname"
-        data-strict="1"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="top"
-        data-theme="preferred_color_scheme"
-        data-lang="zh-CN"
-        data-loading="lazy"
-        crossorigin="anonymous"
-        async>
-</script>
-
+  </footer>
 </article>
     </main>
     
@@ -292,9 +227,14 @@
 </a>
 
 <script>
-    let menu = document.getElementById('menu')
+    let menu = document.getElementById('menu');
     if (menu) {
-        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
         menu.onscroll = function () {
             localStorage.setItem("menu-scroll-position", menu.scrollLeft);
         }
@@ -335,11 +275,12 @@
 </script>
 <script>
     document.getElementById("theme-toggle").addEventListener("click", () => {
-        if (document.body.className.includes("dark")) {
-            document.body.classList.remove('dark');
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
             localStorage.setItem("pref-theme", 'light');
         } else {
-            document.body.classList.add('dark');
+            html.dataset.theme = 'dark';
             localStorage.setItem("pref-theme", 'dark');
         }
     })
